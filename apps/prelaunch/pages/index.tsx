@@ -5,75 +5,212 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Give Me Choice - Planet Conscious Shopping</title>
+        <title>Give Me Choice</title>
       </Head>
-      <nav className="container relative mx-auto p-6">
+      {/* NAVBAR */}
+      <nav className="container relative mx-auto p-3 xl:px-20">
+        {/* FLEX CONTAINER */}
         <div className="flex items-center justify-between">
-          <div className="mt-6 flex w-7/12 justify-center">
-            <div>
-              <Image
-                src="/img/GMC_logo.svg"
-                alt="GMC Logo"
-                height="100"
-                width="600"
-                layout="fixed"
-              />
-            </div>
+          {/* LOGO */}
+          <div className="pt-2 md:pt-0">
+            <Image
+              src="/img/GMC_logo.svg"
+              alt="GMC Logo"
+              height="60"
+              width="250"
+              // layout="fill"
+            />
           </div>
-          <div className="flex">
-            <button
-              id="signIn"
-              className="bg-transparent-50 active:border-primary active:text-primary rounded-sm border border-white px-5 py-2 text-white backdrop-blur-md"
+          {/* MENU ITEMS */}
+          <div className="hidden space-x-6 md:flex">
+            <a href="#" className="hover:text-secondary-dark-50">
+              How It Works
+            </a>
+            <a href="#" className="hover:text-secondary-dark-50">
+              About Us
+            </a>
+            <a href="#" className="hover:text-secondary-dark-50">
+              Blog
+            </a>
+          </div>
+          {/* BUTTON */}
+          <a
+            href="#"
+            className="hidden rounded-lg bg-black p-1.5 px-6 pb-2 text-white hover:text-secondary md:block"
+          >
+            Sign In
+          </a>
+          {/* HAMBURGER */}
+          <button
+            id="menu-btn"
+            className="hamburger mt-3 mr-3 ml-6 focus:outline-none md:hidden"
+            onClick={(e) => {
+              const btn = document.getElementById('menu-btn');
+              const nav = document.getElementById('menu');
+              btn.classList.toggle('open');
+              nav.classList.toggle('flex');
+              nav.classList.toggle('hidden');
+            }}
+          >
+            <span className="hamburger-top"></span>
+            <span className="hamburger-middle"></span>
+            <span className="hamburger-bottom"></span>
+          </button>
+        </div>
+        {/* MOBILE MENU */}
+        <div className="md:hidden">
+          <div
+            id="menu"
+            className="absolute right-0 z-10 mt-0 hidden w-1/2 flex-col items-center self-end  rounded-sm border-2 border-black bg-white"
+          >
+            <a
+              className="active:bg-secondary-dark-10 w-full py-3 text-center"
+              href="#"
             >
-              <p>SIGN IN</p>
-            </button>
+              How It Works
+            </a>
+            <a
+              className="active:bg-secondary-dark-10 w-full py-3 text-center"
+              href="#"
+            >
+              About Us
+            </a>
+            <a
+              className="active:bg-secondary-dark-10 w-full py-3 text-center"
+              href="#"
+            >
+              Blog
+            </a>
           </div>
         </div>
       </nav>
+
       <main>
-        <div
-          id="hero"
-          className="min-w-28 h-content rounded-bl-prelaunch-hero fixed -right-16 -top-16 -z-10 float-right w-1/2 flex-shrink-0 overflow-hidden"
-        >
-          <div
-            id="img-filter"
-            className="absolute z-10 h-full min-h-screen w-full from-transparent"
-          />
-          <Image
-            src="/img/group_3.png"
-            alt="hero image"
-            height="1354"
-            width="1303"
-            layout="responsive"
-          />
-        </div>
-        <div className="flex p-10">
-          <div className="flex h-full w-1/2 flex-col">
-            <div>
-              <h1 className="text-8xl">The</h1>
-              <h1 className="text-8xl">Planet is</h1>
-              <h1 className="text-8xl">F***ed.</h1>
+        {/* HERO SECTION */}
+        <section id="hero">
+          {/* FLEX CONTAINER */}
+          <div className="container mx-auto flex flex-col-reverse items-center space-y-0 px-6 md:flex-row xl:px-20">
+            {/* LEFT TEXT ITEM */}
+            <div className="mb-16 mt-10 flex flex-col space-y-10 md:w-1/2">
+              <div className="max-w-md">
+                <h1 className="max-w-fit text-center text-6xl md:text-right md:text-8xl">
+                  The <br className="hidden md:block" /> Planet is{' '}
+                  <br className="hidden md:block" />
+                  <span className="mt-2 inline-block rounded-xl bg-black px-1.5 text-primary">
+                    F****ed.
+                  </span>
+                </h1>
+              </div>
+              <div className="space-y-4">
+                <p className="text-secondary-dark-50 max-w-sm text-center md:text-left">
+                  Please enter your email address below so that we can invite
+                  you to test our new website when it's ready!*
+                </p>
+                <p className="text-secondary-dark-50 max-w-sm text-center md:text-left">
+                  We might even send you one of our t-shirts to either proudly
+                  wear in bed or at a concert - depending on where you do most
+                  of your online shopping.
+                </p>
+                <p className="text-secondary-dark-50 max-w-sm text-center text-xs md:text-left">
+                  *(should be around Q1 2023 but don't hold your breath...)
+                </p>
+              </div>
             </div>
-            <div>
-              <p>
-                Please enter your email address below so that we can invite you
-                to test our new website when it’s ready!*
-              </p>
-            </div>
-            <div>
-              <p>
-                We might even send you one of our t-shirts to either proudly
-                wear in bed or at a concert - depending on where you do most of
-                your online shopping. (should be around Q1 2023 but don’t hold
-                your breath...)
-              </p>
+            {/* IMAGE */}
+            <div className="w-full  md:w-1/2">
+              <Image
+                className="rounded-tl-heroBig"
+                src="/img/hero_image.png"
+                alt="hero image"
+                height="1354"
+                width="1303"
+                layout="responsive"
+              />
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* CTA Section */}
+        <section id="cta" className="bg-secondary">
+          {/* FLEX CONTAINER */}
+          <div className="container mx-auto flex flex-col items-center justify-between space-y-12 px-6 py-24 md:flex-row md:space-y-0 md:py-12 xl:px-20">
+            <h2 className="md:text-align-left text-center text-3xl md:max-w-xl md:text-3xl">
+              Request Early Access
+            </h2>
+            <div className="xl:mr-44">
+              <input
+                className="mr-1 rounded-md border-2 border-black p-2"
+                type="email"
+                id="email"
+                pattern=".+@.+\.com"
+                size={30}
+                required
+                placeholder="Your email..."
+                onSubmit={() => alert('sub-text')}
+                onKeyDown={(e) => {
+                  console.log(e);
+                  if (e.key === 'Enter') {
+                    alert('sub-test');
+                  }
+                }}
+              />
+              <a
+                href="#"
+                className="rounded-md  bg-primary p-3 px-5 hover:bg-primary-light-20"
+                onClick={() => alert('click-a')}
+              >
+                Submit
+              </a>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer>
-        <div>
-          <h3>footer is here</h3>
+      <footer className="bg-black">
+        {/* FLEX CONTAINER */}
+        <div className="container mx-auto flex flex-col justify-between space-y-8 px-6 py-10 md:flex-row md:space-y-0 xl:px-20">
+          {/* social links container*/}
+          <div className="flex flex-col-reverse items-center justify-between md:ml-20 md:flex-row md:items-center">
+            <div>
+              <a
+                href="https://www.instagram.com/givemechoice/"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <Image
+                  src="/img/icon-instagram.svg"
+                  alt="GMC Logo"
+                  height="40"
+                  width="40"
+                />
+              </a>
+            </div>
+          </div>
+          {/* List Container */}
+          <div className="flex flex-col items-center space-y-3 text-white md:flex-row md:space-y-0 md:space-x-6">
+            <a href="#" className="hover:text-primary">
+              Contact Us
+            </a>
+            <a href="#" className="hover:text-primary">
+              Blog
+            </a>
+            <a href="#" className="hover:text-primary">
+              Privacy Policy
+            </a>
+          </div>
+          {/* LOGO + COPYRIGHT md+ */}
+          <div className="flex flex-col items-center space-y-3">
+            <div>
+              <Image
+                src="/img/GMC_logotransp_white.svg"
+                alt="GMC Logo"
+                height="40"
+                width="200"
+              />
+            </div>
+            <div className="text-center text-white">
+              Copyright &copy; 2022, All Rights Reserved
+            </div>
+          </div>
         </div>
       </footer>
     </div>
