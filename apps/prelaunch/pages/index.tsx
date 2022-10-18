@@ -106,15 +106,15 @@ export default function Home() {
         {/* HERO SECTION */}
         <section id="hero">
           {/* FLEX CONTAINER */}
-          <div className="container mx-auto flex flex-col-reverse items-center space-y-0 px-6 md:flex-row xl:px-20">
+          <div className="container mx-auto flex flex-col-reverse items-center px-6 md:flex-row xl:px-20">
             {/* LEFT TEXT ITEM */}
             <div className="mb-16 mt-10 flex flex-col space-y-10 md:w-1/2">
               <div className="max-w-md">
                 <h1 className="max-w-fit text-center text-6xl md:text-right md:text-8xl">
                   The <br className="hidden md:block" /> Planet is{' '}
                   <br className="hidden md:block" />
-                  <span className="mt-2 inline-block rounded-2xl bg-primary px-2">
-                    F****ed.
+                  <span className="mt-2 inline-block rounded-xl border-2 border-black px-2">
+                    F<span className="text-primary">****</span>ed.
                   </span>
                 </h1>
               </div>
@@ -134,9 +134,13 @@ export default function Home() {
               </div>
             </div>
             {/* IMAGE */}
-            <div className="hero-image-container w-full md:w-1/2">
+            <div
+              className="w-full rounded-tl-hero-flare
+            bg-gradient-to-r from-secondary to-primary pl-7 md:w-1/2
+            "
+            >
               <Image
-                className="rounded-tl-heroBig"
+                className="rounded-tl-hero"
                 src="/img/hero_image.png"
                 alt="hero image"
                 // height="640"
@@ -152,11 +156,11 @@ export default function Home() {
         {/* CTA Section */}
         <section id="cta" className="bg-secondary">
           {/* FLEX CONTAINER */}
-          <div className="container mx-auto flex flex-col items-center justify-start space-y-12 px-6 py-24 md:flex-row md:space-y-0 md:py-12 xl:px-20">
-            <h2 className="md:text-align-left text-center text-3xl md:max-w-xl md:text-3xl">
+          <div className="container mx-auto flex flex-col items-center justify-between space-y-12 px-6 py-24 md:flex-row md:space-y-0 md:py-12 xl:px-20">
+            <h2 className="md:text-align-left text-center text-3xl md:max-w-xl md:text-3xl xl:pl-36">
               Request Early Access
             </h2>
-            <div className="flex flex-wrap justify-center space-y-2 sm:space-y-0">
+            <div className="flex flex-wrap justify-center space-y-2 sm:space-y-0 xl:pr-36">
               <input
                 className="mr-1 rounded-md border-2 border-black p-2"
                 type="email"
