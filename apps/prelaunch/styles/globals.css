@@ -9,6 +9,11 @@
   font-style: normal;
 }
 
+/* HERO IMAGE */
+.hero-image-container {
+  height: 60vh;
+}
+
 /* Hamburger Menu */
 
 .hamburger {

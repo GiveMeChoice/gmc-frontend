@@ -36,9 +36,15 @@ export default function Home() {
           {/* BUTTON */}
           <a
             href="#"
-            className="hidden rounded-lg bg-black p-1.5 px-6 pb-2 text-white hover:text-secondary md:block"
+            className="text hidden rounded-md border-2 border-black px-6 pt-1.5 pb-0.5 hover:bg-secondary md:block"
+            title="Sign In"
           >
-            Sign In
+            <Image
+              src="/img/icon-user.svg"
+              height={20}
+              width={20}
+              alt="sign-in button"
+            />
           </a>
           {/* HAMBURGER */}
           <button
@@ -64,22 +70,33 @@ export default function Home() {
             className="absolute right-0 z-10 mt-0 hidden w-1/2 flex-col items-center self-end  rounded-sm border-2 border-black bg-white"
           >
             <a
-              className="active:bg-secondary-dark-10 w-full py-3 text-center"
+              className="w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               How It Works
             </a>
             <a
-              className="active:bg-secondary-dark-10 w-full py-3 text-center"
+              className="w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               About Us
             </a>
             <a
-              className="active:bg-secondary-dark-10 w-full py-3 text-center"
+              className="w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               Blog
+            </a>
+            <a
+              className="w-full py-3 text-center active:bg-secondary-dark-10"
+              href="#"
+            >
+              <Image
+                src="/img/icon-user.svg"
+                height={20}
+                width={20}
+                alt="sign-in button"
+              />
             </a>
           </div>
         </div>
@@ -96,32 +113,34 @@ export default function Home() {
                 <h1 className="max-w-fit text-center text-6xl md:text-right md:text-8xl">
                   The <br className="hidden md:block" /> Planet is{' '}
                   <br className="hidden md:block" />
-                  <span className="mt-2 inline-block rounded-xl bg-black px-1.5 text-primary">
+                  <span className="mt-2 inline-block rounded-2xl bg-primary px-2">
                     F****ed.
                   </span>
                 </h1>
               </div>
               <div className="space-y-4">
-                <p className="text-secondary-dark-50 max-w-sm text-center md:text-left">
+                <p className="max-w-sm text-center md:text-left">
                   Please enter your email address below so that we can invite
-                  you to test our new website when it's ready!*
+                  you to test our new website when it&apos;s ready!*
                 </p>
-                <p className="text-secondary-dark-50 max-w-sm text-center md:text-left">
+                <p className="max-w-sm text-center md:text-left">
                   We might even send you one of our t-shirts to either proudly
                   wear in bed or at a concert - depending on where you do most
                   of your online shopping.
                 </p>
-                <p className="text-secondary-dark-50 max-w-sm text-center text-xs md:text-left">
-                  *(should be around Q1 2023 but don't hold your breath...)
+                <p className="max-w-sm text-center text-xs text-secondary-dark-50 md:text-left">
+                  *(should be around Q1 2023 but don&apos;t hold your breath...)
                 </p>
               </div>
             </div>
             {/* IMAGE */}
-            <div className="w-full  md:w-1/2">
+            <div className="hero-image-container w-full md:w-1/2">
               <Image
                 className="rounded-tl-heroBig"
                 src="/img/hero_image.png"
                 alt="hero image"
+                // height="640"
+                // width="665"
                 height="1354"
                 width="1303"
                 layout="responsive"
@@ -133,11 +152,11 @@ export default function Home() {
         {/* CTA Section */}
         <section id="cta" className="bg-secondary">
           {/* FLEX CONTAINER */}
-          <div className="container mx-auto flex flex-col items-center justify-between space-y-12 px-6 py-24 md:flex-row md:space-y-0 md:py-12 xl:px-20">
+          <div className="container mx-auto flex flex-col items-center justify-start space-y-12 px-6 py-24 md:flex-row md:space-y-0 md:py-12 xl:px-20">
             <h2 className="md:text-align-left text-center text-3xl md:max-w-xl md:text-3xl">
               Request Early Access
             </h2>
-            <div className="xl:mr-44">
+            <div className="flex flex-wrap justify-center space-y-2 sm:space-y-0">
               <input
                 className="mr-1 rounded-md border-2 border-black p-2"
                 type="email"
@@ -156,7 +175,7 @@ export default function Home() {
               />
               <a
                 href="#"
-                className="rounded-md  bg-primary p-3 px-5 hover:bg-primary-light-20"
+                className="rounded-md border-2 border-black bg-primary p-2.5 px-5 hover:bg-primary-light-20"
                 onClick={() => alert('click-a')}
               >
                 Submit
