@@ -17,7 +17,7 @@ export default function Home() {
               src="/img/GMC_logo.svg"
               alt="GMC Logo"
               height="60"
-              width="250"
+              width="320"
               // layout="fill"
             />
           </div>
@@ -33,10 +33,10 @@ export default function Home() {
               Blog
             </a>
           </div>
-          {/* BUTTON */}
+          {/* SIGN-IN BUTTON */}
           <a
             href="#"
-            className="text hidden rounded-md border-2 border-black px-6 pt-1.5 pb-0.5 hover:bg-secondary md:block"
+            className="text ml-10 hidden rounded-md border-2 border-black  from-secondary via-primary-light-50 to-secondary px-6 pt-1.5 pb-0.5 hover:bg-gradient-to-r md:block"
             title="Sign In"
           >
             <Image
@@ -70,25 +70,25 @@ export default function Home() {
             className="absolute right-0 z-10 mt-0 hidden w-1/2 flex-col items-center self-end  rounded-sm border-2 border-black bg-white"
           >
             <a
-              className="w-full py-3 text-center active:bg-secondary-dark-10"
+              className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               How It Works
             </a>
             <a
-              className="w-full py-3 text-center active:bg-secondary-dark-10"
+              className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               About Us
             </a>
             <a
-              className="w-full py-3 text-center active:bg-secondary-dark-10"
+              className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               Blog
             </a>
             <a
-              className="w-full py-3 text-center active:bg-secondary-dark-10"
+              className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
               href="#"
             >
               <Image
@@ -135,8 +135,8 @@ export default function Home() {
             </div>
             {/* IMAGE */}
             <div
-              className="w-full rounded-tl-hero-flare
-            bg-gradient-to-r from-secondary to-primary pl-7 md:w-1/2
+              className="w-full animate-gradient-flow rounded-tl-hero-flare
+            bg-gradient-to-t from-secondary via-gmc-surf to-primary-light-40 pt-1 pl-5 pr-1.5 md:w-1/2
             "
             >
               <Image
@@ -179,7 +179,7 @@ export default function Home() {
               />
               <a
                 href="#"
-                className="rounded-md border-2 border-black bg-primary p-2.5 px-5 hover:bg-primary-light-20"
+                className="rounded-md border-2 border-black bg-primary p-2.5 px-5 hover:bg-primary-light-10"
                 onClick={() => alert('click-a')}
               >
                 Submit

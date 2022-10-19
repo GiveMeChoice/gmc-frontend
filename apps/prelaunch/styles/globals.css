@@ -9,9 +9,8 @@
   font-style: normal;
 }
 
-/* HERO IMAGE */
-.hero-image-container {
-  height: 60vh;
+.glow-effect:hover {
+  @apply bg-gradient-to-t from-transparent via-secondary to-transparent;
 }
 
 /* Hamburger Menu */
