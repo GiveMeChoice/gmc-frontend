@@ -41,7 +41,7 @@ module.exports = {
         'gmc-surf': '#56e2b3',
         'gmc-soil': '#8b763b',
         'gmc-berry': '#aa7ab2',
-        'gmc-candy': '#f79cc4',
+        'gmc-sunset': '#f79cc4',
         'gmc-ocean': '#0e2071',
       },
     },

@@ -13,30 +13,29 @@ export default function Home() {
         <div className="flex items-center justify-between">
           {/* LOGO */}
           <div className="pt-2 md:pt-0">
-            <Image
-              src="/img/GMC_logo.svg"
-              alt="GMC Logo"
-              height="60"
-              width="320"
-              // layout="fill"
-            />
+            <a href="/">
+              <Image
+                src="/img/GMC_logo.svg"
+                alt="GMC Logo"
+                height="60"
+                width="360"
+                // layout="fill"
+              />
+            </a>
           </div>
           {/* MENU ITEMS */}
           <div className="hidden space-x-6 md:flex">
-            <a href="#" className="hover:text-secondary-dark-50">
-              How It Works
-            </a>
-            <a href="#" className="hover:text-secondary-dark-50">
+            <a href="about" className="hover:text-secondary-dark-50">
               About Us
             </a>
-            <a href="#" className="hover:text-secondary-dark-50">
+            <a href="blog" className="hover:text-secondary-dark-50">
               Blog
             </a>
           </div>
           {/* SIGN-IN BUTTON */}
           <a
-            href="#"
-            className="text ml-10 hidden rounded-md border-2 border-black  from-secondary via-primary-light-50 to-secondary px-6 pt-1.5 pb-0.5 hover:bg-gradient-to-r md:block"
+            href="login"
+            className="text ml-10 hidden rounded-md border-2 border-black  from-secondary to-primary-light-50  px-6 pt-1.5 pb-0.5 hover:bg-gradient-to-r md:block"
             title="Sign In"
           >
             <Image
@@ -71,25 +70,19 @@ export default function Home() {
           >
             <a
               className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
-              href="#"
-            >
-              How It Works
-            </a>
-            <a
-              className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
-              href="#"
+              href="about"
             >
               About Us
             </a>
             <a
               className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
-              href="#"
+              href="blog"
             >
               Blog
             </a>
             <a
               className="glow-effect w-full py-3 text-center active:bg-secondary-dark-10"
-              href="#"
+              href="login"
             >
               <Image
                 src="/img/icon-user.svg"
@@ -105,8 +98,8 @@ export default function Home() {
       <main>
         {/* HERO SECTION */}
         <section id="hero">
-          {/* FLEX CONTAINER */}
-          <div className="container mx-auto flex flex-col-reverse items-center px-6 md:flex-row xl:px-20">
+          {/* HERO FLEX CONTAINER */}
+          <div className="container mx-auto flex flex-col-reverse items-center px-6 md:flex-row xl:px-36">
             {/* LEFT TEXT ITEM */}
             <div className="mb-16 mt-10 flex flex-col space-y-10 md:w-1/2">
               <div className="max-w-md">
@@ -134,17 +127,11 @@ export default function Home() {
               </div>
             </div>
             {/* IMAGE */}
-            <div
-              className="w-full animate-gradient-flow rounded-tl-hero-flare
-            bg-gradient-to-t from-secondary via-gmc-surf to-primary-light-40 pt-1 pl-5 pr-1.5 md:w-1/2
-            "
-            >
+            <div className="w-full animate-gradient-flow rounded-tl-hero-flare bg-gradient-to-t from-secondary via-primary-light-40 to-gmc-surf pt-1 pl-5 pr-1.5 md:w-1/2 xl:mt-16">
               <Image
                 className="rounded-tl-hero"
                 src="/img/hero_image.png"
                 alt="hero image"
-                // height="640"
-                // width="665"
                 height="1354"
                 width="1303"
                 layout="responsive"
@@ -155,10 +142,10 @@ export default function Home() {
 
         {/* CTA Section */}
         <section id="cta" className="bg-secondary">
-          {/* FLEX CONTAINER */}
-          <div className="container mx-auto flex flex-col items-center justify-between space-y-12 px-6 py-24 md:flex-row md:space-y-0 md:py-12 xl:px-20">
+          {/* CTA FLEX CONTAINER */}
+          <div className="xl:px container mx-auto flex flex-col items-center justify-center space-y-12 px-6 py-24 md:flex-row md:space-x-12 md:space-y-0 md:py-12">
             <h2 className="md:text-align-left text-center text-3xl md:max-w-xl md:text-3xl xl:pl-36">
-              Request Early Access
+              Keep Me Posted
             </h2>
             <div className="flex flex-wrap justify-center space-y-2 sm:space-y-0 xl:pr-36">
               <input
@@ -177,25 +164,21 @@ export default function Home() {
                   }
                 }}
               />
-              <a
-                href="#"
-                className="rounded-md border-2 border-black bg-primary p-2.5 px-5 hover:bg-primary-light-10"
-                onClick={() => alert('click-a')}
-              >
+              <button className="rounded-md border-2 border-black bg-primary p-2.5 px-5 duration-200 hover:scale-105 ">
                 Submit
-              </a>
+              </button>
             </div>
           </div>
         </section>
       </main>
       <footer className="bg-black">
-        {/* FLEX CONTAINER */}
+        {/* FOOTER FLEX CONTAINER */}
         <div className="container mx-auto flex flex-col justify-between space-y-8 px-6 py-10 md:flex-row md:space-y-0 xl:px-20">
           {/* social links container*/}
           <div className="flex flex-col-reverse items-center justify-between md:ml-20 md:flex-row md:items-center">
             <div>
               <a
-                href="https://www.instagram.com/givemechoice/"
+                href="https://www.instagram.com/giveme.choice/"
                 target="_blank"
                 rel="noreferrer noopener"
               >
@@ -210,13 +193,16 @@ export default function Home() {
           </div>
           {/* List Container */}
           <div className="flex flex-col items-center space-y-3 text-white md:flex-row md:space-y-0 md:space-x-6">
-            <a href="#" className="hover:text-primary">
+            <a
+              href="mailto:hello@givemechoice.com?subject=Hello"
+              className="hover:text-primary"
+            >
               Contact Us
             </a>
-            <a href="#" className="hover:text-primary">
+            <a href="blog" className="hover:text-primary">
               Blog
             </a>
-            <a href="#" className="hover:text-primary">
+            <a href="privacy" className="hover:text-primary">
               Privacy Policy
             </a>
           </div>

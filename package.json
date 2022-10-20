@@ -10,6 +10,8 @@
     "dev:filter": "turbo run dev --filter",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
+    "export": "turbo run export",
+    "deploy": "turbo run  deploy",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

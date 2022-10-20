@@ -13,6 +13,13 @@
     },
     "clean": {
       "cache": false
+    },
+    "export": {
+      "dependsOn": ["build"],
+      "outputs": ["out/**"]
+    },
+    "deploy": {
+      "dependsOn": ["export"]
     }
   }
 }
