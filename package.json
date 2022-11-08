@@ -12,7 +12,8 @@
     "clean": "turbo run clean",
     "export": "turbo run export",
     "deploy": "turbo run  deploy",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "studio:dev": "npm --prefix sanity-studio run start"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

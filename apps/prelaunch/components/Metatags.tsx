@@ -1,0 +1,31 @@
+import Head from 'next/head';
+
+export default function Metatags({
+  title = 'Give Me Choice — Planet Conscious Shopping & Discovery',
+  description = 'The Planet is F****ed. The human species deserves a choice.',
+  url = 'https://givemechoice.com',
+  image = 'https://givemechoice.com/img/GMC_logo_comp.png',
+}) {
+  return (
+    <Head>
+      {/* <!-- Primary Meta Tags --> */}
+      <title>Give Me Choice — Planet Conscious Shopping & Discovery</title>
+      <meta name="title" content={title} />
+      <meta name="description" content={description} />
+
+      {/* <!-- Open Graph / Facebook --> */}
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={url} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={image} />
+
+      {/* <!-- Twitter --> */}
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:url" content={url} />
+      <meta property="twitter:title" content={title} />
+      <meta property="twitter:description" content={description} />
+      <meta property="twitter:image" content={image} />
+    </Head>
+  );
+}
