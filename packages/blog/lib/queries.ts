@@ -35,3 +35,5 @@ export const postBySlugQuery = `
   ${postFields}
 }
 `;
+
+export const hmm = () => 'thank god';

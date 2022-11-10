@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Button } from 'ui';
-import { queries, Post } from 'blog';
+import { Alert, queries } from 'blog';
 
 export default function Blog({ allPosts: initialAllPosts, preview }) {
-  const hmm = queries.indexQuery;
+  const hmm = queries.hmm;
 
   return (
     <div>
@@ -11,10 +11,10 @@ export default function Blog({ allPosts: initialAllPosts, preview }) {
         <title>Give Me Choice - Blog</title>
       </Head>
       <div>
+        <Alert preview={null}></Alert>
         <h1>This is the blog</h1>
-        <Post />
         <Button />
-        <h2>{hmm}</h2>
+        <h2>{hmm()}</h2>
       </div>
     </div>
   );

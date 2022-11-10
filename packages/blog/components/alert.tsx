@@ -7,7 +7,7 @@ interface Props {
   preview: any;
 }
 
-const Alert: React.FC<Props> = ({ preview }) => {
+export const Alert: React.FC<Props> = ({ preview }) => {
   return (
     <div
       className={cn('border-b', {
@@ -45,5 +45,3 @@ const Alert: React.FC<Props> = ({ preview }) => {
     </div>
   );
 };
-
-export default Alert;

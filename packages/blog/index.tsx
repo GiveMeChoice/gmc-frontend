@@ -1,2 +1,2 @@
-export { default as Post } from './components/post';
 export * as queries from './lib/queries';
+export * from './components/alert';
