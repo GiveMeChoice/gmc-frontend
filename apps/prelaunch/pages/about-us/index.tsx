@@ -8,10 +8,10 @@ export default function Blog({ allPosts: initialAllPosts, preview }) {
   return (
     <div>
       <Head>
-        <title>Give Me Choice - Blog</title>
+        <title>Give Me Choice - About Us</title>
       </Head>
       <div>
-        <h1>This is the blog</h1>
+        <h1 className="text-3xl">About Us</h1>
         <Post />
         <Button />
         <h2>{hmm}</h2>
