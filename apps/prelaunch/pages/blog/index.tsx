@@ -8,7 +8,7 @@ export default function Blog({ allPosts: initialAllPosts, preview }) {
         <title>Give Me Choice - Blog</title>
       </Head>
       <div>
-        <h1>This is the blog</h1>
+        <h1>This is the blob</h1>
       </div>
     </div>
   );
