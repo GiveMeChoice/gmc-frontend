@@ -1,13 +1,13 @@
 import React from 'react';
-import Alert from '../components/alert';
-import Footer from '../components/footer';
-import Meta from '../components/meta';
+import { Alert } from '../components/alert';
+import { Footer } from '../components/footer';
+import { Meta } from '../components/meta';
 
 interface Props {
   preview: any;
 }
 
-const Layout: React.FC<Props> = ({ preview, children }) => {
+export const Layout: React.FC<Props> = ({ preview, children }) => {
   return (
     <>
       <Meta />
@@ -19,5 +19,3 @@ const Layout: React.FC<Props> = ({ preview, children }) => {
     </>
   );
 };
-
-export default Layout;

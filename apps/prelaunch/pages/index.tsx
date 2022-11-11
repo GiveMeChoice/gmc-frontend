@@ -119,7 +119,7 @@ export default function Home() {
                   }
                 }}
               />
-              <button className="rounded-md border-2 border-white bg-black p-2.5 px-5 text-white duration-200 hover:scale-105 hover:text-primary ">
+              <button className="rounded-md  border-2 border-white bg-black p-2.5 px-5 text-white duration-100 hover:text-primary active:scale-105 active:border-primary">
                 Submit
               </button>
             </div>

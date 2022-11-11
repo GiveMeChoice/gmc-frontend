@@ -1,4 +1,5 @@
 {
+  "globalEnv": ["$NODE_ENV"],
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
@@ -11,6 +12,9 @@
     "dev": {
       "cache": false
     },
+    "start": {
+      "cache": false
+    },
     "clean": {
       "cache": false
     },
@@ -20,6 +24,10 @@
     },
     "deploy": {
       "dependsOn": ["export"]
+    },
+    "blog#build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_SANITY_DATASET", "NEXT_PUBLIC_SANITY_PROJECT_ID"]
     }
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
-import Container from './container';
+import { Container } from './container';
 import { EXAMPLE_PATH } from '../lib/constants';
 
-const Footer: React.FC = () => {
+export const Footer: React.FC = () => {
   return (
     <footer className="bg-accent-1 border-accent-2 border-t">
       <Container>
@@ -29,5 +29,3 @@ const Footer: React.FC = () => {
     </footer>
   );
 };
-
-export default Footer;

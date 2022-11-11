@@ -5,13 +5,15 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "dev:filter": "turbo run dev --filter",
+    "start": "turbo run start --filter",
+    "build": "turbo run build --filter",
+    "dev": "turbo run dev --filter",
+    "build:all": "turbo run build",
+    "dev:all": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "export": "turbo run export",
-    "deploy": "turbo run  deploy",
+    "deploy": "turbo run deploy",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "studio": "npm --prefix studio run start",
     "studio:build": "npm --prefix studio run build"

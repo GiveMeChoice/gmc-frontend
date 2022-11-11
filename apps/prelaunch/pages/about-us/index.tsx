@@ -1,10 +1,7 @@
 import Head from 'next/head';
 import { Button } from 'ui';
-import { queries, Post } from 'blog';
 
 export default function Blog({ allPosts: initialAllPosts, preview }) {
-  const hmm = queries.indexQuery;
-
   return (
     <div>
       <Head>
@@ -12,9 +9,7 @@ export default function Blog({ allPosts: initialAllPosts, preview }) {
       </Head>
       <div>
         <h1 className="text-3xl">About Us</h1>
-        <Post />
         <Button />
-        <h2>{hmm}</h2>
       </div>
     </div>
   );

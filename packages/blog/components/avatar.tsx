@@ -4,7 +4,7 @@ import { urlForImage } from '../lib/sanity';
 
 interface Props {
   name: string;
-  picture: string;
+  picture: any;
 }
 
 export const Avatar: React.FC<Props> = ({ name, picture }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     <h2 className="mb-20 mt-8 text-2xl font-bold leading-tight tracking-tight md:text-4xl md:tracking-tighter">
       <Link href="/" className="hover:underline">
@@ -11,5 +11,3 @@ const Header: React.FC = () => {
     </h2>
   );
 };
-
-export default Header;
