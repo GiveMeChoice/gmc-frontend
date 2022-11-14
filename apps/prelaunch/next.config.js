@@ -5,5 +5,9 @@ module.exports = withTM({
   images: {
     loader: 'akamai',
     path: '/',
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.sanity.io' },
+      { protocol: 'https', hostname: 'source.unsplash.com' },
+    ],
   },
 });

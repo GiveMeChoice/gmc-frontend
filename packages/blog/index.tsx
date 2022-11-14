@@ -4,8 +4,11 @@ export * from './lib/config';
 export * from './lib/constants';
 export * from './lib/sanity';
 export * from './lib/sanity.server';
+export * from './lib/api-preview';
+export * from './lib/api-exit-preview';
+export * from './lib/api-revalidate';
 //components
-export * from './components/alert';
+export * from './components/preview-alert';
 export * from './components/avatar';
 export * from './components/container';
 export * from './components/cover-image';

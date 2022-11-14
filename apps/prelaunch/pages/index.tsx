@@ -113,7 +113,6 @@ export default function Home() {
                 placeholder="Give Me Updates..."
                 onSubmit={() => alert('sub-text')}
                 onKeyDown={(e) => {
-                  console.log(e);
                   if (e.key === 'Enter') {
                     alert('sub-test');
                   }

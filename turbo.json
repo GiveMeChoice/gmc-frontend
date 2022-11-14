@@ -27,7 +27,13 @@
     },
     "blog#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_SANITY_DATASET", "NEXT_PUBLIC_SANITY_PROJECT_ID"]
+      "env": [
+        "NEXT_PUBLIC_SANITY_DATASET",
+        "NEXT_PUBLIC_SANITY_PROJECT_ID",
+        "SANITY_REVALIDATE_SECRET",
+        "SANITY_STUDIO_PREVIEW_SECRET",
+        "SANITY_API_READ_TOKEN"
+      ]
     }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert } from '../components/alert';
+import { PreviewAlert } from './preview-alert';
 import { Footer } from '../components/footer';
 import { Meta } from '../components/meta';
 
@@ -12,7 +12,7 @@ export const Layout: React.FC<Props> = ({ preview, children }) => {
     <>
       <Meta />
       <div className="min-h-screen">
-        <Alert preview={preview} />
+        {preview && <PreviewAlert />}
         <main>{children}</main>
       </div>
       <Footer />

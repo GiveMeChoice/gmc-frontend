@@ -17,6 +17,7 @@ export const CoverImage: React.FC<Props> = ({
   image: source,
   priority,
 }) => {
+  const url = urlForImage(source).height(1000).width(2000).url();
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
@@ -28,8 +29,9 @@ export const CoverImage: React.FC<Props> = ({
         layout="responsive"
         width={2000}
         height={1000}
+        loader={() => url}
         alt={`Cover Image for ${title}`}
-        src={urlForImage(source).height(1000).width(2000).url()}
+        src={url}
         sizes="100vw"
         priority={priority}
       />
@@ -41,7 +43,7 @@ export const CoverImage: React.FC<Props> = ({
   return (
     <div className="sm:mx-0">
       {slug ? (
-        <Link href={`/posts/${slug}`} aria-label={title}>
+        <Link href={`/blog/${slug}`} aria-label={title}>
           {image}
         </Link>
       ) : (
