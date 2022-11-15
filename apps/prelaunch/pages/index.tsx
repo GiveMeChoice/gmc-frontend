@@ -56,10 +56,10 @@ export default function Home() {
       {/* CTA Section */}
       <section
         id="cta"
-        className="mb-10 border-t-2 border-b-2 border-black bg-primary"
+        className="mb-10 border-t-2 border-b-2 border-black bg-gmc-surf"
       >
         {/* CTA FLEX CONTAINER */}
-        <div className="container mx-auto flex flex-col items-center justify-center px-6 py-12 md:flex-row md:space-x-12">
+        <div className="container mx-auto flex flex-col items-center justify-center px-6 py-10 md:flex-row md:space-x-12">
           <div className="flex flex-wrap justify-center space-y-2 sm:space-y-0 ">
             <input
               className="mr-1 rounded-md border-2 border-black p-2"

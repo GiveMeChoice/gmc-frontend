@@ -9,9 +9,8 @@ export const Intro: React.FC = () => {
         </h4>
       </div>
       <h1 className="mr-8 text-right text-6xl font-bold md:text-8xl">
-        <span className="mr-3 md:mr-5">The</span>
         <span className="mt-2 inline-block rounded-xl border-2 border-black px-2 pb-3 tracking-normal md:pb-5">
-          Bl<span className="text-gmc-heart">o</span>g
+          Bl<span className="text-gmc-surf">o</span>g
         </span>
       </h1>
     </section>
