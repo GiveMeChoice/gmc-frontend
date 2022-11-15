@@ -1,16 +1,14 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Container } from '../components/container';
-import { Header } from '../components/header';
 import { Layout } from '../components/layout';
 import { MoreStories } from '../components/more-stories';
 import { PostBody } from '../components/post-body';
 import { PostHeader } from '../components/post-header';
 import { PostTitle } from '../components/post-title';
 import { SectionSeparator } from '../components/section-separator';
-import { CMS_NAME } from '../lib/constants';
 import { postQuery, postSlugsQuery } from '../lib/queries';
-import { usePreviewSubscription, urlForImage } from '../lib/sanity';
+import { urlForImage, usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
 
 export function PostPage({ data, preview }: any) {
@@ -29,16 +27,13 @@ export function PostPage({ data, preview }: any) {
   return (
     <Layout preview={preview}>
       <Container>
-        <Header />
         {router.isFallback ? (
           <PostTitle>Loading…</PostTitle>
         ) : (
           <>
             <article>
               <Head>
-                <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
-                </title>
+                <title>{post.title} | Give Me Choice</title>
                 {post.coverImage?.asset?._ref && (
                   <meta
                     key="ogImage"

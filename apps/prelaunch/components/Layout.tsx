@@ -1,0 +1,17 @@
+import { PreviewAlert } from 'blog';
+import React from 'react';
+import Footer from './Footer';
+import Navbar from './Navbar';
+
+const Layout = ({ preview = false, children }) => {
+  return (
+    <div className="flex min-h-screen flex-col justify-between">
+      {preview && <PreviewAlert />}
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </div>
+  );
+};
+
+export default Layout;

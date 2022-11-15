@@ -1,29 +1,16 @@
 import React from 'react';
-import { CMS_NAME, CMS_URL } from '../lib/constants';
 
 export const Intro: React.FC = () => {
   return (
-    <section className="mt-16 mb-16 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
-      <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
-        Blog.
-      </h1>
-      <h4 className="mt-5 text-center text-lg md:pl-8 md:text-left">
-        A statically generated blog example using{' '}
-        <a
-          href="https://nextjs.org/"
-          className="hover:text-success underline transition-colors duration-200"
-        >
-          Next.js
-        </a>{' '}
-        and{' '}
-        <a
-          href={CMS_URL}
-          className="hover:text-success underline transition-colors duration-200"
-        >
-          {CMS_NAME}
-        </a>
-        .
+    <section className="mt-16 mb-12 flex flex-col-reverse items-center md:flex-row md:justify-between">
+      <h4 className="my-5 text-center text-2xl md:max-w-md md:pl-8 md:align-text-bottom">
+        New stuff we love. Things we think are important. Updated weekly.
       </h4>
+      <h1 className="text-left text-6xl font-bold tracking-tight md:pr-8 md:text-8xl">
+        <span className="mt-2 inline-block rounded-xl border-2 border-black px-2 pb-3 tracking-normal md:pb-5">
+          The Bl<span className="text-gmc-heart">o</span>g.
+        </span>
+      </h1>
     </section>
   );
 };

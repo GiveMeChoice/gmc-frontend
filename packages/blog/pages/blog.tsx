@@ -19,7 +19,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
     <>
       <Layout preview={preview}>
         <Head>
-          <title>Next.js Blog Example with {CMS_NAME}</title>
+          <title>Blog | Give Me Choice</title>
         </Head>
         <Container>
           <Intro />
