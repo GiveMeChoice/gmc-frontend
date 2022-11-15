@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
           </a>
         </div>
         {/* MENU ITEMS */}
-        <div className="hidden space-x-10 md:mr-2 md:flex md:items-center">
+        <div className="hidden space-x-10  md:flex md:items-center">
           <a href="/about-us" className="text-lg hover:text-secondary-dark-50">
             About Us
           </a>
