@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div>
+    <div className="flex min-h-screen flex-col justify-between">
       <Head>
         <title>Give Me Choice</title>
       </Head>
@@ -18,7 +18,7 @@ export default function Home() {
                 src="/img/GMC_logo.svg"
                 alt="GMC Logo"
                 height="40"
-                width="220"
+                width="250"
               />
             </a>
           </div>
@@ -64,7 +64,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <main>
+      <main className="relative pb-10">
         {/* HERO SECTION */}
         <section id="hero">
           {/* HERO FLEX CONTAINER */}
@@ -125,9 +125,9 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className="bottom-0 w-full bg-black pb-4 text-white md:absolute md:h-32 md:pb-0">
+      <footer className=" h-fit w-full bg-black text-white">
         {/* FOOTER FLEX CONTAINER */}
-        <div className="container mx-auto flex flex-col justify-between space-y-8 px-6 pt-8 md:flex-row md:space-y-0 xl:px-20">
+        <div className="container mx-auto flex flex-col justify-between space-y-8 py-5 md:flex-row md:space-y-0 xl:px-20">
           {/* social links container*/}
           <div className="flex flex-col-reverse items-center justify-between md:ml-20 md:flex-row md:items-center">
             <div>

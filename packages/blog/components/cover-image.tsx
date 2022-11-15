@@ -29,6 +29,7 @@ export const CoverImage: React.FC<Props> = ({
         layout="responsive"
         width={2000}
         height={1000}
+        unoptimized
         loader={() => url}
         alt={`Cover Image for ${title}`}
         src={url}

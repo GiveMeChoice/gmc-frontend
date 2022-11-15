@@ -9,6 +9,11 @@
   font-style: normal;
 }
 
+html,
+body {
+  min-height: 100%;
+}
+
 .glow-effect:hover {
   @apply bg-gradient-to-t from-transparent via-secondary to-transparent;
 }

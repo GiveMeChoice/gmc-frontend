@@ -25,3 +25,6 @@ export * from './components/post-header';
 export * from './components/post-preview';
 export * from './components/post-title';
 export * from './components/section-separator';
+// pages
+export * from './pages/blog';
+export * from './pages/post';
