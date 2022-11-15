@@ -1,6 +1,9 @@
 import Head from 'next/head';
+import Image from 'next/image';
 
 export default function Home() {
+  const heroUrl =
+    'https://images.unsplash.com/photo-1567095716798-1d95d8f4c479?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80';
   return (
     <>
       <Head>
@@ -9,10 +12,10 @@ export default function Home() {
       {/* HERO SECTION */}
       <section id="hero">
         {/* HERO FLEX CONTAINER */}
-        <div className="container mx-auto flex flex-col-reverse items-center px-6 md:mb-12 md:flex-row md:py-10 xl:px-36">
+        <div className="container mx-auto flex flex-col-reverse items-center px-6 md:mb-8 md:mt-4 md:flex-row md:space-x-10 xl:px-36">
           {/* LEFT TEXT ITEM */}
-          <div className="mb-16 mt-10 flex flex-col items-center space-y-4 md:mb-0 md:w-1/2">
-            <p className="max-w-md text-center text-3xl md:text-left md:text-4xl">
+          <div className="mb-16 mt-10 flex flex-col items-center space-y-6 md:mb-0 md:w-1/2">
+            <p className="max-w-md text-center text-4xl md:text-left md:text-4xl">
               Planet conscious discovery, enabled by trustful curation.
             </p>
             <p className="max-w-md text-center md:text-left">
@@ -24,17 +27,28 @@ export default function Home() {
               *(should be around Q1 2023 but don&apos;t hold your breath...)
             </p>
           </div>
-          <div className="mt-8 flex w-1/2 justify-center md:mt-0">
-            <h1 className="max-w-fit text-center text-6xl md:text-right md:text-8xl">
-              The <br className="hidden md:block" /> Planet is{' '}
+          <div className="mt-8 flex justify-center md:mt-0">
+            <Image
+              className="rounded-sm"
+              src={heroUrl}
+              alt="Coin"
+              loader={() => heroUrl}
+              width={750}
+              height={550}
+              objectFit="cover"
+            />
+            {/* <h1 className="max-w-fit text-center text-6xl md:text-right md:text-8xl">
+              We have <br className="hidden md:block" /> microplastics{' '}
               <br className="hidden md:block" />
-              <span className="mt-2 inline-block rounded-xl border-2 border-black px-2">
-                F<span className="text-primary">*</span>
-                <span className="text-gmc-heart">*</span>
-                <span className="text-gmc-berry">*</span>
-                <span className="text-gmc-surf">*</span>ed.
+              in our
+              <span className="mx-3 mt-2 inline-block rounded-xl border-2 border-black px-2 pb-1">
+                <span className="text-primary">B</span>
+                <span className="text-gmc-heart">l</span>
+                <span className="text-gmc-surf">o</span>
+                <span className="text-gmc-berry">o</span>
+                <span className="text-gmc-sunset">d</span>
               </span>
-            </h1>
+            </h1> */}
           </div>
         </div>
       </section>
