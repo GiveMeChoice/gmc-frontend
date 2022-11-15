@@ -12,7 +12,7 @@ export default function Home() {
         <div className="container mx-auto flex flex-col-reverse items-center px-6 md:mb-12 md:flex-row md:py-10 xl:px-36">
           {/* LEFT TEXT ITEM */}
           <div className="mb-16 mt-10 flex flex-col items-center space-y-4 md:mb-0 md:w-1/2">
-            <p className="max-w-sm text-center text-2xl md:text-left">
+            <p className="max-w-sm text-center text-3xl md:text-left">
               Planet conscious discovery, enabled by trustful curation.
             </p>
             <p className="max-w-sm text-center md:text-left">
