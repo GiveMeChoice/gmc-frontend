@@ -14,6 +14,7 @@ export const Avatar: React.FC<Props> = ({ name, picture }) => {
       <div className="relative mr-4 h-12 w-12">
         <Image
           loader={() => url}
+          unoptimized
           src={url}
           className="rounded-full"
           height={96}

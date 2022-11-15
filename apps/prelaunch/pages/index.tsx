@@ -29,7 +29,10 @@ export default function Home() {
               The <br className="hidden md:block" /> Planet is{' '}
               <br className="hidden md:block" />
               <span className="mt-2 inline-block rounded-xl border-2 border-black px-2">
-                F<span className="text-primary">****</span>ed.
+                F<span className="text-primary">*</span>
+                <span className="text-gmc-heart">*</span>
+                <span className="text-gmc-berry">*</span>
+                <span className="text-gmc-surf">*</span>ed.
               </span>
             </h1>
           </div>

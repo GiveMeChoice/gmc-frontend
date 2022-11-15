@@ -1,7 +1,6 @@
 // lib
 export * from './lib/queries';
 export * from './lib/config';
-export * from './lib/constants';
 export * from './lib/sanity';
 export * from './lib/sanity.server';
 export * from './lib/api-preview';
@@ -13,7 +12,6 @@ export * from './components/avatar';
 export * from './components/container';
 export * from './components/cover-image';
 export * from './components/date';
-export * from './components/footer';
 export * from './components/header';
 export * from './components/hero-post';
 export * from './components/intro';

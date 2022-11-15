@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 const Navbar: React.FC = () => {
   const router = useRouter();
-  console.log('ROUTE IS: ' + router.route);
   return (
     <nav className="relative mx-auto w-full bg-white pt-4">
       {/* FLEX CONTAINER */}
@@ -17,7 +16,7 @@ const Navbar: React.FC = () => {
               src="/img/GMC_logo.svg"
               alt="GMC Logo"
               height="60"
-              width="330"
+              width="350"
             />
           </a>
         </div>

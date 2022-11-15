@@ -16,8 +16,6 @@ export default async function previewHandler(req: any, res: any) {
   const { secret, slug } = req.query;
 
   const envSecret = process.env.SANITY_STUDIO_PREVIEW_SECRET;
-  console.log(secret);
-  console.log(envSecret);
   // Only require a secret when in production
   if (!secret || !envSecret) {
     return res.status(401).json({ message: 'Missing Secret' });

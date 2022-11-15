@@ -12,7 +12,6 @@ import { urlForImage, usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
 
 export function PostPage({ data, preview }: any) {
-  console.log(`****** This Page ${preview ? 'IS' : 'IS NOT'} in Preview Mode`);
   const router = useRouter();
 
   const slug = data ? data.post.slug : '';
@@ -65,11 +64,6 @@ export function PostPage({ data, preview }: any) {
 
 export async function getStaticPropsPost({ params, preview = false }: any) {
   const { slug } = params;
-  console.log(
-    `!!!!!!!!!!!!!! Getting Static Props for Slug ${slug} (it is ${
-      preview ? '' : 'NOT'
-    } a preview) !!!!!!!!!!!1`
-  );
   const { post, morePosts } = await getClient(preview).fetch(
     postQuery(preview),
     {
@@ -93,7 +87,6 @@ export async function getStaticPropsPost({ params, preview = false }: any) {
 }
 
 export async function getStaticPathsPost() {
-  console.log(`%%%%%%%%%%%%%% GETTING STATIC PATHS %%%%%%%%%%%%%%%%%`);
   const paths = await sanityClient.fetch(postSlugsQuery(false));
   return {
     paths: paths.map((slug: string) => ({ params: { slug } })),

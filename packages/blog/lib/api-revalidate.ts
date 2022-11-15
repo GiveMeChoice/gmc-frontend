@@ -37,7 +37,6 @@ async function readBody(readable: any) {
 }
 
 export default async function revalidateHandler(req: any, res: any) {
-  console.log('************** REVALIDATING !!! *********');
   const signature = req.headers[SIGNATURE_HEADER_NAME];
   const body = await readBody(req); // Read the body into a string
   if (
