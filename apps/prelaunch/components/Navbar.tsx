@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 const Navbar: React.FC = () => {
   const router = useRouter();
   return (
-    <nav className="relative mx-auto w-full bg-white pt-4">
+    <nav className="relative mx-auto w-full pt-4">
       {/* FLEX CONTAINER */}
       <div className="container mx-auto flex items-center justify-between px-6 xl:px-36">
         {/* LOGO */}

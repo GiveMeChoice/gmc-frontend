@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function Home() {
   const heroUrl =
-    'https://images.unsplash.com/photo-1567095716798-1d95d8f4c479?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2970&q=80';
+    'https://media4.giphy.com/media/46flWOF5M6E8IJzPxC/giphy.gif?cid=ecf05e479mzxddhd5qyf22dcecgah19x8z85yf5semumlikr&rid=giphy.gif&ct=g';
   return (
     <>
       <Head>
@@ -29,7 +29,7 @@ export default function Home() {
           </div>
           <div className="mt-8 flex justify-center md:mt-0">
             <Image
-              className="rounded-sm"
+              className="rounded-md"
               src={heroUrl}
               alt="Coin"
               loader={() => heroUrl}
@@ -56,7 +56,7 @@ export default function Home() {
       {/* CTA Section */}
       <section
         id="cta"
-        className="mb-10 border-t-2 border-b-2 border-black bg-secondary"
+        className="mb-10 border-t-2 border-b-2 border-black bg-primary"
       >
         {/* CTA FLEX CONTAINER */}
         <div className="container mx-auto flex flex-col items-center justify-center px-6 py-12 md:flex-row md:space-x-12">
