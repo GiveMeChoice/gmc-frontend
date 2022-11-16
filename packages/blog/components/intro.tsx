@@ -2,15 +2,13 @@ import React from 'react';
 
 export const Intro: React.FC = () => {
   return (
-    <section className="mt-12 mb-16 flex flex-col-reverse items-center md:flex-row md:items-end md:justify-between">
-      <div className="flex h-full">
-        <h4 className="my-5 text-center text-2xl  md:max-w-xl md:text-3xl">
-          Stuff we love. Things we think are important. Updated weekly.
-        </h4>
-      </div>
-      <h1 className="mr-8 text-right text-6xl font-bold md:text-8xl">
-        <span className="mt-2 inline-block rounded-xl border-2 border-black px-2 pb-3 tracking-normal md:pb-5">
-          Bl<span className="text-gmc-surf">o</span>g
+    <section className="my-14 flex flex-col-reverse items-center md:mb-20 md:flex-row md:items-end md:justify-between">
+      <h4 className="mb-6 text-center text-2xl md:mb-0 md:max-w-xl md:text-3xl">
+        Stuff we love. Things we think are important. Updated weekly.
+      </h4>
+      <h1 className="mb-8 text-right text-7xl font-bold md:mr-8 md:mb-0">
+        <span className="inline-block rounded-xl border-2 border-gmc-ocean px-2 pb-4 tracking-normal">
+          bl<span className="text-gmc-surf">o</span>g
         </span>
       </h1>
     </section>

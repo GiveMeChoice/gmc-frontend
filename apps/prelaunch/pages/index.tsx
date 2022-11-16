@@ -37,18 +37,6 @@ export default function Home() {
               height={550}
               objectFit="cover"
             />
-            {/* <h1 className="max-w-fit text-center text-6xl md:text-right md:text-8xl">
-              We have <br className="hidden md:block" /> microplastics{' '}
-              <br className="hidden md:block" />
-              in our
-              <span className="mx-3 mt-2 inline-block rounded-xl border-2 border-black px-2 pb-1">
-                <span className="text-primary">B</span>
-                <span className="text-gmc-heart">l</span>
-                <span className="text-gmc-surf">o</span>
-                <span className="text-gmc-berry">o</span>
-                <span className="text-gmc-sunset">d</span>
-              </span>
-            </h1> */}
           </div>
         </div>
       </section>
@@ -76,8 +64,8 @@ export default function Home() {
                 }
               }}
             />
-            <button className="rounded-md  border-2 border-white bg-black p-2.5 px-5 text-white duration-100 hover:text-primary active:scale-105 active:border-primary">
-              Submit
+            <button className="rounded-md  border-2 border-white bg-black p-2.5 px-5 text-white duration-100 hover:text-primary active:scale-105 ">
+              SIGN-UP
             </button>
           </div>
         </div>

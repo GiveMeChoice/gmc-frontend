@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 const Navbar: React.FC = () => {
   const router = useRouter();
   return (
-    <nav className="relative mx-auto w-full pt-4">
+    <nav className="relative mx-auto w-full">
       {/* FLEX CONTAINER */}
-      <div className="container mx-auto flex items-center justify-between px-6 xl:px-36">
+      <div className="container mx-auto flex items-center justify-between px-6 py-5 xl:px-36">
         {/* LOGO */}
         <div className="pt-2 md:pt-0">
           <a href="/">
@@ -16,19 +16,19 @@ const Navbar: React.FC = () => {
               src="/img/GMC_logo.svg"
               alt="GMC Logo"
               height="60"
-              width="350"
+              width="400"
             />
           </a>
         </div>
         {/* MENU ITEMS */}
         <div className="hidden space-x-10  md:flex md:items-center">
-          <a href="/about-us" className="text-lg hover:text-secondary-dark-50">
+          <a href="/about-us" className="text-xl hover:text-secondary-dark-50">
             About Us
           </a>
           {router.route.includes('[slug]') ? (
             <Header />
           ) : (
-            <a href="/blog" className="text-lg hover:text-secondary-dark-50">
+            <a href="/blog" className="text-xl hover:text-secondary-dark-50">
               Blog
             </a>
           )}
@@ -54,12 +54,18 @@ const Navbar: React.FC = () => {
       <div className="md:hidden">
         <div
           id="menu"
-          className="absolute right-0 z-10 mt-0 hidden w-1/2 flex-col items-center self-end rounded-sm border-2 border-black bg-white"
+          className="absolute right-0 z-10 mt-0 hidden w-1/2 flex-col items-center self-end rounded-md border-2 border-black bg-white"
         >
-          <a className="glow-effect w-full py-3 text-center" href="/about-us">
+          <a
+            className="w-11/12 max-w-full py-3 text-center hover:scale-110"
+            href="/about-us"
+          >
             About Us
           </a>
-          <a className="glow-effect w-full py-3 text-center" href="/blog">
+          <a
+            className="w-11/12 max-w-full py-3 text-center hover:scale-110"
+            href="/blog"
+          >
             Blog
           </a>
         </div>

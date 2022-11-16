@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer className=" h-fit w-full bg-black text-white">
       {/* FOOTER FLEX CONTAINER */}
-      <div className="container mx-auto flex flex-col justify-between space-y-8 py-5 md:flex-row md:space-y-0 xl:px-20">
+      <div className="container mx-auto flex flex-col justify-between space-y-8 py-7 md:flex-row md:space-y-0 xl:px-20">
         {/* social links container*/}
         <div className="flex flex-col-reverse items-center justify-between md:ml-20 md:flex-row md:items-center">
           <div>
