@@ -14,8 +14,8 @@ body {
   min-height: 100%;
 }
 
-.glow-effect:hover {
-  @apply bg-gradient-to-t from-transparent via-secondary to-transparent;
+::selection {
+  background: #a7f700;
 }
 
 /* Hamburger Menu */

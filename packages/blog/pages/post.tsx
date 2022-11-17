@@ -10,6 +10,7 @@ import { SectionSeparator } from '../components/section-separator';
 import { postQuery, postSlugsQuery } from '../lib/queries';
 import { urlForImage, usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
+import readingTime from 'reading-time';
 
 export function PostPage({ data, preview }: any) {
   const router = useRouter();
@@ -50,6 +51,8 @@ export function PostPage({ data, preview }: any) {
                 coverImage={post.coverImage}
                 date={post.date}
                 author={post.author}
+                readingTime={post.readingTime}
+                categories={post.categories}
               />
               <PostBody content={post.content} />
             </article>
@@ -77,8 +80,8 @@ export async function getStaticPropsPost({ params, preview = false }: any) {
     props: {
       preview,
       data: {
-        post,
-        morePosts: overlayDrafts(morePosts),
+        post: addReadingTime(post),
+        morePosts: overlayDrafts(morePosts).slice(0, 2),
       },
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
@@ -93,3 +96,16 @@ export async function getStaticPathsPost() {
     fallback: 'blocking',
   };
 }
+
+const addReadingTime = (post: any) => {
+  let text = '';
+  post.content
+    .filter((item: any) => item._type === 'block')
+    .forEach((block: any) => {
+      block.children.forEach((child: any) => {
+        text += ` ${child.text} `;
+      });
+    });
+  post.readingTime = readingTime(text.replace(/\s+/g, ' '));
+  return post;
+};

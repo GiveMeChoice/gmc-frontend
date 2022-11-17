@@ -3,6 +3,8 @@ import { Avatar } from '../components/avatar';
 import { Date } from '../components/date';
 import { CoverImage } from './cover-image';
 import Link from 'next/link';
+import PostCategories from './post-categories';
+import cn from 'classnames';
 
 interface Props {
   title: string;
@@ -10,6 +12,7 @@ interface Props {
   date: string;
   excerpt: any;
   author: any;
+  categories: any;
   slug: string;
 }
 
@@ -19,6 +22,7 @@ export const PostPreview: React.FC<Props> = ({
   date,
   excerpt,
   author,
+  categories,
   slug,
 }) => (
   <div>
@@ -30,7 +34,12 @@ export const PostPreview: React.FC<Props> = ({
         {title}
       </Link>
     </h3>
-    <div className="mb-4 text-lg">
+    <PostCategories categories={categories} />
+    <div
+      className={cn('mb-4 text-lg', {
+        'mt-2': categories,
+      })}
+    >
       <Date dateString={date} />
     </div>
     <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>

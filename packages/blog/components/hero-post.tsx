@@ -3,6 +3,7 @@ import React from 'react';
 import { Avatar } from './avatar';
 import { CoverImage } from './cover-image';
 import { Date } from './date';
+import PostCategories from './post-categories';
 
 interface Props {
   title: string;
@@ -10,6 +11,7 @@ interface Props {
   date: string;
   excerpt: string;
   author: any;
+  categories: any;
   slug: string;
 }
 
@@ -19,6 +21,7 @@ export const HeroPost: React.FC<Props> = ({
   date,
   excerpt,
   author,
+  categories,
   slug,
 }) => {
   return (
@@ -38,6 +41,9 @@ export const HeroPost: React.FC<Props> = ({
           </div>
         </div>
         <div>
+          <div className="mb-4  md:block">
+            <PostCategories categories={categories} />
+          </div>
           <p className="mb-4 text-lg leading-relaxed">{excerpt}</p>
           {author && <Avatar name={author.name} picture={author.picture} />}
         </div>

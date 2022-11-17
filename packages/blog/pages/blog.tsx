@@ -28,6 +28,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
               coverImage={heroPost.coverImage}
               date={heroPost.date}
               author={heroPost.author}
+              categories={heroPost.categories}
               slug={heroPost.slug}
               excerpt={heroPost.excerpt}
             />

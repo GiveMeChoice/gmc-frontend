@@ -1,10 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { Header } from 'blog';
-import { useRouter } from 'next/router';
 
 const Navbar: React.FC = () => {
-  const router = useRouter();
   return (
     <nav className="relative mx-auto w-full">
       {/* FLEX CONTAINER */}
@@ -25,13 +23,7 @@ const Navbar: React.FC = () => {
           <a href="/about-us" className="text-xl hover:text-secondary-dark-50">
             About Us
           </a>
-          {router.route.includes('[slug]') ? (
-            <Header />
-          ) : (
-            <a href="/blog" className="text-xl hover:text-secondary-dark-50">
-              Blog
-            </a>
-          )}
+          <Header />
         </div>
         {/* HAMBURGER */}
         <button

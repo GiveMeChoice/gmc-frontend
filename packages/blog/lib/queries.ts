@@ -5,31 +5,31 @@ const postFields = `
   date,
   excerpt,
   coverImage,
+  "categories": categories[]->{color, title, description},
   "slug": slug.current,
   "author": author->{name, picture},
 `;
 
-const previewFilter = ' && !(_id in path("drafts.**"))';
+const draftFilter = ' && !(_id in path("drafts.**"))';
 
 export const indexQuery = (preview: boolean) =>
-  // `*[_type == "post" && !(_id in path("drafts.**"))][0...2]`;
   `*[_type == "post"${
-    preview ? '' : previewFilter
-  }] | order(publishedAt desc, _updatedAt desc) {
+    preview ? '' : draftFilter
+  }] | order(date desc, _updatedAt desc) {
   ${postFields}
 }`;
 
 export const postQuery = (preview: boolean) => `
 {
   "post": *[_type == "post"${
-    preview ? '' : previewFilter
+    preview ? '' : draftFilter
   } && slug.current == $slug] | order(_updatedAt desc) [0] {
     content,
     ${postFields}
   },
   "morePosts": *[_type == "post"${
-    preview ? '' : previewFilter
-  } && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+    preview ? '' : draftFilter
+  } && slug.current != $slug] | order(date desc, _updatedAt desc) [0...4] {
     content,
     ${postFields}
   }
@@ -37,12 +37,12 @@ export const postQuery = (preview: boolean) => `
 
 export const postSlugsQuery = (preview: boolean) => `
 *[_type == "post"${
-  preview ? '' : previewFilter
+  preview ? '' : draftFilter
 } && defined(slug.current)][].slug.current
 `;
 
 export const postBySlugQuery = (preview: boolean) => `
-*[_type == "post"${preview ? '' : previewFilter} && slug.current == $slug][0] {
+*[_type == "post"${preview ? '' : draftFilter} && slug.current == $slug][0] {
   ${postFields}
 }
 `;

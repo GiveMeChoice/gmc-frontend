@@ -21,6 +21,7 @@ export const MoreStories: React.FC<Props> = ({ posts }) => {
             author={post.author}
             slug={post.slug}
             excerpt={post.excerpt}
+            categories={post.categories}
           />
         ))}
       </div>
