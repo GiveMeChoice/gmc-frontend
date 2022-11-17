@@ -2,6 +2,7 @@ const postFields = `
   _id,
   name,
   title,
+  subtitle,
   date,
   excerpt,
   coverImage,

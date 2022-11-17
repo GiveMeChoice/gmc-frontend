@@ -28,7 +28,7 @@ export function PostPage({ data, preview }: any) {
     <Layout preview={preview}>
       <Container>
         {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
+          <PostTitle title={'Loading...'} subtitle={''} />
         ) : (
           <>
             <article>
@@ -48,6 +48,7 @@ export function PostPage({ data, preview }: any) {
               </Head>
               <PostHeader
                 title={post.title}
+                subtitle={post.subtitle}
                 coverImage={post.coverImage}
                 date={post.date}
                 author={post.author}

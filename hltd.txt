@@ -1,0 +1,26 @@
+[x] blog basics
+
+[ ] blog advanced
+  [ ] subtitle
+  [ ] metatags & SEO
+  [ ] favicon cleanup
+  [X] better sorting options / order of items in editor
+  [X] time to read
+  [X] categories
+
+[ ] notion -> collaborators section
+
+[ ] mailing list 
+  [ ] mailchimp / firebase integration
+  [ ] welcome email or test newsletter
+  [ ] subscribe pop-up on other pages
+
+[ ] about us
+
+[ ] privacy policy
+  [ ] cookies
+  [ ] GDPR
+
+===================================
+
+- operating costs

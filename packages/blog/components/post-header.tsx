@@ -8,6 +8,7 @@ import PostCategories from './post-categories';
 
 interface Props {
   title: string;
+  subtitle: string;
   coverImage: any;
   date: string;
   author: any;
@@ -17,6 +18,7 @@ interface Props {
 
 export const PostHeader: React.FC<Props> = ({
   title,
+  subtitle,
   coverImage,
   date,
   author,
@@ -24,7 +26,7 @@ export const PostHeader: React.FC<Props> = ({
   readingTime,
 }) => (
   <>
-    <PostTitle>{title}</PostTitle>
+    <PostTitle title={title} subtitle={subtitle} />
     <div className="mb-8 flex items-center justify-between space-x-3">
       <div className="flex flex-col items-start space-y-6 text-lg">
         {author && <Avatar name={author.name} picture={author.picture} />}
