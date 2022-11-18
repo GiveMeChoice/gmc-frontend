@@ -7,3 +7,19 @@ body {
   /* height: 100vh;
   max-height: 100vh; */
 }
+
+.tabs_indicator_runs {
+  left: -98px;
+}
+
+.tabs_indicator_sources {
+  left: -230px;
+}
+
+.tabs_indicator_providers {
+  left: -352px;
+}
+
+.bolder-text {
+  text-shadow: 0 0 0.5px #d8d8dd, 0 0 0.5px #d8d8dd;
+}
