@@ -19,11 +19,11 @@ const theme = createTheme({
 });
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <BrowserRouter>
-      <CssBaseline />
-      <App />
-    </BrowserRouter>
-  </ThemeProvider>,
+  // <ThemeProvider theme={theme}>
+  <BrowserRouter>
+    {/* <CssBaseline /> */}
+    <App />
+  </BrowserRouter>,
+  // </ThemeProvider>,
   document.getElementById('root')
 );

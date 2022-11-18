@@ -4,11 +4,14 @@ import { useState } from 'react';
 import cn from 'classnames';
 
 export default function Home() {
+  const [email, setEmail] = useState<string>('');
   const [subscribing, setSubscribing] = useState<boolean>(false);
+  const [subscribed, setSubscribed] = useState<boolean>(false);
 
   const onSubscribe = () => {
     setSubscribing(true);
     setTimeout(() => {
+      setSubscribed(true);
       setSubscribing(false);
     }, 2000);
   };
@@ -61,12 +64,14 @@ export default function Home() {
         <div className="container mx-auto flex flex-col items-center justify-center px-6 py-10 md:flex-row md:space-x-12">
           <div className="flex flex-wrap items-center justify-center space-y-3 md:space-x-2 md:space-y-0">
             <input
-              className="h-14 rounded-md border-2 border-black p-2 pl-4 text-lg"
+              className={cn(
+                'h-14 rounded-full border-2 border-black p-2 pl-7 text-lg'
+              )}
               type="email"
               id="email"
               pattern=".+@.+\.com"
-              disabled={subscribing}
-              size={30}
+              disabled={subscribing || subscribed}
+              size={27}
               required
               placeholder="Give Me Updates..."
               onSubmit={() => alert('sub-text')}
@@ -78,12 +83,13 @@ export default function Home() {
             />
             <button
               onClick={() => onSubscribe()}
-              disabled={subscribing}
+              disabled={subscribing || subscribed}
               className={cn(
-                'h-14 w-40 rounded-md border-2 border-white bg-black text-white',
+                'h-14 w-40 rounded-full border-2 border-black bg-black text-white',
                 {
-                  'hover:text-primary-dark-10': !subscribing,
-                  'border-secondary text-secondary': subscribing,
+                  'hover:text-primary': !subscribing && !subscribed,
+                  'bg-gmc-surf text-black': subscribing,
+                  'bg-gmc-sunset text-black': subscribed,
                 }
               )}
             >
@@ -91,7 +97,7 @@ export default function Home() {
                 <>
                   <svg
                     role="status"
-                    className="mr-2 inline h-7 w-7 animate-spin fill-gmc-sunset text-gray-200 dark:text-secondary-dark-30"
+                    className="mr-2 inline h-7 w-7 animate-spin fill-gmc-sunset text-black"
                     viewBox="0 0 100 101"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,8 +111,10 @@ export default function Home() {
                       fill="currentFill"
                     />
                   </svg>
-                  <span className="">Loading...</span>
+                  <span className="">Signing Up...</span>
                 </>
+              ) : subscribed ? (
+                'SUBSCRIBED!'
               ) : (
                 'SUBSCRIBE'
               )}
