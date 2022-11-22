@@ -6,7 +6,7 @@ import cn from 'classnames';
 const Sidebar: React.FC = () => {
   const location = useLocation();
   return (
-    <div className="hidden h-screen flex-col border-r-2 border-black bg-secondary py-8 lg:flex">
+    <div className="hidden flex-col bg-secondary py-8 lg:flex">
       <div className="mx-5 w-48">
         <img src="GMC_logo.svg" alt="GMC Logo" />
       </div>
@@ -15,7 +15,7 @@ const Sidebar: React.FC = () => {
           <Link
             to="/providers"
             className={cn(
-              'flex rounded-lg py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
+              'flex rounded-md py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
               {
                 'bg-primary': location.pathname.includes('/providers'),
               }
@@ -27,7 +27,7 @@ const Sidebar: React.FC = () => {
           <Link
             to="/product-sources"
             className={cn(
-              'flex rounded-lg py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
+              'flex rounded-md py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
               {
                 'bg-primary': location.pathname.includes('/product-sources'),
               }
@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
           <Link
             to="/source-runs"
             className={cn(
-              'flex rounded-lg py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
+              'flex rounded-md py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
               {
                 'bg-primary': location.pathname.includes('/source-runs'),
               }
