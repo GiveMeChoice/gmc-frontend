@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
 import Home from './components/home';
 import Layout from './components/layout';
-import ProvidersScreen from './components/providers/providers-screen';
+import ProvidersScreen from './components/providers-screen/providers-screen';
 import Runs from './components/runs';
 import Sources from './components/sources';
 import './styles.css';

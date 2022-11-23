@@ -1,7 +1,6 @@
+import { IProvider } from '@root/services/providers.service';
 import React from 'react';
 import LoadingWheel from '../loading-wheel';
-import cn from 'classnames';
-import { IProvider } from '@root/services/providers.service';
 
 interface Props {
   provider: IProvider;
@@ -18,7 +17,7 @@ const ProviderActiveCell: React.FC<Props> = ({ provider }) => {
       >
         {provider.active ? 'ACTIVE' : 'INACTIVE'}
       </p> */}
-      <LoadingWheel />
+      <LoadingWheel color="gmc-surf" size={7} />
       <label className="switch">
         <input type="checkbox" />
         <span className="slider round"></span>
