@@ -1,11 +1,35 @@
+import {
+  IFilters,
+  initialFilters,
+  useFilters,
+  useFiltersDispatch,
+} from '@root/context-providers/filters.provider';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-interface Props {}
+interface Props {
+  providerId: string;
+}
 
-const ProviderSourcesCell: React.FC<Props> = () => {
+const ProviderSourcesCell: React.FC<Props> = ({ providerId }) => {
+  const dispatch = useFiltersDispatch();
+  const navigate = useNavigate();
+
+  const onViewSources = () => {
+    const sourceFilters: IFilters = {
+      ...initialFilters,
+      providerId,
+    };
+    dispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
+    navigate('/product-sources');
+  };
+
   return (
     <div className="flex w-44 justify-center">
-      <div className="flex cursor-pointer items-center justify-center space-x-2 text-sm font-bold hover:fill-primary-dark-20 hover:text-primary-dark-20">
+      <div
+        className="flex cursor-pointer items-center justify-center space-x-2 text-sm font-bold hover:fill-primary-dark-20 hover:text-primary-dark-20"
+        onClick={onViewSources}
+      >
         <span>View Sources</span>
         <div className="h-6 w-6">
           <svg x="0px" y="0px" viewBox="0 0 363.579 363.579">

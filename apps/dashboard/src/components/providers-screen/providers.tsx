@@ -9,12 +9,14 @@ import ScreenSection from '../screen/screen-section';
 import ScreenSectionRow from '../screen/screen-section-row';
 import ProvidersListRow from './providers-list-row';
 
-const ProvidersScreen: React.FC = () => {
-  const { providers } = useData();
+const Providers: React.FC = () => {
+  const { providers, providersMeta } = useData();
   const dispatch = useDataDispatch();
   const { activeFilters: filters } = useFilters();
   useEffect(() => {
-    refreshData();
+    if (!providers.length) {
+      refreshData();
+    }
   }, []);
 
   const refreshData = () => {
@@ -24,16 +26,18 @@ const ProvidersScreen: React.FC = () => {
   };
 
   return (
-    <ScreenSection title={'Providers List'}>
-      {providers === null ? (
+    <ScreenSection title={'Providers List'} meta={providersMeta}>
+      {providers.length ? (
+        providers.map((p, i) => (
+          <ProvidersListRow key={i} provider={p} index={i} />
+        ))
+      ) : (
         <ScreenSectionRow>
           <h1>Loading...</h1>
         </ScreenSectionRow>
-      ) : (
-        providers.map((p, i) => <ProvidersListRow provider={p} index={i} />)
       )}
     </ScreenSection>
   );
 };
 
-export default ProvidersScreen;
+export default Providers;

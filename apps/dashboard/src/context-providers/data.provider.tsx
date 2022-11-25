@@ -1,4 +1,10 @@
+import { IJobStatus } from '@root/services/jobs.service';
 import { IProvider } from '@root/services/providers.service';
+import { IRun } from '@root/services/runs.service';
+import {
+  PageMeta,
+  PageResponse,
+} from '@root/services/shared/page-response.interface';
 import { ISource } from '@root/services/sources.service';
 import {
   createContext,
@@ -10,18 +16,43 @@ import {
 } from 'react';
 
 export interface IData {
+  jobs: IJobStatus[];
   providers: IProvider[];
+  providersMeta: PageMeta;
   sources: ISource[];
+  sourcesMeta: PageMeta;
+  runs: IRun[];
+  runsMeta: PageMeta;
 }
 
 export type DataAction =
   | {
+      type: 'REFRESH_JOBS';
+      value: IJobStatus[];
+    }
+  | {
       type: 'REFRESH_PROVIDERS';
-      value: IProvider[];
+      value: PageResponse<IProvider>;
     }
   | {
       type: 'REFRESH_SOURCES';
-      value: ISource[];
+      value: PageResponse<ISource>;
+    }
+  | {
+      type: 'REFRESH_RUNS';
+      value: PageResponse<IRun>;
+    }
+  | {
+      type: 'UPDATE_JOB';
+      value: IJobStatus;
+    }
+  | {
+      type: 'UPDATE_PROVIDER';
+      value: IProvider;
+    }
+  | {
+      type: 'UPDATE_SOURCE';
+      value: ISource;
     };
 
 const DataContext = createContext<IData>(null);
@@ -50,17 +81,52 @@ export function useDataDispatch() {
   return useContext(DataDispatchContext);
 }
 
-function dataReducer(data: IData, action: DataAction) {
+function dataReducer(data: IData, action: DataAction): IData {
+  console.log('Action: ' + action.type);
   switch (action.type) {
+    case 'REFRESH_JOBS':
+      return {
+        ...data,
+        jobs: action.value,
+      };
     case 'REFRESH_PROVIDERS':
       return {
         ...data,
-        providers: action.value,
+        providers: action.value.data,
+        providersMeta: action.value.meta,
       };
     case 'REFRESH_SOURCES':
       return {
         ...data,
-        sources: action.value,
+        sources: action.value.data,
+        sourcesMeta: action.value.meta,
+      };
+    case 'REFRESH_RUNS':
+      return {
+        ...data,
+        runs: action.value.data,
+        runsMeta: action.value.meta,
+      };
+    case 'UPDATE_JOB':
+      return {
+        ...data,
+        jobs: data.jobs.map((j) =>
+          j.name === action.value.name ? action.value : j
+        ),
+      };
+    case 'UPDATE_PROVIDER':
+      return {
+        ...data,
+        providers: data.providers.map((p) =>
+          p.id === action.value.id ? action.value : p
+        ),
+      };
+    case 'UPDATE_SOURCE':
+      return {
+        ...data,
+        sources: data.sources.map((s) =>
+          s.id === action.value.id ? action.value : s
+        ),
       };
     default:
       break;
@@ -69,6 +135,11 @@ function dataReducer(data: IData, action: DataAction) {
 }
 
 const initialData: IData = {
+  jobs: [],
   providers: [],
   sources: [],
+  runs: [],
+  providersMeta: {},
+  sourcesMeta: {},
+  runsMeta: {},
 };

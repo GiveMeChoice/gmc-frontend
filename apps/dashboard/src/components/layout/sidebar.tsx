@@ -46,7 +46,19 @@ const Sidebar: React.FC = () => {
             )}
           >
             <img className="h-5 w-12" src="cart.svg" alt="cart icon" />
-            <span>Source Runs</span>
+            <span>Product Runs</span>
+          </Link>
+          <Link
+            to="/jobs"
+            className={cn(
+              'flex rounded-md py-3 text-sm font-bold duration-150 hover:bg-primary-light-50',
+              {
+                'bg-primary': location.pathname.includes('/jobs'),
+              }
+            )}
+          >
+            <img className="h-5 w-12" src="cart.svg" alt="cart icon" />
+            <span>Jobs</span>
           </Link>
         </div>
         <div className="h-10 rounded-md border-2 border-black">OPTIONS</div>

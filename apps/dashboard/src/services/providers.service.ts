@@ -1,6 +1,7 @@
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
 import { PageRequest } from './shared/page-request.interface';
+import { PageResponse } from './shared/page-response.interface';
 
 export interface IProvider {
   id: string;
@@ -12,8 +13,8 @@ export interface IProvider {
 const search = async (
   filters: IFilters,
   pageRequest?: PageRequest
-): Promise<IProvider[]> => {
-  const res = await axios.post<IProvider[]>(
+): Promise<PageResponse<IProvider>> => {
+  const res = await axios.post<PageResponse<IProvider>>(
     '/providers/search',
     extractProviderFilters(filters),
     {
@@ -23,10 +24,20 @@ const search = async (
   return res.data;
 };
 
-const getAll = async (pageRequest?: PageRequest): Promise<IProvider[]> => {
-  const res = await axios.get<IProvider[]>('/providers', {
+const getAll = async (
+  pageRequest?: PageRequest
+): Promise<PageResponse<IProvider>> => {
+  const res = await axios.get<PageResponse<IProvider>>('/providers', {
     params: pageRequest,
   });
+  return res.data;
+};
+
+const update = async (
+  id: string,
+  updates: Partial<IProvider>
+): Promise<IProvider> => {
+  const res = await axios.put<IProvider>(`/providers/${id}`, updates);
   return res.data;
 };
 
@@ -37,5 +48,5 @@ const extractProviderFilters = (filters: IFilters) => ({
   }),
 });
 
-const providersService = { search, getAll };
+const providersService = { search, getAll, update };
 export default providersService;

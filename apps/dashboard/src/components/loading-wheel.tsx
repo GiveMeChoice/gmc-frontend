@@ -1,15 +1,14 @@
 import React from 'react';
 
 interface Props {
-  color: string;
-  size: number;
+  size: string;
 }
 
-const LoadingWheel: React.FC<Props> = ({ color, size }) => {
+const LoadingWheel: React.FC<Props> = ({ size }) => {
   return (
     <svg
       role="status"
-      className={`inline h-${size} w-${size} animate-spin fill-${color} text-black`}
+      className={`inline ${size} animate-spin fill-primary text-black`}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

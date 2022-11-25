@@ -1,24 +1,22 @@
+import LoadingWheel from '@root/components/loading-wheel';
+import { useDataDispatch } from '@root/context-providers/data.provider';
 import {
   IFilters,
   initialFilters,
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import React, { useEffect, useState } from 'react';
-import cn from 'classnames';
-import LoadingWheel from '@root/components/loading-wheel';
-import { useDataDispatch } from '@root/context-providers/data.provider';
+import jobsService from '@root/services/jobs.service';
 import providersService from '@root/services/providers.service';
-import { useLocation } from 'react-router-dom';
+import runsService from '@root/services/runs.service';
 import sourcesService from '@root/services/sources.service';
+import cn from 'classnames';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-interface Props {
-  visible: boolean;
-}
-
-const FiltersContainer: React.FC<Props> = ({ visible }) => {
+const FiltersContainer: React.FC = () => {
   const location = useLocation();
-  const { activeFilters, options } = useFilters();
+  const { activeFilters, options, filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
   const dataDispatch = useDataDispatch();
 
@@ -29,14 +27,14 @@ const FiltersContainer: React.FC<Props> = ({ visible }) => {
 
   useEffect(() => {
     resetFiltersToActive();
-  }, []);
+  }, [activeFilters]);
 
   const resetFiltersToActive = () => {
     setFiltersCurrent(true);
     setFilters({ ...activeFilters });
   };
 
-  const resetFiltersToInitial = () => {
+  const clearFiltersToInitial = () => {
     setFilters(initialFilters);
     setFiltersCurrent(isEqual(activeFilters, initialFilters));
   };
@@ -50,6 +48,39 @@ const FiltersContainer: React.FC<Props> = ({ visible }) => {
     setFiltersCurrent(isEqual(activeFilters, currentFilters));
   };
 
+  const refreshData = async () => {
+    setLoading(true);
+    try {
+      filtersDispatch({ type: 'SAVE_FILTERS', value: filters });
+      if (location.pathname.includes('/providers')) {
+        dataDispatch({
+          type: 'REFRESH_PROVIDERS',
+          value: await providersService.search(filters),
+        });
+      } else if (location.pathname.includes('/product-sources')) {
+        dataDispatch({
+          type: 'REFRESH_SOURCES',
+          value: await sourcesService.search(filters),
+        });
+      } else if (location.pathname.includes('/source-runs')) {
+        dataDispatch({
+          type: 'REFRESH_RUNS',
+          value: await runsService.search(filters),
+        });
+      } else if (location.pathname.includes('/jobs')) {
+        dataDispatch({
+          type: 'REFRESH_JOBS',
+          value: await jobsService.getAll(),
+        });
+      }
+      setFiltersCurrent(true);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="flex w-full justify-end p-5">
@@ -57,7 +88,7 @@ const FiltersContainer: React.FC<Props> = ({ visible }) => {
           className={cn('text-sm font-bold', {
             'text-primary': filtersCurrent,
             ' text-gmc-surf': !filtersCurrent,
-            hidden: !visible,
+            hidden: !filterBarVisible,
           })}
         >
           {filtersCurrent ? 'Filters Current' : 'Filters Changed'}
@@ -66,58 +97,76 @@ const FiltersContainer: React.FC<Props> = ({ visible }) => {
       <div
         id="filters-container"
         className={cn(
-          'flex h-5/6 flex-col items-center space-y-6 overflow-y-auto px-6 pb-44',
-          { hidden: !visible }
+          'flex h-5/6 flex-col items-center space-y-4 overflow-y-auto px-6 pb-44',
+          { hidden: !filterBarVisible }
         )}
       >
-        <div className="w-full">
-          <label
-            htmlFor="providerId"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Select a Provider
-          </label>
-          <select
-            id="providerId"
-            className={cn(
-              'block w-full rounded-full border border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-              {
-                'text-gray-400': !filters.providerId,
-              }
-            )}
-            value={filters.providerId}
-            onChange={handleFieldChange}
-          >
-            <option value="">-- Provider Key --</option>
-            {options.providerSelect.map((p) => (
-              <option value={p.id}>{p.key}</option>
-            ))}
-          </select>
+        <div className="flex w-full items-end space-x-2">
+          <div className="w-7/12">
+            <label
+              htmlFor="providerId"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Provider Key
+            </label>
+            <select
+              id="providerId"
+              className={cn(
+                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                {
+                  'text-gray-400': !filters.providerId,
+                }
+              )}
+              value={filters.providerId}
+              onChange={handleFieldChange}
+            >
+              <option value="">{'-----'}</option>
+              {options.providerSelect.map((p, i) => (
+                <option key={i} value={p.id}>
+                  {p.key}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="w-5/12">
+            <label
+              htmlFor="providerActivation"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Activation
+            </label>
+            <select
+              id="providerActivation"
+              className={cn(
+                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                {
+                  'text-gray-400': !filters.providerActivation,
+                }
+              )}
+              value={filters.providerActivation}
+              onChange={handleFieldChange}
+            >
+              <option value="">-----</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
         </div>
 
         <div className="w-full">
           <label
-            htmlFor="providerActivation"
+            htmlFor="sourceId"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
           >
-            Provider Activation
+            Source ID
           </label>
-          <select
-            id="providerActivation"
-            className={cn(
-              'block w-full rounded-full border border-gray-600 bg-gray-700 p-2.5 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-              {
-                'text-gray-400': !filters.providerActivation,
-              }
-            )}
-            placeholder="this is a test"
-            value={filters.providerActivation}
+          <input
+            id="sourceId"
+            className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            value={filters.sourceId}
             onChange={handleFieldChange}
-          >
-            <option value="">-- Active / Inactive --</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
+          />
         </div>
 
         <div className="w-full">
@@ -129,63 +178,92 @@ const FiltersContainer: React.FC<Props> = ({ visible }) => {
           </label>
           <input
             id="sourceIdentifier"
-            className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
             value={filters.sourceIdentifier}
-            placeholder="-- Identifier --"
             onChange={handleFieldChange}
           />
         </div>
 
+        <div className="flex w-full space-x-3">
+          <div className="w-1/2">
+            <label
+              htmlFor="sourceStatus"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Source Status
+            </label>
+            <select
+              id="sourceStatus"
+              className={cn(
+                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                {
+                  'text-gray-400': !filters.sourceStatus,
+                }
+              )}
+              value={filters.sourceStatus}
+              onChange={handleFieldChange}
+            >
+              <option value="">-----</option>
+              {options.sourceStatusSelect.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="w-1/2">
+            <label
+              htmlFor="sourceActivation"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Source Activation
+            </label>
+            <select
+              id="sourceActivation"
+              className={cn(
+                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                {
+                  'text-gray-400': !filters.sourceActivation,
+                }
+              )}
+              value={filters.sourceActivation}
+              onChange={handleFieldChange}
+            >
+              <option value="">-----</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+
         <div className="flex h-32 w-full flex-col justify-center space-y-4">
           {loading ? (
-            <LoadingWheel color="gmc-surf" size={14} />
+            <LoadingWheel size="w-14 h-14" />
           ) : (
             <>
               <button
                 className={cn(
-                  'mt-6 w-full rounded-full border-4 py-1.5 px-6 font-bold hover:bg-secondary-dark-10',
+                  'mt-6 max-h-11 w-full rounded-full border-4 py-1.5 px-6 font-bold hover:bg-secondary-dark-10',
                   {
                     'border-primary bg-secondary': filtersCurrent,
                     ' border-primary bg-secondary': !filtersCurrent,
                   }
                 )}
-                onClick={() => {
-                  setLoading(true);
-                  filtersDispatch({ type: 'SAVE_FILTERS', value: filters });
-                  if (location.pathname.includes('/providers')) {
-                    providersService.search(filters).then((providers) => {
-                      dataDispatch({
-                        type: 'REFRESH_PROVIDERS',
-                        value: providers,
-                      });
-                      setLoading(false);
-                      setFiltersCurrent(true);
-                    });
-                  } else if (location.pathname.includes('/product-sources')) {
-                    sourcesService.search(filters).then((sources) => {
-                      dataDispatch({
-                        type: 'REFRESH_SOURCES',
-                        value: sources,
-                      });
-                      setLoading(false);
-                      setFiltersCurrent(true);
-                    });
-                  }
-                }}
+                onClick={refreshData}
               >
                 {filtersCurrent ? 'Refresh' : 'Apply'}
               </button>
               <div className="flex w-full space-x-3">
                 <button
-                  className="w-full rounded-full border-2 border-gmc-surf bg-secondary py-2 px-6 font-bold hover:bg-secondary-dark-10"
-                  onClick={() => resetFiltersToInitial()}
+                  className="max-h-11 w-full rounded-full border-2 border-gmc-surf bg-secondary py-2 px-6 font-bold hover:bg-secondary-dark-10"
+                  onClick={() => clearFiltersToInitial()}
                 >
                   Clear All
                 </button>
                 <button
                   disabled={filtersCurrent}
                   className={cn(
-                    'w-full rounded-full border-2 py-2 px-6 font-bold',
+                    'max-h-11 w-full rounded-full border-2 py-2 px-6 font-bold',
                     {
                       'bg-secondary-dark-10 text-secondary-dark-50':
                         filtersCurrent,

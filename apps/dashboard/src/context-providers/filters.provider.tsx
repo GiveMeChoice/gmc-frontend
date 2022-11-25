@@ -12,23 +12,18 @@ export interface IFiltersState {
   activeFilters: IFilters;
   options: {
     providerSelect: ProviderSelectType[];
+    sourceStatusSelect: string[];
   };
+  filterBarVisible: boolean;
 }
-
-export const initialFilters = {
-  providerId: '',
-  providerActivation: '',
-  sourceIdentifier: '',
-  sourceActivation: '',
-  sourceStatus: '',
-};
 
 export interface IFilters {
   providerId: string;
   providerActivation: string;
+  sourceId: string;
   sourceIdentifier: string;
   sourceActivation: string;
-  sourceStatus: string;
+  sourceStatus?: string;
 }
 
 export type FiltersAction =
@@ -37,13 +32,31 @@ export type FiltersAction =
       value: IFilters;
     }
   | {
+      type: 'ENTER_FILTER_BAR';
+    }
+  | {
+      type: 'EXIT_FILTER_BAR';
+    }
+  | {
+      type: 'TOGGLE_FILTER_BAR';
+    }
+  | {
       type: 'SET_PROVIDER_SELECT_OPTIONS';
       value: ProviderSelectType[];
     };
 
-type ProviderSelectType = {
+export type ProviderSelectType = {
   id: string;
   key: string;
+};
+
+export const initialFilters = {
+  providerId: '',
+  providerActivation: '',
+  sourceId: '',
+  sourceIdentifier: '',
+  sourceActivation: '',
+  sourceStatus: '',
 };
 
 const FiltersContext = createContext<IFiltersState>(null);
@@ -56,14 +69,16 @@ export const FiltersProvider: React.FC = ({ children }) => {
     activeFilters: initialFilters,
     options: {
       providerSelect: [],
+      sourceStatusSelect: ['READY', 'BUSY', 'DOWN'],
     },
+    filterBarVisible: false,
   });
 
   useEffect(() => {
     providersService.getAll().then((providers) => {
       dispatch({
         type: 'SET_PROVIDER_SELECT_OPTIONS',
-        value: providers.map((p) => ({ id: p.id, key: p.key })),
+        value: providers.data.map((p) => ({ id: p.id, key: p.key })),
       });
     });
   }, []);
@@ -81,8 +96,24 @@ function filtersReducer(
   data: IFiltersState,
   action: FiltersAction
 ): IFiltersState {
-  console.log(JSON.stringify(action.value));
+  console.log(action.type);
+  console.log(data.filterBarVisible);
   switch (action.type) {
+    case 'ENTER_FILTER_BAR':
+      return {
+        ...data,
+        filterBarVisible: true,
+      };
+    case 'EXIT_FILTER_BAR':
+      return {
+        ...data,
+        filterBarVisible: false,
+      };
+    case 'TOGGLE_FILTER_BAR':
+      return {
+        ...data,
+        filterBarVisible: !data.filterBarVisible,
+      };
     case 'SAVE_FILTERS':
       return {
         ...data,
@@ -92,6 +123,7 @@ function filtersReducer(
       return {
         ...data,
         options: {
+          ...data.options,
           providerSelect: action.value,
         },
       };

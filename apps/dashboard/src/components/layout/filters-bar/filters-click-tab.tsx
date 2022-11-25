@@ -1,25 +1,24 @@
-import React from 'react';
+import {
+  useFilters,
+  useFiltersDispatch,
+} from '@root/context-providers/filters.provider';
 import cn from 'classnames';
+import React from 'react';
 
-interface Props {
-  filtersVisible: boolean;
-  setFiltersVisible: (visible: boolean) => void;
-}
+const FiltersClickTab: React.FC = () => {
+  const { filterBarVisible } = useFilters();
+  const dispatch = useFiltersDispatch();
 
-const FiltersClickTab: React.FC<Props> = ({
-  filtersVisible,
-  setFiltersVisible,
-}) => {
   return (
     <div
       className={cn(
         'bg-divide-zinc-900 absolute right-0 top-44 flex h-14 cursor-pointer flex-col justify-center rounded-l-md bg-zinc-900 pl-1.5 outline outline-secondary duration-500 lg:top-32 ',
         {
-          'w-7': !filtersVisible,
-          'w-0': filtersVisible,
+          'w-7': !filterBarVisible,
+          'w-0': filterBarVisible,
         }
       )}
-      onClick={() => setFiltersVisible(!filtersVisible)}
+      onClick={() => dispatch({ type: 'ENTER_FILTER_BAR' })}
     >
       <div className="flex flex-col divide-y-2 divide-primary">
         <div className="h-2" />
