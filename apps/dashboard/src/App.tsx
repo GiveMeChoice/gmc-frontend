@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './components/home';
 import JobsScreen from './components/jobs-screen/jobs';
 import Layout from './components/layout';
+import ProductsScreen from './components/products';
 import Providers from './components/providers-screen/providers';
 import Runs from './components/runs';
 import Sources from './components/sources-screen/sources';
@@ -34,6 +35,7 @@ function App() {
         <Route path="providers" element={<Providers />} />
         <Route path="product-sources" element={<Sources />} />
         <Route path="source-runs" element={<Runs />} />
+        <Route path="products" element={<ProductsScreen />} />
         <Route path="jobs" element={<JobsScreen />} />
       </Route>
     </Routes>

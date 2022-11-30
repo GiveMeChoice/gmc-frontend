@@ -1,4 +1,5 @@
 import { IJobStatus } from '@root/services/jobs.service';
+import { IProduct } from '@root/services/products.service';
 import { IProvider } from '@root/services/providers.service';
 import { IRun } from '@root/services/runs.service';
 import {
@@ -18,11 +19,13 @@ import {
 export interface IData {
   jobs: IJobStatus[];
   providers: IProvider[];
-  providersMeta: PageMeta;
   sources: ISource[];
-  sourcesMeta: PageMeta;
   runs: IRun[];
+  products: IProduct[];
+  providersMeta: PageMeta;
+  sourcesMeta: PageMeta;
   runsMeta: PageMeta;
+  productsMeta: PageMeta;
 }
 
 export type DataAction =
@@ -41,6 +44,10 @@ export type DataAction =
   | {
       type: 'REFRESH_RUNS';
       value: PageResponse<IRun>;
+    }
+  | {
+      type: 'REFRESH_PRODUCTS';
+      value: PageResponse<IProduct>;
     }
   | {
       type: 'UPDATE_JOB';
@@ -107,6 +114,12 @@ function dataReducer(data: IData, action: DataAction): IData {
         runs: action.value.data,
         runsMeta: action.value.meta,
       };
+    case 'REFRESH_PRODUCTS':
+      return {
+        ...data,
+        products: action.value.data,
+        productsMeta: action.value.meta,
+      };
     case 'UPDATE_JOB':
       return {
         ...data,
@@ -139,7 +152,9 @@ const initialData: IData = {
   providers: [],
   sources: [],
   runs: [],
+  products: [],
   providersMeta: {},
   sourcesMeta: {},
   runsMeta: {},
+  productsMeta: {},
 };

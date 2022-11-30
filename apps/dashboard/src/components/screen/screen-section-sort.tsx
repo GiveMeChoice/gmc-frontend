@@ -4,14 +4,21 @@ import {
 } from '@root/context-providers/data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
 import jobsService from '@root/services/jobs.service';
+import productsService from '@root/services/products.service';
 import providersService from '@root/services/providers.service';
+import runsService from '@root/services/runs.service';
 import sourcesService from '@root/services/sources.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 
 interface Props {
-  fields: string[];
+  fields: SortField[];
 }
+
+export type SortField = {
+  name: string;
+  title: string;
+};
 
 const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
   const { activeFilters } = useFilters();
@@ -27,32 +34,31 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
   }, []);
 
   const handleSelectField = (e) => {
-    let field = e.target.id;
+    let fieldName = e.target.id;
     let direction = '';
-    if (activeField === field) {
+    if (activeField === fieldName) {
       if (activeDirection === 'DESC') {
         direction = 'ASC';
       } else {
         // remove sort from field
-        field = '';
+        fieldName = '';
         direction = '';
       }
     } else {
       direction = 'DESC';
     }
-    setActiveField(field);
+    setActiveField(fieldName);
     setActiveDirection(direction);
-    refreshData(field, direction);
+    refreshData(fieldName, direction);
   };
 
-  const refreshData = async (field, direction) => {
-    console.log('refreshing sort...', field, direction);
+  const refreshData = async (fieldName, direction) => {
     if (location.pathname.includes('/providers')) {
       dataDispatch({
         type: 'REFRESH_PROVIDERS',
         value: await providersService.search(activeFilters, {
           ...data.providersMeta,
-          sort: field,
+          sort: fieldName,
           direction,
         }),
       });
@@ -61,7 +67,25 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
         type: 'REFRESH_SOURCES',
         value: await sourcesService.search(activeFilters, {
           ...data.sourcesMeta,
-          sort: field,
+          sort: fieldName,
+          direction,
+        }),
+      });
+    } else if (location.pathname.includes('/source-runs')) {
+      dataDispatch({
+        type: 'REFRESH_RUNS',
+        value: await runsService.search(activeFilters, {
+          ...data.runsMeta,
+          sort: fieldName,
+          direction,
+        }),
+      });
+    } else if (location.pathname.includes('/products')) {
+      dataDispatch({
+        type: 'REFRESH_PRODUCTS',
+        value: await productsService.search(activeFilters, {
+          ...data.productsMeta,
+          sort: fieldName,
           direction,
         }),
       });
@@ -77,6 +101,10 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
       return data.providersMeta;
     } else if (location.pathname.includes('/product-sources')) {
       return data.sourcesMeta;
+    } else if (location.pathname.includes('/source-runs')) {
+      return data.runsMeta;
+    } else if (location.pathname.includes('/products')) {
+      return data.productsMeta;
     } else if (location.pathname.includes('/jobs')) {
     }
   };
@@ -85,18 +113,18 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
       {fields.map((field, i) => (
         <button
           key={i}
-          id={field}
+          id={field.name}
           className={cn('h-full flex-grow lg:w-20', {
             'rounded-l-full': i === 0,
             'rounded-r-full': i === fields.length - 1,
             'bg-gmc-sunset text-zinc-800':
-              activeField === field && activeDirection === 'ASC',
+              activeField === field.name && activeDirection === 'ASC',
             'bg-gmc-surf text-zinc-800':
-              activeField === field && activeDirection === 'DESC',
+              activeField === field.name && activeDirection === 'DESC',
           })}
           onClick={handleSelectField}
         >
-          {field}
+          {field.title}
         </button>
       ))}
     </div>

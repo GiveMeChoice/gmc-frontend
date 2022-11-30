@@ -7,7 +7,7 @@ import {
   useFilters,
 } from '@root/context-providers/filters.provider';
 import sourcesService from '@root/services/sources.service';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ScreenSection from '../screen/screen-section';
 import ScreenSectionRow from '../screen/screen-section-row';
 import SourcesListRow from './sources-list-row';
@@ -15,18 +15,22 @@ import SourcesListRow from './sources-list-row';
 const Sources: React.FC = () => {
   const { sources, sourcesMeta } = useData();
   const dispatch = useDataDispatch();
-  const { activeFilters: filters, options } = useFilters();
+  const { activeFilters, options } = useFilters();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!sources.length) {
-      refreshData();
+      setLoading(true);
+      sourcesService
+        .search(activeFilters, sourcesMeta)
+        .then((sources) => {
+          dispatch({ type: 'REFRESH_SOURCES', value: sources });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, []);
-
-  const refreshData = () => {
-    sourcesService.search(filters).then((sources) => {
-      dispatch({ type: 'REFRESH_SOURCES', value: sources });
-    });
-  };
 
   const getProviderKey = (providerId: string) => {
     let match: ProviderSelectType = null;
@@ -39,7 +43,32 @@ const Sources: React.FC = () => {
   return (
     <ScreenSection
       title={'Product Sources'}
-      sortFields={['identifier', 'status', 'lastRunAt', 'active']}
+      sortFields={[
+        {
+          name: 'identifier',
+          title: 'Identifier',
+        },
+        {
+          name: 'status',
+          title: 'Status',
+        },
+        {
+          name: 'retryCount',
+          title: 'Retries',
+        },
+        {
+          name: 'lastRunAt',
+          title: 'Last Run Date',
+        },
+        {
+          name: 'runIntervalHours',
+          title: 'Run Interval',
+        },
+        {
+          name: 'active',
+          title: 'Active',
+        },
+      ]}
       meta={sourcesMeta}
     >
       {sources.length ? (
@@ -53,7 +82,9 @@ const Sources: React.FC = () => {
         ))
       ) : (
         <ScreenSectionRow>
-          <h1>Loading...</h1>
+          <span className="m-3">
+            {loading ? 'Loading...' : 'No Sources Found'}
+          </span>
         </ScreenSectionRow>
       )}
     </ScreenSection>

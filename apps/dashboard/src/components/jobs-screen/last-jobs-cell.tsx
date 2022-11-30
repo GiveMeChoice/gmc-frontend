@@ -17,32 +17,32 @@ const LastJobsCell: React.FC<Props> = ({ name, last }) => {
     let runEl = document.getElementById(runId);
     if (runEl.classList.contains('hidden')) {
       runEl.classList.remove('hidden');
-      buttonEl.classList.add('bg-gmc-beach');
+      buttonEl.classList.add('bg-primary-light-30');
       buttonEl.classList.remove('bg-zinc-200');
-      buttonEl.innerText = '▽';
+      buttonEl.innerText = 'ᐁ';
     } else {
       runEl.classList.add('hidden');
-      buttonEl.classList.remove('bg-gmc-beach');
+      buttonEl.classList.remove('bg-primary-light-30');
       buttonEl.classList.add('bg-zinc-200');
-      buttonEl.innerText = 'ᐳ';
+      buttonEl.innerText = 'ᐅ';
     }
   };
   return (
     <ScreenSectionCell styles="w-3/12 flex flex-col space-y-2">
       {last
-        .sort((a, b) => (new Date(b.runAt) as any) - (new Date(a.runAt) as any))
+        .sort((a, b) => (new Date(a.runAt) as any) - (new Date(b.runAt) as any))
         .map((l, i) => (
           <div key={i}>
             <div className="flex items-center space-x-3">
               <button
                 id={`${i}-${name}-button`}
-                className="flex h-5 w-10 items-center justify-center rounded-xl border-2 border-zinc-500  bg-zinc-200 bg-opacity-40 font-bold text-zinc-600 hover:bg-gmc-beach hover:bg-opacity-40"
+                className="flex h-5 w-8 items-center justify-center rounded-md border border-zinc-500  bg-zinc-200 bg-opacity-40 font-bold text-zinc-600 hover:bg-primary-light-30 hover:bg-opacity-40"
                 onClick={handleToggleRun}
               >
-                {'ᐳ'}
+                {last.length === i + 1 ? 'ᐁ' : 'ᐅ'}
               </button>
               <span
-                className={cn('text-xs font-bold text-gmc-forest', {
+                className={cn('text-sm font-bold', {
                   'text-gmc-heart': l.status !== 'SUCCESS',
                 })}
               >
@@ -51,7 +51,9 @@ const LastJobsCell: React.FC<Props> = ({ name, last }) => {
             </div>
             <div
               id={`${i}-${name}-run`}
-              className="ml-7 mt-2 flex hidden w-full flex-col text-sm"
+              className={`ml-7 mt-2 flex ${
+                last.length === i + 1 ? '' : 'hidden'
+              } w-full flex-col text-sm`}
             >
               <div>
                 <span className="mr-1 font-bold">Duration:</span>

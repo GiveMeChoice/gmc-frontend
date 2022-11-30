@@ -4,7 +4,7 @@ import {
 } from '@root/context-providers/data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
 import providersService from '@root/services/providers.service';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ScreenSection from '../screen/screen-section';
 import ScreenSectionRow from '../screen/screen-section-row';
 import ProvidersListRow from './providers-list-row';
@@ -12,18 +12,22 @@ import ProvidersListRow from './providers-list-row';
 const Providers: React.FC = () => {
   const { providers, providersMeta } = useData();
   const dispatch = useDataDispatch();
-  const { activeFilters: filters } = useFilters();
+  const { activeFilters } = useFilters();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (!providers.length) {
-      refreshData();
+      setLoading(true);
+      providersService
+        .search(activeFilters)
+        .then((providers) => {
+          dispatch({ type: 'REFRESH_PROVIDERS', value: providers });
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
   }, []);
-
-  const refreshData = () => {
-    providersService.search(filters).then((providers) => {
-      dispatch({ type: 'REFRESH_PROVIDERS', value: providers });
-    });
-  };
 
   return (
     <ScreenSection title={'Providers List'} meta={providersMeta}>
@@ -33,7 +37,9 @@ const Providers: React.FC = () => {
         ))
       ) : (
         <ScreenSectionRow>
-          <h1>Loading...</h1>
+          <span className="m-3">
+            {loading ? 'Loading...' : 'No Providers Found'}
+          </span>
         </ScreenSectionRow>
       )}
     </ScreenSection>

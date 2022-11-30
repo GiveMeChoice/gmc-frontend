@@ -57,9 +57,9 @@ const extractSourceFilters = (filters: IFilters): Partial<ISource> => ({
   ...(filters.sourceActivation && {
     active: filters.sourceActivation === 'active',
   }),
-  ...(filters.sourceIdentifier && {
-    identifier: filters.sourceIdentifier,
-  }),
+  // ...(filters.sourceIdentifier && {
+  //   identifier: filters.sourceIdentifier,
+  // }),
   ...(filters.sourceStatus && {
     status: filters.sourceStatus,
   }),

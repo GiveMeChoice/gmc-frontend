@@ -17,6 +17,11 @@ export interface IRun {
   startedAt: Date;
   completedAt: Date;
   errorMessage: string;
+  source: {
+    providerId?: string;
+    identifier?: string;
+    description?: string;
+  };
 }
 
 const search = async (
@@ -42,5 +47,15 @@ export default runsService;
 function extractRunFilters(filters: IFilters): Partial<IRun> {
   return {
     ...(filters.sourceId && { sourceId: filters.sourceId }),
+    ...(filters.sourceIdentifier && {
+      source: {
+        identifier: filters.sourceIdentifier,
+      },
+    }),
+    ...(filters.providerId && {
+      source: {
+        providerId: filters.providerId,
+      },
+    }),
   };
 }

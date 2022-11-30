@@ -1,7 +1,7 @@
+import { useDataDispatch } from '@root/context-providers/data.provider';
 import {
   IFilters,
   initialFilters,
-  useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
 import React from 'react';
@@ -12,7 +12,8 @@ interface Props {
 }
 
 const ProviderSourcesCell: React.FC<Props> = ({ providerId }) => {
-  const dispatch = useFiltersDispatch();
+  const filtersDispatch = useFiltersDispatch();
+  const dataDispatch = useDataDispatch();
   const navigate = useNavigate();
 
   const onViewSources = () => {
@@ -20,7 +21,8 @@ const ProviderSourcesCell: React.FC<Props> = ({ providerId }) => {
       ...initialFilters,
       providerId,
     };
-    dispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
+    filtersDispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
+    dataDispatch({ type: 'REFRESH_SOURCES', value: { data: [], meta: {} } });
     navigate('/product-sources');
   };
 

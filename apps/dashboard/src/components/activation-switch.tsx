@@ -51,15 +51,17 @@ const ActivationSwitch: React.FC<Props> = ({ active, id }) => {
   };
 
   return (
-    <div className="flex h-full w-full flex-wrap items-center justify-around">
+    <div
+      className={`flex h-full w-full flex-wrap items-center justify-center space-x-1 space-y-1`}
+    >
       <div className="flex w-1/2 justify-center">
         {loading ? (
           <LoadingWheel size="h-9 w-9" />
         ) : (
           <p
-            className={cn('text-sm font-bold', {
-              'text-gmc-forest': active,
-              'text-zinc-400': !active,
+            className={cn('text-sm', {
+              'text-zinc-900': active,
+              'text-secondary-dark-40': !active,
             })}
           >
             {active ? 'ACTIVE' : 'INACTIVE'}

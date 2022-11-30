@@ -28,8 +28,8 @@ const CopyIdButton: React.FC<Props> = ({ index, id }) => (
       id={`copy-button-${index}`}
       className="relative cursor-default opacity-0 duration-500"
     >
-      <span className="absolute -top-3 left-0 block w-16 rounded-md bg-primary-light-30 p-1 text-xs duration-200">
-        ID Copied
+      <span className="absolute -top-3 left-1 block w-12 rounded-md bg-primary-light-30 p-1 text-xs duration-200">
+        Copied
       </span>
     </div>
   </>

@@ -13,6 +13,7 @@ export interface IFiltersState {
   options: {
     providerSelect: ProviderSelectType[];
     sourceStatusSelect: string[];
+    jobScheduleSelect: string[];
   };
   filterBarVisible: boolean;
 }
@@ -70,6 +71,23 @@ export const FiltersProvider: React.FC = ({ children }) => {
     options: {
       providerSelect: [],
       sourceStatusSelect: ['READY', 'BUSY', 'DOWN'],
+      jobScheduleSelect: [
+        'EVERY_SECOND',
+        'EVERY_10_SECONDS',
+        'EVERY_30_SECONDS',
+        'EVERY_MINUTE',
+        'EVERY_5_MINUTES',
+        'EVERY_10_MINUTES',
+        'EVERY_30_MINUTES',
+        'EVERY_HOUR',
+        'EVERY_2_HOURS',
+        'EVERY_8_HOURS',
+        'EVERY_12_HOURS',
+        'EVERY_DAY_AT_MIDNIGHT',
+        'EVERY_DAY_AT_NOON',
+        'EVERY_WEEK',
+        'EVERY_YEAR',
+      ],
     },
     filterBarVisible: false,
   });

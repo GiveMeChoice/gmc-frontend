@@ -7,8 +7,8 @@ export const toDateString = (
   let formattedDate = `${dateRaw.substring(5, 7)}/${dateRaw.substring(
     8,
     10
-  )}/${dateRaw.substring(0, 4)}`;
+  )}/${dateRaw.substring(2, 4)}`;
   return omitTime
     ? formattedDate
-    : `${formattedDate}, ${dateRaw.substring(11, 19)}`;
+    : `${formattedDate} ${dateRaw.substring(11, 19)}`;
 };

@@ -1,7 +1,7 @@
+import { useDataDispatch } from '@root/context-providers/data.provider';
 import {
   IFilters,
   initialFilters,
-  useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
 import React from 'react';
@@ -13,16 +13,17 @@ interface Props {
 }
 
 const ViewSourceRunsCell: React.FC<Props> = ({ sourceId, identifier }) => {
-  const dispatch = useFiltersDispatch();
+  const filtersDispatch = useFiltersDispatch();
+  const dataDispatch = useDataDispatch();
   const navigate = useNavigate();
 
   const onViewRuns = () => {
     const sourceFilters: IFilters = {
       ...initialFilters,
       sourceIdentifier: identifier,
-      sourceId,
     };
-    dispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
+    filtersDispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
+    dataDispatch({ type: 'REFRESH_RUNS', value: { data: [], meta: {} } });
     navigate('/source-runs');
   };
 

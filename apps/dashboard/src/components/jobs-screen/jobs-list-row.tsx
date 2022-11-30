@@ -6,6 +6,7 @@ import ActivationSwitch from '../activation-switch';
 import LoadingWheel from '../loading-wheel';
 import ScreenSectionCell from '../screen/screen-section-cell';
 import ScreenSectionRow from '../screen/screen-section-row';
+import JobScheduleField from './job-schedule-field';
 import LastJobsCell from './last-jobs-cell';
 
 interface Props {
@@ -33,18 +34,18 @@ const JobsListRow: React.FC<Props> = ({ job }) => {
 
   return (
     <ScreenSectionRow>
-      <ScreenSectionCell styles="w-3/12 flex items-center justify-center font-bold">
+      <ScreenSectionCell styles="w-2/12 flex items-center justify-center font-bold">
         {job.name}
       </ScreenSectionCell>
-      <ScreenSectionCell styles="w-2/12 flex flex-col items-center justify-center space-y-1">
-        <span className="pb-1 text-gmc-ocean">{job.schedule}</span>
-        <span className="text-xs font-bold text-gmc-soil">
+      <ScreenSectionCell styles="w-4/12 flex flex-col items-center justify-center space-y-0.5">
+        <JobScheduleField jobName={job.name} schedule={job.schedule} />
+        <span className="text-sm  text-gmc-ocean">
           {toDateString(job.next[0])}
         </span>
-        <span className="text-xs font-bold text-gmc-soil">
+        <span className="text-sm  text-gmc-ocean">
           {toDateString(job.next[1])}
         </span>
-        <span className="text-xs font-bold text-gmc-soil">
+        <span className="text-sm  text-gmc-ocean">
           {toDateString(job.next[2])}
         </span>
       </ScreenSectionCell>
@@ -65,7 +66,7 @@ const JobsListRow: React.FC<Props> = ({ job }) => {
       ) : (
         <ScreenSectionCell styles="w-1/12 flex items-center">
           <button
-            className="rounded-md border-2 border-black bg-zinc-200 p-1.5 px-3 text-sm  hover:bg-opacity-50 active:bg-gmc-beach active:bg-opacity-40"
+            className="rounded-md border-2 border-black bg-zinc-200 bg-opacity-40 p-1.5 px-3  text-sm hover:bg-primary-light-50 active:bg-primary"
             onClick={handleExecute}
           >
             EXECUTE

@@ -1,5 +1,8 @@
 import LoadingWheel from '@root/components/loading-wheel';
-import { useDataDispatch } from '@root/context-providers/data.provider';
+import {
+  useData,
+  useDataDispatch,
+} from '@root/context-providers/data.provider';
 import {
   IFilters,
   initialFilters,
@@ -7,6 +10,7 @@ import {
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
 import jobsService from '@root/services/jobs.service';
+import productsService from '@root/services/products.service';
 import providersService from '@root/services/providers.service';
 import runsService from '@root/services/runs.service';
 import sourcesService from '@root/services/sources.service';
@@ -19,6 +23,7 @@ const FiltersContainer: React.FC = () => {
   const { activeFilters, options, filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
   const dataDispatch = useDataDispatch();
+  const { providersMeta, sourcesMeta, runsMeta, productsMeta } = useData();
 
   const [filters, setFilters] = useState<IFilters>({ ...activeFilters });
 
@@ -55,17 +60,22 @@ const FiltersContainer: React.FC = () => {
       if (location.pathname.includes('/providers')) {
         dataDispatch({
           type: 'REFRESH_PROVIDERS',
-          value: await providersService.search(filters),
+          value: await providersService.search(filters, providersMeta),
         });
       } else if (location.pathname.includes('/product-sources')) {
         dataDispatch({
           type: 'REFRESH_SOURCES',
-          value: await sourcesService.search(filters),
+          value: await sourcesService.search(filters, sourcesMeta),
         });
       } else if (location.pathname.includes('/source-runs')) {
         dataDispatch({
           type: 'REFRESH_RUNS',
-          value: await runsService.search(filters),
+          value: await runsService.search(filters, runsMeta),
+        });
+      } else if (location.pathname.includes('/products')) {
+        dataDispatch({
+          type: 'REFRESH_PRODUCTS',
+          value: await productsService.search(filters, productsMeta),
         });
       } else if (location.pathname.includes('/jobs')) {
         dataDispatch({
