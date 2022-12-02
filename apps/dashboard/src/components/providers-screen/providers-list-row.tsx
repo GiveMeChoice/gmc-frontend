@@ -4,7 +4,9 @@ import CopyIdButton from '../copy-id-button';
 import ScreenSectionCell from '../screen/screen-section-cell';
 import ScreenSectionRow from '../screen/screen-section-row';
 import ActivationSwitch from '../activation-switch';
-import ViewProviderSourcesCell from './view-provider-sources-cell';
+import ViewSourcesLink from './view-sources-link';
+import ViewRunsLink from '../sources-screen/view-runs-link';
+import ViewProductsLink from '../sources-screen/view-products-link';
 
 interface Props {
   provider: IProvider;
@@ -14,17 +16,29 @@ interface Props {
 const ProvidersListRow: React.FC<Props> = ({ provider, index }) => {
   return (
     <ScreenSectionRow>
-      <ScreenSectionCell styles="w-1/3">
+      <ScreenSectionCell styles="w-2/5 flex flex-col justify-center">
         <div className="flex items-center space-x-1">
           <h2 className="text-lg font-bold">{provider.key}</h2>
-          <CopyIdButton index={index} id={provider.id} />
+          <CopyIdButton id={provider.id} />
         </div>
-        <span>{provider.description}</span>
+        <div className="px-0.5">
+          <span className="text-gmc-soil">{provider.description}</span>
+        </div>
       </ScreenSectionCell>
       <ScreenSectionCell styles="w-1/5">
         <ActivationSwitch active={provider.active} id={provider.id} />
       </ScreenSectionCell>
-      <ViewProviderSourcesCell providerId={provider.id} />
+      <ScreenSectionCell styles="w-2/5 flex flex-col items-center justify-center space-y-1.5 divide-y divide-zinc-300">
+        <div className="flex w-full justify-center">
+          <ViewSourcesLink providerId={provider.id} />
+        </div>
+        <div className="flex w-full justify-center">
+          <ViewRunsLink providerId={provider.id} />
+        </div>
+        <div className="flex w-full justify-center">
+          <ViewProductsLink providerId={provider.id} />
+        </div>
+      </ScreenSectionCell>
     </ScreenSectionRow>
   );
 };

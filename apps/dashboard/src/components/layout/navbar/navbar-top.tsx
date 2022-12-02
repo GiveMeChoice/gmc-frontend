@@ -35,6 +35,6 @@ export default NavbarTop;
 const getTitle = (location: Location) => {
   if (location.pathname.includes('/providers')) return 'Providers';
   if (location.pathname.includes('/product-sources')) return 'Product Sources';
-  if (location.pathname.includes('/source-runs')) return 'Source Runs';
+  if (location.pathname.includes('/product-runs')) return 'Source Runs';
   return 'Home';
 };

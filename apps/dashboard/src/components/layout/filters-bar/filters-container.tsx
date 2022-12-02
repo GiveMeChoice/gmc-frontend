@@ -67,7 +67,7 @@ const FiltersContainer: React.FC = () => {
           type: 'REFRESH_SOURCES',
           value: await sourcesService.search(filters, sourcesMeta),
         });
-      } else if (location.pathname.includes('/source-runs')) {
+      } else if (location.pathname.includes('/product-runs')) {
         dataDispatch({
           type: 'REFRESH_RUNS',
           value: await runsService.search(filters, runsMeta),
@@ -107,7 +107,7 @@ const FiltersContainer: React.FC = () => {
       <div
         id="filters-container"
         className={cn(
-          'flex h-5/6 flex-col items-center space-y-4 overflow-y-auto px-6 pb-44',
+          'flex h-5/6 flex-col items-center space-y-4 divide-y divide-zinc-300 overflow-y-auto px-6 pb-44',
           { hidden: !filterBarVisible }
         )}
       >
@@ -164,89 +164,135 @@ const FiltersContainer: React.FC = () => {
           </div>
         </div>
 
-        <div className="w-full">
-          <label
-            htmlFor="sourceId"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Source ID
-          </label>
-          <input
-            id="sourceId"
-            className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            value={filters.sourceId}
-            onChange={handleFieldChange}
-          />
-        </div>
-
-        <div className="w-full">
-          <label
-            htmlFor="sourceIdentifier"
-            className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-          >
-            Source Identifier
-          </label>
-          <input
-            id="sourceIdentifier"
-            className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            value={filters.sourceIdentifier}
-            onChange={handleFieldChange}
-          />
-        </div>
-
-        <div className="flex w-full space-x-3">
-          <div className="w-1/2">
+        <div className="flex w-full flex-col space-y-2 pt-3">
+          <div className="w-full">
             <label
-              htmlFor="sourceStatus"
+              htmlFor="sourceIdentifier"
               className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
             >
-              Source Status
+              Source Identifier
+            </label>
+            <input
+              id="sourceIdentifier"
+              className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              value={filters.sourceIdentifier}
+              onChange={handleFieldChange}
+            />
+          </div>
+
+          <div className="flex w-full space-x-3">
+            <div className="w-1/2">
+              <label
+                htmlFor="sourceStatus"
+                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Source Status
+              </label>
+              <select
+                id="sourceStatus"
+                className={cn(
+                  'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                  {
+                    'text-gray-400': !filters.sourceStatus,
+                  }
+                )}
+                value={filters.sourceStatus}
+                onChange={handleFieldChange}
+              >
+                <option value="">-----</option>
+                {options.sourceStatusSelect.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-1/2">
+              <label
+                htmlFor="sourceActivation"
+                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Source Activation
+              </label>
+              <select
+                id="sourceActivation"
+                className={cn(
+                  'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                  {
+                    'text-gray-400': !filters.sourceActivation,
+                  }
+                )}
+                value={filters.sourceActivation}
+                onChange={handleFieldChange}
+              >
+                <option value="">-----</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex w-full flex-col space-y-2 pt-3">
+          <div className="w-full">
+            <label
+              htmlFor="productStatus"
+              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Product Status
             </label>
             <select
-              id="sourceStatus"
+              id="productStatus"
               className={cn(
-                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                 {
-                  'text-gray-400': !filters.sourceStatus,
+                  'text-gray-400': !filters.productStatus,
                 }
               )}
-              value={filters.sourceStatus}
+              value={filters.productStatus}
               onChange={handleFieldChange}
             >
               <option value="">-----</option>
-              {options.sourceStatusSelect.map((s) => (
+              {options.productStatusSelect.map((s) => (
                 <option key={s} value={s}>
                   {s}
                 </option>
               ))}
             </select>
           </div>
-          <div className="w-1/2">
-            <label
-              htmlFor="sourceActivation"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Source Activation
-            </label>
-            <select
-              id="sourceActivation"
-              className={cn(
-                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-                {
-                  'text-gray-400': !filters.sourceActivation,
-                }
-              )}
-              value={filters.sourceActivation}
-              onChange={handleFieldChange}
-            >
-              <option value="">-----</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
+          <div className="flex w-full space-x-3">
+            <div className="w-1/2">
+              <label
+                htmlFor="productShortId"
+                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Internal ID
+              </label>
+              <input
+                id="productShortId"
+                className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                value={filters.productShortId}
+                onChange={handleFieldChange}
+              />
+            </div>
+            <div className="w-1/2">
+              <label
+                htmlFor="productProviderId"
+                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              >
+                Provider ID
+              </label>
+              <input
+                id="productProviderId"
+                className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                value={filters.productProviderId}
+                onChange={handleFieldChange}
+              />
+            </div>
           </div>
         </div>
 
-        <div className="flex h-32 w-full flex-col justify-center space-y-4">
+        <div className="flex h-32 w-full flex-col items-center justify-center space-y-4">
           {loading ? (
             <LoadingWheel size="w-14 h-14" />
           ) : (

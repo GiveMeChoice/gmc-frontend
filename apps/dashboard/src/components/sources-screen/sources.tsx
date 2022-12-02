@@ -61,12 +61,8 @@ const Sources: React.FC = () => {
           title: 'Last Run Date',
         },
         {
-          name: 'runIntervalHours',
-          title: 'Run Interval',
-        },
-        {
-          name: 'active',
-          title: 'Active',
+          name: 'ownedCount',
+          title: 'Owned',
         },
       ]}
       meta={sourcesMeta}

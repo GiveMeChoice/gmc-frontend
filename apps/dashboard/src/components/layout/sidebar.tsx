@@ -41,13 +41,13 @@ const Sidebar: React.FC = () => {
             <span>Product Sources</span>
           </Link>
           <Link
-            to="/source-runs"
+            to="/product-runs"
             className={cn(
               'flex rounded-md py-3 text-sm font-bold duration-150',
               {
                 'hover:bg-primary-light-50':
-                  !location.pathname.includes('/source-runs'),
-                'bg-primary': location.pathname.includes('/source-runs'),
+                  !location.pathname.includes('/product-runs'),
+                'bg-primary': location.pathname.includes('/product-runs'),
               }
             )}
           >

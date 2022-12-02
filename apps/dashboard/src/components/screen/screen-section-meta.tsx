@@ -46,7 +46,7 @@ const ScreenSectionMeta: React.FC<Props> = ({ meta }) => {
           type: 'REFRESH_PROVIDERS',
           value: await providersService.search(activeFilters, pageRequest),
         });
-      } else if (location.pathname.includes('/source-runs')) {
+      } else if (location.pathname.includes('/product-runs')) {
         dispatch({
           type: 'REFRESH_RUNS',
           value: await runsService.search(activeFilters, pageRequest),

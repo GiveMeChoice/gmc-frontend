@@ -29,6 +29,7 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
 
   useEffect(() => {
     const { sort, direction } = getCurrentSort();
+    console.log('current sort: ' + sort + ' ' + direction);
     setActiveField(sort);
     setActiveDirection(direction);
   }, []);
@@ -71,7 +72,7 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
           direction,
         }),
       });
-    } else if (location.pathname.includes('/source-runs')) {
+    } else if (location.pathname.includes('/product-runs')) {
       dataDispatch({
         type: 'REFRESH_RUNS',
         value: await runsService.search(activeFilters, {
@@ -101,7 +102,7 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
       return data.providersMeta;
     } else if (location.pathname.includes('/product-sources')) {
       return data.sourcesMeta;
-    } else if (location.pathname.includes('/source-runs')) {
+    } else if (location.pathname.includes('/product-runs')) {
       return data.runsMeta;
     } else if (location.pathname.includes('/products')) {
       return data.productsMeta;
@@ -124,6 +125,11 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
           })}
           onClick={handleSelectField}
         >
+          {activeField === field.name && (
+            <span className="mr-1">
+              {activeDirection === 'ASC' ? 'Δ' : 'ᐁ'}
+            </span>
+          )}
           {field.title}
         </button>
       ))}

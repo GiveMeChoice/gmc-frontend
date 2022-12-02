@@ -32,7 +32,7 @@ const RetryLimitField: React.FC<Props> = ({ sourceId, limit }) => {
   };
 
   return (
-    <div className="flex items-center space-x-1 space-y-1 px-2">
+    <div className="flex items-center space-x-2 space-y-1 px-4">
       <span className="pr-2 text-center text-sm">Retry Limit: </span>
       <input
         className={cn('h-6 w-14 rounded-md border pl-1.5 text-lg', {

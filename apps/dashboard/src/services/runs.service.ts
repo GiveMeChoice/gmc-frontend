@@ -5,17 +5,20 @@ import { PageResponse } from './shared/page-response.interface';
 
 export interface IRun {
   id: string;
+  runAt: Date;
+  runTime: number;
+  sourceDate: Date;
   sourceId: string;
   foundCount: number;
   ownedCount: number;
   createdCount: number;
   adoptedCount: number;
+  pendingCount: number;
+  foreignCount: number;
   staleCount: number;
   keepAliveSignalCount: number;
   refreshSignalCount: number;
   failureCount: number;
-  startedAt: Date;
-  completedAt: Date;
   errorMessage: string;
   source: {
     providerId?: string;
@@ -29,7 +32,7 @@ const search = async (
   pageRequest?: PageRequest
 ): Promise<PageResponse<IRun>> => {
   const res = await axios.post<PageResponse<IRun>>(
-    '/source-runs/search',
+    '/product-runs/search',
     extractRunFilters(filters),
     {
       params: pageRequest,
@@ -46,16 +49,13 @@ export default runsService;
 
 function extractRunFilters(filters: IFilters): Partial<IRun> {
   return {
-    ...(filters.sourceId && { sourceId: filters.sourceId }),
-    ...(filters.sourceIdentifier && {
-      source: {
+    source: {
+      ...(filters.sourceIdentifier && {
         identifier: filters.sourceIdentifier,
-      },
-    }),
-    ...(filters.providerId && {
-      source: {
+      }),
+      ...(filters.providerId && {
         providerId: filters.providerId,
-      },
-    }),
+      }),
+    },
   };
 }

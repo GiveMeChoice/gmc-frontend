@@ -34,11 +34,11 @@ const NavbarBottom: React.FC = () => {
           <Link
             className={cn('p-3 duration-150', {
               ' bolder-text text-primary':
-                location.pathname.includes('/source-runs'),
+                location.pathname.includes('/product-runs'),
               'hover:bolder-text hover:scale-105 hover:text-white':
-                !location.pathname.includes('/source-runs'),
+                !location.pathname.includes('/product-runs'),
             })}
-            to="/source-runs"
+            to="product-runs"
           >
             Source Runs
           </Link>
@@ -50,7 +50,8 @@ const NavbarBottom: React.FC = () => {
                   location.pathname.includes('/providers'),
                 tabs_indicator_sources:
                   location.pathname.includes('/product-sources'),
-                tabs_indicator_runs: location.pathname.includes('/source-runs'),
+                tabs_indicator_runs:
+                  location.pathname.includes('/product-runs'),
               }
             )}
           />

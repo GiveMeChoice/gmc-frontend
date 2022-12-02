@@ -6,6 +6,7 @@ import ActivationSwitch from '../activation-switch';
 import LoadingWheel from '../loading-wheel';
 import ScreenSectionCell from '../screen/screen-section-cell';
 import ScreenSectionRow from '../screen/screen-section-row';
+import ExecuteJobButton from './execute-job-button';
 import JobScheduleField from './job-schedule-field';
 import LastJobsCell from './last-jobs-cell';
 
@@ -14,30 +15,12 @@ interface Props {
 }
 
 const JobsListRow: React.FC<Props> = ({ job }) => {
-  const dispatch = useDataDispatch();
-  const [loading, setLoading] = useState(false);
-
-  const handleExecute = async () => {
-    setLoading(true);
-    try {
-      await jobsService.execute(job.name);
-      dispatch({
-        type: 'UPDATE_JOB',
-        value: await jobsService.getOne(job.name),
-      });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <ScreenSectionRow>
       <ScreenSectionCell styles="w-2/12 flex items-center justify-center font-bold">
         {job.name}
       </ScreenSectionCell>
-      <ScreenSectionCell styles="w-4/12 flex flex-col items-center justify-center space-y-0.5">
+      <ScreenSectionCell styles="w-3/12 flex flex-col items-center justify-center space-y-0.5">
         <JobScheduleField jobName={job.name} schedule={job.schedule} />
         <span className="text-sm  text-gmc-ocean">
           {toDateString(job.next[0])}
@@ -59,20 +42,9 @@ const JobsListRow: React.FC<Props> = ({ job }) => {
           <span className="text-gmc-glacier">No Runs</span>
         </ScreenSectionCell>
       )}
-      {loading ? (
-        <div className="flex w-1/12 items-center pl-5">
-          <LoadingWheel size="w-11 h-11" />
-        </div>
-      ) : (
-        <ScreenSectionCell styles="w-1/12 flex items-center">
-          <button
-            className="rounded-md border-2 border-black bg-zinc-200 bg-opacity-40 p-1.5 px-3  text-sm hover:bg-primary-light-50 active:bg-primary"
-            onClick={handleExecute}
-          >
-            EXECUTE
-          </button>
-        </ScreenSectionCell>
-      )}
+      <ScreenSectionCell styles="w-2/12 flex items-center">
+        <ExecuteJobButton jobName={job.name} />
+      </ScreenSectionCell>
     </ScreenSectionRow>
   );
 };

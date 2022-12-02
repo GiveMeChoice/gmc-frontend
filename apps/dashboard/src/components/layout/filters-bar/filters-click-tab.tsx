@@ -14,7 +14,7 @@ const FiltersClickTab: React.FC = () => {
       className={cn(
         'bg-divide-zinc-900 absolute right-0 top-44 flex h-14 cursor-pointer flex-col justify-center rounded-l-md bg-zinc-900 pl-1.5 outline outline-secondary duration-500 lg:top-32 ',
         {
-          'w-7': !filterBarVisible,
+          'w-8': !filterBarVisible,
           'w-0': filterBarVisible,
         }
       )}

@@ -5,7 +5,13 @@ import { PageResponse } from './shared/page-response.interface';
 
 export interface IProduct {
   id: string;
-  providerKey: string;
+  providerId: string;
+  source: {
+    id?: string;
+    identifier?: string;
+    description?: string;
+    status?: string;
+  };
   providerProductId: string;
   shortId: string;
   createdAt: Date;
@@ -64,17 +70,25 @@ const update = async (
 };
 
 const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
-  ...(filters.providerId && { providerKey: filters.providerId }),
-  // ...(filters.sourceId && { id: filters.sourceId }),
-  // ...(filters.sourceActivation && {
-  //   active: filters.sourceActivation === 'active',
-  // }),
-  // // ...(filters.sourceIdentifier && {
-  // //   identifier: filters.sourceIdentifier,
-  // // }),
-  // ...(filters.sourceStatus && {
-  //   status: filters.sourceStatus,
-  // }),
+  ...(filters.providerId && { provider: { id: filters.providerId } }),
+  ...(filters.productStatus && {
+    integrationStatus: filters.productStatus,
+  }),
+  ...(filters.productShortId && { shortId: filters.productShortId }),
+  ...(filters.productProviderId && {
+    providerProductId: filters.productProviderId,
+  }),
+  source: {
+    ...(filters.sourceActivation && {
+      active: filters.sourceActivation === 'active',
+    }),
+    ...(filters.sourceIdentifier && {
+      identifier: filters.sourceIdentifier,
+    }),
+    ...(filters.sourceStatus && {
+      status: filters.sourceStatus,
+    }),
+  },
 });
 
 const productsService = { search, update, getAll };

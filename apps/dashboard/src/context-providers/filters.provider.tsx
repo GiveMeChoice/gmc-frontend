@@ -13,6 +13,7 @@ export interface IFiltersState {
   options: {
     providerSelect: ProviderSelectType[];
     sourceStatusSelect: string[];
+    productStatusSelect: string[];
     jobScheduleSelect: string[];
   };
   filterBarVisible: boolean;
@@ -21,10 +22,12 @@ export interface IFiltersState {
 export interface IFilters {
   providerId: string;
   providerActivation: string;
-  sourceId: string;
   sourceIdentifier: string;
   sourceActivation: string;
   sourceStatus?: string;
+  productShortId?: string;
+  productProviderId?: string;
+  productStatus?: string;
 }
 
 export type FiltersAction =
@@ -58,6 +61,9 @@ export const initialFilters = {
   sourceIdentifier: '',
   sourceActivation: '',
   sourceStatus: '',
+  productStatus: '',
+  productShortId: '',
+  productProviderId: '',
 };
 
 const FiltersContext = createContext<IFiltersState>(null);
@@ -71,6 +77,7 @@ export const FiltersProvider: React.FC = ({ children }) => {
     options: {
       providerSelect: [],
       sourceStatusSelect: ['READY', 'BUSY', 'DOWN'],
+      productStatusSelect: ['LIVE', 'PENDING', 'EXPIRED'],
       jobScheduleSelect: [
         'EVERY_SECOND',
         'EVERY_10_SECONDS',

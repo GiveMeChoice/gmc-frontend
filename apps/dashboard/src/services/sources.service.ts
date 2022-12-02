@@ -1,5 +1,6 @@
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
+import { IRun } from './runs.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 
@@ -10,6 +11,7 @@ export interface ISource {
   description: string;
   status: string;
   active: boolean;
+  ownedCount: number;
   runIntervalHours: number;
   lastRunAt: Date;
   retryCount: number;
@@ -43,6 +45,11 @@ const getAll = async (
   return res.data;
 };
 
+const getOne = async (id: string): Promise<ISource> => {
+  const res = await axios.get<ISource>(`/product-sources/${id}`);
+  return res.data;
+};
+
 const update = async (
   id: string,
   updates: Partial<ISource>
@@ -51,19 +58,31 @@ const update = async (
   return res.data;
 };
 
+const integrate = async (id: string): Promise<IRun> => {
+  const res = await axios.post<IRun>(
+    '/integrate-source',
+    {},
+    {
+      params: {
+        id,
+      },
+    }
+  );
+  return res.data;
+};
+
 const extractSourceFilters = (filters: IFilters): Partial<ISource> => ({
   ...(filters.providerId && { providerId: filters.providerId }),
-  ...(filters.sourceId && { id: filters.sourceId }),
   ...(filters.sourceActivation && {
     active: filters.sourceActivation === 'active',
   }),
-  // ...(filters.sourceIdentifier && {
-  //   identifier: filters.sourceIdentifier,
-  // }),
+  ...(filters.sourceIdentifier && {
+    identifier: filters.sourceIdentifier,
+  }),
   ...(filters.sourceStatus && {
     status: filters.sourceStatus,
   }),
 });
 
-const sourcesService = { search, update, getAll };
+const sourcesService = { search, update, getOne, getAll, integrate };
 export default sourcesService;

@@ -147,14 +147,14 @@ function dataReducer(data: IData, action: DataAction): IData {
   return data;
 }
 
-const initialData: IData = {
+export const initialData: IData = {
   jobs: [],
   providers: [],
   sources: [],
   runs: [],
   products: [],
   providersMeta: {},
-  sourcesMeta: {},
-  runsMeta: {},
+  sourcesMeta: { sort: 'identifier', direction: 'DESC' },
+  runsMeta: { sort: 'runAt', direction: 'DESC' },
   productsMeta: {},
 };

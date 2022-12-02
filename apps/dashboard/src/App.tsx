@@ -34,7 +34,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="providers" element={<Providers />} />
         <Route path="product-sources" element={<Sources />} />
-        <Route path="source-runs" element={<Runs />} />
+        <Route path="product-runs" element={<Runs />} />
         <Route path="products" element={<ProductsScreen />} />
         <Route path="jobs" element={<JobsScreen />} />
       </Route>
