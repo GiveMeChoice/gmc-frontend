@@ -21,25 +21,26 @@ const Navigation: React.FC = () => {
     <div className="flex space-x-2 ">
       <button
         className={cn(
-          'flex h-12 w-12 items-center justify-center rounded-full border-2 border-black p-3  text-5xl lg:border-secondary',
+          'flex h-10 w-16 items-center justify-center rounded-full border-2 border-black p-3  text-5xl lg:border-secondary',
           {
             'border border-slate-300 bg-inherit text-slate-300 lg:border-secondary-dark-40 lg:text-secondary-dark-40':
               history.state.idx === 0,
-            'hover:border-primary hover:text-primary': history.state.idx > 0,
+            'hover:border-primary hover:bg-zinc-800 hover:text-primary active:bg-primary-dark-30 active:bg-opacity-50':
+              history.state.idx > 0,
           }
         )}
         onClick={onBack}
         disabled={history.state.idx === 0}
       >
-        <div className="h-14 pr-1">{'<'}</div>
+        <div className="h-14 rounded-full pr-1">{'<'}</div>
       </button>
       <button
         className={cn(
-          'flex h-12 w-12 items-center justify-center rounded-full border-2 border-black p-3 text-5xl lg:border-secondary',
+          'flex h-10 w-16 items-center justify-center rounded-full border-2 border-black p-3 text-5xl lg:border-secondary',
           {
             'border border-slate-300 bg-inherit text-slate-300 lg:border-secondary-dark-40 lg:text-secondary-dark-40':
               history.state.idx === maxIdx,
-            'hover:border-primary hover:text-primary':
+            'hover:border-primary hover:bg-zinc-800 hover:text-primary active:bg-primary-dark-30 active:bg-opacity-50':
               history.state.idx < maxIdx,
           }
         )}

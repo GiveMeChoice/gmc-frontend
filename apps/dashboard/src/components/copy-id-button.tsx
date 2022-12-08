@@ -3,14 +3,15 @@ import React from 'react';
 
 interface Props {
   id: string;
+  content?: any;
 }
 
-const CopyIdButton: React.FC<Props> = ({ id }) => (
+const CopyIdButton: React.FC<Props> = ({ id, content }) => (
   <>
     <div
       className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full duration-100 hover:bg-zinc-300 active:bg-primary-light-30"
       onClick={() => {
-        navigator.clipboard.writeText(id);
+        navigator.clipboard.writeText(content ? JSON.stringify(content) : id);
         document
           .getElementById(`copy-button-${id}`)
           .classList.remove('opacity-0');
@@ -21,7 +22,11 @@ const CopyIdButton: React.FC<Props> = ({ id }) => (
         }, 1350);
       }}
     >
-      <img className="h-3.5 w-3.5" src="copy-icon.svg" alt="Copy Provider ID" />
+      <img
+        className="h-3.5 w-3.5"
+        src="/copy-icon.svg"
+        alt="Copy Provider ID"
+      />
     </div>
     <div
       id={`copy-button-${id}`}

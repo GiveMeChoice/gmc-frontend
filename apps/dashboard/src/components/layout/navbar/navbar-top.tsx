@@ -36,5 +36,8 @@ const getTitle = (location: Location) => {
   if (location.pathname.includes('/providers')) return 'Providers';
   if (location.pathname.includes('/product-sources')) return 'Product Sources';
   if (location.pathname.includes('/product-runs')) return 'Source Runs';
+  if (location.pathname.includes('/jobs')) return 'Jobs';
+  if (location.pathname.includes('/mapping-assistant'))
+    return 'Mapping Assistant';
   return 'Home';
 };

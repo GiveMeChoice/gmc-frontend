@@ -7,6 +7,7 @@ import { toDateString } from '@root/helpers/to-date-string';
 import productsService from '@root/services/products.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CopyIdButton from './copy-id-button';
 import ScreenSection from './screen/screen-section';
 import ScreenSectionCell from './screen/screen-section-cell';
@@ -18,6 +19,7 @@ const ProductsScreen: React.FC = () => {
   const dataDispatch = useDataDispatch();
   const { activeFilters } = useFilters();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!products.length) {
@@ -75,7 +77,7 @@ const ProductsScreen: React.FC = () => {
               showLink
             />
             {/* product data cell  */}
-            <ScreenSectionCell styles="w-8/12 flex flex-col divide-y divide-zinc-300 space-y-2">
+            <ScreenSectionCell styles="w-10/12 flex flex-col divide-y divide-zinc-300 space-y-2">
               <div className="flex w-full items-center pt-1">
                 <span
                   className={cn(
@@ -171,10 +173,26 @@ const ProductsScreen: React.FC = () => {
                 </div>
                 {/* Other Integration STuff... */}
                 <div className="flex items-center justify-center pt-2 text-sm font-bold text-zinc-600">
-                  Keep Alive Count:{' '}
-                  <span className="pl-1.5 text-lg font-normal">
-                    {p.keepAliveCount}
-                  </span>
+                  <button
+                    className={cn(
+                      'mr-4 rounded-md border-2 bg-secondary px-2 py-1 text-sm ',
+                      {
+                        'border-zinc-400 hover:bg-primary-light-50 active:bg-primary':
+                          true,
+                      }
+                    )}
+                    onClick={() =>
+                      navigate(`/products/${p.shortId}/mapping-assistant`)
+                    }
+                  >
+                    Mapping Assistant
+                  </button>
+                  <div className="flex items-center">
+                    Keep Alive Count:{' '}
+                    <span className="pl-1.5 text-lg font-normal">
+                      {p.keepAliveCount}
+                    </span>
+                  </div>
                 </div>
               </div>
               {p.hasIntegrationError && (
@@ -182,10 +200,6 @@ const ProductsScreen: React.FC = () => {
                   {p.errorMessage}
                 </span>
               )}
-            </ScreenSectionCell>
-
-            <ScreenSectionCell styles="flex w-2/12 items-center">
-              <img src={''} alt="Product Image" className="h-fit" />
             </ScreenSectionCell>
           </ScreenSectionRow>
         ))

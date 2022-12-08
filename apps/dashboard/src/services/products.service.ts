@@ -12,6 +12,10 @@ export interface IProduct {
     description?: string;
     status?: string;
   };
+  provider?: {
+    id?: string;
+    key?: string;
+  };
   providerProductId: string;
   shortId: string;
   createdAt: Date;
@@ -25,6 +29,7 @@ export interface IProduct {
   keepAliveCount: number;
   hasIntegrationError: boolean;
   errorMessage: string;
+  // PRODUCT DATA
   sku: string;
   title: string;
   description: string;
@@ -34,9 +39,31 @@ export interface IProduct {
   currency: string;
   brandId: string;
   brandName: string;
-  image: string;
-  link: string;
+  mainImage: string;
+  offerLink: string;
+  reviews: Review[];
+  labels: Label[];
 }
+
+export type Review = {
+  author: string;
+  text: string;
+  rating: number;
+  submittedOn: Date;
+};
+
+export type Label = {
+  title: string;
+  infoLink: string;
+  icon: string;
+  description: string;
+};
+
+export type ExtractResult = {
+  sourceDate: Date;
+  fromCache: boolean;
+  data: any;
+};
 
 const search = async (
   filters: IFilters,
@@ -61,11 +88,38 @@ const getAll = async (
   return res.data;
 };
 
+const getOne = async (id: string): Promise<IProduct> => {
+  const res = await axios.get<IProduct>(`/products/${id}`);
+  return res.data;
+};
+
 const update = async (
   id: string,
   updates: Partial<IProduct>
 ): Promise<IProduct> => {
   const res = await axios.put<IProduct>(`/products/${id}`, updates);
+  return res.data;
+};
+
+const extract = async (
+  id: string,
+  skipCache = false
+): Promise<ExtractResult> => {
+  const res = await axios.post(
+    '/extract-product',
+    {},
+    { params: { id, skipCache } }
+  );
+  return res.data;
+};
+
+const map = async (id: string): Promise<Partial<IProduct>> => {
+  const res = await axios.post('/map-product', {}, { params: { id } });
+  return res.data;
+};
+
+const refresh = async (id: string): Promise<IProduct> => {
+  const res = await axios.post('/refresh-product', {}, { params: { id } });
   return res.data;
 };
 
@@ -91,5 +145,13 @@ const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
   },
 });
 
-const productsService = { search, update, getAll };
+const productsService = {
+  search,
+  update,
+  getAll,
+  getOne,
+  map,
+  extract,
+  refresh,
+};
 export default productsService;

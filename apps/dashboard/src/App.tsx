@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from './components/home';
 import JobsScreen from './components/jobs-screen/jobs';
 import Layout from './components/layout';
+import MappingAssistant from './components/mapping-assistant';
 import ProductsScreen from './components/products';
 import Providers from './components/providers-screen/providers';
 import Runs from './components/runs';
@@ -37,6 +38,10 @@ function App() {
         <Route path="product-runs" element={<Runs />} />
         <Route path="products" element={<ProductsScreen />} />
         <Route path="jobs" element={<JobsScreen />} />
+        <Route
+          path="products/:shortId/mapping-assistant"
+          element={<MappingAssistant />}
+        />
       </Route>
     </Routes>
   );
