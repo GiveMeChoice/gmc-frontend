@@ -1,13 +1,9 @@
 import { useDataDispatch } from '@root/context-providers/data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
-import productsService from '@root/services/products.service';
-import providersService from '@root/services/providers.service';
-import runsService from '@root/services/runs.service';
+import screenControlsService from '@root/services/screen-controls.service';
 import { PageRequest } from '@root/services/shared/page-request.interface';
 import { PageMeta } from '@root/services/shared/page-response.interface';
-import sourcesService from '@root/services/sources.service';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import PageButtonIcon from '../page-button-icon';
 
 interface Props {
@@ -15,7 +11,6 @@ interface Props {
 }
 
 const ScreenSectionMeta: React.FC<Props> = ({ meta }) => {
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const dispatch = useDataDispatch();
   const { activeFilters } = useFilters();
@@ -36,27 +31,9 @@ const ScreenSectionMeta: React.FC<Props> = ({ meta }) => {
 
   const refreshData = async (pageRequest: PageRequest) => {
     try {
-      if (location.pathname.includes('/product-sources')) {
-        dispatch({
-          type: 'REFRESH_SOURCES',
-          value: await sourcesService.search(activeFilters, pageRequest),
-        });
-      } else if (location.pathname.includes('/providers')) {
-        dispatch({
-          type: 'REFRESH_PROVIDERS',
-          value: await providersService.search(activeFilters, pageRequest),
-        });
-      } else if (location.pathname.includes('/product-runs')) {
-        dispatch({
-          type: 'REFRESH_RUNS',
-          value: await runsService.search(activeFilters, pageRequest),
-        });
-      } else if (location.pathname.includes('/products')) {
-        dispatch({
-          type: 'REFRESH_PRODUCTS',
-          value: await productsService.search(activeFilters, pageRequest),
-        });
-      }
+      dispatch(
+        await screenControlsService.refreshPage(pageRequest, activeFilters)
+      );
     } catch (err) {
       console.error(err);
       setLoading(false);

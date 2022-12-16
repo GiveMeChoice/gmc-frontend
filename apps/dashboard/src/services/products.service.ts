@@ -1,5 +1,7 @@
+import { IData, DataAction } from '@root/context-providers/data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
+import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 
@@ -25,6 +27,8 @@ export interface IProduct {
   createdByRunId: string;
   refreshedByRunId: string;
   refreshedAt: Date;
+  refreshReason: string;
+  sourceDate: Date;
   expiresAt: Date;
   keepAliveCount: number;
   hasIntegrationError: boolean;
@@ -37,12 +41,24 @@ export interface IProduct {
   ratingsTotal: number;
   price: number;
   currency: string;
-  brandId: string;
-  brandName: string;
+  brand: {
+    code: string;
+    description: string;
+  };
+  listImage: string;
   mainImage: string;
+  secondaryImage: string;
   offerLink: string;
   reviews: Review[];
   labels: Label[];
+  label?: {
+    code?: string;
+    groupId?: string;
+  };
+  category?: {
+    code?: string;
+    groupId?: string;
+  };
 }
 
 export type Review = {
@@ -65,12 +81,12 @@ export type ExtractResult = {
   data: any;
 };
 
-const search = async (
+const find = async (
   filters: IFilters,
   pageRequest?: PageRequest
 ): Promise<PageResponse<IProduct>> => {
   const res = await axios.post<PageResponse<IProduct>>(
-    '/products/search',
+    '/products/find',
     extractProductFilters(filters),
     {
       params: pageRequest,
@@ -123,7 +139,13 @@ const refresh = async (id: string): Promise<IProduct> => {
   return res.data;
 };
 
+const search = async (q: string): Promise<IProduct[]> => {
+  const res = await axios.post(`/products/search?q=${q}`);
+  return res.data;
+};
+
 const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
+  ...(filters.productIntegrationError && { hasIntegrationError: true }),
   ...(filters.providerId && { provider: { id: filters.providerId } }),
   ...(filters.productStatus && {
     integrationStatus: filters.productStatus,
@@ -143,15 +165,82 @@ const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
       status: filters.sourceStatus,
     }),
   },
+  label: {
+    ...(filters.labelCode && {
+      code: filters.labelCode,
+    }),
+    ...(filters.labelGroupId && { groupId: filters.labelGroupId }),
+  },
+  category: {
+    ...(filters.categoryCode && { code: filters.categoryCode }),
+    ...(filters.categoryGroupId && { groupId: filters.categoryGroupId }),
+  },
 });
 
+const productsScreenControl: IScreenControl = {
+  pathname: '/products',
+  title: 'Products',
+  readScreenMeta(data) {
+    return data.productsMeta;
+  },
+  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+    return {
+      type: 'REFRESH_PRODUCTS',
+      value: await find(filters, data.productsMeta),
+    };
+  },
+  async refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction> {
+    return {
+      type: 'REFRESH_PRODUCTS',
+      value: await find(filters, page),
+    };
+  },
+  async refreshSort(
+    sort: string,
+    direction: string,
+    filters: IFilters,
+    data: IData
+  ): Promise<DataAction> {
+    return {
+      type: 'REFRESH_PRODUCTS',
+      value: await find(filters, {
+        ...data.productsMeta,
+        sort,
+        direction,
+      }),
+    };
+  },
+};
+
+const mappingAssistantScreenControl: IScreenControl = {
+  pathname: '/mapping-assistant',
+  title: 'Mapping Assistant',
+  readScreenMeta: () => null,
+  refreshFilters: () => null,
+  refreshPage: () => null,
+  refreshSort: () => null,
+};
+
+const searchScreenControl: IScreenControl = {
+  pathname: '/search',
+  title: 'GMC Search',
+  readScreenMeta: () => null,
+  refreshFilters: () => null,
+  refreshPage: () => null,
+  refreshSort: () => null,
+};
+
 const productsService = {
-  search,
+  find,
   update,
   getAll,
   getOne,
   map,
   extract,
   refresh,
+  search,
+  productsScreenControl,
+  mappingAssistantScreenControl,
+  searchScreenControl,
 };
 export default productsService;

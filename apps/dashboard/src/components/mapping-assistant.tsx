@@ -7,12 +7,12 @@ import LoadingWheel from './loading-wheel';
 import cn from 'classnames';
 import CopyIdButton from './copy-id-button';
 import ProductPreview from './product-preview/product-preview';
+import { useDataDispatch } from '@root/context-providers/data.provider';
 
 const MappingAssistant: React.FC = () => {
   const { shortId } = useParams();
+  const dataDispatch = useDataDispatch();
   const [providerKey, setProviderKey] = useState('');
-  const [previewMappedOn, setPreviewMappedOn] = useState(false);
-  const [previewProductOn, setPreviewProductOn] = useState(false);
 
   const [extracted, setExtracted] = useState(null);
   const [extractedLoading, setExtractedLoading] = useState(true);
@@ -32,10 +32,6 @@ const MappingAssistant: React.FC = () => {
       .extract(shortId)
       .then((data) => setExtracted(data))
       .finally(() => setExtractedLoading(false));
-    // productsService
-    //   .map(shortId)
-    //   .then((data) => setMapped(data))
-    //   .finally(() => setMappedLoading(false));
     productsService
       .getOne(shortId)
       .then((product) => {
@@ -58,7 +54,7 @@ const MappingAssistant: React.FC = () => {
       setExtracted(null);
       setExtractedLoading(true);
       productsService
-        .extract(shortId, false)
+        .extract(shortId, true)
         .then((data) => setExtracted(data))
         .finally(() => {
           setExtractedLoading(false);
@@ -114,12 +110,11 @@ const MappingAssistant: React.FC = () => {
         {/* EXTRACT BUTTON  */}
         <button
           className={cn(
-            'mt-8 h-16 w-4/5 rounded-md border-4 px-2 text-sm text-secondary',
+            'mt-8 h-16 w-4/5 rounded-md border-4 px-2 text-sm text-secondary active:bg-opacity-50',
             {
-              'border-gmc-sunset hover:bg-zinc-800 active:bg-primary-dark-30':
+              'border-gmc-sunset hover:bg-zinc-800 active:bg-gmc-sunset':
                 !extractable,
-              'border-gmc-heart bg-gmc-heart bg-opacity-50 active:bg-opacity-80':
-                extractable,
+              'border-gmc-heart bg-gmc-heart bg-opacity-20': extractable,
             }
           )}
           onClick={onExtract}
@@ -135,7 +130,7 @@ const MappingAssistant: React.FC = () => {
         </button>
         {/* REMAP BUTTON */}
         <button
-          className="mt-8 h-16 w-4/5 rounded-md border-4 border-gmc-surf px-2  py-1 text-sm text-secondary hover:bg-zinc-800 active:bg-primary-dark-30"
+          className="mt-8 h-16 w-4/5 rounded-md border-4 border-gmc-surf px-2  py-1 text-sm text-secondary hover:bg-zinc-800 active:bg-gmc-surf active:bg-opacity-50"
           onClick={onRemap}
         >
           REMAP SOURCE
@@ -143,8 +138,10 @@ const MappingAssistant: React.FC = () => {
         <button
           className="mt-2 h-12 w-4/5 rounded-md border-4 border-gmc-berry px-2 text-sm text-secondary hover:bg-zinc-800 active:bg-primary-dark-30"
           onClick={() => {
-            setPreviewProductOn(false);
-            setPreviewMappedOn(true);
+            dataDispatch({
+              type: 'OPEN_PRODUCT_PREVIEW',
+              value: mapped,
+            });
           }}
         >
           PREVIEW
@@ -153,12 +150,11 @@ const MappingAssistant: React.FC = () => {
         {/* REFRESH BUTTON  */}
         <button
           className={cn(
-            'mt-8 h-16 w-4/5 rounded-md border-4 px-2 text-sm text-secondary',
+            'mt-8 h-16 w-4/5 rounded-md border-4 px-2 text-sm text-secondary active:bg-opacity-50',
             {
-              'border-gmc-beach hover:bg-zinc-800 active:bg-primary-dark-30':
+              'border-gmc-beach hover:bg-zinc-800 active:bg-gmc-beach':
                 !refreshable,
-              'border-gmc-heart bg-gmc-heart bg-opacity-50 active:bg-opacity-80':
-                refreshable,
+              'border-gmc-heart bg-gmc-heart bg-opacity-20': refreshable,
             }
           )}
           onClick={onRefresh}
@@ -175,34 +171,14 @@ const MappingAssistant: React.FC = () => {
         <button
           className="mt-2 h-12 w-4/5 rounded-md border-4 border-gmc-berry px-2 text-sm text-secondary hover:bg-zinc-800 active:bg-primary-dark-30"
           onClick={() => {
-            setPreviewMappedOn(false);
-            setPreviewProductOn(true);
+            dataDispatch({
+              type: 'OPEN_PRODUCT_PREVIEW',
+              value: product,
+            });
           }}
         >
           PREVIEW
         </button>
-      </div>
-
-      {/* PREVIEW */}
-      <div
-        className={cn({
-          hidden: !previewProductOn && !previewMappedOn,
-          'fixed left-32 z-10 flex h-full w-full overflow-auto bg-gmc-surf bg-opacity-40':
-            previewProductOn || previewMappedOn,
-        })}
-      >
-        <button
-          className="absolute left-9 top-4 h-10 rounded-md border-2 border-gmc-berry bg-zinc-900 px-4 text-sm text-white hover:bg-zinc-800 active:bg-primary-dark-30"
-          onClick={() => {
-            setPreviewProductOn(false);
-            setPreviewMappedOn(false);
-          }}
-        >
-          Close
-        </button>
-        <div className="ml-32 h-5/6 w-9/12 rounded-sm border-2 border-gmc-berry bg-secondary">
-          <ProductPreview product={previewProductOn ? product : mapped} />
-        </div>
       </div>
 
       {/* EXTRACTED */}

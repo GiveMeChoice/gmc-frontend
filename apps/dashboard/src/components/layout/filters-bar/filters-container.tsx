@@ -9,26 +9,25 @@ import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import jobsService from '@root/services/jobs.service';
-import productsService from '@root/services/products.service';
-import providersService from '@root/services/providers.service';
-import runsService from '@root/services/runs.service';
-import sourcesService from '@root/services/sources.service';
+import screenControlsService from '@root/services/screen-controls.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const FiltersContainer: React.FC = () => {
-  const location = useLocation();
   const { activeFilters, options, filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
   const dataDispatch = useDataDispatch();
-  const { providersMeta, sourcesMeta, runsMeta, productsMeta } = useData();
+  const data = useData();
 
   const [filters, setFilters] = useState<IFilters>({ ...activeFilters });
 
   const [filtersCurrent, setFiltersCurrent] = useState(true);
   const [loading, setLoading] = useState(false);
+
+  const updateFilters = (updatedFilters) => {
+    setFilters(updatedFilters);
+    setFiltersCurrent(isEqual(activeFilters, updatedFilters));
+  };
 
   useEffect(() => {
     resetFiltersToActive();
@@ -39,50 +38,20 @@ const FiltersContainer: React.FC = () => {
     setFilters({ ...activeFilters });
   };
 
-  const clearFiltersToInitial = () => {
-    setFilters(initialFilters);
-    setFiltersCurrent(isEqual(activeFilters, initialFilters));
-  };
-
   const handleFieldChange = (e) => {
     const currentFilters = {
       ...filters,
       [e.target.id]: e.target.value,
     };
-    setFilters(currentFilters);
-    setFiltersCurrent(isEqual(activeFilters, currentFilters));
+    updateFilters(currentFilters);
   };
 
   const refreshData = async () => {
     setLoading(true);
     try {
       filtersDispatch({ type: 'SAVE_FILTERS', value: filters });
-      if (location.pathname.includes('/providers')) {
-        dataDispatch({
-          type: 'REFRESH_PROVIDERS',
-          value: await providersService.search(filters, providersMeta),
-        });
-      } else if (location.pathname.includes('/product-sources')) {
-        dataDispatch({
-          type: 'REFRESH_SOURCES',
-          value: await sourcesService.search(filters, sourcesMeta),
-        });
-      } else if (location.pathname.includes('/product-runs')) {
-        dataDispatch({
-          type: 'REFRESH_RUNS',
-          value: await runsService.search(filters, runsMeta),
-        });
-      } else if (location.pathname.includes('/products')) {
-        dataDispatch({
-          type: 'REFRESH_PRODUCTS',
-          value: await productsService.search(filters, productsMeta),
-        });
-      } else if (location.pathname.includes('/jobs')) {
-        dataDispatch({
-          type: 'REFRESH_JOBS',
-          value: await jobsService.getAll(),
-        });
-      }
+      const action = await screenControlsService.refreshFilters(filters, data);
+      if (action) dataDispatch(action);
       setFiltersCurrent(true);
     } catch (err) {
       console.error(err);
@@ -93,7 +62,7 @@ const FiltersContainer: React.FC = () => {
 
   return (
     <>
-      <div className="flex w-full justify-end p-5">
+      <div className="flex w-full justify-end px-5 py-2.5">
         <p
           className={cn('text-sm font-bold', {
             'text-primary': filtersCurrent,
@@ -107,22 +76,22 @@ const FiltersContainer: React.FC = () => {
       <div
         id="filters-container"
         className={cn(
-          'flex h-5/6 flex-col items-center space-y-4 divide-y divide-zinc-300 overflow-y-auto px-6 pb-44',
+          'flex h-5/6 w-full flex-col items-center divide-y divide-zinc-300 overflow-y-auto px-4',
           { hidden: !filterBarVisible }
         )}
       >
-        <div className="flex w-full items-end space-x-2">
-          <div className="w-7/12">
+        <div className="flex w-full flex-wrap items-center pb-2">
+          <div className="mr-2 w-32">
             <label
               htmlFor="providerId"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
             >
               Provider Key
             </label>
             <select
               id="providerId"
               className={cn(
-                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                'block h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                 {
                   'text-gray-400': !filters.providerId,
                 }
@@ -139,17 +108,17 @@ const FiltersContainer: React.FC = () => {
             </select>
           </div>
 
-          <div className="w-5/12">
+          <div className="w-20">
             <label
               htmlFor="providerActivation"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
             >
               Activation
             </label>
             <select
               id="providerActivation"
               className={cn(
-                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                'block h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                 {
                   'text-gray-400': !filters.providerActivation,
                 }
@@ -164,34 +133,35 @@ const FiltersContainer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex w-full flex-col space-y-2 pt-3">
-          <div className="w-full">
+        <div className="flex w-full flex-col py-2">
+          <div className="w-54">
             <label
               htmlFor="sourceIdentifier"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+              className="my-1.5 text-xs font-medium text-gray-900 dark:text-white"
             >
               Source Identifier
             </label>
             <input
               id="sourceIdentifier"
-              className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              type="search"
+              className="h-7 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               value={filters.sourceIdentifier}
               onChange={handleFieldChange}
             />
           </div>
 
-          <div className="flex w-full space-x-3">
-            <div className="w-1/2">
+          <div className="flex w-full flex-wrap">
+            <div className="mr-2 w-32">
               <label
                 htmlFor="sourceStatus"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                className="my-1.5 text-xs font-medium text-gray-900 dark:text-white"
               >
                 Source Status
               </label>
               <select
                 id="sourceStatus"
                 className={cn(
-                  'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                  'h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                   {
                     'text-gray-400': !filters.sourceStatus,
                   }
@@ -207,17 +177,17 @@ const FiltersContainer: React.FC = () => {
                 ))}
               </select>
             </div>
-            <div className="w-1/2">
+            <div className="w-20">
               <label
                 htmlFor="sourceActivation"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                className="my-1.5 text-xs font-medium text-gray-900 dark:text-white"
               >
-                Source Activation
+                Activation
               </label>
               <select
                 id="sourceActivation"
                 className={cn(
-                  'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                  'h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                   {
                     'text-gray-400': !filters.sourceActivation,
                   }
@@ -233,59 +203,118 @@ const FiltersContainer: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex w-full flex-col space-y-2 pt-3">
-          <div className="w-full">
-            <label
-              htmlFor="productStatus"
-              className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Product Status
-            </label>
-            <select
-              id="productStatus"
-              className={cn(
-                'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-                {
-                  'text-gray-400': !filters.productStatus,
-                }
-              )}
-              value={filters.productStatus}
-              onChange={handleFieldChange}
-            >
-              <option value="">-----</option>
-              {options.productStatusSelect.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="flex w-full space-x-3">
-            <div className="w-1/2">
+        <div className="flex w-full flex-col py-2">
+          <div className="flex w-full flex-wrap">
+            <div className="mr-2 w-24">
               <label
                 htmlFor="productShortId"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
               >
-                Internal ID
+                Product ID
               </label>
               <input
                 id="productShortId"
-                className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                type="search"
+                className="block h-7 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 value={filters.productShortId}
                 onChange={handleFieldChange}
               />
             </div>
-            <div className="w-1/2">
+            <div className="w-24">
               <label
                 htmlFor="productProviderId"
-                className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
               >
                 Provider ID
               </label>
               <input
                 id="productProviderId"
-                className="block w-full rounded-full border border-gray-300 bg-gray-50 p-2 pl-5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                type="search"
+                className="block h-7 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 value={filters.productProviderId}
+                onChange={handleFieldChange}
+              />
+            </div>
+          </div>
+          <div className="flex w-full flex-wrap">
+            <div className="mr-2 w-24">
+              <label
+                htmlFor="productStatus"
+                className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
+              >
+                Product Status
+              </label>
+              <select
+                id="productStatus"
+                className={cn(
+                  'block h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                  {
+                    'text-gray-400': !filters.productStatus,
+                  }
+                )}
+                value={filters.productStatus}
+                onChange={handleFieldChange}
+              >
+                <option value="">-----</option>
+                {options.productStatusSelect.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mt-4 flex w-24 items-center justify-center">
+              <input
+                type="checkbox"
+                id="productIntegrationError"
+                checked={filters.productIntegrationError}
+                onChange={() => {
+                  updateFilters({
+                    ...filters,
+                    productIntegrationError: !filters.productIntegrationError,
+                  });
+                }}
+                className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-primary focus:ring-2 focus:ring-primary"
+              />
+              <label
+                htmlFor="productIntegrationError"
+                className="ml-1.5 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Has Error?
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex w-full flex-col py-2">
+          <div className="flex w-full flex-wrap">
+            <div className="mr-2 w-24">
+              <label
+                htmlFor="labelCode"
+                className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
+              >
+                Label Code
+              </label>
+              <input
+                id="labelCode"
+                type="search"
+                className="block h-7 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                value={filters.labelCode}
+                onChange={handleFieldChange}
+              />
+            </div>
+            <div className="w-24">
+              <label
+                htmlFor="categoryCode"
+                className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
+              >
+                Category Code
+              </label>
+              <input
+                id="categoryCode"
+                type="search"
+                className="block h-7 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-xs text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                value={filters.categoryCode}
                 onChange={handleFieldChange}
               />
             </div>
@@ -299,7 +328,7 @@ const FiltersContainer: React.FC = () => {
             <>
               <button
                 className={cn(
-                  'mt-6 max-h-11 w-full rounded-full border-4 py-1.5 px-6 font-bold hover:bg-secondary-dark-10',
+                  'mt-6 flex h-10 w-48 items-center justify-center rounded-full border-4 py-1.5 px-6 text-sm font-bold hover:bg-secondary-dark-10',
                   {
                     'border-primary bg-secondary': filtersCurrent,
                     ' border-primary bg-secondary': !filtersCurrent,
@@ -309,17 +338,17 @@ const FiltersContainer: React.FC = () => {
               >
                 {filtersCurrent ? 'Refresh' : 'Apply'}
               </button>
-              <div className="flex w-full space-x-3">
+              <div className="flex w-full justify-center space-x-3">
                 <button
-                  className="max-h-11 w-full rounded-full border-2 border-gmc-surf bg-secondary py-2 px-6 font-bold hover:bg-secondary-dark-10"
-                  onClick={() => clearFiltersToInitial()}
+                  className="h-10 w-24 rounded-full border-2 border-gmc-surf bg-secondary py-1.5 px-6 text-sm font-bold hover:bg-secondary-dark-10"
+                  onClick={() => updateFilters(initialFilters)}
                 >
-                  Clear All
+                  Clear
                 </button>
                 <button
                   disabled={filtersCurrent}
                   className={cn(
-                    'max-h-11 w-full rounded-full border-2 py-2 px-6 font-bold',
+                    'h-10 w-24 rounded-full border-2 py-1.5 px-6 text-sm font-bold',
                     {
                       'bg-secondary-dark-10 text-secondary-dark-50':
                         filtersCurrent,

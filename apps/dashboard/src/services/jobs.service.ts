@@ -1,4 +1,8 @@
+import { IData, DataAction } from '@root/context-providers/data.provider';
+import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
+import { IScreenControl } from './screen-controls.service';
+import { PageRequest } from './shared/page-request.interface';
 
 export interface IJobStatus {
   name: string;
@@ -50,6 +54,23 @@ const reschedule = async (
   return res.data;
 };
 
+const jobsScreenControl: IScreenControl = {
+  pathname: '/jobs',
+  title: 'Jobs',
+  readScreenMeta() {
+    return null;
+  },
+  refreshFilters() {
+    return null;
+  },
+  refreshPage() {
+    return null;
+  },
+  refreshSort() {
+    return null;
+  },
+};
+
 const jobsService = {
   getOne,
   getAll,
@@ -57,5 +78,6 @@ const jobsService = {
   start,
   stop,
   reschedule,
+  jobsScreenControl,
 };
 export default jobsService;

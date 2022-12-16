@@ -22,7 +22,7 @@ const Sources: React.FC = () => {
     if (!sources.length) {
       setLoading(true);
       sourcesService
-        .search(activeFilters, sourcesMeta)
+        .find(activeFilters, sourcesMeta)
         .then((sources) => {
           dispatch({ type: 'REFRESH_SOURCES', value: sources });
         })

@@ -32,7 +32,7 @@ const SourceIdCell: React.FC<Props> = ({
   const filtersDispatch = useFiltersDispatch();
   const navigate = useNavigate();
 
-  const getProviderKey = (providerId: string) => {
+  const readProviderKey = (providerId: string) => {
     let match: ProviderSelectType = null;
     if (options.providerSelect.length) {
       match = options.providerSelect.find((s) => s.id === providerId);
@@ -53,9 +53,9 @@ const SourceIdCell: React.FC<Props> = ({
 
   return (
     <ScreenSectionCell
-      styles={`${width} flex flex-col justify-center space-y-1`}
+      styles={`w-44 break-all flex flex-col justify-center space-y-1`}
     >
-      <h2 className="text-sm font-bold">{getProviderKey(providerId)}</h2>
+      <h2 className="text-sm font-bold">{readProviderKey(providerId)}</h2>
       <span className="ml-0.5 text-sm font-bold text-gmc-soil">
         {sourceDescription}
       </span>

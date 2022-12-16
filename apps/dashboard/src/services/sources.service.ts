@@ -1,6 +1,8 @@
+import { IData, DataAction } from '@root/context-providers/data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
 import { IRun } from './runs.service';
+import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 
@@ -18,16 +20,16 @@ export interface ISource {
   retryLimit: number;
   productKeepAliveLimit: number;
   category: string;
-  subcategory1: string;
-  subcategory2: string;
+  runCount: number;
+  productCount: number;
 }
 
-const search = async (
+const find = async (
   filters: IFilters,
   pageRequest?: PageRequest
 ): Promise<PageResponse<ISource>> => {
   const res = await axios.post<PageResponse<ISource>>(
-    '/product-sources/search',
+    '/product-sources/find',
     extractSourceFilters(filters),
     {
       params: pageRequest,
@@ -84,5 +86,47 @@ const extractSourceFilters = (filters: IFilters): Partial<ISource> => ({
   }),
 });
 
-const sourcesService = { search, update, getOne, getAll, integrate };
+const sourcesScreenControl: IScreenControl = {
+  pathname: '/product-sources',
+  title: 'Sources',
+  readScreenMeta(data) {
+    return data.sourcesMeta;
+  },
+  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+    return {
+      type: 'REFRESH_SOURCES',
+      value: await find(filters, data.sourcesMeta),
+    };
+  },
+  async refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction> {
+    return {
+      type: 'REFRESH_SOURCES',
+      value: await find(filters, page),
+    };
+  },
+  async refreshSort(
+    sort: string,
+    direction: string,
+    filters: IFilters,
+    data: IData
+  ): Promise<DataAction> {
+    return {
+      type: 'REFRESH_SOURCES',
+      value: await find(filters, {
+        ...data.sourcesMeta,
+        sort,
+        direction,
+      }),
+    };
+  },
+};
+
+const sourcesService = {
+  find,
+  update,
+  getOne,
+  getAll,
+  integrate,
+  sourcesScreenControl,
+};
 export default sourcesService;

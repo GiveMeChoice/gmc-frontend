@@ -6,7 +6,7 @@ import ScreenSectionSort, { SortField } from './screen-section-sort';
 import ScreenSectionTitle from './screen-section-title';
 
 interface Props {
-  title: string;
+  title?: string;
   sortFields?: SortField[];
   meta?: PageMeta;
 }
@@ -17,12 +17,18 @@ const ScreenSection: React.FC<Props> = ({
   sortFields,
   meta,
 }) => (
-  <div className="divide-y divide-zinc-900 rounded-md bg-secondary px-6 pt-2  pb-6">
-    <div className="mx-2 flex items-center justify-between">
-      <ScreenSectionTitle title={title} />
-      {sortFields && <ScreenSectionSort fields={sortFields} />}
-      {meta && <ScreenSectionMeta meta={meta} />}
-    </div>
+  <div className="divide-y divide-zinc-900 rounded-md bg-secondary px-4 pt-2 pb-6">
+    {(title || sortFields || meta) && (
+      <div className="flex w-full flex-col items-center">
+        {sortFields && <ScreenSectionSort fields={sortFields} />}
+        {(title || meta) && (
+          <div className="my-2 flex w-full items-center justify-between px-4">
+            {title && <ScreenSectionTitle title={title} />}
+            {meta && <ScreenSectionMeta meta={meta} />}
+          </div>
+        )}
+      </div>
+    )}
     {children}
     {meta && (
       <ScreenSectionRow>

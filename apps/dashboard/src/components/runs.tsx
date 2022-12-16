@@ -12,7 +12,7 @@ import ScreenSectionRow from './screen/screen-section-row';
 import SourceIdCell from './source-id-cell';
 import cn from 'classnames';
 
-const Runs: React.FC = () => {
+const RunsScreen: React.FC = () => {
   const { runs, runsMeta } = useData();
   const dataDispatch = useDataDispatch();
   const { activeFilters } = useFilters();
@@ -22,7 +22,7 @@ const Runs: React.FC = () => {
     if (!runs.length) {
       setLoading(true);
       runsService
-        .search(activeFilters, runsMeta)
+        .find(activeFilters, runsMeta)
         .then((runs) => {
           dataDispatch({ type: 'REFRESH_RUNS', value: runs });
         })
@@ -45,12 +45,12 @@ const Runs: React.FC = () => {
           title: 'Source',
         },
         {
-          name: 'runTime',
-          title: 'Duration',
-        },
-        {
           name: 'foundCount',
           title: 'Found',
+        },
+        {
+          name: 'refreshSignalCount',
+          title: 'Refresh Sig',
         },
         {
           name: 'createdCount',
@@ -63,134 +63,41 @@ const Runs: React.FC = () => {
         runs.map((r, i) => (
           <ScreenSectionRow key={i}>
             <SourceIdCell
-              width="w-3/12"
+              width="w-44"
               providerId={r.source.providerId}
               sourceIdentifier={r.source.identifier}
               sourceDescription={r.source.description}
               showLink
             />
 
-            <ScreenSectionCell styles="w-2/12 flex flex-col items-center justify-between py-5">
-              <div className="flex w-full flex-col items-center justify-center space-y-2">
-                <span className="text-xs font-bold">Run At:</span>
-                <span className="">{toDateString(r.runAt)}</span>
-                <span className="text-xs">Duration: {r.runTime} (s)</span>
-              </div>
-              <div className="flex w-full flex-col items-center justify-center space-y-1">
-                <span className="text-xs font-bold">Source Date:</span>
-                <span className="text-sm">{toDateString(r.sourceDate)}</span>
-              </div>
-            </ScreenSectionCell>
             {/* RUN INFO CELL */}
-            <ScreenSectionCell styles="w-7/12 flex flex-col divide-y divide-zinc-300 text-sm space-y-1">
-              <div className="flex flex-col space-x-3 px-2 text-base">
+            <ScreenSectionCell styles="flex flex-col divide-y divide-zinc-300 text-sm space-y-1 w-full">
+              <div className="flex flex-col justify-center">
+                <div className="flex w-full flex-row flex-wrap justify-evenly pb-1.5 [&>div]:pt-2">
+                  <div className="flex w-64 items-center justify-center">
+                    <span className="mr-2 text-sm font-bold text-zinc-700">
+                      Run At:
+                    </span>
+                    <span className="text-base">
+                      {toDateString(r.runAt)}
+                      <span className="ml-1 text-center text-xs">
+                        ({r.runTime} s)
+                      </span>
+                    </span>
+                  </div>
+                </div>
                 {r.errorMessage && (
                   <span className="pb-1 text-center text-sm font-bold text-gmc-heart">
                     {r.errorMessage}
                   </span>
                 )}
+              </div>
+              <div className="flex flex-wrap items-center justify-evenly pt-1.5">
                 <div>
-                  Found:{' '}
-                  <span className={cn({ 'font-bold': r.foundCount > 0 })}>
-                    {r.foundCount}
-                  </span>
+                  Found: <span className="font-bold">{r.foundCount}</span>
                 </div>
-              </div>
-              {/* detail counts */}
-              <div className="flex h-full justify-evenly py-1.5">
-                <div className="flex h-full flex-col justify-evenly">
-                  <span className="pb-1">
-                    Owned:{' '}
-                    <span
-                      className={cn('text-base', {
-                        'font-bold': r.ownedCount > 0,
-                      })}
-                    >
-                      {r.ownedCount}
-                    </span>
-                  </span>
-                  <ul className="ml-7 list-disc">
-                    <li>
-                      Stale:{' '}
-                      <span
-                        className={cn('text-base', {
-                          'font-bold': r.staleCount > 0,
-                        })}
-                      >
-                        {r.staleCount}
-                      </span>
-                    </li>
-                    <li>
-                      Pending:{' '}
-                      <span
-                        className={cn('text-base', {
-                          'font-bold': r.pendingCount > 0,
-                        })}
-                      >
-                        {r.pendingCount}
-                      </span>
-                    </li>
-                    <li>
-                      Keep Alives:{' '}
-                      <span
-                        className={cn('text-base', {
-                          'font-bold': r.keepAliveSignalCount > 0,
-                        })}
-                      >
-                        {r.keepAliveSignalCount}
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div className="flex h-full flex-col justify-evenly">
-                  <span className="pb-1">
-                    Unknown:{' '}
-                    <span
-                      className={cn('text-base', {
-                        'font-bold': r.foundCount - r.ownedCount > 0,
-                      })}
-                    >
-                      {r.foundCount - r.ownedCount}
-                    </span>
-                  </span>
-                  <ul className="ml-7 list-disc">
-                    <li>
-                      Created:{' '}
-                      <span
-                        className={cn('text-base', {
-                          'font-bold': r.createdCount > 0,
-                        })}
-                      >
-                        {r.createdCount}
-                      </span>
-                    </li>
-                    <li>
-                      Foreign:{' '}
-                      <span
-                        className={cn('text-base', {
-                          'font-bold': r.foreignCount > 0,
-                        })}
-                      >
-                        {r.foreignCount}
-                      </span>
-                    </li>
-                    <li>
-                      Adopted:{' '}
-                      <span
-                        className={cn('text-base', {
-                          'font-bold': r.adoptedCount > 0,
-                        })}
-                      >
-                        {r.adoptedCount}
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="flex h-full flex-col items-center justify-evenly pt-1.5">
-                <span className="text-base">
-                  Refresh Signals:{' '}
+                <div>
+                  Refresh Sig:{' '}
                   <span
                     className={cn({
                       'font-bold': r.refreshSignalCount > 0,
@@ -198,7 +105,7 @@ const Runs: React.FC = () => {
                   >
                     {r.refreshSignalCount}
                   </span>
-                </span>
+                </div>
                 {r.failureCount > 0 && (
                   <span className="text-base">
                     FAILURES:{' '}
@@ -207,6 +114,55 @@ const Runs: React.FC = () => {
                     </span>
                   </span>
                 )}
+              </div>
+
+              {/* 
+              
+                DETAIL COUNTS
+
+              */}
+              <div className="flex flex-wrap justify-center text-sm">
+                <div className="mx-4 my-1 flex flex-col justify-evenly">
+                  <span className="pb-1">
+                    Owned: <span>{r.ownedCount}</span>
+                  </span>
+                  <ul className="ml-7 list-disc text-xs">
+                    <li>
+                      Stale: <span>{r.staleCount}</span>
+                    </li>
+                    <li>
+                      Pending: <span>{r.pendingCount}</span>
+                    </li>
+                    <li>
+                      Keep Alives: <span>{r.keepAliveSignalCount}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="mx-4 my-1 flex flex-col justify-evenly">
+                  <span className="pb-1">
+                    Unknown: <span>{r.foundCount - r.ownedCount}</span>
+                  </span>
+                  <ul className="ml-7 list-disc text-xs">
+                    <li>
+                      Created: <span>{r.createdCount}</span>
+                    </li>
+                    <li>
+                      Foreign: <span>{r.foreignCount}</span>
+                    </li>
+                    <li>
+                      Adopted: <span>{r.adoptedCount}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex w-full flex-row flex-wrap justify-evenly pb-1.5 [&>div]:pt-2">
+                  <div className="flex w-56 items-center justify-center">
+                    <span className="mr-2 text-sm text-zinc-700">
+                      Source Date:
+                    </span>
+                    <span className="">{toDateString(r.sourceDate)}</span>
+                  </div>
+                </div>
               </div>
             </ScreenSectionCell>
           </ScreenSectionRow>
@@ -222,4 +178,4 @@ const Runs: React.FC = () => {
   );
 };
 
-export default Runs;
+export default RunsScreen;

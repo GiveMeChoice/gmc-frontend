@@ -19,7 +19,7 @@ const Providers: React.FC = () => {
     if (!providers.length) {
       setLoading(true);
       providersService
-        .search(activeFilters)
+        .find(activeFilters)
         .then((providers) => {
           dispatch({ type: 'REFRESH_PROVIDERS', value: providers });
         })

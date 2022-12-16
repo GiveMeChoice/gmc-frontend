@@ -8,7 +8,7 @@ interface Props {
 
 const ProductPreviewInfo: React.FC<Props> = ({ product }) => {
   return (
-    <div className="flex flex-col space-y-2 rounded-sm border-2 border-black p-2">
+    <div className="flex h-full flex-col space-y-2 overflow-y-auto rounded-sm border-2 border-black p-2">
       <a
         className={cn('text-lg font-bold', {
           'text-zinc-500': !product.offerLink,

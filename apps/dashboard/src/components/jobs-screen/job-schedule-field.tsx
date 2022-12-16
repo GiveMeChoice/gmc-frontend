@@ -48,7 +48,7 @@ const JobScheduleField: React.FC<Props> = ({ jobName, schedule }) => {
         <select
           id="schedule"
           className={cn(
-            'block w-full rounded-full border border-gray-600 bg-gray-700 p-2 text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+            'block w-full rounded-lg border border-gray-600 bg-gray-700 p-2 text-center text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
             {
               // 'text-gray-400': !filters.providerActivation,
             }

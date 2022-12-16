@@ -5,7 +5,7 @@ interface Props {
 }
 
 const ScreenSectionCell: React.FC<Props> = ({ children, styles }) => {
-  return <div className={`py-2 px-4 ${styles}`}>{children}</div>;
+  return <div className={`py-2 px-2 ${styles}`}>{children}</div>;
 };
 
 export default ScreenSectionCell;

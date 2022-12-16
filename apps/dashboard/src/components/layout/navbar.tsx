@@ -5,7 +5,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <NavbarTop />
-      <NavbarBottom />
+      {location.pathname.includes('/mappings') && <NavbarBottom />}
     </>
   );
 };

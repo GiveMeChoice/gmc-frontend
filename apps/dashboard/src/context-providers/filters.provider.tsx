@@ -28,6 +28,11 @@ export interface IFilters {
   productShortId?: string;
   productProviderId?: string;
   productStatus?: string;
+  productIntegrationError?: boolean;
+  labelCode?: string;
+  labelGroupId?: string;
+  categoryCode?: string;
+  categoryGroupId?: string;
 }
 
 export type FiltersAction =
@@ -54,16 +59,20 @@ export type ProviderSelectType = {
   key: string;
 };
 
-export const initialFilters = {
+export const initialFilters: IFilters = {
   providerId: '',
   providerActivation: '',
-  sourceId: '',
   sourceIdentifier: '',
   sourceActivation: '',
   sourceStatus: '',
   productStatus: '',
   productShortId: '',
   productProviderId: '',
+  productIntegrationError: false,
+  labelCode: '',
+  labelGroupId: '',
+  categoryCode: '',
+  categoryGroupId: '',
 };
 
 const FiltersContext = createContext<IFiltersState>(null);

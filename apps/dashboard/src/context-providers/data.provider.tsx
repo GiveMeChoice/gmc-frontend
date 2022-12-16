@@ -1,4 +1,7 @@
+import { IBrand } from '@root/services/brands.service';
+import { ICategory } from '@root/services/categories.service';
 import { IJobStatus } from '@root/services/jobs.service';
+import { ILabel } from '@root/services/labels.service';
 import { IProduct } from '@root/services/products.service';
 import { IProvider } from '@root/services/providers.service';
 import { IRun } from '@root/services/runs.service';
@@ -19,16 +22,32 @@ import {
 export interface IData {
   jobs: IJobStatus[];
   providers: IProvider[];
-  sources: ISource[];
-  runs: IRun[];
-  products: IProduct[];
   providersMeta: PageMeta;
+  sources: ISource[];
   sourcesMeta: PageMeta;
+  runs: IRun[];
   runsMeta: PageMeta;
+  products: IProduct[];
   productsMeta: PageMeta;
+  labels: ILabel[];
+  labelsMeta: PageMeta;
+  categories: ICategory[];
+  categoriesMeta: PageMeta;
+  brands: IBrand[];
+  brandsMeta: PageMeta;
+  previewProduct: IProduct | null;
+  searchQuery: string;
+  searchResults: IProduct[];
 }
 
 export type DataAction =
+  | {
+      type: 'OPEN_PRODUCT_PREVIEW';
+      value: IProduct;
+    }
+  | {
+      type: 'CLOSE_PRODUCT_PREVIEW';
+    }
   | {
       type: 'REFRESH_JOBS';
       value: IJobStatus[];
@@ -48,6 +67,26 @@ export type DataAction =
   | {
       type: 'REFRESH_PRODUCTS';
       value: PageResponse<IProduct>;
+    }
+  | {
+      type: 'REFRESH_LABELS';
+      value: PageResponse<ILabel>;
+    }
+  | {
+      type: 'REFRESH_CATEGORIES';
+      value: PageResponse<ICategory>;
+    }
+  | {
+      type: 'REFRESH_BRANDS';
+      value: PageResponse<IBrand>;
+    }
+  | {
+      type: 'START_SEARCH';
+      value: string;
+    }
+  | {
+      type: 'SET_SEARCH_RESULTS';
+      value: IProduct[];
     }
   | {
       type: 'UPDATE_JOB';
@@ -91,6 +130,16 @@ export function useDataDispatch() {
 function dataReducer(data: IData, action: DataAction): IData {
   console.log('Action: ' + action.type);
   switch (action.type) {
+    case 'OPEN_PRODUCT_PREVIEW':
+      return {
+        ...data,
+        previewProduct: action.value,
+      };
+    case 'CLOSE_PRODUCT_PREVIEW':
+      return {
+        ...data,
+        previewProduct: null,
+      };
     case 'REFRESH_JOBS':
       return {
         ...data,
@@ -119,6 +168,35 @@ function dataReducer(data: IData, action: DataAction): IData {
         ...data,
         products: action.value.data,
         productsMeta: action.value.meta,
+      };
+    case 'REFRESH_LABELS':
+      return {
+        ...data,
+        labels: action.value.data,
+        labelsMeta: action.value.meta,
+      };
+    case 'REFRESH_CATEGORIES':
+      return {
+        ...data,
+        categories: action.value.data,
+        categoriesMeta: action.value.meta,
+      };
+    case 'REFRESH_BRANDS':
+      return {
+        ...data,
+        brands: action.value.data,
+        brandsMeta: action.value.meta,
+      };
+    case 'START_SEARCH':
+      return {
+        ...data,
+        searchResults: null,
+        searchQuery: action.value,
+      };
+    case 'SET_SEARCH_RESULTS':
+      return {
+        ...data,
+        searchResults: action.value,
       };
     case 'UPDATE_JOB':
       return {
@@ -150,11 +228,20 @@ function dataReducer(data: IData, action: DataAction): IData {
 export const initialData: IData = {
   jobs: [],
   providers: [],
-  sources: [],
-  runs: [],
-  products: [],
   providersMeta: {},
+  sources: [],
   sourcesMeta: { sort: 'identifier', direction: 'DESC' },
+  runs: [],
   runsMeta: { sort: 'runAt', direction: 'DESC' },
+  products: [],
   productsMeta: {},
+  labels: [],
+  labelsMeta: { sort: 'code', direction: 'ASC' },
+  categories: [],
+  categoriesMeta: { sort: 'code', direction: 'ASC' },
+  brands: [],
+  brandsMeta: { sort: 'code', direction: 'ASC' },
+  previewProduct: null,
+  searchQuery: '',
+  searchResults: [],
 };
