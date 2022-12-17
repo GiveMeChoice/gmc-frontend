@@ -56,6 +56,11 @@ const find = async (
   return res.data;
 };
 
+const update = async (id: string, updates: Partial<ILabel>) => {
+  const res = await axios.put<ILabel>(`/labels/${id}`, updates);
+  return res.data;
+};
+
 const getOneGroup = async (id: string): Promise<ILabelGroup> => {
   const res = await axios.get<ILabelGroup>(`/label-groups/${id}`);
   return res.data;
@@ -110,6 +115,7 @@ const labelsService = {
   getOne,
   getAll,
   find,
+  update,
   getOneGroup,
   getAllGroups,
   labelsScreenControl,

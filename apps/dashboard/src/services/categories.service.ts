@@ -54,6 +54,11 @@ const find = async (
   return res.data;
 };
 
+const update = async (id: string, updates: Partial<ICategory>) => {
+  const res = await axios.put<ICategory>(`/categories/${id}`, updates);
+  return res.data;
+};
+
 const getOneGroup = async (id: string): Promise<ICategoryGroup> => {
   const res = await axios.get<ICategoryGroup>(`/category-groups/${id}`);
   return res.data;
@@ -108,6 +113,7 @@ const categoriesService = {
   getOne,
   getAll,
   find,
+  update,
   getOneGroup,
   getAllGroups,
   categoriesScreenControl,

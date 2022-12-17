@@ -71,26 +71,6 @@ const JobScheduleField: React.FC<Props> = ({ jobName, schedule }) => {
           onSave={onSave}
         />
       </div>
-      {/* <input
-        className={cn('h-6 w-14 rounded-md border pl-1.5 text-lg', {
-          'border-zinc-800 bg-primary-light-40 text-zinc-800': editing,
-          'border-zinc-400 text-zinc-500': !editing,
-        })}
-        type="number"
-        title="Run Interval (hours)"
-        disabled={!editing}
-        value={updatedSchedule}
-        onChange={(e) => setUpdatedSchedule(e.target.value)}
-        min={0}
-        max={10000}
-      />
-      <FieldControlButtons
-        active={editing}
-        onEdit={onEdit}
-        onCancel={onCancel}
-        onSave={onSave}
-        styles="w-1/3 justify-center"
-      /> */}
     </div>
   );
 };

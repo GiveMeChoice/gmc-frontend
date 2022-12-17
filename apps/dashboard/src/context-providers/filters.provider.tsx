@@ -1,3 +1,7 @@
+import categoriesService, {
+  ICategoryGroup,
+} from '@root/services/categories.service';
+import labelsService, { ILabelGroup } from '@root/services/labels.service';
 import providersService from '@root/services/providers.service';
 import {
   createContext,
@@ -12,6 +16,8 @@ export interface IFiltersState {
   activeFilters: IFilters;
   options: {
     providerSelect: ProviderSelectType[];
+    categoryGroupSelect: ICategoryGroup[];
+    labelGroupSelect: ILabelGroup[];
     sourceStatusSelect: string[];
     productStatusSelect: string[];
     jobScheduleSelect: string[];
@@ -52,6 +58,14 @@ export type FiltersAction =
   | {
       type: 'SET_PROVIDER_SELECT_OPTIONS';
       value: ProviderSelectType[];
+    }
+  | {
+      type: 'SET_CATEGORY_GROUP_SELECT_OPTIONS';
+      value: ICategoryGroup[];
+    }
+  | {
+      type: 'SET_LABEL_GROUP_SELECT_OPTIONS';
+      value: ILabelGroup[];
     };
 
 export type ProviderSelectType = {
@@ -85,6 +99,8 @@ export const FiltersProvider: React.FC = ({ children }) => {
     activeFilters: initialFilters,
     options: {
       providerSelect: [],
+      labelGroupSelect: [],
+      categoryGroupSelect: [],
       sourceStatusSelect: ['READY', 'BUSY', 'DOWN'],
       productStatusSelect: ['LIVE', 'PENDING', 'EXPIRED'],
       jobScheduleSelect: [
@@ -113,6 +129,18 @@ export const FiltersProvider: React.FC = ({ children }) => {
       dispatch({
         type: 'SET_PROVIDER_SELECT_OPTIONS',
         value: providers.data.map((p) => ({ id: p.id, key: p.key })),
+      });
+    });
+    categoriesService.getAllGroups().then((groups) => {
+      dispatch({
+        type: 'SET_CATEGORY_GROUP_SELECT_OPTIONS',
+        value: groups,
+      });
+    });
+    labelsService.getAllGroups().then((groups) => {
+      dispatch({
+        type: 'SET_LABEL_GROUP_SELECT_OPTIONS',
+        value: groups,
       });
     });
   }, []);
@@ -159,6 +187,22 @@ function filtersReducer(
         options: {
           ...data.options,
           providerSelect: action.value,
+        },
+      };
+    case 'SET_CATEGORY_GROUP_SELECT_OPTIONS':
+      return {
+        ...data,
+        options: {
+          ...data.options,
+          categoryGroupSelect: action.value,
+        },
+      };
+    case 'SET_LABEL_GROUP_SELECT_OPTIONS':
+      return {
+        ...data,
+        options: {
+          ...data.options,
+          labelGroupSelect: action.value,
         },
       };
     default:

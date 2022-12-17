@@ -319,6 +319,58 @@ const FiltersContainer: React.FC = () => {
               />
             </div>
           </div>
+          <div className="mr-2 w-48">
+            <label
+              htmlFor="labelGroupId"
+              className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
+            >
+              Label Group
+            </label>
+            <select
+              id="labelGroupId"
+              className={cn(
+                'block h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                {
+                  'text-gray-400': !filters.labelGroupId,
+                }
+              )}
+              value={filters.labelGroupId}
+              onChange={handleFieldChange}
+            >
+              <option value="">-----</option>
+              {options.labelGroupSelect.map((group, i) => (
+                <option key={i} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="mr-2 w-48">
+            <label
+              htmlFor="categoryGroupId"
+              className="my-1.5 block text-xs font-medium text-gray-900 dark:text-white"
+            >
+              Category Group
+            </label>
+            <select
+              id="categoryGroupId"
+              className={cn(
+                'block h-7 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                {
+                  'text-gray-400': !filters.categoryGroupId,
+                }
+              )}
+              value={filters.categoryGroupId}
+              onChange={handleFieldChange}
+            >
+              <option value="">-----</option>
+              {options.categoryGroupSelect.map((group, i) => (
+                <option key={i} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         <div className="flex h-32 w-full flex-col items-center justify-center space-y-4">

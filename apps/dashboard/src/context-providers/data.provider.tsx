@@ -99,6 +99,14 @@ export type DataAction =
   | {
       type: 'UPDATE_SOURCE';
       value: ISource;
+    }
+  | {
+      type: 'UPDATE_LABEL';
+      value: ILabel;
+    }
+  | {
+      type: 'UPDATE_CATEGORY';
+      value: ICategory;
     };
 
 const DataContext = createContext<IData>(null);
@@ -217,6 +225,20 @@ function dataReducer(data: IData, action: DataAction): IData {
         ...data,
         sources: data.sources.map((s) =>
           s.id === action.value.id ? action.value : s
+        ),
+      };
+    case 'UPDATE_LABEL':
+      return {
+        ...data,
+        labels: data.labels.map((l) =>
+          l.id === action.value.id ? action.value : l
+        ),
+      };
+    case 'UPDATE_CATEGORY':
+      return {
+        ...data,
+        categories: data.categories.map((c) =>
+          c.id === action.value.id ? action.value : c
         ),
       };
     default:

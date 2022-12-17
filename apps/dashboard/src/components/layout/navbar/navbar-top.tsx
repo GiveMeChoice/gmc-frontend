@@ -3,14 +3,12 @@ import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import React from 'react';
-import { Location, useLocation } from 'react-router-dom';
-import cn from 'classnames';
 import screenControlsService from '@root/services/screen-controls.service';
+import cn from 'classnames';
+import React from 'react';
+import { Location } from 'react-router-dom';
 
 const NavbarTop: React.FC = () => {
-  const location = useLocation();
-
   const { filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
 
@@ -41,7 +39,7 @@ const NavbarTop: React.FC = () => {
           alt="asdf"
         />
         <div
-          className="ml-4 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full  border-secondary duration-150 hover:bg-zinc-800 active:bg-opacity-50"
+          className="ml-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full  border-secondary duration-150 hover:bg-zinc-800 active:bg-opacity-50"
           onClick={toggleFilters}
         >
           <div
