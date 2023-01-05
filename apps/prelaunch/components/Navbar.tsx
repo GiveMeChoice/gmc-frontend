@@ -1,67 +1,26 @@
 import React from 'react';
 import Image from 'next/image';
 import { Header } from 'blog';
+import MobileMenu from './MobileMenu';
+import HamburgerButton from './HamburgerButton';
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="relative mx-auto w-full">
+    <nav className="z-20 w-full bg-secondary">
       {/* FLEX CONTAINER */}
-      <div className="container mx-auto flex items-center justify-between px-6 py-5 xl:px-36">
+      <div className="flex w-full items-center justify-between px-6 pt-6 pb-3 sm:px-12 lg:pl-32 xl:pl-40">
         {/* LOGO */}
-        <div className="pt-2 md:pt-0">
-          <a href="/">
-            <Image
-              src="/img/GMC_logo.svg"
-              alt="GMC Logo"
-              height="60"
-              width="400"
-            />
-          </a>
+        <div>
+          <Image
+            src="/img/GMC_logo.svg"
+            alt="GMC Logo"
+            height="60"
+            width="340"
+          />
         </div>
-        {/* MENU ITEMS */}
-        <div className="hidden space-x-10  md:flex md:items-center">
-          <a href="/about-us" className="text-xl hover:text-secondary-dark-50">
-            About Us
-          </a>
-          <Header />
-        </div>
-        {/* HAMBURGER */}
-        <button
-          id="menu-btn"
-          className="hamburger mt-3 mr-3 ml-6 focus:outline-none md:hidden"
-          onClick={(e) => {
-            const btn = document.getElementById('menu-btn');
-            const nav = document.getElementById('menu');
-            btn.classList.toggle('open');
-            nav.classList.toggle('flex');
-            nav.classList.toggle('hidden');
-          }}
-        >
-          <span className="hamburger-top"></span>
-          <span className="hamburger-middle"></span>
-          <span className="hamburger-bottom"></span>
-        </button>
+        <HamburgerButton />
       </div>
-      {/* MOBILE MENU */}
-      <div className="md:hidden">
-        <div
-          id="menu"
-          className="absolute right-0 z-10 mt-0 hidden w-1/2 flex-col items-center self-end rounded-md border-2 border-black bg-white"
-        >
-          <a
-            className="w-11/12 max-w-full py-3 text-center hover:scale-110"
-            href="/about-us"
-          >
-            About Us
-          </a>
-          <a
-            className="w-11/12 max-w-full py-3 text-center hover:scale-110"
-            href="/blog"
-          >
-            Blog
-          </a>
-        </div>
-      </div>
+      <MobileMenu />
     </nav>
   );
 };

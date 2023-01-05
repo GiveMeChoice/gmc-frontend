@@ -18,6 +18,7 @@ const CategoriesScreen: React.FC = () => {
   const dataDispatch = useDataDispatch();
   const { activeFilters, options } = useFilters();
   const [loading, setLoading] = useState(false);
+  // some unused test linen
 
   useEffect(() => {
     if (!categories.length) {

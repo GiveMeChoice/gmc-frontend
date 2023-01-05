@@ -18,10 +18,10 @@ import { useFiltersDispatch } from './context-providers/filters.provider';
 import './styles.css';
 
 function App() {
-  axios.defaults.baseURL = 'http://localhost:5000';
+  axios.defaults.baseURL = 'http://localhost:5001';
   const filtersDispatch = useFiltersDispatch();
-  const { previewProduct } = useData();
   const dataDisptach = useDataDispatch();
+  const { previewProduct } = useData();
   useEffect(() => {
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key == 'Escape') {

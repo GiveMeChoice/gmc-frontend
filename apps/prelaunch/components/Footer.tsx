@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Footer: React.FC = () => {
   return (
-    <footer className=" h-fit w-full bg-black text-white">
+    <footer className=" h-fit w-full bg-inherit text-black">
       {/* FOOTER FLEX CONTAINER */}
       <div className="container mx-auto flex flex-col justify-between space-y-8 py-7 md:flex-row md:space-y-0 xl:px-20">
         {/* social links container*/}
@@ -27,6 +27,8 @@ const Footer: React.FC = () => {
         <div className="flex flex-col items-center space-y-3  md:flex-row md:space-y-0 md:space-x-6">
           <a
             href="mailto:hello@givemechoice.com?subject=Hello"
+            target="_blank"
+            rel="noreferrer"
             className="hover:text-primary"
           >
             Contact Us

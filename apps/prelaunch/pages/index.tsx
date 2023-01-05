@@ -8,12 +8,18 @@ export default function Home() {
   const [subscribing, setSubscribing] = useState<boolean>(false);
   const [subscribed, setSubscribed] = useState<boolean>(false);
 
-  const onSubscribe = () => {
-    setSubscribing(true);
-    setTimeout(() => {
-      setSubscribed(true);
-      setSubscribing(false);
-    }, 2000);
+  const handleSubscribe = () => {
+    if (email) {
+      setSubscribing(true);
+      setTimeout(() => {
+        setSubscribed(true);
+        setSubscribing(false);
+        setTimeout(() => {
+          setSubscribed(false);
+          setEmail('');
+        }, 2000);
+      }, 2000);
+    }
   };
 
   const heroUrl =
@@ -29,16 +35,18 @@ export default function Home() {
         <div className="container mx-auto flex flex-col-reverse items-center px-6 md:mb-8 md:mt-4 md:flex-row md:space-x-10 xl:px-36">
           {/* LEFT TEXT ITEM */}
           <div className="mb-16 mt-10 flex flex-col items-center space-y-6 md:mb-0 md:w-1/2">
-            <p className="max-w-md text-center text-4xl md:text-left md:text-4xl">
+            <p className="max-w-md text-center text-4xl md:text-4xl">
               Planet conscious discovery, enabled by trustful curation.
             </p>
-            <p className="max-w-md text-center md:text-left">
-              Please enter your email address below to subscribe to our
-              newsletter and we will invite you to test our new website when
-              it&apos;s ready!*
+            <p className="max-w-md text-center">
+              Give Me Choice empowers people to live a planet conscious life,
+              bringing together a community that understands the impact of their
+              actions on their health, and the health of the planet for future
+              generations.
             </p>
-            <p className="max-w-md text-center text-xs text-secondary-dark-50 md:text-left ">
-              *(should be around Q1 2023 but don&apos;t hold your breath...)
+            <p className="max-w-md text-center">
+              We’re creating a discovery experience to enable planet conscious
+              shoppers. Subscribe to be amongst the first to know.
             </p>
           </div>
           <div className="mt-8 flex justify-center md:mt-0">
@@ -50,6 +58,7 @@ export default function Home() {
               width={750}
               height={550}
               objectFit="cover"
+              unoptimized
             />
           </div>
         </div>
@@ -62,34 +71,41 @@ export default function Home() {
       >
         {/* CTA FLEX CONTAINER */}
         <div className="container mx-auto flex flex-col items-center justify-center px-6 py-10 md:flex-row md:space-x-12">
-          <div className="flex flex-wrap items-center justify-center space-y-3 md:space-x-2 md:space-y-0">
+          <div
+            id="subscribe"
+            className="flex flex-wrap items-center justify-center space-y-3 md:space-x-2 md:space-y-0"
+          >
             <input
               className={cn(
-                'h-14 rounded-full border-2 border-black p-2 pl-7 text-lg'
+                'h-14 rounded-md border-2 border-black p-1 pl-5 text-lg'
               )}
               type="email"
               id="email"
               pattern=".+@.+\.com"
               disabled={subscribing || subscribed}
               size={27}
+              value={email}
               required
               placeholder="Give Me Updates..."
               onSubmit={() => alert('sub-text')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  onSubscribe();
+                  handleSubscribe();
                 }
+              }}
+              onChange={(e) => {
+                setEmail(e.target.value);
               }}
             />
             <button
-              onClick={() => onSubscribe()}
+              onClick={() => handleSubscribe()}
               disabled={subscribing || subscribed}
               className={cn(
                 'h-14 w-40 rounded-full border-2 border-black bg-black text-white',
                 {
-                  'hover:text-primary': !subscribing && !subscribed,
+                  ' hover:text-primary': !subscribing && !subscribed,
                   'bg-gmc-surf text-black': subscribing,
-                  'bg-gmc-sunset text-black': subscribed,
+                  'border-gmc-sunset bg-gmc-sunset text-black': subscribed,
                 }
               )}
             >
@@ -114,7 +130,7 @@ export default function Home() {
                   <span className="">Signing Up...</span>
                 </>
               ) : subscribed ? (
-                'SUBSCRIBED!'
+                'SUBSCRIBED!!'
               ) : (
                 'SUBSCRIBE'
               )}

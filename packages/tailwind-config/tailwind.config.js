@@ -13,6 +13,9 @@ module.exports = {
       xl: '1440px',
     },
     extend: {
+      fontSize: {
+        menu: '8.441rem',
+      },
       colors: {
         primary: '#a7f700',
         // https://maketintsandshades.com/#a7f700
