@@ -1,16 +1,15 @@
+import cn from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { toggleNavMenu } from '../helpers/toggle-nav-menu';
-import cn from 'classnames';
-import { matchesPath } from '../helpers/matches-path';
 
 const MobileMenu: React.FC = () => {
   const router = useRouter();
   return (
     <div
       id="menu"
-      className="fixed -right-full top-0 z-10 flex h-screen w-screen flex-col justify-between self-end overflow-y-auto bg-white p-12 text-black duration-300 md:max-w-sm"
+      className="fixed -right-full top-0 z-10 flex h-screen w-screen flex-col justify-between self-end overflow-y-hidden bg-white p-12 text-black duration-300 md:max-w-sm"
     >
       {/* <div className="px-12 pt-10 pb-16 md:pb-0 xl:px-36"> */}
       <a href="/" className="z-30 flex w-fit justify-start">

@@ -7,7 +7,7 @@ interface Props {
 
 const CategoryList: React.FC<Props> = ({ categories }) => {
   return (
-    <section className="mx-4 mb-10 grid grid-cols-1 gap-x-12 gap-y-2 md:mx-10 md:grid-cols-2 lg:mx-16 xl:mx-32">
+    <section className="mx-10 mb-10 grid grid-cols-1 gap-x-12 gap-y-2 md:mx-10 md:grid-cols-2 lg:mx-16 xl:mx-32">
       {categories.map((category) => (
         <Category
           color={category.color}

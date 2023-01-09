@@ -11,7 +11,7 @@ interface Props {
 const Category: React.FC<Props> = ({ title, slug, color, description }) => {
   return (
     <Link href={`/blog/tags/${slug}`}>
-      <div className="border mb-4 flex cursor-pointer flex-col items-center  rounded-sm border-secondary-dark-20 p-4 shadow-sm">
+      <div className="border mb-4 flex cursor-pointer flex-col items-center  rounded-md border-secondary-dark-10 p-4 shadow-sm">
         <div
           style={{
             backgroundColor: color,

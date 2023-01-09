@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
             src="/img/GMC_logo.svg"
             alt="GMC Logo"
             height="50"
-            width="300"
+            width="320"
           />
         </a>
         <HamburgerButton />

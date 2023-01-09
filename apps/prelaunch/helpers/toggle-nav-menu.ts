@@ -6,4 +6,5 @@ export function toggleNavMenu() {
   nav.classList.toggle('-right-full');
   nav.classList.toggle('right-0');
   body.classList.toggle('overflow-y-hidden');
+  body.classList.toggle('overflow-x-hidden');
 }

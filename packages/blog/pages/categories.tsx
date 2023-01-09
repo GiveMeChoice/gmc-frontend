@@ -21,7 +21,7 @@ export function CategoriesPage({ categories, preview }: any) {
         </Head>
         <Container>
           <Menu />
-          <Intro title="Tags." />
+          <Intro title="Tags" />
           {allCategories.length > 0 && (
             <CategoryList categories={allCategories} />
           )}

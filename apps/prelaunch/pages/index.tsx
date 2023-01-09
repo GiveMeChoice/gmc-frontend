@@ -22,8 +22,6 @@ export default function Home() {
     }
   };
 
-  const heroUrl =
-    'https://media4.giphy.com/media/46flWOF5M6E8IJzPxC/giphy.gif?cid=ecf05e479mzxddhd5qyf22dcecgah19x8z85yf5semumlikr&rid=giphy.gif&ct=g';
   return (
     <>
       <Head>
@@ -46,8 +44,11 @@ export default function Home() {
             </p>
             <p className="max-w-md text-center">
               We’re creating a discovery experience to enable planet conscious
-              shoppers. Subscribe to be amongst the first to know.
+              shoppers.{' '}
             </p>
+            <strong className="max-w-md text-center text-lg font-bold">
+              Subscribe to our newsletter and be amongst the first to know.
+            </strong>
           </div>
           <div className="mt-8 flex justify-center md:mt-0">
             <Image
@@ -68,7 +69,7 @@ export default function Home() {
       {/* CTA Section */}
       <section
         id="cta"
-        className="mb-10 border-t-2 border-b-2 border-black bg-white"
+        className="border-t-2 border-b-2 mb-10 border-black bg-white"
       >
         {/* CTA FLEX CONTAINER */}
         <div className="container mx-auto flex flex-col items-center justify-center px-6 py-10 md:flex-row md:space-x-12">
@@ -78,7 +79,7 @@ export default function Home() {
           >
             <input
               className={cn(
-                'h-14 rounded-md border-2 border-black p-1 pl-5 text-lg'
+                'border-2 h-14 rounded-md border-black p-1 pl-5 text-lg'
               )}
               type="email"
               id="email"
@@ -102,7 +103,7 @@ export default function Home() {
               onClick={() => handleSubscribe()}
               disabled={subscribing || subscribed}
               className={cn(
-                'h-14 w-40 rounded-full border-2 border-black bg-black text-white',
+                'border-2 h-14 w-40 rounded-full border-black bg-black text-white',
                 {
                   ' hover:text-primary': !subscribing && !subscribed,
                   'bg-gmc-surf text-black': subscribing,
