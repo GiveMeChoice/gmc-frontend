@@ -26,16 +26,7 @@ const MobileMenu: React.FC = () => {
       <div className="mt-16 flex h-full flex-grow flex-col items-start space-y-1 text-5xl decoration-4 duration-300 hover:underline-offset-8 [&>a]:pb-1.5">
         <a
           className={cn('hover:underline', {
-            underline: matchesPath('/', router.pathname),
-          })}
-          href="/"
-          onClick={toggleNavMenu}
-        >
-          Intro
-        </a>
-        <a
-          className={cn('hover:underline', {
-            underline: matchesPath('/blog', router.pathname),
+            // underline: matchesPath('/blog', router.pathname),
           })}
           href="/blog"
           onClick={toggleNavMenu}
@@ -53,7 +44,7 @@ const MobileMenu: React.FC = () => {
         </a>
         <a
           className={cn('hover:underline', {
-            underline: matchesPath('/#subscribe', router.pathname),
+            // underline: matchesPath('/#subscribe', router.pathname),
           })}
           href="/#subscribe"
           onClick={toggleNavMenu}

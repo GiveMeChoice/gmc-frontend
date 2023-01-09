@@ -2,16 +2,20 @@ import React from 'react';
 import { PostPreview } from '../components/post-preview';
 
 interface Props {
+  title?: boolean;
   posts: any[];
 }
 
-export const MoreStories: React.FC<Props> = ({ posts }) => {
+export const MoreStories: React.FC<Props> = ({ title, posts }) => {
   return (
     <section>
-      <h2 className="mb-8 text-5xl font-bold leading-tight tracking-normal md:text-7xl">
-        More Posts
-      </h2>
-      <div className="mb-32 grid grid-cols-1 gap-y-20 md:grid-cols-2 md:gap-x-16 md:gap-y-32 lg:gap-x-32">
+      {title && (
+        <h2 className="mb-8 text-5xl font-bold leading-tight tracking-normal md:text-7xl">
+          More Posts
+        </h2>
+      )}
+
+      <div className="mb-28 grid grid-cols-1 gap-y-16 md:grid-cols-2 md:gap-x-14 md:gap-y-20 lg:gap-x-20">
         {posts.map((post) => (
           <PostPreview
             key={post.slug}

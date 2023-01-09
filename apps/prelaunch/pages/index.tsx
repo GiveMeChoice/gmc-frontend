@@ -34,7 +34,7 @@ export default function Home() {
         {/* HERO FLEX CONTAINER */}
         <div className="container mx-auto flex flex-col-reverse items-center px-6 md:mb-8 md:mt-4 md:flex-row md:space-x-10 xl:px-36">
           {/* LEFT TEXT ITEM */}
-          <div className="mb-16 mt-10 flex flex-col items-center space-y-6 md:mb-0 md:w-1/2">
+          <div className="mb-16 mt-10 flex flex-col items-center space-y-6 md:mt-0 md:mb-0 md:w-1/2">
             <p className="max-w-md text-center text-4xl md:text-4xl">
               Planet conscious discovery, enabled by trustful curation.
             </p>
@@ -52,9 +52,10 @@ export default function Home() {
           <div className="mt-8 flex justify-center md:mt-0">
             <Image
               className="rounded-md"
-              src={heroUrl}
-              alt="Coin"
-              loader={() => heroUrl}
+              // src={heroUrl}
+              src="/img/hologif.gif"
+              alt="Hologram"
+              // loader={() => heroUrl}
               width={750}
               height={550}
               objectFit="cover"

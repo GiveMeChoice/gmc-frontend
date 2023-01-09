@@ -11,15 +11,17 @@ const PostCategories: React.FC<Props> = ({ categories }) => (
       categories.map((category: any, i: number) => (
         <a
           key={i}
-          href="#"
+          href={`/blog/tags/${category.slug}`}
           title={category.description || category.title}
           style={{
             backgroundColor: category.color.value,
-            border: '1px solid black',
           }}
-          className={cn('h-7 rounded-2xl px-2.5 pt-0.5 pb-1', {
-            'my-1': (i = 1),
-          })}
+          className={cn(
+            'border h-7 rounded-2xl border-zinc-500 px-2.5 pt-0.5 pb-1 shadow-sm',
+            {
+              'my-1': (i = 1),
+            }
+          )}
         >
           {category.title}
         </a>

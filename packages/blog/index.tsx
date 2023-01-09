@@ -26,3 +26,6 @@ export * from './components/section-separator';
 // pages
 export * from './pages/blog';
 export * from './pages/post';
+export * from './pages/categories';
+export * from './pages/all-posts';
+export * from './pages/category-posts';

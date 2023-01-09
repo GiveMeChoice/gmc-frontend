@@ -1,17 +1,15 @@
-import React from 'react';
-import { useRouter } from 'next/router';
 import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  WhatsappShareButton,
-  WhatsappIcon,
-  FacebookMessengerShareButton,
-  FacebookMessengerIcon,
-  EmailShareButton,
   EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookShareButton,
+  TwitterIcon,
+  TwitterShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
 } from 'next-share';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 interface Props {
   title: string;

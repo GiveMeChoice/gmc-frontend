@@ -6,12 +6,26 @@ const postFields = `
   date,
   excerpt,
   coverImage,
-  "categories": categories[]->{color, title, description},
+  "categories": categories[]->{color, title, description, "slug": slug.current},
   "slug": slug.current,
   "author": author->{name, picture},
+  `;
+
+const categoryFields = `
+  _id,
+  title,
+  "slug": slug.current,
+  description,
+  "color": color.value
 `;
 
 const draftFilter = ' && !(_id in path("drafts.**"))';
+
+export const allCategoriesQuery = (preview: boolean) =>
+  `*[_type == 'category'${preview ? '' : draftFilter}] {${categoryFields}}`;
+
+export const categoryBySlugQuery = (slug: string) =>
+  `*[_type == 'category' && slug.current == '${slug}'] {${categoryFields}}`;
 
 export const indexQuery = (preview: boolean) =>
   `*[_type == "post"${
@@ -19,6 +33,16 @@ export const indexQuery = (preview: boolean) =>
   }] | order(date desc, _updatedAt desc) {
   ${postFields}
 }`;
+
+export const allPostsQuery = (preview: boolean) =>
+  `*[_type == "post"${
+    preview ? '' : draftFilter
+  }] | order(date desc, _updatedAt desc) [0...10] {${postFields}}`;
+
+export const categoryPostsQuery = (categoryId: string, preview: boolean) =>
+  `*[_type == "post"${
+    preview ? '' : draftFilter
+  } && '${categoryId}' in categories[]._ref] | order(date desc, _updatedAt desc) [0...10] {${postFields}}`;
 
 export const postQuery = (preview: boolean) => `
 {

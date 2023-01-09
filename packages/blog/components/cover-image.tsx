@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { urlForImage } from '../lib/sanity';
 
 interface Props {
+  framed?: boolean;
   title?: string;
   slug?: string;
   image?: any;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const CoverImage: React.FC<Props> = ({
+  framed,
   title,
   slug,
   image: source,
@@ -25,7 +27,9 @@ export const CoverImage: React.FC<Props> = ({
       })}
     >
       <Image
-        className="h-auto w-full"
+        className={cn('h-auto w-full', {
+          'rounded-t-sm': framed,
+        })}
         layout="responsive"
         width={2000}
         height={1000}

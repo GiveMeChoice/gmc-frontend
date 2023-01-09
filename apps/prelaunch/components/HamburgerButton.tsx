@@ -4,7 +4,7 @@ const HamburgerButton: React.FC = () => {
   return (
     <button
       id="menu-btn"
-      className="flixed hamburger z-20 ml-8 focus:outline-none sm:ml-0"
+      className="hamburger z-20 ml-12 mr-3 block focus:outline-none sm:float-right sm:ml-0 xl:-right-24"
       onClick={(e) => {
         const btn = document.getElementById('menu-btn');
         const nav = document.getElementById('menu');

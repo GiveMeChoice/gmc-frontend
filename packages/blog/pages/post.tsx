@@ -11,6 +11,7 @@ import { postQuery, postSlugsQuery } from '../lib/queries';
 import { urlForImage, usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
 import readingTime from 'reading-time';
+import Menu from '../components/menu';
 
 export function PostPage({ data, preview }: any) {
   const router = useRouter();
@@ -27,6 +28,7 @@ export function PostPage({ data, preview }: any) {
   return (
     <Layout preview={preview}>
       <Container>
+        <Menu />
         {router.isFallback ? (
           <PostTitle title={'Loading...'} subtitle={''} />
         ) : (

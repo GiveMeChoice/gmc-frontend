@@ -9,7 +9,7 @@ interface Props {
 export const PostBody: React.FC<Props> = ({ content }) => {
   return (
     <div
-      className={`mx-auto max-w-md md:max-w-xl lg:max-w-3xl xl:max-w-4xl ${markdownStyles.markdown}`}
+      className={`mx-auto max-w-md md:max-w-2xl lg:max-w-3xl xl:max-w-4xl ${markdownStyles.markdown}`}
     >
       <PortableText value={content} />
     </div>
