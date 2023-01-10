@@ -47,7 +47,8 @@ export default function Home() {
               shoppers.{' '}
             </p>
             <strong className="max-w-md text-center text-lg font-bold">
-              Subscribe to our newsletter and be amongst the first to know.
+              Subscribe to our newsletter and be amongst the first to get access
+              when we launch.
             </strong>
           </div>
           <div className="mt-8 flex justify-center md:mt-0">
@@ -69,7 +70,7 @@ export default function Home() {
       {/* CTA Section */}
       <section
         id="cta"
-        className="border-t-2 border-b-2 mb-10 border-black bg-white"
+        className="mb-10 border-t-2 border-b-2 border-black bg-white"
       >
         {/* CTA FLEX CONTAINER */}
         <div className="container mx-auto flex flex-col items-center justify-center px-6 py-10 md:flex-row md:space-x-12">
@@ -79,7 +80,7 @@ export default function Home() {
           >
             <input
               className={cn(
-                'border-2 h-14 rounded-md border-black p-1 pl-5 text-lg'
+                'h-14 rounded-md border-2 border-black p-1 pl-5 text-lg'
               )}
               type="email"
               id="email"
@@ -103,7 +104,7 @@ export default function Home() {
               onClick={() => handleSubscribe()}
               disabled={subscribing || subscribed}
               className={cn(
-                'border-2 h-14 w-40 rounded-full border-black bg-black text-white',
+                'h-14 w-40 rounded-full border-2 border-black bg-black text-white',
                 {
                   ' hover:text-primary': !subscribing && !subscribed,
                   'bg-gmc-surf text-black': subscribing,

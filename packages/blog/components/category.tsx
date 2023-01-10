@@ -11,20 +11,18 @@ interface Props {
 const Category: React.FC<Props> = ({ title, slug, color, description }) => {
   return (
     <Link href={`/blog/tags/${slug}`}>
-      <div className="border mb-4 flex cursor-pointer flex-col items-center  rounded-md border-secondary-dark-10 p-4 shadow-sm">
+      <div className="flex flex-col items-center rounded-full px-5 hover:cursor-pointer [&>h3]:hover:underline [&>div]:hover:opacity-90">
         <div
           style={{
             backgroundColor: color,
           }}
-          className="border mx-5 flex h-12 w-32 items-center justify-center rounded-full border-zinc-400 text-lg shadow-sm"
+          className="mx-5 flex h-12 w-32 items-center justify-center rounded-full border border-secondary-dark-30 border-opacity-50 text-lg shadow-sm"
         >
           {title}
         </div>
-        <div>
-          <h3 className="cursor-pointer pt-2 text-lg hover:underline">
-            {description}
-          </h3>
-        </div>
+        <h3 className="text-md cursor-pointer pt-2.5 text-center">
+          {description}
+        </h3>
       </div>
     </Link>
   );

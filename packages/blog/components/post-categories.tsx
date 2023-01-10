@@ -17,7 +17,7 @@ const PostCategories: React.FC<Props> = ({ categories }) => (
             backgroundColor: category.color.value,
           }}
           className={cn(
-            'border h-7 rounded-2xl border-zinc-500 px-2.5 pt-0.5 pb-1 shadow-sm',
+            'shadow-s h-7 rounded-2xl border border-secondary-dark-30 border-opacity-50 px-2.5 pt-0.5 pb-1 hover:opacity-90',
             {
               'my-1': (i = 1),
             }
