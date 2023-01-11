@@ -36,6 +36,9 @@ const Footer: React.FC = () => {
           <a href="privacy-policy" className="hover:text-primary">
             Privacy Policy
           </a>
+          <a href="blog" className="hover:text-primary">
+            Blog
+          </a>
         </div>
         {/* LOGO + COPYRIGHT md+ */}
         <div className="flex flex-col items-center space-y-3">
@@ -48,7 +51,7 @@ const Footer: React.FC = () => {
             />
           </div>
           <div className="text-center text-xs ">
-            Copyright &copy; 2022, All Rights Reserved
+            Copyright &copy; 2023, All Rights Reserved
           </div>
         </div>
       </div>
