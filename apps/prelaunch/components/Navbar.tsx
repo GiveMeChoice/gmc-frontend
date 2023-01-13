@@ -6,7 +6,7 @@ import HamburgerButton from './HamburgerButton';
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="z-20 w-full bg-secondary">
+    <nav className="z-20 w-full">
       {/* FLEX CONTAINER */}
       <div className="container mx-auto flex w-full items-center justify-between px-5 pt-8 pb-3 xl:px-36">
         {/* LOGO */}

@@ -9,7 +9,7 @@ const MobileMenu: React.FC = () => {
   return (
     <div
       id="menu"
-      className="fixed -right-full top-0 z-10 flex h-screen w-screen flex-col justify-between self-end overflow-y-hidden bg-white p-12 text-black duration-300 md:max-w-sm"
+      className="fixed -right-full top-0 z-10 flex h-screen w-screen flex-col justify-between self-end overflow-y-hidden bg-secondary p-12 text-black duration-300 md:max-w-sm"
     >
       {/* <div className="px-12 pt-10 pb-16 md:pb-0 xl:px-36"> */}
       <a href="/" className="z-30 flex w-fit justify-start">

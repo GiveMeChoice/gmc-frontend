@@ -16,7 +16,7 @@ const Category: React.FC<Props> = ({ title, slug, color, description }) => {
           style={{
             backgroundColor: color,
           }}
-          className="mx-5 flex h-12 w-32 items-center justify-center rounded-full border border-secondary-dark-30 border-opacity-50 text-lg shadow-sm"
+          className="mx-5 flex h-12 w-32 items-center justify-center rounded-full border border-secondary-dark-40 border-opacity-50 text-lg font-bold text-zinc-900 shadow-sm"
         >
           {title}
         </div>

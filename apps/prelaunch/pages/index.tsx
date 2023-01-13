@@ -28,8 +28,8 @@ export default function Home() {
               shoppers.{' '}
             </p>
             <strong className="max-w-md text-center text-lg font-bold">
-              Subscribe to our newsletter and be amongst the first to get access
-              when we launch.
+              Subscribe to our newsletter and be amongst the first to know when
+              we launch.
             </strong>
           </div>
           <div className="mt-8 flex justify-center md:mt-0">

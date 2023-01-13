@@ -85,7 +85,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
         className="flex flex-wrap items-center justify-center space-y-3 md:space-x-2 md:space-y-0"
       >
         <input
-          className={cn('p h-14 rounded-md border-2 border-black pl-5 text-lg')}
+          className={cn('p h-14 rounded-sm border-2 border-black pl-5 text-lg')}
           type="email"
           id="email"
           pattern=".+@.+\.com"
@@ -132,7 +132,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
               <span className="">Signing Up...</span>
             </>
           ) : (
-            'SUBSCRIBE'
+            <span className="text-lg">SUBSCRIBE</span>
           )}
         </button>
       </div>
@@ -145,7 +145,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
         ) : null}
         {'success' === status && 'error' !== status && !error && (
           <div
-            className="pt-2 font-bold text-gmc-berry"
+            className="pt-2 text-lg font-bold text-gmc-berry"
             dangerouslySetInnerHTML={{ __html: sanitize(message) }}
           />
         )}

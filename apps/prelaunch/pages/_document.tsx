@@ -18,7 +18,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html className="bg-secondary">
+      <Html className="">
         <Head>
           <link
             rel="preload"

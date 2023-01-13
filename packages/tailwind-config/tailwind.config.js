@@ -13,7 +13,9 @@ module.exports = {
       2: '2px',
       3: '3px',
       4: '4px',
+      5: '5px',
       6: '6px',
+      7: '7px',
       8: '8px',
     },
     screens: {
@@ -25,6 +27,12 @@ module.exports = {
     extend: {
       fontSize: {
         menu: '8.441rem',
+      },
+      textDecorationThickness: {
+        3: '3px',
+        5: '5px',
+        6: '6px',
+        7: '7px',
       },
       colors: {
         primary: '#a7f700',

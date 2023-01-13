@@ -12,9 +12,9 @@ export default function NotFound() {
       </Head>
       <section id="about">
         {/* CONTAINER */}
-        <div className="container mx-auto mb-12 mt-8 flex flex-col items-center px-6 md:flex-row md:space-x-10 xl:px-36">
+        <div className="container mx-auto mb-12 mt-8 flex flex-col items-center justify-center px-6 md:flex-row md:space-x-10 xl:px-36">
           {/* IMAGE BOX */}
-          <div className="mt-8 flex justify-center md:mt-0">
+          {/* <div className="mt-8 flex justify-center md:mt-0">
             <Image
               className="rounded-md"
               src={heroUrl}
@@ -24,7 +24,7 @@ export default function NotFound() {
               height={690}
               objectFit="cover"
             />
-          </div>
+          </div> */}
           {/* TEXT BOX */}
           <div className="container mx-auto my-6 flex-col justify-center">
             <h3 className="text-center text-4xl font-bold">Page Not Found</h3>
@@ -35,7 +35,7 @@ export default function NotFound() {
               </h1>
               <div className="flex justify-center p-3">
                 <Link className="text-bold" href="/blog">
-                  <span className="border-2 inline-block rounded-md border-black bg-black px-2.5 pt-0.5 pb-1.5 text-xl tracking-normal text-white hover:cursor-pointer hover:text-primary ">
+                  <span className="inline-block rounded-md border-2 border-black bg-black px-2.5 pt-0.5 pb-1.5 text-xl tracking-normal text-white hover:cursor-pointer hover:text-primary ">
                     Stuff we love.
                   </span>
                 </Link>
