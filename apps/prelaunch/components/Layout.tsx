@@ -6,7 +6,10 @@ import cn from 'classnames';
 
 const Layout = ({ preview = false, children }) => {
   return (
-    <div className="flex min-h-screen flex-col justify-between">
+    <div
+      id="screen-container"
+      className="flex min-h-screen flex-col justify-between"
+    >
       {preview && <PreviewAlert />}
       <Navbar />
       <main>{children}</main>
