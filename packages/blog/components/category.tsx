@@ -16,11 +16,11 @@ const Category: React.FC<Props> = ({ title, slug, color, description }) => {
           style={{
             backgroundColor: color,
           }}
-          className="mx-5 flex h-12 w-32 items-center justify-center rounded-full border border-secondary-dark-40 border-opacity-50 text-lg font-bold text-zinc-900 shadow-sm"
+          className="mx-5 flex h-12 w-32 items-center justify-center rounded-full border border-secondary-dark-50 border-opacity-60 text-lg font-bold text-zinc-900 shadow-sm"
         >
           {title}
         </div>
-        <h3 className="text-md cursor-pointer pt-2.5 text-center">
+        <h3 className="cursor-pointer pt-2 text-center text-base font-bold text-zinc-800 md:pt-2.5">
           {description}
         </h3>
       </div>
