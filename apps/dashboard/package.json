@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack server",
-    "build": "webpack --mode production --env API_URL=$API_URL",
+    "build": "webpack --mode production",
     "start": "http-server ./dist --port 8080 -P http://localhost:8080?"
   },
   "dependencies": {

@@ -58,7 +58,10 @@ module.exports = () => {
         template: path.resolve(__dirname, './src/index.html'),
         favicon: path.resolve(__dirname, './favicon.ico'),
       }),
-      new Dotenv(),
+      new Dotenv({
+        systemvars: true,
+        prefix: 'process.env.',
+      }),
     ],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
