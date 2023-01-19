@@ -45,7 +45,6 @@ const find = async (
   filters: IFilters,
   pageRequest?: PageRequest
 ): Promise<PageResponse<ILabel>> => {
-  console.log(JSON.stringify(filters));
   const res = await axios.post<PageResponse<ILabel>>(
     '/labels/find',
     extractProductFilters(filters),

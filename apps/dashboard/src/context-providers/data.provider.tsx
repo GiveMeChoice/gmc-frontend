@@ -136,7 +136,6 @@ export function useDataDispatch() {
 }
 
 function dataReducer(data: IData, action: DataAction): IData {
-  console.log('Action: ' + action.type);
   switch (action.type) {
     case 'OPEN_PRODUCT_PREVIEW':
       return {

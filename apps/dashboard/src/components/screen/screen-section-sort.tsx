@@ -25,7 +25,6 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
 
   useEffect(() => {
     const { sort, direction } = getCurrentSort();
-    console.log('current sort: ' + sort + ' ' + direction);
     setActiveField(sort);
     setActiveDirection(direction);
   }, []);

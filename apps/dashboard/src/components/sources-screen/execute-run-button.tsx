@@ -29,7 +29,6 @@ const ExecuteRunButton: React.FC<Props> = ({ sourceId }) => {
         console.error(e);
       } finally {
         const updated = await sourcesService.getOne(sourceId);
-        console.log(JSON.stringify(updated));
         dataDispatch({ type: 'UPDATE_SOURCE', value: updated });
       }
       setLoading(false);

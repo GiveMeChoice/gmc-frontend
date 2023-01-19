@@ -158,8 +158,6 @@ function filtersReducer(
   data: IFiltersState,
   action: FiltersAction
 ): IFiltersState {
-  console.log(action.type);
-  console.log(data.filterBarVisible);
   switch (action.type) {
     case 'ENTER_FILTER_BAR':
       return {

@@ -1,5 +1,6 @@
 import { DataAction, IData } from '@root/context-providers/data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
+import { matchesLocation } from '@root/helpers/matches-location';
 import brandsService from './brands.service';
 import categoriesService from './categories.service';
 import dashboardService from './dashboard.service';
@@ -33,9 +34,7 @@ const refreshFilters = async (
   filters: IFilters,
   data: IData
 ): Promise<DataAction> => {
-  const match = screenControls.find((s) =>
-    location.pathname.includes(s.pathname)
-  );
+  const match = screenControls.find((s) => matchesLocation(s.pathname));
   return await match.refreshFilters(filters, data);
 };
 
@@ -45,9 +44,7 @@ const refreshSort = async (
   filters: IFilters,
   data: IData
 ) => {
-  const match = screenControls.find((s) =>
-    location.pathname.includes(s.pathname)
-  );
+  const match = screenControls.find((s) => matchesLocation(s.pathname));
   return await match.refreshSort(sort, direction, filters, data);
 };
 
@@ -55,23 +52,17 @@ const refreshPage = async (
   page: PageRequest,
   filters: IFilters
 ): Promise<DataAction> => {
-  const match = screenControls.find((s) =>
-    location.pathname.includes(s.pathname)
-  );
+  const match = screenControls.find((s) => matchesLocation(s.pathname));
   return await match.refreshPage(page, filters);
 };
 
 const readScreenMeta = (data: IData): PageMeta => {
-  const match = screenControls.find((s) =>
-    location.pathname.includes(s.pathname)
-  );
+  const match = screenControls.find((s) => matchesLocation(s.pathname));
   return match.readScreenMeta(data);
 };
 
 const getCurrentScreenTitle = () => {
-  const match = screenControls.find((s) =>
-    location.pathname.includes(s.pathname)
-  );
+  const match = screenControls.find((s) => matchesLocation(s.pathname));
   return match ? match.title : '<title>';
 };
 

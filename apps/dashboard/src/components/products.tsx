@@ -9,7 +9,6 @@ import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CopyIdButton from './copy-id-button';
-import ProductPreview from './product-preview/product-preview';
 import ScreenSection from './screen/screen-section';
 import ScreenSectionCell from './screen/screen-section-cell';
 import ScreenSectionRow from './screen/screen-section-row';
@@ -70,7 +69,7 @@ const ProductsScreen: React.FC = () => {
       >
         {products.length ? (
           products.map((p, i) => (
-            <ScreenSectionRow>
+            <ScreenSectionRow key={i}>
               {/* <ProductPreview /> */}
               <SourceIdCell
                 width="w-44"
@@ -84,9 +83,9 @@ const ProductsScreen: React.FC = () => {
                 <div className="flex w-full flex-wrap items-center pt-1">
                   <span
                     className={cn(
-                      'mx-3 w-20 rounded-full border-2 border-secondary-dark-50 bg-opacity-40 px-2.5 py-1 text-center text-sm',
+                      'bg-opacity- mx-3 w-20 rounded-full border border-secondary-dark-50 px-2.5 py-1 text-center text-sm font-bold',
                       {
-                        'bg-gmc-surf': p.integrationStatus === 'LIVE',
+                        'bg-primary': p.integrationStatus === 'LIVE',
                         'bg-gmc-beach': p.integrationStatus === 'PENDING',
                         'bg-gmc-heart': p.integrationStatus === 'EXPIRED',
                       }

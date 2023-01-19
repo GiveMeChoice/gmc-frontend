@@ -34,6 +34,10 @@
         "SANITY_STUDIO_PREVIEW_SECRET",
         "SANITY_API_READ_TOKEN"
       ]
+    },
+    "dashboard#build": {
+      "dependsOn": ["^build"],
+      "env": ["API_URL"]
     }
   }
 }

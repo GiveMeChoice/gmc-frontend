@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 import ScreenSection from './screen/screen-section';
 import cn from 'classnames';
@@ -8,6 +9,7 @@ import {
 import productsService from '@root/services/products.service';
 import LoadingWheel from './loading-wheel';
 import ListProduct from './search-screen/list-product';
+const GiveMeLogo = require('../assets/images/GIVE_ME.svg');
 
 const SearchScreen: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -56,7 +58,7 @@ const SearchScreen: React.FC = () => {
           <button
             id="search-button"
             className={cn(
-              'max-w flex w-1/3 cursor-pointer rounded-full bg-primary shadow-lg shadow-slate-500 duration-100 active:shadow-sm active:shadow-slate-800'
+              'max-w flex w-1/3 cursor-pointer rounded-full bg-primary shadow-md shadow-slate-800 duration-100 active:shadow-sm active:shadow-slate-800'
             )}
             disabled={!query}
             onClick={handleSearch}
@@ -64,7 +66,7 @@ const SearchScreen: React.FC = () => {
             <img
               className="h-fit p-3 "
               draggable={false}
-              src="GIVE_ME.svg"
+              src={GiveMeLogo}
               alt="give me"
             />
           </button>

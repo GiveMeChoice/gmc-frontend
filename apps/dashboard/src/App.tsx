@@ -17,8 +17,31 @@ import { useData, useDataDispatch } from './context-providers/data.provider';
 import { useFiltersDispatch } from './context-providers/filters.provider';
 import './styles.css';
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from 'firebase/analytics';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: 'AIzaSyDZ1v4pyKEieDMNRT1QLzC5wydOG9B25lM',
+  authDomain: 'gmc-torino.firebaseapp.com',
+  projectId: 'gmc-torino',
+  storageBucket: 'gmc-torino.appspot.com',
+  messagingSenderId: '477493094145',
+  appId: '1:477493094145:web:ca78bbab387e9dbc75dd00',
+  measurementId: 'G-86D62N7MVX',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
 function App() {
-  axios.defaults.baseURL = 'http://localhost:5001';
+  console.log(process.env.API_URL);
+  axios.defaults.baseURL = process.env.API_URL;
   const filtersDispatch = useFiltersDispatch();
   const dataDisptach = useDataDispatch();
   const { previewProduct } = useData();
@@ -42,8 +65,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Navigate to="dashboard" replace />} />
-        <Route path="dashboard" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="providers" element={<Providers />} />
         <Route path="product-sources" element={<Sources />} />
         <Route path="product-runs" element={<RunsScreen />} />

@@ -7,7 +7,7 @@ module.exports = () => {
   const env = dotenv.config().parsed;
   const envKeys = env
     ? Object.keys(env).reduce((prev, next) => {
-        prev[`process.env.${next}`] = JSON.stringify(env[next]);
+        prev[`${next}`] = JSON.stringify(env[next]);
         return prev;
       }, {})
     : '';
@@ -57,7 +57,8 @@ module.exports = () => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
-      publicPath: '/',
+      // publicPath: '/',
+      assetModuleFilename: 'assets/[name][ext]',
     },
     mode: 'development',
     plugins: [
@@ -65,7 +66,9 @@ module.exports = () => {
         template: path.resolve(__dirname, './src/index.html'),
         favicon: path.resolve(__dirname, './favicon.ico'),
       }),
-      new webpack.DefinePlugin(envKeys),
+      new webpack.DefinePlugin({
+        process: { env: envKeys },
+      }),
     ],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],

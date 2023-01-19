@@ -12,7 +12,6 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
    * @return {{value}|*|boolean|null}
    */
   const handleFormSubmit = () => {
-    console.log('handling');
     setError(null);
 
     if (!email) {

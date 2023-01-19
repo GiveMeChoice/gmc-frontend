@@ -1,7 +1,7 @@
 import { IScreenControl } from './screen-controls.service';
 
 const dashboardScreenControl: IScreenControl = {
-  pathname: '/dashboard',
+  pathname: '/',
   title: 'Dashboard',
   readScreenMeta: () => null,
   refreshFilters: () => null,

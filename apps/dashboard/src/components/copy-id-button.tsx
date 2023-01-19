@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
+const CopyIcon = require('../assets/images/copy-icon.svg');
 
 interface Props {
   id: string;
@@ -22,11 +23,7 @@ const CopyIdButton: React.FC<Props> = ({ id, content }) => (
         }, 1350);
       }}
     >
-      <img
-        className="h-3.5 w-3.5"
-        src="/copy-icon.svg"
-        alt="Copy Provider ID"
-      />
+      <img className="h-3.5 w-3.5" src={CopyIcon} alt="Copy Provider ID" />
     </div>
     <div
       id={`copy-button-${id}`}

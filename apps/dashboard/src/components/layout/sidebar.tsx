@@ -7,6 +7,17 @@ import providersService from '@root/services/providers.service';
 import sourcesService from '@root/services/sources.service';
 import runsService from '@root/services/runs.service';
 import productsService from '@root/services/products.service';
+const GMCLogo = require('../../assets/images/GMC_logo.svg');
+const GMCG = require('../../assets/images/GMC_G.svg');
+const HomeIcon = require('../../assets/images/home-icon.svg');
+const UserIcon = require('../../assets/images/user-icon.svg');
+const TreeIcon = require('../../assets/images/tree-icon.svg');
+const CartIcon = require('../../assets/images/cart-icon.svg');
+const BananasIcon = require('../../assets/images/bananas-icon.svg');
+const BasketIcon = require('../../assets/images/basket-icon.svg');
+const HumanIcon = require('../../assets/images/human-icon.svg');
+const SearchIcon = require('../../assets/images/search-icon.svg');
+const PinIcon = require('../../assets/images/pin-icon.svg');
 
 const Sidebar: React.FC = () => {
   const [pinExpand, setPinExpand] = useState(false);
@@ -59,7 +70,7 @@ const Sidebar: React.FC = () => {
             hidden: !pinExpand,
           })}
         >
-          <img src="GMC_logo.svg" alt="GMC Logo" />
+          <img src={GMCLogo} alt="GMC Logo Full" />
         </div>
         <div
           className={cn('h-8', {
@@ -68,7 +79,7 @@ const Sidebar: React.FC = () => {
             flex: !pinExpand,
           })}
         >
-          <img src="GMC_G.svg" alt="GMC Logo" />
+          <img src={GMCG} alt="GMC Logo" />
         </div>
       </div>
       <div className="mt-14 flex h-full flex-col justify-between">
@@ -79,7 +90,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="home-icon.svg" alt="home icon" />
+            <img className="h-5" src={HomeIcon} alt="home icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link={providersService.providersScreenControl.pathname}
@@ -87,7 +98,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="user-icon.svg" alt="user icon" />
+            <img className="h-5" src={UserIcon} alt="user icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link={sourcesService.sourcesScreenControl.pathname}
@@ -95,7 +106,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="tree-icon.svg" alt="tree icon" />
+            <img className="h-5" src={TreeIcon} alt="tree icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link={runsService.runsScreenControl.pathname}
@@ -103,7 +114,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="cart.svg" alt="cart icon" />
+            <img className="h-5" src={CartIcon} alt="cart icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link={productsService.productsScreenControl.pathname}
@@ -111,7 +122,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="bananas-icon.svg" alt="bananas icon" />
+            <img className="h-5" src={BananasIcon} alt="bananas icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link="/mappings"
@@ -119,7 +130,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="basket-icon.svg" alt="basket icon" />
+            <img className="h-5" src={BasketIcon} alt="basket icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link="/jobs"
@@ -127,7 +138,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="human-icon.svg" alt="human icon" />
+            <img className="h-5" src={HumanIcon} alt="human icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link="/search"
@@ -135,7 +146,7 @@ const Sidebar: React.FC = () => {
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src="search-icon.svg" alt="search icon" />
+            <img className="h-5" src={SearchIcon} alt="search icon" />
           </ScreenLinkButton>
         </div>
         <div className="flex w-full justify-center">
@@ -150,7 +161,7 @@ const Sidebar: React.FC = () => {
               }
             )}
           >
-            <img className="h-4" src="pin-icon.svg" alt="pin icon" />
+            <img className="h-4" src={PinIcon} alt="pin icon" />
           </button>
         </div>
       </div>
