@@ -1,17 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const dotenv = require('dotenv');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = () => {
-  const env = dotenv.config().parsed;
-  const envKeys = env
-    ? Object.keys(env).reduce((prev, next) => {
-        prev[`${next}`] = JSON.stringify(env[next]);
-        return prev;
-      }, {})
-    : '';
-
   return {
     entry: path.resolve(__dirname, './src/index.tsx'),
     devServer: {
@@ -66,9 +58,7 @@ module.exports = () => {
         template: path.resolve(__dirname, './src/index.html'),
         favicon: path.resolve(__dirname, './favicon.ico'),
       }),
-      new webpack.DefinePlugin({
-        process: { env: envKeys },
-      }),
+      new Dotenv(),
     ],
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js'],
