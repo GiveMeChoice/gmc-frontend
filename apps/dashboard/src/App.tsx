@@ -40,7 +40,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 function App() {
-  console.log(process.env.API_URL);
+  console.log('API URL: ' + process.env.API_URL);
   axios.defaults.baseURL = process.env.API_URL;
   const filtersDispatch = useFiltersDispatch();
   const dataDisptach = useDataDispatch();

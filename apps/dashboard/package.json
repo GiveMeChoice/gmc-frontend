@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack server",
-    "build": "rm -rf dist/ && webpack --mode production",
+    "build": "webpack --mode production",
     "start": "http-server ./dist --port 8080 -P http://localhost:8080?"
   },
   "dependencies": {
