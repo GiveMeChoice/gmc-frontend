@@ -75,3 +75,14 @@ body {
   width: 32px;
   /* background: white; */
 }
+
+.pushable {
+  outline-offset: 4px;
+}
+.front {
+  transform: translateY(-4px);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+}
