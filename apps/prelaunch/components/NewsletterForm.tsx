@@ -60,7 +60,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
     <div className="flex flex-col items-center pt-1">
       <div
         id="subscribe"
-        className="flex flex-wrap items-center justify-center space-y-3 md:space-x-2 md:space-y-0"
+        className="flex flex-wrap items-center justify-center space-y-3 md:flex-nowrap md:space-x-2 md:space-y-0"
       >
         <input
           className={cn('p h-14 rounded-sm border-2 border-black pl-5 text-lg')}
@@ -125,7 +125,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
           </span>
         </button>
       </div>
-      <div className="pt-2 text-center">
+      <div className="pt-2 text-center align-top">
         {'error' === status || error ? (
           <div
             className="pt-2 text-red-700"

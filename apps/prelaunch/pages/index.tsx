@@ -31,29 +31,21 @@ export default function Home() {
               Subscribe to our newsletter and be amongst the first to know when
               we launch.
             </strong>
+            <div className="container  mx-auto flex flex-col items-center justify-center px-6 pt-2 md:flex-row md:space-x-12 xl:pt-6">
+              <NewsletterSubscribe />
+            </div>
           </div>
-          <div className="mt-8 flex justify-center md:mt-0">
+          <div className="mt-8 flex items-center justify-center align-middle md:mt-0">
             <Image
               className="rounded-md"
               src="/img/hologif.gif"
               alt="Hologram"
-              width={750}
+              width={650}
               height={550}
               objectFit="cover"
               unoptimized
             />
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section
-        id="cta"
-        className="mb-10 border-t-2 border-b-2 border-black bg-white"
-      >
-        {/* CTA FLEX CONTAINER */}
-        <div className="container mx-auto flex flex-col items-center justify-center px-6 py-10 md:flex-row md:space-x-12">
-          <NewsletterSubscribe />
         </div>
       </section>
     </>
