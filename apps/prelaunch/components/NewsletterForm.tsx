@@ -82,7 +82,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
           onClick={() => handleFormSubmit()}
           disabled={status === 'sending'}
           className={cn(
-            'h-14 w-40 rounded-full  bg-slate-800 text-black duration-100',
+            'pushable-hover h-14 w-40 rounded-full bg-slate-800 text-black duration-100',
             {
               // ' hover:text-primary': status !== 'sending',
               pushable: email,
@@ -91,7 +91,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
         >
           <span
             className={cn(
-              'flex h-full w-full items-center justify-center rounded-full border border-zinc-800 duration-100',
+              'front-hover flex h-full w-full items-center justify-center rounded-full border border-zinc-800 duration-100',
               {
                 'front border border-black bg-gmc-surf': email,
                 'bg-primary': status !== 'sending',

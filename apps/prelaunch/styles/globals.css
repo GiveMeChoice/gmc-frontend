@@ -75,14 +75,21 @@ body {
   width: 32px;
   /* background: white; */
 }
-
+.pushable-hover:hover {
+  outline-offset: 4px;
+}
 .pushable {
   outline-offset: 4px;
+}
+.front-hover:hover {
+  transform: translateY(-4px);
 }
 .front {
   transform: translateY(-4px);
 }
-
+.pushable-hover:active .front-hover {
+  transform: translateY(-2px);
+}
 .pushable:active .front {
   transform: translateY(-2px);
 }
