@@ -1,3 +1,4 @@
+import { useAuth } from '@root/components/auth/auth.provider';
 import categoriesService, {
   ICategoryGroup,
 } from '@root/services/categories.service';
@@ -93,6 +94,7 @@ const FiltersContext = createContext<IFiltersState>(null);
 const FiltersDispatchContext = createContext<Dispatch<FiltersAction>>(null);
 
 export const FiltersProvider: React.FC = ({ children }) => {
+  const auth = useAuth();
   const [filterState, dispatch] = useReducer<
     Reducer<IFiltersState, FiltersAction>
   >(filtersReducer, {
@@ -125,25 +127,27 @@ export const FiltersProvider: React.FC = ({ children }) => {
   });
 
   useEffect(() => {
-    providersService.getAll().then((providers) => {
-      dispatch({
-        type: 'SET_PROVIDER_SELECT_OPTIONS',
-        value: providers.data.map((p) => ({ id: p.id, key: p.key })),
+    if (auth.user) {
+      providersService.getAll().then((providers) => {
+        dispatch({
+          type: 'SET_PROVIDER_SELECT_OPTIONS',
+          value: providers.data.map((p) => ({ id: p.id, key: p.key })),
+        });
       });
-    });
-    categoriesService.getAllGroups().then((groups) => {
-      dispatch({
-        type: 'SET_CATEGORY_GROUP_SELECT_OPTIONS',
-        value: groups,
+      categoriesService.getAllGroups().then((groups) => {
+        dispatch({
+          type: 'SET_CATEGORY_GROUP_SELECT_OPTIONS',
+          value: groups,
+        });
       });
-    });
-    labelsService.getAllGroups().then((groups) => {
-      dispatch({
-        type: 'SET_LABEL_GROUP_SELECT_OPTIONS',
-        value: groups,
+      labelsService.getAllGroups().then((groups) => {
+        dispatch({
+          type: 'SET_LABEL_GROUP_SELECT_OPTIONS',
+          value: groups,
+        });
       });
-    });
-  }, []);
+    }
+  }, [auth.user]);
 
   return (
     <FiltersContext.Provider value={filterState}>

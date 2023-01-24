@@ -53,6 +53,7 @@ module.exports = () => {
       assetModuleFilename: 'assets/[name][ext]',
     },
     mode: 'development',
+    devtool: 'eval-source-map',
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, './src/index.html'),

@@ -1,3 +1,4 @@
+import { useAuth } from '@root/components/auth/auth.provider';
 import Navigation from '@root/components/navigation';
 import {
   useFilters,
@@ -6,11 +7,11 @@ import {
 import screenControlsService from '@root/services/screen-controls.service';
 import cn from 'classnames';
 import React from 'react';
-import { Location } from 'react-router-dom';
 
 const NavbarTop: React.FC = () => {
   const { filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
+  const auth = useAuth();
 
   const toggleFilters = () => {
     if (filterBarVisible) {
@@ -30,6 +31,9 @@ const NavbarTop: React.FC = () => {
       </div>
       <div className="flex w-1/4 items-center justify-end lg:w-1/3">
         <img
+          onClick={() => {
+            auth.logOut();
+          }}
           src={
             'https://cdn.sanity.io/images/k9rvr8n5/production/c90731ece25b5ef9c36a41dc9843bd4876125cc6-1203x1410.jpg?rect=0,104,1203,1203&w=96&h=96&fit=crop&auto=format'
           }
@@ -59,13 +63,3 @@ const NavbarTop: React.FC = () => {
 };
 
 export default NavbarTop;
-
-const getTitle = (location: Location) => {
-  if (location.pathname.includes('/providers')) return 'Providers';
-  if (location.pathname.includes('/product-sources')) return 'Product Sources';
-  if (location.pathname.includes('/product-runs')) return 'Source Runs';
-  if (location.pathname.includes('/jobs')) return 'Jobs';
-  if (location.pathname.includes('/mapping-assistant'))
-    return 'Mapping Assistant';
-  return 'Home';
-};
