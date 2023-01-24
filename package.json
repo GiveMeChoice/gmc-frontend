@@ -16,7 +16,8 @@
     "deploy": "turbo run deploy",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "studio": "npm --prefix studio run start",
-    "studio:build": "npm --prefix studio run build"
+    "studio:build": "npm --prefix studio run build",
+    "firebase-auth": "firebase emulators:start --only auth"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

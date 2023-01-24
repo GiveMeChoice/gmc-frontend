@@ -33,10 +33,10 @@ const LoginScreen: React.FC = () => {
     >
       <div
         id="login-container"
-        className="mx-8 mb-14 flex max-w-md flex-col items-center space-y-4 rounded-md bg-white pt-20 pb-10 text-lg text-zinc-800 shadow-sm md:space-y-5"
+        className="mx-8 mb-14 flex max-w-sm flex-col items-center space-y-5 rounded-md bg-white pt-20 pb-10 text-lg text-zinc-800 shadow-sm"
       >
         <div id="full-gmc-logo" className="w-3/4 pt-3 pb-5">
-          <img className="opacity-80" src={GMCLogo} alt="GMC Logo Full" />
+          <img className="opacity-90" src={GMCLogo} alt="GMC Logo Full" />
         </div>
         <input
           type="email"
@@ -68,7 +68,7 @@ const LoginScreen: React.FC = () => {
           className="h-14 w-3/4 rounded-md border border-secondary-dark-20 p-3"
         />
         <button
-          className="h-14 w-3/4 rounded-md bg-zinc-800 text-center text-white"
+          className="h-14 w-3/4 rounded-md bg-zinc-800 text-center text-white hover:text-primary"
           disabled={loading}
           onClick={handleSubmit}
         >

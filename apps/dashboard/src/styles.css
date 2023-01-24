@@ -8,6 +8,10 @@ body {
   max-height: 100vh; */
 }
 
+::selection {
+  background: #a7f700;
+}
+
 .tooltip-on {
   @apply bg-opacity-70;
 }
