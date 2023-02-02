@@ -63,7 +63,9 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
         className="flex flex-wrap items-center justify-center space-y-3 md:flex-nowrap md:space-x-2 md:space-y-0"
       >
         <input
-          className={cn('p h-14 rounded-sm border-2 border-black pl-5 text-lg')}
+          className={cn(
+            'p h-12 rounded-sm border-1.5 border-black pl-5 text-lg'
+          )}
           type="email"
           id="email"
           pattern=".+@.+\.com"
@@ -82,7 +84,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
           onClick={() => handleFormSubmit()}
           disabled={status === 'sending'}
           className={cn(
-            'pushable-hover h-14 w-40 rounded-full bg-slate-800 text-black duration-100',
+            'pushable-hover h-12 w-36 rounded-full bg-slate-800 text-black duration-100',
             {
               // ' hover:text-primary': status !== 'sending',
               pushable: email,
@@ -91,7 +93,7 @@ const NewsletterForm = ({ status, message, onSubscribe }) => {
         >
           <span
             className={cn(
-              'front-hover flex h-full w-full items-center justify-center rounded-full border border-zinc-800 duration-100',
+              'front-hover flex h-full w-full items-center justify-center rounded-full border border-zinc-600 duration-100',
               {
                 'front border border-black bg-gmc-surf': email,
                 'bg-primary': status !== 'sending',

@@ -35,7 +35,7 @@ export default function Home() {
               <NewsletterSubscribe />
             </div>
           </div>
-          <div className="mt-8 flex items-center justify-center align-middle md:mt-0">
+          <div className="mt-8 flex items-center justify-center rounded-md align-middle shadow-md shadow-gmc-berry md:mt-0">
             <Image
               className="rounded-md"
               src="/img/hologif.gif"

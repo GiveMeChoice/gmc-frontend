@@ -88,8 +88,8 @@ body {
   transform: translateY(-4px);
 }
 .pushable-hover:active .front-hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 .pushable:active .front {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
