@@ -3,8 +3,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export default function NotFound() {
-  const heroUrl =
-    'https://media0.giphy.com/media/1EmBoG0IL50VIJLWTs/giphy.gif?cid=ecf05e47hqaxstp1zyjjxsyr51ib7oeq9iqu0hnaz1r23fdt&rid=giphy.gif&ct=g';
   return (
     <>
       <Head>
