@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.pushable-hover:hover {
+  outline-offset: 4px;
+}
+.pushable {
+  outline-offset: 4px;
+}
+.front-hover:hover {
+  transform: translateY(-4px);
+}
+.front {
+  transform: translateY(-4px);
+}
+.pushable-hover:active .front-hover {
+  transform: translateY(-1px);
+}
+.pushable:active .front {
+  transform: translateY(-1px);
+}

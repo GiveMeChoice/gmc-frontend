@@ -11,5 +11,12 @@
       "port": 4000
     },
     "singleProjectMode": true
-  }
+  },
+  "functions": [
+    {
+      "source": "apps/search-function",
+      "codebase": "search-function",
+      "predeploy": "npm run build search-function"
+    }
+  ]
 }

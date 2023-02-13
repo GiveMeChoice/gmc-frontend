@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import { Button } from 'ui';
+import cn from 'classnames';
+// const GiveMeLogo = require('/img/GIVE_ME.svg');
 
 export default function Home() {
   return (
@@ -9,15 +10,46 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="mx-auto w-auto px-4 pt-16 pb-8 sm:pt-24 lg:px-8">
-        <h1 className="mx-auto max-w-5xl text-center text-6xl font-extrabold leading-[1.1] tracking-tighter text-white sm:text-7xl lg:text-8xl xl:text-8xl">
-          Web <br className="hidden lg:block" />
-          <span className="from-brandred to-brandblue inline-block bg-gradient-to-r bg-clip-text text-transparent">
-            Turborepo Example
-          </span>{' '}
-        </h1>
-        <div className="mx-auto mt-5 max-w-xl sm:flex sm:justify-center md:mt-8">
-          <Button />
+      <main className="mx-auto w-auto px-4 lg:px-8">
+        <div className="flex flex-wrap justify-center p-3 sm:flex-nowrap">
+          <button
+            id="search-button"
+            className={cn(
+              'max-w pushable flex w-1/3 cursor-pointer rounded-full bg-slate-800 duration-100'
+            )}
+            // disabled={!query}
+            // onClick={handleSearch}
+          >
+            <span
+              className={cn(
+                'front flex h-full w-full items-center justify-center rounded-full border border-zinc-600 bg-primary duration-100'
+              )}
+            >
+              <img
+                className="h-fit p-3"
+                draggable={false}
+                src="/img/GIVE_ME.svg"
+                alt="give me"
+              />
+            </span>
+          </button>
+          <div id="query-input" className="ml-3 flex w-full">
+            <input
+              id="gmc-search-bar"
+              className="w-full border-b-2 border-black bg-inherit pl-2.5 text-4xl outline-none"
+              // value={query}
+              autoComplete="off"
+              // onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  // if (query) {
+                  //   handleSearch();
+                  // }
+                }
+              }}
+            />
+          </div>
         </div>
       </main>
     </div>
