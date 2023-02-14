@@ -1,8 +1,7 @@
-import React from 'react';
 import Image from 'next/image';
-import { Header } from 'blog';
-import MobileMenu from './MobileMenu';
+import React from 'react';
 import HamburgerButton from './HamburgerButton';
+import MobileMenu from './MobileMenu';
 
 const Navbar: React.FC = () => {
   return (

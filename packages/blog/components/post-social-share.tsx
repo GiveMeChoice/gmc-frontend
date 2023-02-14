@@ -16,9 +16,7 @@ interface Props {
 }
 
 const PostSocialShare: React.FC<Props> = ({ title }) => {
-  const route = `https://gmc-frontend-prelaunch.vercel.app/${
-    useRouter().asPath
-  }`;
+  const route = `https://givemechoice.com${useRouter().asPath}`;
   return (
     <div className="space-x-1">
       <FacebookShareButton url={route} quote={title} hashtag={'#GiveMeChoice'}>
@@ -27,7 +25,7 @@ const PostSocialShare: React.FC<Props> = ({ title }) => {
       <TwitterShareButton url={route} title={title} hashtags={['GiveMeChoice']}>
         <TwitterIcon size={32} round />
       </TwitterShareButton>
-      <WhatsappShareButton url={route} title={title} separator=":: ">
+      <WhatsappShareButton url={route} title={title} separator=": ">
         <WhatsappIcon size={32} round />
       </WhatsappShareButton>
       <EmailShareButton url={route} subject={title} body="Give Me Choice Blog">
