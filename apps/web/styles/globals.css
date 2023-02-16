@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+/* react-responsive-modal Customisation */
+.customModal {
+  @apply rounded-sm;
+}
+.customModalCloseButton {
+  @apply rounded-full hover:bg-secondary-dark-10;
+}
+.customModalContainer {
+  @apply flex h-fit justify-center;
+}
+
+/* GIVE ME CHOICE PUSHABLE BUTTON EFFECT */
 .pushable-hover:hover {
   outline-offset: 4px;
 }
