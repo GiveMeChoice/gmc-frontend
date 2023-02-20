@@ -27,6 +27,10 @@ module.exports = {
       xl: '1440px',
     },
     extend: {
+      aspectRatio: {
+        '3/4': '3 / 4',
+        '4/3': '4 / 3',
+      },
       fontSize: {
         menu: '8.441rem',
       },

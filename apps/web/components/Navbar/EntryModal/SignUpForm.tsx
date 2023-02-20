@@ -54,7 +54,7 @@ const SignUpForm: React.FC = () => {
               // handleSubmit(e);
             }
           }}
-          className="h-12 w-1/2 rounded-md border border-secondary-dark-20 p-3 pl-5"
+          className="h-12 w-1/2 rounded-sm border border-secondary-dark-20 p-3 pl-5"
         />
         <input
           type="name"
@@ -68,7 +68,7 @@ const SignUpForm: React.FC = () => {
               // handleSubmit(e);
             }
           }}
-          className="h-12 w-1/2 rounded-md border border-secondary-dark-20 p-3 pl-5"
+          className="h-12 w-1/2 rounded-sm border border-secondary-dark-20 p-3 pl-5"
         />
       </div>
       <input
@@ -83,7 +83,7 @@ const SignUpForm: React.FC = () => {
             // handleSubmit(e);
           }
         }}
-        className="h-12 w-full rounded-md border border-secondary-dark-20 p-3 pl-5"
+        className="h-12 w-full rounded-sm border border-secondary-dark-20 p-3 pl-5"
       />
       <input
         id="password"
@@ -98,7 +98,7 @@ const SignUpForm: React.FC = () => {
             // handleSubmit(e);
           }
         }}
-        className="h-12 w-full rounded-md border border-secondary-dark-20 p-3 pl-5"
+        className="h-12 w-full rounded-sm border border-secondary-dark-20 p-3 pl-5"
       />
       <div className="flex w-full items-center gap-1.5 pl-1">
         <input

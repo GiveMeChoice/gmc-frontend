@@ -1,0 +1,11 @@
+{
+  "name": "search",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "/**/*"
+  ],
+  "devDependencies": {
+    "@types/elasticsearch": "^5.0.40"
+  }
+}

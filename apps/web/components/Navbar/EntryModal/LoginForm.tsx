@@ -30,7 +30,7 @@ const LoginForm: React.FC<Props> = ({ moveToSignUp }) => {
             // handleSubmit(e);
           }
         }}
-        className="h-12 w-full rounded-md border border-secondary-dark-20 p-3 pl-5"
+        className="h-12 w-full rounded-sm border border-secondary-dark-20 p-3 pl-5"
       />
       <input
         id="password"
@@ -45,7 +45,7 @@ const LoginForm: React.FC<Props> = ({ moveToSignUp }) => {
             // handleSubmit(e);
           }
         }}
-        className="h-12 w-full rounded-md border border-secondary-dark-20 p-3 pl-5"
+        className="h-12 w-full rounded-sm border border-secondary-dark-20 p-3 pl-5"
       />
       <div className="flex w-full items-center justify-between px-1">
         <div className="flex items-center gap-1">
