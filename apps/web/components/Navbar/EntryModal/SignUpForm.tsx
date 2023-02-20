@@ -14,7 +14,7 @@ const SignUpForm: React.FC = () => {
   return (
     <div className="flex flex-col items-center gap-5 p-6">
       <span className="w-full pl-1 text-left text-xl">
-        Create Your Account:
+        Create Your Free Account:
       </span>
       <button className="flex h-14 w-full items-center justify-center gap-3 rounded-md border border-secondary-dark-20 p-3 text-center hover:bg-secondary hover:bg-opacity-70 active:bg-opacity-100">
         <Image

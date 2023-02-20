@@ -21,7 +21,6 @@ const Navbar: React.FC = () => {
     });
   }, []);
   const router = useRouter();
-  console.log(router);
   return (
     <nav className={cn('flex w-full justify-center bg-white')}>
       <div

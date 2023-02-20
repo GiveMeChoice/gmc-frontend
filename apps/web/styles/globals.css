@@ -19,7 +19,7 @@ body {
   @apply rounded-sm;
 }
 .customModalCloseButton {
-  @apply rounded-full hover:bg-secondary-dark-10;
+  @apply flex h-8 w-8 items-center justify-center rounded-full hover:bg-secondary-dark-10;
 }
 .customModalContainer {
   @apply flex h-fit justify-center;

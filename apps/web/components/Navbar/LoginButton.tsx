@@ -9,10 +9,9 @@ const LoginButton: React.FC = () => {
       <button
         onClick={() => setLoginModalOpen(true)}
         title="Login / Sign-Up"
-        className="h-10 w-10 rounded-full border-zinc-800 pr-0.5 pt-0.5 hover:border hover:shadow-sm active:bg-secondary"
+        className="h-10 w-10 rounded-full border-zinc-700 pr-0.5 pt-0.5 hover:border-1.5 hover:shadow-sm active:bg-secondary"
       >
         <Image
-          className="cursor-pointer"
           draggable={false}
           src="/img/user.svg"
           alt="User Icon"

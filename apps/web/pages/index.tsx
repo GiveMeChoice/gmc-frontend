@@ -11,7 +11,9 @@ export default function Home() {
       </Head>
 
       <div className="container mx-auto flex min-h-screen flex-col items-center justify-center ">
-        <SearchBar />
+        <div className="mb-20 flex w-full justify-center">
+          <SearchBar />
+        </div>
         <DiscoverFooter />
       </div>
     </>

@@ -43,7 +43,7 @@ const firebaseApp = createFirebaseApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 auth.languageCode = 'en';
 if (process.env.NODE_ENV === 'development') {
-  connectAuthEmulator(auth, 'http://localhost:9099');
+  // connectAuthEmulator(auth, 'http://localhost:9099');
   console.log('connected to auth emulator');
 }
 export const googleAuthProvider = new GoogleAuthProvider();

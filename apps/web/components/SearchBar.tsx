@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -9,6 +9,12 @@ const SearchBar: React.FC<Props> = () => {
   const [query, setQuery] = useState('');
   const router = useRouter();
 
+  useEffect(() => {
+    if (router.isReady && router.query.q) {
+      setQuery(router.query.q as string);
+    }
+  }, [router.isReady]);
+
   const handleSearch = () => {
     router.push(
       `/search?q=${encodeURIComponent(query.trim()).replace(/[%20]+/g, '+')}`
@@ -16,7 +22,7 @@ const SearchBar: React.FC<Props> = () => {
   };
 
   return (
-    <div className="mb-20 flex w-full max-w-5xl flex-wrap items-end justify-center space-y-6 p-3 md:flex-nowrap">
+    <div className="flex w-full max-w-5xl flex-wrap items-end justify-center space-y-6 p-3 md:flex-nowrap">
       <button
         id="search-button"
         className={cn(
@@ -43,11 +49,11 @@ const SearchBar: React.FC<Props> = () => {
 
       <div
         id="query-input"
-        className="ml-3 flex w-full border-b-3 border-black"
+        className="ml-2 flex w-full border-b-4 border-black"
       >
         <input
           id="gmc-search-bar"
-          className="h-full w-full bg-inherit pb-1 text-center text-4xl outline-none md:pl-3.5 md:text-left"
+          className="h-full w-full bg-inherit pb-1 text-center text-3xl outline-none md:pl-3.5 md:text-left"
           value={query}
           autoComplete="off"
           onChange={(e) => setQuery(e.target.value)}

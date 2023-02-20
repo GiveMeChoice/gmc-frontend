@@ -1,30 +1,53 @@
+/* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { auth } from '../../lib/firebase';
 import NavMenu from './NavMenu';
+import cn from 'classnames';
 
 const ProfileButton: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+  console.log(auth.currentUser);
   return (
     <>
       <button
         // onClick={() => setLoginModalOpen(true)}
         title="Profile Menu"
-        className="h-10 w-10 rounded-full border border-zinc-800 bg-primary-light-50 pr-0.5 pt-0.5 shadow-sm active:bg-secondary"
+        className={cn(
+          'group flex h-10 w-10 items-center justify-center rounded-full border-1.5 border-zinc-800 shadow-sm duration-150 active:border-1.5',
+          {
+            'border-1.5': menuOpen,
+          }
+        )}
         onClick={() => {
           setMenuOpen(!menuOpen);
         }}
       >
-        <Image
-          className="cursor-pointer"
+        <img
+          className={cn(
+            'rounded-full transition-opacity  group-hover:opacity-50 group-active:opacity-70',
+            {
+              'opacity-50': menuOpen,
+            }
+          )}
+          src={auth.currentUser ? auth.currentUser.photoURL : ''}
+          referrerPolicy="no-referrer"
+          alt="profile photo"
+        />
+        <img
+          className={cn('absolute h-9 cursor-pointer rounded-full  ', {
+            hidden: !menuOpen,
+            // block: menuOpen,
+          })}
           draggable={false}
-          src="/img/user.svg"
+          src="/img/expand-down.svg"
           alt="User Icon"
-          height="26px"
-          width="14px"
         />
       </button>
-      {menuOpen && <NavMenu />}
+      <NavMenu open={menuOpen} closeMenu={closeMenu} />
     </>
   );
 };
