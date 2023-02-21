@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import cn from 'classnames';
-import NavMenuItem from './NavMenuItem';
+import NavMenuItem from './NavMenu/NavMenuItem';
 import Image from 'next/image';
 import { auth } from '../../lib/firebase';
 
@@ -45,14 +45,14 @@ const NavMenu: React.FC<Props> = ({ closeMenu, open }) => {
   return (
     <div
       className={cn(
-        'absolute top-14 mx-4 max-h-fit w-72 max-w-full -translate-x-1/2 overflow-hidden transition-height duration-200 ease-in-out',
+        'transition-height absolute top-14 mx-4 max-h-fit w-72 max-w-full -translate-x-1/2 overflow-hidden rounded-xl shadow-lg duration-100 ease-in-out',
         {
           'h-0': !open,
-          'h-48': open,
+          'h-48 border-2 border-black': open,
         }
       )}
     >
-      <ul className="flex w-full flex-col gap-1 rounded border border-black bg-white p-1.5 shadow-md">
+      <ul className="flex w-full flex-col gap-1 rounded-xl bg-white p-1.5">
         <NavMenuItem title="Profile">
           <Image
             draggable={false}
@@ -82,7 +82,7 @@ const NavMenu: React.FC<Props> = ({ closeMenu, open }) => {
         </NavMenuItem>
         <hr className="" />
         <li
-          className="flex h-10 w-full cursor-pointer items-center justify-center gap-1 rounded px-2 text-sm transition-colors duration-150 ease-in-out hover:bg-secondary active:bg-secondary-dark-10 active:bg-opacity-50"
+          className="flex h-10 w-full cursor-pointer items-center justify-center gap-1 rounded-lg px-2 text-sm transition-colors duration-150 ease-in-out hover:bg-secondary active:bg-secondary-dark-10 active:bg-opacity-50"
           onClick={handleSignOut}
         >
           <span>Sign Out</span>

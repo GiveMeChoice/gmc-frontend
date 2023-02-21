@@ -11,9 +11,6 @@ interface Props {
 
 const EntryModal: React.FC<Props> = ({ open, onClose }) => {
   const [signUpForm, setSignUpForm] = useState(false);
-  const moveToSignUp = () => {
-    setSignUpForm(true);
-  };
   return (
     <Modal
       open={open}
@@ -63,9 +60,9 @@ const EntryModal: React.FC<Props> = ({ open, onClose }) => {
           ></div>
         </div>
         {signUpForm ? (
-          <SignUpForm />
+          <SignUpForm moveToLogin={() => setSignUpForm(false)} />
         ) : (
-          <LoginForm moveToSignUp={moveToSignUp} />
+          <LoginForm moveToSignUp={() => setSignUpForm(true)} />
         )}
       </div>
     </Modal>

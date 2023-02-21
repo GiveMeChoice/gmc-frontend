@@ -6,6 +6,7 @@ import {
 } from 'firebase/auth';
 import {
   getFirestore,
+  connectFirestoreEmulator,
   collection,
   where,
   getDocs,
@@ -43,14 +44,17 @@ const firebaseApp = createFirebaseApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 auth.languageCode = 'en';
 if (process.env.NODE_ENV === 'development') {
-  // connectAuthEmulator(auth, 'http://localhost:9099');
+  connectAuthEmulator(auth, 'http://localhost:9099');
   console.log('connected to auth emulator');
 }
 export const googleAuthProvider = new GoogleAuthProvider();
 
 // Firestore exports
 export const firestore = getFirestore(firebaseApp);
-
+if (process.env.NODE_ENV === 'development') {
+  connectFirestoreEmulator(firestore, 'localhost', 8080);
+  console.log('connected to firestore emulator');
+}
 // Storage exports
 export const storage = getStorage(firebaseApp);
 export const STATE_CHANGED = 'state_changed';
@@ -60,6 +64,5 @@ export const functions = getFunctions(firebaseApp);
 if (process.env.NODE_ENV === 'development') {
   connectFunctionsEmulator(functions, 'localhost', 5001);
   console.log('connected to functions emulator');
-  console.log(functions);
 }
 // export const searchFunction = httpsCallable(functions, 'search');
