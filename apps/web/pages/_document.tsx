@@ -6,6 +6,7 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
+import cn from 'classnames';
 
 class MyDocument extends Document {
   static async getInitialProps(
@@ -16,9 +17,13 @@ class MyDocument extends Document {
     return initialProps;
   }
 
+  bg = {
+    'bg-gmc-forest bg-opacity-50': true,
+  };
+
   render() {
     return (
-      <Html className="bg-white">
+      <Html className={cn('bg-white', { ...this.bg })}>
         <Head>
           <link
             rel="preload"

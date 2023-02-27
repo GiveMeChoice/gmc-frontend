@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
   }, []);
   const router = useRouter();
   return (
-    <nav className={cn('flex w-full justify-center bg-white')}>
+    <nav className={cn('flex w-full justify-center')}>
       <div
         id="navbar-content"
         className="container fixed z-50 mx-auto flex h-16 w-full flex-grow items-center justify-between p-3"

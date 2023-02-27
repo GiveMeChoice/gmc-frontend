@@ -20,7 +20,7 @@ const ProductDetail: React.FC<Props> = ({
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex w-full border-b-2 border-black">
-        <div className="flex w-1/5 items-center justify-center border-r-2 border-black bg-gmc-ocean bg-opacity-50">
+        <div className="flex w-1/5 items-center justify-center border-r-2 border-black">
           <span className="text-6xl">{index + 1}</span>
         </div>
         <div className="flex w-2/5 items-center border-r-2 border-black p-4">
@@ -31,10 +31,10 @@ const ProductDetail: React.FC<Props> = ({
             if (index > 0) prevProduct();
           }}
           className={cn(
-            'flex aspect-square w-1/5 items-center justify-center border-r-2 border-black',
+            'flex aspect-square w-1/5 select-none items-center justify-center border-r-2 border-black',
             {
               'bg-secondary': index === 0,
-              'cursor-pointer hover:bg-primary hover:bg-opacity-80 active:bg-opacity-100':
+              'cursor-pointer hover:bg-primary active:bg-primary-light-20':
                 index !== 0,
             }
           )}
@@ -53,10 +53,10 @@ const ProductDetail: React.FC<Props> = ({
             if (!isLast) nextProduct();
           }}
           className={cn(
-            'flex aspect-square w-1/5 items-center justify-center',
+            'flex aspect-square w-1/5 select-none items-center justify-center',
             {
               'bg-secondary': isLast,
-              'cursor-pointer hover:bg-primary hover:bg-opacity-70 active:bg-opacity-90':
+              'cursor-pointer hover:bg-primary active:bg-primary-light-20':
                 !isLast,
             }
           )}

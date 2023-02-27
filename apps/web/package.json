@@ -10,14 +10,15 @@
   },
   "dependencies": {
     "firebase": "^9.12.1",
+    "helpers": "*",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-firebase-hooks": "^5.1.1",
     "react-responsive-modal": "^6.4.1",
-    "ui": "*",
+    "react-transition-group": "^4.4.5",
     "search": "*",
-    "helpers": "*"
+    "ui": "*"
   },
   "devDependencies": {
     "@types/node": "^17.0.12",

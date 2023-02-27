@@ -32,7 +32,7 @@ const LoginForm: React.FC<Props> = ({ moveToSignUp }) => {
 
   return (
     <div className="flex flex-col items-center gap-5 p-6">
-      <Image src="/img/GMC_LOGO.svg" alt="GMC Logo" height="70" width="290" />
+      <Image src="/img/GMC_LOGO.svg" alt="GMC Logo" height="70" width="380" />
       <input
         type="email"
         placeholder="E-mail"

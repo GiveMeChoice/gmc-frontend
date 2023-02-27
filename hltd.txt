@@ -22,3 +22,16 @@
   [ ] GDPR
 
 ===================================
+web
+
+USERS
+[ ] profile page + profile picture
+[ ] users collection on sign-up / log-in
+[ ] link bg-color to user setting
+
+SEARCH
+[ ] add labels / brand / categories / reviews to product UI
+[ ] top choices / lowest price
+[ ] facets -> label / brand / category
+
+favorites?

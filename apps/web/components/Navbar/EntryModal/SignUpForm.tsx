@@ -29,6 +29,7 @@ const SignUpForm: React.FC<Props> = ({ moveToLogin }) => {
       await setDoc(userDocRef, {
         firstName,
         lastName,
+        displayName: `${firstName} ${lastName}`.trim(),
       });
     } catch (err) {
       setError(formatErrorMessage(err));
