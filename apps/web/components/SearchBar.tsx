@@ -33,11 +33,11 @@ const SearchBar: React.FC<Props> = () => {
       >
         <span
           className={cn(
-            'front flex h-12 w-48 items-center justify-center rounded-full border border-zinc-700 bg-primary duration-100'
+            'front flex h-12 w-48 select-none items-center justify-center rounded-full border border-zinc-700 bg-primary duration-100'
           )}
         >
           <Image
-            className="h-fit rounded-full px-3"
+            className="h-fit select-none rounded-full px-3"
             draggable={false}
             src="/img/GIVE_ME.svg"
             alt="give me"

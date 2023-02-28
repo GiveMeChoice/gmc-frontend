@@ -21,7 +21,7 @@ const Product: React.FC<Props> = ({ index, product, selectProduct }) => {
           <span className="cursor-pointer text-2xl group-hover:underline group-active:text-gmc-berry md:text-lg">
             {product.title}
           </span>
-          <span className="text-sm text-secondary-dark-40">
+          <span className="text-sm">
             {`${product.description.substring(0, 55).trim()}${
               product.description && product.description.length > 255
                 ? '...'

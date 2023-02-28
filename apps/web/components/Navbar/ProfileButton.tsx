@@ -1,19 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
 import React, { useState } from 'react';
-import { auth } from '../../lib/firebase';
+// import { auth } from '../../lib/firebase';
 import NavMenu from './NavMenu';
 import cn from 'classnames';
+import { useUser } from '../UserProvider';
 
 const ProfileButton: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => {
     setMenuOpen(false);
   };
-  console.log(auth.currentUser);
+  const { user } = useUser();
+
   return (
     <>
-      {auth.currentUser && (
+      {user && (
         <>
           {' '}
           <button
@@ -28,7 +30,7 @@ const ProfileButton: React.FC = () => {
               setMenuOpen(!menuOpen);
             }}
           >
-            {auth.currentUser.photoURL ? (
+            {user.photoURL ? (
               <img
                 draggable={false}
                 className={cn(
@@ -38,7 +40,7 @@ const ProfileButton: React.FC = () => {
                     'group-hover:opacity-70': !menuOpen,
                   }
                 )}
-                src={auth.currentUser.photoURL}
+                src={user.photoURL}
                 referrerPolicy="no-referrer"
                 alt="profile photo"
               />
@@ -57,9 +59,7 @@ const ProfileButton: React.FC = () => {
                     hidden: menuOpen,
                   })}
                 >
-                  {auth.currentUser.displayName
-                    ? auth.currentUser.displayName[0]
-                    : 'U'}
+                  {user.displayName ? user.displayName[0] : 'U'}
                 </span>
               </div>
             )}

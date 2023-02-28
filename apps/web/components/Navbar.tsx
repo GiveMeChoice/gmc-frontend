@@ -9,17 +9,19 @@ import LoginButton from './Navbar/LoginButton';
 import ProfileButton from './Navbar/ProfileButton';
 import LocaleButton from './Navbar/LocaleButton';
 import HomeButton from './Navbar/HomeButton';
+import { useUser } from './UserProvider';
 // import HamburgerButton from './HamburgerButton';
 // import MobileMenu from './MobileMenu';
 
 const Navbar: React.FC = () => {
-  const [user, setUser] = useState(null);
-  useEffect(() => {
-    setUser(auth.currentUser);
-    auth.onAuthStateChanged((updatedUser) => {
-      setUser(updatedUser);
-    });
-  }, []);
+  const { user } = useUser();
+  // const [user, setUser] = useState(null);
+  // useEffect(() => {
+  //   setUser(auth.currentUser);
+  //   auth.onAuthStateChanged((updatedUser) => {
+  //     setUser(updatedUser);
+  //   });
+  // }, []);
   const router = useRouter();
   return (
     <nav className={cn('flex w-full justify-center')}>

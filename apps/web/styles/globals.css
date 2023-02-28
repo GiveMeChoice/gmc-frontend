@@ -54,39 +54,40 @@ body {
   transform: translateX(-55%);
 }
 .menu-primary-enter {
-  background-color: white;
+  /* background-color: white; */
   position: absolute;
   transform: translateX(-110%);
 }
 .menu-primary-enter-active {
-  background-color: white;
+  /* background-color: white; */
   transform: translateX(0%);
   transition: all var(--speed) ease;
 }
 .menu-primary-exit {
-  background-color: white;
+  /* background-color: white; */
   position: absolute;
 }
 .menu-primary-exit-active {
-  background-color: white;
+  /* background-color: white; */
   transform: translateX(-110%);
   transition: all var(--speed) ease;
 }
 
 .menu-secondary-enter {
-  background-color: white;
+  /* background-color: white; */
   transform: translateX(110%);
 }
 .menu-secondary-enter-active {
-  background-color: white;
+  /* background-color: white; */
   transform: translateX(0%);
   transition: all var(--speed) ease;
 }
 .menu-secondary-exit {
-  background-color: white;
+  /* background-color: white; */
+  opacity: 100%;
 }
 .menu-secondary-exit-active {
-  background-color: white;
+  /* background-color: white; */
   transform: translateX(110%);
   transition: all var(--speed) ease;
 }

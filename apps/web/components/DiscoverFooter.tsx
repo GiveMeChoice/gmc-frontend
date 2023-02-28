@@ -4,7 +4,7 @@ import React from 'react';
 const DiscoverFooter: React.FC = () => {
   return (
     <div className="fixed bottom-0 mb-8 flex flex-col items-center">
-      <span className="mb-8 text-sm text-secondary-dark-50">Discover</span>
+      <span className="mb-8 text-sm">Discover</span>
       <Link href="#">
         <span className="cursor-pointer text-xl underline decoration-black underline-offset-2 hover:text-gmc-berry">
           Organic Skincare

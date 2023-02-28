@@ -1,6 +1,8 @@
 import React from 'react';
 import { ProductEntity } from 'search/product';
 import cn from 'classnames';
+import { getUserTheme, getThemeBgLight } from '../lib/theme';
+import { useUser } from './UserProvider';
 
 interface Props {
   index: number;
@@ -17,10 +19,15 @@ const ProductDetail: React.FC<Props> = ({
   nextProduct,
   prevProduct,
 }) => {
+  const { profile } = useUser();
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex w-full border-b-2 border-black">
-        <div className="flex w-1/5 items-center justify-center border-r-2 border-black">
+        <div
+          className={`flex w-1/5 items-center justify-center border-r-2 border-black bg-${
+            getUserTheme(profile).modal
+          }`}
+        >
           <span className="text-6xl">{index + 1}</span>
         </div>
         <div className="flex w-2/5 items-center border-r-2 border-black p-4">

@@ -17,13 +17,9 @@ class MyDocument extends Document {
     return initialProps;
   }
 
-  bg = {
-    'bg-gmc-forest bg-opacity-50': true,
-  };
-
   render() {
     return (
-      <Html className={cn('bg-white', { ...this.bg })}>
+      <Html>
         <Head>
           <link
             rel="preload"
