@@ -1,87 +1,101 @@
+import cn from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
-import DropdownItem from './DropdownItem';
-import { CSSTransition } from 'react-transition-group';
+import { getUserTheme } from '../../lib/theme';
+import { useUser } from '../UserProvider';
+import DropdownMenuTransition from './DropdownMenu/DropdownMenuTransition';
+import FavoritesDropdownMenu from './DropdownMenu/FavoritesDropdownMenu';
+import MainDropdownMenu from './DropdownMenu/MainDropdownMenu';
+import ThemeDropdownMenu from './DropdownMenu/ThemeDropdownMenu';
 
-interface Props {}
+interface Props {
+  closeMenu: () => void;
+  open: boolean;
+}
 
-const DropdownMenu: React.FC<Props> = () => {
-  const [activeMenu, setActiveMenu] = useState('main');
+export enum DropdownMenuName {
+  MAIN,
+  THEME,
+  FAVORITES,
+}
+
+const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
+  const [activeMenu, setActiveMenu] = useState<DropdownMenuName>(
+    DropdownMenuName.MAIN
+  );
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
-  }, []);
+  const { profile } = useUser();
 
-  function calcHeight(el) {
+  const calcHeight = (el) => {
     const height = el.offsetHeight;
     setMenuHeight(height);
-  }
+  };
+
+  const handleClickaway = (e: PointerEvent) => {
+    const menuContainer = e.target.closest('#dropdown-menu');
+    if (!menuContainer) {
+      closeMenu();
+    }
+  };
+  const handleEscapeKey = (e) => {
+    if (e.key === 'Escape') {
+      closeMenu();
+    }
+  };
+
+  useEffect(() => {
+    setMenuHeight(open ? dropdownRef.current?.firstChild.offsetHeight : 0);
+    if (open) {
+      const body = document.getElementsByTagName('body')[0];
+      body.addEventListener('click', handleClickaway);
+      document.addEventListener('keydown', handleEscapeKey);
+      return () => {
+        body.removeEventListener('click', handleClickaway);
+        document.removeEventListener('keydown', handleEscapeKey);
+      };
+    } else {
+      setActiveMenu(DropdownMenuName.MAIN);
+    }
+  }, [open]);
 
   return (
-    <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
-      <CSSTransition
-        in={activeMenu === 'main'}
-        timeout={500}
-        classNames="menu-primary"
-        unmountOnExit
-        onEnter={calcHeight}
+    <div
+      id="dropdown-menu"
+      className={cn(
+        `dropdown-menu transition-height absolute top-14 mx-4 max-h-fit w-80 max-w-full overflow-hidden rounded-md border-2 border-black duration-300 ease-in-out bg-${
+          getUserTheme(profile).modal
+        }`,
+        {
+          'pointer-events-none -z-10 h-0 opacity-0': !open,
+        }
+      )}
+      style={{ height: menuHeight }}
+      ref={dropdownRef}
+    >
+      <DropdownMenuTransition
+        menuName={DropdownMenuName.MAIN}
+        activeMenu={activeMenu}
+        calcHeight={calcHeight}
       >
-        <div className="menu">
-          <DropdownItem>My Profile</DropdownItem>
-          <DropdownItem
-            setActiveMenu={setActiveMenu}
-            // leftIcon={<CogIcon />}
-            // rightIcon={<ChevronIcon />}
-            goToMenu="settings"
-          >
-            Settings
-          </DropdownItem>
-          <DropdownItem
-            leftIcon="🦧"
-            // rightIcon={<ChevronIcon />}
-            goToMenu="animals"
-          >
-            Animals
-          </DropdownItem>
-        </div>
-      </CSSTransition>
+        <MainDropdownMenu setActiveMenu={setActiveMenu} />
+      </DropdownMenuTransition>
 
-      <CSSTransition
-        in={activeMenu === 'settings'}
-        timeout={500}
-        classNames="menu-secondary"
-        unmountOnExit
-        onEnter={calcHeight}
+      <DropdownMenuTransition
+        menuName={DropdownMenuName.THEME}
+        activeMenu={activeMenu}
+        calcHeight={calcHeight}
       >
-        <div className="menu">
-          <DropdownItem goToMenu="main">
-            <h2>My Tutorial</h2>
-          </DropdownItem>
-          <DropdownItem>HTML</DropdownItem>
-          <DropdownItem>CSS</DropdownItem>
-          <DropdownItem>JavaScript</DropdownItem>
-          <DropdownItem>Awesome!</DropdownItem>
-        </div>
-      </CSSTransition>
+        <ThemeDropdownMenu setActiveMenu={setActiveMenu} />
+      </DropdownMenuTransition>
 
-      <CSSTransition
-        in={activeMenu === 'animals'}
-        timeout={500}
-        classNames="menu-secondary"
-        unmountOnExit
-        onEnter={calcHeight}
+      <DropdownMenuTransition
+        menuName={DropdownMenuName.FAVORITES}
+        activeMenu={activeMenu}
+        calcHeight={calcHeight}
       >
-        <div className="menu">
-          <DropdownItem goToMenu="main">
-            <h2>Animals</h2>
-          </DropdownItem>
-          <DropdownItem leftIcon="🦘">Kangaroo</DropdownItem>
-          <DropdownItem leftIcon="🐸">Frog</DropdownItem>
-          <DropdownItem leftIcon="🦋">Horse?</DropdownItem>
-          <DropdownItem leftIcon="🦔">Hedgehog</DropdownItem>
-        </div>
-      </CSSTransition>
+        <FavoritesDropdownMenu setActiveMenu={setActiveMenu} />
+      </DropdownMenuTransition>
     </div>
   );
 };

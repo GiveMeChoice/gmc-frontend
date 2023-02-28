@@ -31,11 +31,11 @@ const ThemeColorButton: React.FC<Props> = ({ color, theme, title }) => {
     <div
       title={title}
       className={cn(
-        `h-10 w-10 cursor-pointer rounded-full border-1.5 border-zinc-800 shadow-md duration-150 hover:scale-110 hover:shadow-lg bg-${
+        `h-10 w-10 cursor-pointer rounded-full border-1.5 border-zinc-800 shadow-sm duration-150 hover:scale-105 bg-${
           getTheme(theme).modal
         }`,
         {
-          'scale-110 shadow-lg': isActive(),
+          'scale-105': isActive(),
         }
       )}
       onClick={handleSelectTheme}

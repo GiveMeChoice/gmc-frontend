@@ -19,6 +19,7 @@ export interface IUserContext {
 }
 
 export interface IUserProfile {
+  displayName: string;
   theme: Theme;
 }
 

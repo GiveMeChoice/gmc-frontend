@@ -6,7 +6,7 @@ import { auth } from '../lib/firebase';
 import SearchBar from './SearchBar';
 
 import LoginButton from './Navbar/LoginButton';
-import ProfileButton from './Navbar/ProfileButton';
+import UserButton from './Navbar/UserButton';
 import LocaleButton from './Navbar/LocaleButton';
 import HomeButton from './Navbar/HomeButton';
 import { useUser } from './UserProvider';
@@ -15,13 +15,6 @@ import { useUser } from './UserProvider';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
-  // const [user, setUser] = useState(null);
-  // useEffect(() => {
-  //   setUser(auth.currentUser);
-  //   auth.onAuthStateChanged((updatedUser) => {
-  //     setUser(updatedUser);
-  //   });
-  // }, []);
   const router = useRouter();
   return (
     <nav className={cn('flex w-full justify-center')}>
@@ -35,7 +28,7 @@ const Navbar: React.FC = () => {
           className="flex items-center gap-8 duration-100"
         >
           <LocaleButton />
-          {user ? <ProfileButton /> : <LoginButton />}
+          {user ? <UserButton /> : <LoginButton />}
         </div>
       </div>
     </nav>
