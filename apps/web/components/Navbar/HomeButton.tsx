@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const HomeButton: React.FC = () => {
   return (
-    <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-zinc-700 pb-0.5 hover:shadow-sm active:bg-secondary">
+    <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-black pb-0.5 hover:shadow-sm active:bg-secondary dark:border-white">
       <Link href="/" title="Home">
         <Image
           draggable={false}

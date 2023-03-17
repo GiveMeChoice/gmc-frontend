@@ -29,29 +29,9 @@ body {
   @apply flex h-fit justify-center;
 }
 
-/* GIVE ME CHOICE PUSHABLE BUTTON EFFECT */
-.pushable-hover:hover {
-  outline-offset: 4px;
-}
-.pushable {
-  outline-offset: 4px;
-}
-.front-hover:hover {
-  transform: translateY(-4px);
-}
-.front {
-  transform: translateY(-4px);
-}
-.pushable-hover:active .front-hover {
-  transform: translateY(-1px);
-}
-.pushable:active .front {
-  transform: translateY(-1px);
-}
-
 /* DropdownMenu Transitions  */
 .dropdown-menu {
-  transform: translateX(-55%);
+  transform: translateX(-50%);
 }
 .menu-primary-enter {
   position: absolute;
@@ -68,7 +48,6 @@ body {
   transform: translateX(-110%);
   transition: all var(--speed) ease;
 }
-
 .menu-secondary-enter {
   transform: translateX(110%);
 }

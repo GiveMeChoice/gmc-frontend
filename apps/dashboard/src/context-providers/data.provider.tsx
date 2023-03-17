@@ -1,5 +1,5 @@
 import { IBrand } from '@root/services/brands.service';
-import { ICategory } from '@root/services/categories.service';
+import { IProviderCategory } from '@root/services/categories.service';
 import { IJobStatus } from '@root/services/jobs.service';
 import { ILabel } from '@root/services/labels.service';
 import { IProduct } from '@root/services/products.service';
@@ -20,6 +20,7 @@ import {
 } from 'react';
 
 export interface IData {
+  loading: boolean;
   jobs: IJobStatus[];
   providers: IProvider[];
   providersMeta: PageMeta;
@@ -31,7 +32,7 @@ export interface IData {
   productsMeta: PageMeta;
   labels: ILabel[];
   labelsMeta: PageMeta;
-  categories: ICategory[];
+  categories: IProviderCategory[];
   categoriesMeta: PageMeta;
   brands: IBrand[];
   brandsMeta: PageMeta;
@@ -41,6 +42,12 @@ export interface IData {
 }
 
 export type DataAction =
+  | {
+      type: 'START_LOADING';
+    }
+  | {
+      type: 'FINISH_LOADING';
+    }
   | {
       type: 'OPEN_PRODUCT_PREVIEW';
       value: IProduct;
@@ -73,8 +80,8 @@ export type DataAction =
       value: PageResponse<ILabel>;
     }
   | {
-      type: 'REFRESH_CATEGORIES';
-      value: PageResponse<ICategory>;
+      type: 'REFRESH_PROVIDER_CATEGORIES';
+      value: PageResponse<IProviderCategory>;
     }
   | {
       type: 'REFRESH_BRANDS';
@@ -105,8 +112,8 @@ export type DataAction =
       value: ILabel;
     }
   | {
-      type: 'UPDATE_CATEGORY';
-      value: ICategory;
+      type: 'UPDATE_PROVIDER_CATEGORY';
+      value: IProviderCategory;
     };
 
 const DataContext = createContext<IData>(null);
@@ -137,6 +144,16 @@ export function useDataDispatch() {
 
 function dataReducer(data: IData, action: DataAction): IData {
   switch (action.type) {
+    case 'START_LOADING':
+      return {
+        ...data,
+        loading: true,
+      };
+    case 'FINISH_LOADING':
+      return {
+        ...data,
+        loading: false,
+      };
     case 'OPEN_PRODUCT_PREVIEW':
       return {
         ...data,
@@ -182,7 +199,7 @@ function dataReducer(data: IData, action: DataAction): IData {
         labels: action.value.data,
         labelsMeta: action.value.meta,
       };
-    case 'REFRESH_CATEGORIES':
+    case 'REFRESH_PROVIDER_CATEGORIES':
       return {
         ...data,
         categories: action.value.data,
@@ -233,7 +250,7 @@ function dataReducer(data: IData, action: DataAction): IData {
           l.id === action.value.id ? action.value : l
         ),
       };
-    case 'UPDATE_CATEGORY':
+    case 'UPDATE_PROVIDER_CATEGORY':
       return {
         ...data,
         categories: data.categories.map((c) =>
@@ -247,6 +264,7 @@ function dataReducer(data: IData, action: DataAction): IData {
 }
 
 export const initialData: IData = {
+  loading: false,
   jobs: [],
   providers: [],
   providersMeta: {},

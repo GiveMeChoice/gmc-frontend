@@ -30,7 +30,7 @@ const ViewSourcesLink: React.FC<Props> = ({ providerId }) => {
       type: 'REFRESH_SOURCES',
       value: { data: [], meta: initialData.sourcesMeta },
     });
-    navigate('/product-sources');
+    navigate('/product-sources/sources');
   };
 
   return <ViewLink title="View Sources" onClick={onViewSources} />;

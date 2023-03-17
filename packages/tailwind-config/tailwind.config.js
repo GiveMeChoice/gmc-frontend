@@ -27,6 +27,12 @@ module.exports = {
       xl: '1440px',
     },
     extend: {
+      width: {
+        128: '32rem',
+      },
+      transitionProperty: {
+        width: 'width',
+      },
       aspectRatio: {
         '3/4': '3 / 4',
         '4/3': '4 / 3',

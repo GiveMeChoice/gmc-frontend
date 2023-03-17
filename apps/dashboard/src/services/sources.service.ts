@@ -62,7 +62,7 @@ const update = async (
 
 const integrate = async (id: string): Promise<IRun> => {
   const res = await axios.post<IRun>(
-    '/integrate-source',
+    '/etl/integrate-source',
     {},
     {
       params: {
@@ -87,12 +87,12 @@ const extractSourceFilters = (filters: IFilters): Partial<ISource> => ({
 });
 
 const sourcesScreenControl: IScreenControl = {
-  pathname: '/product-sources',
+  pathname: '/product-sources/sources',
   title: 'Sources',
   readScreenMeta(data) {
     return data.sourcesMeta;
   },
-  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
     return {
       type: 'REFRESH_SOURCES',
       value: await find(filters, data.sourcesMeta),

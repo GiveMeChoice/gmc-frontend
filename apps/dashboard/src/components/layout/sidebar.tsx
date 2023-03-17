@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react';
-import ScreenLinkButton from './sidebar/screen-link-button';
-import cn from 'classnames';
 import dashboardService from '@root/services/dashboard.service';
+import productsService from '@root/services/products.service';
 import providersService from '@root/services/providers.service';
 import sourcesService from '@root/services/sources.service';
-import runsService from '@root/services/runs.service';
-import productsService from '@root/services/products.service';
+import cn from 'classnames';
+import React, { useEffect, useState } from 'react';
+import ScreenLinkButton from './sidebar/screen-link-button';
 const GMCLogo = require('../../assets/images/GMC_logo.svg');
 const GMCG = require('../../assets/images/GMC_G.svg');
 const HomeIcon = require('../../assets/images/home-icon.svg');
@@ -83,7 +82,7 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
       <div className="mt-14 flex h-full flex-col justify-between">
-        <div className="flex flex-col items-center space-y-2.5 active:[&>*]:bg-primary">
+        <div className="flex flex-col items-center space-y-2 active:[&>*]:bg-primary">
           <ScreenLinkButton
             link={dashboardService.dashboardScreenControl.pathname}
             title="Home"
@@ -109,12 +108,12 @@ const Sidebar: React.FC = () => {
             <img className="h-5" src={TreeIcon} alt="tree icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link={runsService.runsScreenControl.pathname}
-            title={runsService.runsScreenControl.title}
+            link="/mappings"
+            title="Mappings"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src={CartIcon} alt="cart icon" />
+            <img className="h-5" src={BasketIcon} alt="basket icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             link={productsService.productsScreenControl.pathname}
@@ -125,14 +124,6 @@ const Sidebar: React.FC = () => {
             <img className="h-5" src={BananasIcon} alt="bananas icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link="/mappings"
-            title="Mappings"
-            pinExpand={pinExpand}
-            pinShrink={pinShrink}
-          >
-            <img className="h-5" src={BasketIcon} alt="basket icon" />
-          </ScreenLinkButton>
-          <ScreenLinkButton
             link="/jobs"
             title="Jobs"
             pinExpand={pinExpand}
@@ -140,14 +131,14 @@ const Sidebar: React.FC = () => {
           >
             <img className="h-5" src={HumanIcon} alt="human icon" />
           </ScreenLinkButton>
-          <ScreenLinkButton
+          {/* <ScreenLinkButton
             link="/search"
             title="Search"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
             <img className="h-5" src={SearchIcon} alt="search icon" />
-          </ScreenLinkButton>
+          </ScreenLinkButton> */}
         </div>
         <div className="flex w-full justify-center">
           <button
@@ -155,9 +146,9 @@ const Sidebar: React.FC = () => {
             className={cn(
               'flex h-8 w-8 items-center justify-center rounded-full',
               {
-                'hover:bg-gmc-berry hover:bg-opacity-20 active:bg-opacity-60':
+                'hover:bg-gmc-berry hover:bg-opacity-30 active:bg-opacity-60':
                   !pinExpand && !pinShrink,
-                'bg-gmc-berry bg-opacity-60': pinExpand || pinShrink,
+                'bg-gmc-berry bg-opacity-70': pinExpand || pinShrink,
               }
             )}
           >

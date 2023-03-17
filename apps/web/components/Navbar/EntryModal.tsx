@@ -35,7 +35,7 @@ const EntryModal: React.FC<Props> = ({ open, onClose }) => {
         closeButton: 'customModalCloseButton',
       }}
     >
-      <div className="flex max-w-5xl flex-col">
+      <div className="flex max-w-5xl flex-col rounded-full">
         <div className="flex h-14 w-full">
           <button
             className={cn('w-1/2', {

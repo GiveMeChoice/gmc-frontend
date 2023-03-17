@@ -20,24 +20,29 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
   };
 
   return (
-    <ul className="pb-1">
+    <div className="pb-2">
       <ProfileDropdownSection />
 
-      <hr className="my-1 border-zinc-700" />
+      <hr className="my-1 border-black dark:border-white" />
 
       <DropdownItemButton
-        handleClick={() => {}}
+        handleClick={() => {
+          setActiveMenu(DropdownMenuName.FAVORITES);
+        }}
         leftIcon={
           <Image
             draggable={false}
-            src="/img/user.svg"
-            alt="User Icon"
-            height={17}
-            width={10}
+            src="/img/heart.svg"
+            alt="Heart Icon"
+            height={20}
+            width={20}
           />
         }
+        rightIcon={
+          <img draggable={false} src="/img/angle-right.svg" alt="User Icon" />
+        }
       >
-        <span>My Profile</span>
+        <span>Favorites</span>
       </DropdownItemButton>
 
       <DropdownItemButton
@@ -61,30 +66,10 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
           />
         }
       >
-        <span>Theme</span>
+        <span>Appearance</span>
       </DropdownItemButton>
 
-      <DropdownItemButton
-        handleClick={() => {
-          setActiveMenu(DropdownMenuName.FAVORITES);
-        }}
-        leftIcon={
-          <Image
-            draggable={false}
-            src="/img/heart.svg"
-            alt="Heart Icon"
-            height={20}
-            width={20}
-          />
-        }
-        rightIcon={
-          <img draggable={false} src="/img/angle-right.svg" alt="User Icon" />
-        }
-      >
-        <span>Favourites</span>
-      </DropdownItemButton>
-
-      <hr className="my-1 border-zinc-700" />
+      <hr className="my-1 border-black dark:border-white" />
 
       <DropdownItemButton handleClick={handleSignOut} centered>
         <div className="flex items-center gap-1">
@@ -100,7 +85,7 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
           </div>
         </div>
       </DropdownItemButton>
-    </ul>
+    </div>
   );
 };
 

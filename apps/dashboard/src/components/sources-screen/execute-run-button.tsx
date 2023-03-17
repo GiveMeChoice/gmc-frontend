@@ -42,9 +42,9 @@ const ExecuteRunButton: React.FC<Props> = ({ sourceId }) => {
   ) : (
     <button
       className={cn(
-        'mt-2 w-24 rounded-md border-2 bg-secondary px-1.5 py-1 text-sm',
+        'mt-2 w-full rounded-md border-1.5 bg-secondary px-1.5 py-2.5 text-xs',
         {
-          'border-zinc-500 hover:bg-primary-light-50 active:bg-primary':
+          'border-zinc-500 bg-gmc-dune-light-50 hover:bg-gmc-dune-light-30 active:bg-gmc-dune':
             !executable,
           'border-gmc-heart bg-gmc-heart hover:bg-gmc-heart hover:bg-opacity-50':
             executable,

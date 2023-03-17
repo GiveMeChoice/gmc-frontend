@@ -80,10 +80,10 @@ const ProductsScreen: React.FC = () => {
               />
               {/* product data cell  */}
               <ScreenSectionCell styles="w-10/12 flex flex-col divide-y divide-zinc-300 space-y-2">
-                <div className="flex w-full flex-wrap items-center pt-1">
+                <div className="flex flex-wrap items-center pt-1">
                   <span
                     className={cn(
-                      'bg-opacity- mx-3 w-20 rounded-full border border-secondary-dark-50 px-2.5 py-1 text-center text-sm font-bold',
+                      'flex w-24 items-center justify-center rounded-full border border-secondary-dark-50 p-1 text-center text-sm font-bold',
                       {
                         'bg-primary': p.integrationStatus === 'LIVE',
                         'bg-gmc-beach': p.integrationStatus === 'PENDING',
@@ -93,7 +93,27 @@ const ProductsScreen: React.FC = () => {
                   >
                     {p.integrationStatus}
                   </span>
-                  <div className="w-8/12 px-3 text-center text-sm">
+                  {/* ID SECTION */}
+                  <div className="flex flex-grow flex-wrap items-center justify-evenly text-sm">
+                    <div className="flex items-center">
+                      <span className="font-bold text-zinc-600">
+                        Provider ID:
+                      </span>
+                      <span className="ml-2">{p.providerProductId}</span>
+                      <CopyIdButton id={p.providerProductId} />
+                    </div>
+                    <div className="flex items-center">
+                      <span className="font-bold text-zinc-600">GMC ID:</span>
+                      <span className="ml-2">{p.shortId}</span>
+                      <CopyIdButton id={p.shortId} />
+                    </div>
+                  </div>
+                </div>
+                {/* 
+                PRODUCT TITLE
+                 */}
+                {p.title && (
+                  <div className="w-full px-4 pt-2 text-center text-base">
                     {p.integrationStatus === 'LIVE' ? (
                       <a
                         target="_blank"
@@ -114,22 +134,30 @@ const ProductsScreen: React.FC = () => {
                       p.title
                     )}
                   </div>
-                </div>
-                {/* ID SECTION */}
+                )}
+                {/* CATEGORY SECTION */}
                 <div className="flex flex-wrap items-center justify-evenly pt-2 text-sm">
-                  <div className="flex w-48 items-center">
+                  <div className="flex items-center">
                     <span className="font-bold text-zinc-600">
-                      Internal ID:
+                      Provider Category:
                     </span>
-                    <span className="ml-2">{p.shortId}</span>
-                    <CopyIdButton id={p.shortId} />
-                  </div>
-                  <div className="flex w-48 items-center">
-                    <span className="font-bold text-zinc-600">
-                      Provider ID:
+                    <span className="ml-2">
+                      {p.providerCategory
+                        ? p.providerCategory.description
+                        : 'None'}
                     </span>
-                    <span className="ml-2">{p.providerProductId}</span>
                     <CopyIdButton id={p.providerProductId} />
+                  </div>
+                  <div className="flex items-center">
+                    <span className="font-bold text-zinc-600">
+                      GMC Category:
+                    </span>
+                    <span className="ml-2">
+                      {p.providerCategory && p.providerCategory.categoryId
+                        ? p.providerCategory.category.name
+                        : 'None Assigned'}
+                    </span>
+                    {/* <CopyIdButton id={p.shortId} /> */}
                   </div>
                 </div>
                 {/* 
@@ -188,7 +216,7 @@ const ProductsScreen: React.FC = () => {
                     <div className="flex w-48 items-center justify-center">
                       <button
                         className={cn(
-                          'rounded-md border-2  bg-secondary px-2 py-1 text-sm ',
+                          'rounded-md border bg-secondary p-3 text-sm ',
                           {
                             'border-zinc-400 hover:bg-primary-light-50 active:bg-primary':
                               true,
@@ -210,7 +238,7 @@ const ProductsScreen: React.FC = () => {
                   </div>
                 </div>
                 {p.hasIntegrationError && (
-                  <span className="pt-2 pb-1 text-center text-sm font-bold text-gmc-heart">
+                  <span className="pt-2 pb-1 text-center text-sm italic text-gmc-heart">
                     {p.errorMessage}
                   </span>
                 )}

@@ -34,7 +34,7 @@ const find = async (
   pageRequest?: PageRequest
 ): Promise<PageResponse<IRun>> => {
   const res = await axios.post<PageResponse<IRun>>(
-    '/product-runs/find',
+    '/source-runs/find',
     extractRunFilters(filters),
     {
       params: pageRequest,
@@ -57,12 +57,12 @@ function extractRunFilters(filters: IFilters): Partial<IRun> {
 }
 
 const runsScreenControl: IScreenControl = {
-  pathname: '/product-runs',
+  pathname: '/product-sources/runs',
   title: 'Runs',
   readScreenMeta(data) {
     return data.runsMeta;
   },
-  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
     return {
       type: 'REFRESH_RUNS',
       value: await find(filters, data.runsMeta),

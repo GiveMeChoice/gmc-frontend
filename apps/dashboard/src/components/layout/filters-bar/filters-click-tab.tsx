@@ -18,7 +18,7 @@ const FiltersClickTab: React.FC = () => {
           'w-0': filterBarVisible,
         }
       )}
-      onClick={() => dispatch({ type: 'ENTER_FILTER_BAR' })}
+      // onClick={() => dispatch({ type: 'ENTER_FILTER_BAR' })}
     >
       <div className="flex flex-col divide-y-2 divide-primary">
         <div className="h-2" />

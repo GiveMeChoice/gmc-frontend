@@ -19,7 +19,7 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html className="border-black dark:border-white">
         <Head>
           <link
             rel="preload"

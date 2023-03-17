@@ -13,14 +13,6 @@ const NavbarTop: React.FC = () => {
   const filtersDispatch = useFiltersDispatch();
   const auth = useAuth();
 
-  const toggleFilters = () => {
-    if (filterBarVisible) {
-      filtersDispatch({ type: 'EXIT_FILTER_BAR' });
-    } else {
-      filtersDispatch({ type: 'ENTER_FILTER_BAR' });
-    }
-  };
-
   return (
     <div className="flex w-full items-center justify-between border-b-2 border-secondary bg-zinc-900 px-6 py-4 text-secondary lg:px-7 xl:px-16">
       <h2 className="w-1/3 p-3  text-xl font-bold lg:text-2xl">
@@ -44,7 +36,9 @@ const NavbarTop: React.FC = () => {
         />
         <div
           className="ml-6 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full  border-secondary duration-150 hover:bg-zinc-800 active:bg-opacity-50"
-          onClick={toggleFilters}
+          onClick={() => {
+            filtersDispatch({ type: 'TOGGLE_FILTER_BAR' });
+          }}
         >
           <div
             className={cn('space-y-1', {

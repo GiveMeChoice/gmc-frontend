@@ -1,9 +1,9 @@
 import React from 'react';
-import { Theme } from '../../../lib/theme';
 import { DropdownMenuName } from '../DropdownMenu';
 import DropdownItemButton from './DropdownItemButton';
 import ThemeColorButton from './ThemeColorButton';
 import Image from 'next/image';
+import { Theme } from 'gmc-types';
 
 interface Props {
   setActiveMenu: (name: DropdownMenuName) => void;
@@ -34,9 +34,9 @@ const ThemeDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
           />
         }
       >
-        <span className="text-lg">Theme</span>
+        <span className="text-base">Appearance</span>
       </DropdownItemButton>
-      <hr className="border-zinc-700" />
+      <hr className="border-black dark:border-white" />
       <li className="flex w-full flex-col gap-3 py-3">
         <div className="flex w-full justify-evenly">
           <ThemeColorButton

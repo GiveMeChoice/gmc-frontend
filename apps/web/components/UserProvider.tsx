@@ -9,7 +9,8 @@ import {
 } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../lib/firebase';
-import { Theme } from '../lib/theme';
+import { getUserTheme } from '../lib/theme';
+import { IProfile, Theme } from 'gmc-types';
 
 export interface IUserContext {
   user: User;
@@ -35,10 +36,16 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
       const ref = doc(getFirestore(), 'users', user.uid);
       unsubscribe = onSnapshot(ref, (doc) => {
-        setProfile(doc.data() as IUserProfile);
+        let profileDoc = doc.data() as IUserProfile;
+        setProfile(profileDoc);
+        if (getUserTheme(profileDoc).dark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
       });
-      console.log('profile: ', profile);
     } else {
+      document.documentElement.classList.remove('dark');
       setProfile(null);
     }
   }, [user]);

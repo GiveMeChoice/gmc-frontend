@@ -7,11 +7,11 @@ interface Props {
 
 const ViewLink: React.FC<Props> = ({ title, onClick }) => {
   return (
-    <div
-      className="flex w-full cursor-pointer flex-wrap items-center justify-center space-x-2 fill-gmc-ocean pt-2 text-sm text-gmc-ocean underline-offset-2 hover:fill-primary-dark-10 hover:text-primary-dark-10 hover:underline"
+    <button
+      className="viewlink flex w-full cursor-pointer flex-wrap items-center justify-center space-x-2 rounded-md border border-zinc-500 fill-gmc-ocean p-2 text-sm text-gmc-ocean underline-offset-2 hover:bg-primary-light-50 hover:underline active:bg-primary"
       onClick={onClick}
     >
-      <span className="text-center text-xs">{title}</span>
+      <span className="py-2 text-center text-xs">{title}</span>
       <div className="h-4 w-4">
         <svg x="0px" y="0px" viewBox="0 0 363.579 363.579">
           <g>
@@ -36,7 +36,7 @@ C299.98,266.888,299.977,266.851,299.975,266.811z"
           </g>
         </svg>
       </div>
-    </div>
+    </button>
   );
 };
 

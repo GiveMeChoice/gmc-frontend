@@ -10,6 +10,12 @@ export interface IProvider {
   key: string;
   description: string;
   active: boolean;
+  runIntervalHours: number;
+  expirationHours: number;
+  sourcesCount: number;
+  productCount: number;
+  categoryCount: number;
+  labelCount: number;
 }
 
 const find = async (
@@ -43,6 +49,17 @@ const update = async (
   return res.data;
 };
 
+const remapProducts = async (key: string): Promise<number> => {
+  const res = await axios.post(
+    `/etl/remap-provider`,
+    {},
+    {
+      params: { provider: key },
+    }
+  );
+  return res.data;
+};
+
 const extractProviderFilters = (filters: IFilters) => ({
   ...(filters.providerId && { id: filters.providerId }),
   ...(filters.providerActivation && {
@@ -56,7 +73,7 @@ const providersScreenControl: IScreenControl = {
   readScreenMeta(data) {
     return data.providersMeta;
   },
-  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
     return {
       type: 'REFRESH_PROVIDERS',
       value: await find(filters, data.providersMeta),
@@ -85,5 +102,11 @@ const providersScreenControl: IScreenControl = {
   },
 };
 
-const providersService = { find, getAll, update, providersScreenControl };
+const providersService = {
+  find,
+  getAll,
+  update,
+  remapProducts,
+  providersScreenControl,
+};
 export default providersService;

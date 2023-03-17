@@ -21,8 +21,8 @@ const ScreenLinkButton: React.FC<Props> = ({
     <Link
       to={link}
       title={title}
-      className={cn('flex py-3 text-sm font-bold duration-150', {
-        'hover:bg-primary-light-50': !matchesLocation(link),
+      className={cn('flex py-4 text-sm font-bold duration-150', {
+        'hover:bg-primary-light-40': !matchesLocation(link),
         'bg-primary': matchesLocation(link),
         'w-52 justify-start rounded-md': pinExpand,
         'lg:w-52 lg:justify-start lg:rounded-md': !pinShrink,

@@ -105,19 +105,21 @@ const SourcesListRow: React.FC<Props> = ({ providerKey, source, index }) => {
         </div>
       </ScreenSectionCell>
       <ScreenSectionCell styles="flex w-44 flex-col items-center justify-center space-y-2 divide-y divide-zinc-300">
-        <div className="flex justify-center">
-          <ViewRunsLink
-            providerId={source.providerId}
-            sourceIdentifier={source.identifier}
-          />
+        <div className="flex h-2/3 w-full flex-col justify-evenly gap-1">
+          <div className="flex w-full">
+            <ViewRunsLink
+              providerId={source.providerId}
+              sourceIdentifier={source.identifier}
+            />
+          </div>
+          <div className="flex w-full">
+            <ViewProductsLink
+              providerId={source.providerId}
+              sourceIdentifier={source.identifier}
+            />
+          </div>
         </div>
-        <div className="flex w-full justify-center">
-          <ViewProductsLink
-            providerId={source.providerId}
-            sourceIdentifier={source.identifier}
-          />
-        </div>
-        <div className="flex w-full items-center justify-center">
+        <div className="flex h-1/3 w-full items-center justify-center">
           <ExecuteRunButton sourceId={source.id} />
         </div>
       </ScreenSectionCell>

@@ -60,7 +60,7 @@ const jobsScreenControl: IScreenControl = {
   readScreenMeta() {
     return null;
   },
-  refreshFilters() {
+  refreshData() {
     return null;
   },
   refreshPage() {

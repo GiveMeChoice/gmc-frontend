@@ -17,8 +17,8 @@ export interface IScreenControl {
   pathname: string;
   title: string;
   readScreenMeta(data: IData): PageMeta;
-  // apply updated filters against current screen meta
-  refreshFilters(filters: IFilters, data: IData): Promise<DataAction>;
+  // apply updated filters against current screen meta to refresh screen data
+  refreshData(filters: IFilters, data: IData): Promise<DataAction>;
   // apply updated page against current filters
   refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction>;
   // apply updated sort/direction against current page and filters
@@ -30,12 +30,12 @@ export interface IScreenControl {
   ): Promise<DataAction>;
 }
 
-const refreshFilters = async (
+const refreshData = async (
   filters: IFilters,
   data: IData
 ): Promise<DataAction> => {
   const match = screenControls.find((s) => matchesLocation(s.pathname));
-  return await match.refreshFilters(filters, data);
+  return await match.refreshData(filters, data);
 };
 
 const refreshSort = async (
@@ -81,7 +81,7 @@ const screenControls: IScreenControl[] = [
 ];
 
 const screenControlsService = {
-  refreshFilters,
+  refreshData,
   refreshSort,
   refreshPage,
   readScreenMeta,

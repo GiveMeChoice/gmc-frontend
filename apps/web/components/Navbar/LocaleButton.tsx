@@ -18,7 +18,7 @@ const LocaleButton: React.FC = () => {
   };
   return (
     <button
-      className="black flex h-9 items-center justify-center rounded border  border-white px-2 text-sm hover:border-zinc-700 hover:bg-secondary  hover:bg-opacity-70 hover:underline hover:shadow-sm active:bg-opacity-100"
+      className="black flex h-9 items-center justify-center rounded border border-black px-2 text-sm hover:bg-secondary hover:bg-opacity-70  hover:underline hover:shadow-sm active:bg-opacity-100 dark:border-white"
       onClick={handleClick}
     >
       <span>ENG - GBP</span>

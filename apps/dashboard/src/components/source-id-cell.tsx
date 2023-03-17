@@ -48,7 +48,7 @@ const SourceIdCell: React.FC<Props> = ({
     };
     filtersDispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
     dataDispatch({ type: 'REFRESH_SOURCES', value: { data: [], meta: {} } });
-    navigate('/product-sources');
+    navigate('/product-sources/sources');
   };
 
   return (

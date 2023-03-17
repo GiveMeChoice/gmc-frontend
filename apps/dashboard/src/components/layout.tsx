@@ -17,7 +17,8 @@ const Layout: React.FC = () => {
       <div className="flex h-full w-full flex-col">
         <Navbar />
         <div className="flex overflow-y-auto">
-          {location.pathname.includes('mapping-assistant') ? (
+          {location.pathname.includes('mapping-assistant') ||
+          location.pathname === '/' ? (
             <Outlet />
           ) : (
             <>

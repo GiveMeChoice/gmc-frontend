@@ -7,7 +7,7 @@ module.exports = () => {
   return {
     entry: path.resolve(__dirname, './src/index.tsx'),
     devServer: {
-      port: 3000,
+      port: 3001,
       watchFiles: ['src/**/*'],
       liveReload: true,
       historyApiFallback: true,
@@ -49,7 +49,7 @@ module.exports = () => {
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js',
-      // publicPath: '/',
+      publicPath: '/',
       assetModuleFilename: 'assets/[name][ext]',
     },
     mode: 'development',

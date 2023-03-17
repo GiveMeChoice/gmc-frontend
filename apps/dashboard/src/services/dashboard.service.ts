@@ -4,7 +4,7 @@ const dashboardScreenControl: IScreenControl = {
   pathname: '/',
   title: 'Dashboard',
   readScreenMeta: () => null,
-  refreshFilters: () => null,
+  refreshData: () => null,
   refreshPage: () => null,
   refreshSort: () => null,
 };

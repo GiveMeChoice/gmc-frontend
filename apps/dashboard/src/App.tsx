@@ -16,19 +16,40 @@ import RunsScreen from './components/runs';
 import SearchScreen from './components/search';
 import Sources from './components/sources-screen/sources';
 import { useData, useDataDispatch } from './context-providers/data.provider';
-import { useFiltersDispatch } from './context-providers/filters.provider';
+import {
+  useFilters,
+  useFiltersDispatch,
+} from './context-providers/filters.provider';
+import runsService from './services/runs.service';
+import screenControlsService from './services/screen-controls.service';
 import './styles.css';
 
 function App() {
   axios.defaults.baseURL = process.env.PI_API_URL;
+  const { activeFilters } = useFilters();
   const filtersDispatch = useFiltersDispatch();
-  const dataDisptach = useDataDispatch();
-  const { previewProduct } = useData();
+  const dataDispatch = useDataDispatch();
+  const data = useData();
   useEffect(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      if (e.key == 'Escape') {
-        if (previewProduct) {
-          dataDisptach({
+    const handleKeydown = async (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === 'r') {
+        try {
+          dataDispatch({ type: 'START_LOADING' });
+          const action = await screenControlsService.refreshData(
+            activeFilters,
+            data
+          );
+          if (action) dataDispatch(action);
+        } catch (err) {
+          console.error(err);
+        } finally {
+          dataDispatch({ type: 'FINISH_LOADING' });
+        }
+      } else if (e.ctrlKey && e.key === 'c') {
+        filtersDispatch({ type: 'CLEAR_FILTERS' });
+      } else if (e.key === 'Escape') {
+        if (data.previewProduct) {
+          dataDispatch({
             type: 'CLOSE_PRODUCT_PREVIEW',
           });
         } else {
@@ -40,7 +61,7 @@ function App() {
     };
     document.addEventListener('keydown', handleKeydown);
     return () => document.removeEventListener('keydown', handleKeydown);
-  }, [previewProduct]);
+  }, [data.previewProduct, activeFilters]);
   return (
     <Routes>
       <Route
@@ -54,13 +75,21 @@ function App() {
           <Route index element={<Home />} />
           <Route path="providers" element={<Providers />} />
           <Route path="product-sources" element={<Sources />} />
-          <Route path="product-runs" element={<RunsScreen />} />
+          <Route
+            path={runsService.runsScreenControl.pathname}
+            element={<RunsScreen />}
+          />
           <Route path="products" element={<ProductsScreen />} />
+          <Route path="product-sources">
+            <Route index element={<Navigate to="sources" replace />} />
+            <Route path="sources" element={<Sources />} />
+            <Route path="runs" element={<RunsScreen />} />
+          </Route>
           <Route path="mappings">
-            <Route index element={<Navigate to="labels" replace />} />
-            <Route path="labels" element={<LabelsScreen />} />
+            <Route index element={<Navigate to="categories" replace />} />
             <Route path="categories" element={<CategoriesScreen />} />
             <Route path="brands" element={<BrandsScreen />} />
+            <Route path="labels" element={<LabelsScreen />} />
           </Route>
           <Route path="jobs" element={<JobsScreen />} />
           <Route path="search" element={<SearchScreen />} />

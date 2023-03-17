@@ -6,6 +6,11 @@ const Navigation: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [maxIdx, setMaxIdx] = useState(0);
+  const [rootKey, setRootKey] = useState(null);
+  useEffect(() => {
+    setRootKey(history.state.key);
+  }, []);
+
   useEffect(() => {
     if (history.state.idx > maxIdx) {
       setMaxIdx(history.state.idx);
@@ -21,33 +26,33 @@ const Navigation: React.FC = () => {
     <div className="mt-1 flex space-x-2">
       <button
         className={cn(
-          'flex h-9 w-20 items-center justify-center rounded-lg border-2 border-secondary p-3 pb-3.5 text-5xl',
+          'flex h-9 w-20 items-center justify-center rounded-3xl border-2 p-3 pb-3.5 text-5xl',
           {
-            'border border-secondary-dark-40 bg-inherit text-secondary-dark-40':
-              history.state.idx === 0,
-            'hover:border-primary hover:bg-zinc-800 hover:text-primary active:bg-gmc-surf active:bg-opacity-50':
-              history.state.idx > 0,
+            'border-secondary-dark-40 bg-inherit bg-zinc-600 text-secondary-dark-40':
+              history.state.key === rootKey,
+            'border-secondary text-white hover:bg-primary hover:bg-opacity-60 active:bg-primary active:bg-opacity-100':
+              history.state.key !== rootKey,
           }
         )}
         onClick={onBack}
-        disabled={history.state.idx === 0}
+        disabled={history.state.key === rootKey}
       >
-        <div className="h-14 rounded-lg pr-1">{'<'}</div>
+        <div className="py-.05 h-14 rounded-3xl pr-1">{'<'}</div>
       </button>
       <button
         className={cn(
-          'flex h-9 w-20 items-center justify-center rounded-lg border-2 border-secondary p-3 pb-3.5 text-5xl lg:border-secondary',
+          'flex h-9 w-20 items-center justify-center rounded-3xl border-2 p-3 pb-3.5 text-5xl',
           {
-            'border border-secondary-dark-40 bg-inherit text-secondary-dark-40':
+            'border-secondary-dark-40 bg-inherit bg-zinc-600 text-secondary-dark-40':
               history.state.idx === maxIdx,
-            'hover:border-primary hover:bg-zinc-800 hover:text-primary active:bg-gmc-surf active:bg-opacity-50':
+            'border-secondary text-white hover:bg-primary hover:bg-opacity-60 active:bg-primary active:bg-opacity-100':
               history.state.idx < maxIdx,
           }
         )}
         onClick={onForward}
         disabled={history.state.idx === maxIdx}
       >
-        <span className="h-14 pl-1">{'>'}</span>
+        <span className="py-.05 h-14 pl-1">{'>'}</span>
       </button>
     </div>
   );

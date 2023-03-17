@@ -1,12 +1,13 @@
 import { useAuth } from '@root/components/auth/auth.provider';
 import categoriesService, {
-  ICategoryGroup,
+  ICategory,
 } from '@root/services/categories.service';
 import labelsService, { ILabelGroup } from '@root/services/labels.service';
 import providersService from '@root/services/providers.service';
 import {
   createContext,
   Dispatch,
+  ReactFragment,
   Reducer,
   useContext,
   useEffect,
@@ -17,7 +18,7 @@ export interface IFiltersState {
   activeFilters: IFilters;
   options: {
     providerSelect: ProviderSelectType[];
-    categoryGroupSelect: ICategoryGroup[];
+    categorySelect: ReactFragment[];
     labelGroupSelect: ILabelGroup[];
     sourceStatusSelect: string[];
     productStatusSelect: string[];
@@ -27,19 +28,19 @@ export interface IFiltersState {
 }
 
 export interface IFilters {
-  providerId: string;
-  providerActivation: string;
-  sourceIdentifier: string;
-  sourceActivation: string;
+  providerId?: string;
+  providerActivation?: string;
+  sourceIdentifier?: string;
+  sourceActivation?: string;
   sourceStatus?: string;
   productShortId?: string;
   productProviderId?: string;
   productStatus?: string;
   productIntegrationError?: boolean;
-  labelCode?: string;
+  providerLabelCode?: string;
   labelGroupId?: string;
-  categoryCode?: string;
-  categoryGroupId?: string;
+  providerCategoryCode?: string;
+  categoryId?: string;
 }
 
 export type FiltersAction =
@@ -48,24 +49,21 @@ export type FiltersAction =
       value: IFilters;
     }
   | {
-      type: 'ENTER_FILTER_BAR';
-    }
-  | {
-      type: 'EXIT_FILTER_BAR';
+      type: 'CLEAR_FILTERS';
     }
   | {
       type: 'TOGGLE_FILTER_BAR';
     }
   | {
-      type: 'SET_PROVIDER_SELECT_OPTIONS';
+      type: 'INIT_PROVIDER_SELECT_OPTIONS';
       value: ProviderSelectType[];
     }
   | {
-      type: 'SET_CATEGORY_GROUP_SELECT_OPTIONS';
-      value: ICategoryGroup[];
+      type: 'INIT_CATEGORY_GROUP_SELECT_OPTIONS';
+      value: ReactFragment[];
     }
   | {
-      type: 'SET_LABEL_GROUP_SELECT_OPTIONS';
+      type: 'INIT_LABEL_GROUP_SELECT_OPTIONS';
       value: ILabelGroup[];
     };
 
@@ -84,10 +82,10 @@ export const initialFilters: IFilters = {
   productShortId: '',
   productProviderId: '',
   productIntegrationError: false,
-  labelCode: '',
+  providerLabelCode: '',
   labelGroupId: '',
-  categoryCode: '',
-  categoryGroupId: '',
+  providerCategoryCode: '',
+  categoryId: '',
 };
 
 const FiltersContext = createContext<IFiltersState>(null);
@@ -102,7 +100,7 @@ export const FiltersProvider: React.FC = ({ children }) => {
     options: {
       providerSelect: [],
       labelGroupSelect: [],
-      categoryGroupSelect: [],
+      categorySelect: null,
       sourceStatusSelect: ['READY', 'BUSY', 'DOWN'],
       productStatusSelect: ['LIVE', 'PENDING', 'EXPIRED'],
       jobScheduleSelect: [
@@ -130,24 +128,45 @@ export const FiltersProvider: React.FC = ({ children }) => {
     if (auth.user) {
       providersService.getAll().then((providers) => {
         dispatch({
-          type: 'SET_PROVIDER_SELECT_OPTIONS',
+          type: 'INIT_PROVIDER_SELECT_OPTIONS',
           value: providers.data.map((p) => ({ id: p.id, key: p.key })),
         });
       });
-      categoriesService.getAllGroups().then((groups) => {
+      categoriesService.getRoot().then((root) => {
+        const options: ReactFragment[] = [];
+        prepareCategoryOptions(root, [], options);
         dispatch({
-          type: 'SET_CATEGORY_GROUP_SELECT_OPTIONS',
-          value: groups,
+          type: 'INIT_CATEGORY_GROUP_SELECT_OPTIONS',
+          value: options,
         });
       });
       labelsService.getAllGroups().then((groups) => {
         dispatch({
-          type: 'SET_LABEL_GROUP_SELECT_OPTIONS',
+          type: 'INIT_LABEL_GROUP_SELECT_OPTIONS',
           value: groups,
         });
       });
     }
   }, [auth.user]);
+
+  const prepareCategoryOptions = (
+    category: ICategory,
+    parentNames: string[],
+    options: any[]
+  ) => {
+    let levelNames = [];
+    if (category.name !== 'Root') {
+      levelNames = parentNames.concat([category.name]);
+      options.push(
+        <option key={options.length} value={category.id}>
+          {levelNames.join(' > ')}
+        </option>
+      );
+    }
+    category.children.forEach((cat) => {
+      prepareCategoryOptions(cat, levelNames, options);
+    });
+  };
 
   return (
     <FiltersContext.Provider value={filterState}>
@@ -163,16 +182,6 @@ function filtersReducer(
   action: FiltersAction
 ): IFiltersState {
   switch (action.type) {
-    case 'ENTER_FILTER_BAR':
-      return {
-        ...data,
-        filterBarVisible: true,
-      };
-    case 'EXIT_FILTER_BAR':
-      return {
-        ...data,
-        filterBarVisible: false,
-      };
     case 'TOGGLE_FILTER_BAR':
       return {
         ...data,
@@ -183,7 +192,12 @@ function filtersReducer(
         ...data,
         activeFilters: action.value,
       };
-    case 'SET_PROVIDER_SELECT_OPTIONS':
+    case 'CLEAR_FILTERS':
+      return {
+        ...data,
+        activeFilters: initialFilters,
+      };
+    case 'INIT_PROVIDER_SELECT_OPTIONS':
       return {
         ...data,
         options: {
@@ -191,15 +205,15 @@ function filtersReducer(
           providerSelect: action.value,
         },
       };
-    case 'SET_CATEGORY_GROUP_SELECT_OPTIONS':
+    case 'INIT_CATEGORY_GROUP_SELECT_OPTIONS':
       return {
         ...data,
         options: {
           ...data.options,
-          categoryGroupSelect: action.value,
+          categorySelect: action.value,
         },
       };
-    case 'SET_LABEL_GROUP_SELECT_OPTIONS':
+    case 'INIT_LABEL_GROUP_SELECT_OPTIONS':
       return {
         ...data,
         options: {

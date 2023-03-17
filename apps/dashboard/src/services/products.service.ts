@@ -1,6 +1,7 @@
 import { IData, DataAction } from '@root/context-providers/data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
+import { IProviderCategory } from './categories.service';
 import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
@@ -55,10 +56,7 @@ export interface IProduct {
     code?: string;
     groupId?: string;
   };
-  category?: {
-    code?: string;
-    groupId?: string;
-  };
+  providerCategory?: Partial<IProviderCategory>;
 }
 
 export type Review = {
@@ -122,7 +120,7 @@ const extract = async (
   skipCache = false
 ): Promise<ExtractResult> => {
   const res = await axios.post(
-    '/extract-product',
+    '/etl/extract-product',
     {},
     { params: { id, skipCache } }
   );
@@ -130,12 +128,31 @@ const extract = async (
 };
 
 const map = async (id: string): Promise<Partial<IProduct>> => {
-  const res = await axios.post('/map-product', {}, { params: { id } });
+  const res = await axios.post('/etl/map-product', {}, { params: { id } });
   return res.data;
 };
 
 const refresh = async (id: string): Promise<IProduct> => {
-  const res = await axios.post('/refresh-product', {}, { params: { id } });
+  const res = await axios.post(
+    '/etl/integrate-product',
+    {},
+    { params: { id } }
+  );
+  return res.data;
+};
+
+const index = async (id: string): Promise<any> => {
+  const res = await axios.post(`/products/${id}/index`);
+  return res.data;
+};
+
+const mapToIndexable = async (id: string): Promise<any> => {
+  const res = await axios.post(`/products/${id}/index/map`);
+  return res.data;
+};
+
+const getCurrentlyIndexed = async (id: string): Promise<any> => {
+  const res = await axios.get(`/products/${id}/index/current`);
   return res.data;
 };
 
@@ -166,14 +183,14 @@ const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
     }),
   },
   label: {
-    ...(filters.labelCode && {
-      code: filters.labelCode,
+    ...(filters.providerLabelCode && {
+      code: filters.providerLabelCode,
     }),
     ...(filters.labelGroupId && { groupId: filters.labelGroupId }),
   },
-  category: {
-    ...(filters.categoryCode && { code: filters.categoryCode }),
-    ...(filters.categoryGroupId && { groupId: filters.categoryGroupId }),
+  providerCategory: {
+    ...(filters.providerCategoryCode && { code: filters.providerCategoryCode }),
+    ...(filters.categoryId && { categoryId: filters.categoryId }),
   },
 });
 
@@ -183,7 +200,7 @@ const productsScreenControl: IScreenControl = {
   readScreenMeta(data) {
     return data.productsMeta;
   },
-  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
     return {
       type: 'REFRESH_PRODUCTS',
       value: await find(filters, data.productsMeta),
@@ -216,7 +233,7 @@ const mappingAssistantScreenControl: IScreenControl = {
   pathname: '/mapping-assistant',
   title: 'Mapping Assistant',
   readScreenMeta: () => null,
-  refreshFilters: () => null,
+  refreshData: () => null,
   refreshPage: () => null,
   refreshSort: () => null,
 };
@@ -225,7 +242,7 @@ const searchScreenControl: IScreenControl = {
   pathname: '/search',
   title: 'GMC Search',
   readScreenMeta: () => null,
-  refreshFilters: () => null,
+  refreshData: () => null,
   refreshPage: () => null,
   refreshSort: () => null,
 };
@@ -239,6 +256,9 @@ const productsService = {
   extract,
   refresh,
   search,
+  index,
+  mapToIndexable,
+  getCurrentlyIndexed,
   productsScreenControl,
   mappingAssistantScreenControl,
   searchScreenControl,

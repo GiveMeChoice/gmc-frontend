@@ -3,11 +3,15 @@ import {
   useDataDispatch,
 } from '@root/context-providers/data.provider';
 import {
+  IFilters,
+  initialFilters,
   ProviderSelectType,
   useFilters,
+  useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
 import categoriesService from '@root/services/categories.service';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CategoryGroupSelectField from './category-group-select-field';
 import ScreenSection from './screen/screen-section';
 import ScreenSectionCell from './screen/screen-section-cell';
@@ -16,17 +20,18 @@ import ScreenSectionRow from './screen/screen-section-row';
 const CategoriesScreen: React.FC = () => {
   const { categories, categoriesMeta } = useData();
   const dataDispatch = useDataDispatch();
+  const filtersDispatch = useFiltersDispatch();
   const { activeFilters, options } = useFilters();
   const [loading, setLoading] = useState(false);
-  // some unused test linen
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!categories.length) {
       setLoading(true);
       categoriesService
-        .find(activeFilters, categoriesMeta)
+        .findProviderCategories(activeFilters, categoriesMeta)
         .then((labels) => {
-          dataDispatch({ type: 'REFRESH_CATEGORIES', value: labels });
+          dataDispatch({ type: 'REFRESH_PROVIDER_CATEGORIES', value: labels });
         })
         .finally(() => {
           setLoading(false);
@@ -42,12 +47,24 @@ const CategoriesScreen: React.FC = () => {
     return match ? match.key : 'unknown';
   };
 
+  const onViewProducts = (providerId, providerCategoryCode) => {
+    const sourceFilters: IFilters = {
+      ...initialFilters,
+      providerId,
+      providerCategoryCode,
+    };
+    filtersDispatch({ type: 'SAVE_FILTERS', value: sourceFilters });
+    dataDispatch({ type: 'REFRESH_PRODUCTS', value: { data: [], meta: {} } });
+    navigate('/products');
+  };
+
   return (
     <ScreenSection
-      title={'Categories'}
+      title={'Provider Categories'}
       sortFields={[
         { name: 'code', title: 'Code' },
         { name: 'createdAt', title: 'Created At' },
+        { name: 'categoryId', title: 'Category' },
       ]}
       meta={categoriesMeta}
     >
@@ -60,17 +77,23 @@ const CategoriesScreen: React.FC = () => {
               </div>
             </ScreenSectionCell>
             <ScreenSectionCell>
-              <CategoryGroupSelectField category={c} />
-            </ScreenSectionCell>
-            <ScreenSectionCell>
-              <div className="flex h-full w-44 flex-col items-center justify-center break-words py-2">
-                <span className="text-center">{c.description}</span>
-                <span className="mt-2 text-center text-sm font-bold">
-                  {c.code}
-                </span>
+              <div className="flex h-full w-72 flex-col items-start justify-center break-words px-2 py-1">
+                <span className="font-bold">{c.description}</span>
+                <span className="mt-2 text-sm italic">{c.code}</span>
               </div>
             </ScreenSectionCell>
-            <ScreenSectionCell>Products: {c.productCount}</ScreenSectionCell>
+            <ScreenSectionCell styles="flex justify-center items-center">
+              <button
+                className="flex h-20 w-full flex-col items-center justify-center rounded-md border border-zinc-500 p-2 hover:bg-primary-light-50 active:bg-primary"
+                onClick={() => onViewProducts(c.providerId, c.code)}
+              >
+                <span className="text-sm">Products:</span>
+                <span className="text-sm">{c.productCount}</span>
+              </button>
+            </ScreenSectionCell>
+            <ScreenSectionCell styles="w-1/2">
+              <CategoryGroupSelectField category={c} />
+            </ScreenSectionCell>
           </ScreenSectionRow>
         ))
       ) : (

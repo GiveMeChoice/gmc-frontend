@@ -24,16 +24,16 @@ const SearchBar: React.FC<Props> = () => {
   return (
     <div className="flex w-full max-w-5xl flex-wrap items-end justify-center space-y-6 p-3 md:flex-nowrap">
       <button
-        id="search-button"
+        // id="search-button"
         className={cn(
-          'pushable flex h-12 w-48 cursor-pointer rounded-full bg-zinc-800 duration-100'
+          'flex h-12 w-48 cursor-pointer rounded-full duration-100 hover:bg-zinc-800 hover:shadow-md active:bg-transparent active:shadow-sm'
         )}
         disabled={!query}
         onClick={handleSearch}
       >
         <span
           className={cn(
-            'front flex h-12 w-48 select-none items-center justify-center rounded-full border border-zinc-700 bg-primary duration-100'
+            'flex h-12 w-48 select-none items-center justify-center rounded-full bg-primary duration-200 ease-in-out hover:-translate-y-1 active:translate-y-0'
           )}
         >
           <Image

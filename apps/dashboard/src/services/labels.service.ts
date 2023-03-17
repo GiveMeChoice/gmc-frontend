@@ -81,7 +81,7 @@ const labelsScreenControl: IScreenControl = {
   readScreenMeta(data) {
     return data.labelsMeta;
   },
-  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
     return {
       type: 'REFRESH_LABELS',
       value: await find(filters, data.labelsMeta),

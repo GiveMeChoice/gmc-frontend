@@ -5,47 +5,50 @@ import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 
-export interface ICategory {
+export interface IProviderCategory {
   id: string;
   providerId: string;
   code: string;
   description: string;
   createdAt: Date;
-  infoLink: string;
-  groupId?: string;
+  categoryId?: string;
   provider?: {
     id?: string;
     key?: string;
   };
-  group?: Partial<ICategoryGroup>;
+  category?: Partial<ICategory>;
   productCount: number;
 }
 
-export interface ICategoryGroup {
+export interface ICategory {
   id: string;
   name: string;
+  children: ICategory[];
 }
 
-const getOne = async (id): Promise<ICategory> => {
-  const res = await axios.get<ICategory>(`/categories/${id}`);
+const getOneProviderCategory = async (id): Promise<IProviderCategory> => {
+  const res = await axios.get<IProviderCategory>(`/provider-categories/${id}`);
   return res.data;
 };
 
-const getAll = async (
+const getAllProviderCategories = async (
   pageRequest?: PageRequest
-): Promise<PageResponse<ICategory>> => {
-  const res = await axios.get<PageResponse<ICategory>>('/categories', {
-    params: pageRequest,
-  });
+): Promise<PageResponse<IProviderCategory>> => {
+  const res = await axios.get<PageResponse<IProviderCategory>>(
+    '/provider-categories',
+    {
+      params: pageRequest,
+    }
+  );
   return res.data;
 };
 
-const find = async (
+const findProviderCategories = async (
   filters: IFilters,
   pageRequest?: PageRequest
-): Promise<PageResponse<ICategory>> => {
-  const res = await axios.post<PageResponse<ICategory>>(
-    '/categories/find',
+): Promise<PageResponse<IProviderCategory>> => {
+  const res = await axios.post<PageResponse<IProviderCategory>>(
+    '/provider-categories/find',
     extractProductFilters(filters),
     {
       params: pageRequest,
@@ -54,24 +57,49 @@ const find = async (
   return res.data;
 };
 
-const update = async (id: string, updates: Partial<ICategory>) => {
-  const res = await axios.put<ICategory>(`/categories/${id}`, updates);
+const updateProviderCategories = async (
+  id: string,
+  updates: Partial<IProviderCategory>
+) => {
+  const res = await axios.put<IProviderCategory>(
+    `/provider-categories/${id}`,
+    updates
+  );
   return res.data;
 };
 
-const getOneGroup = async (id: string): Promise<ICategoryGroup> => {
-  const res = await axios.get<ICategoryGroup>(`/category-groups/${id}`);
+const assignCategory = async (
+  providerCategoryId: string,
+  categoryId: string
+): Promise<IProviderCategory> => {
+  const res = await axios.post<IProviderCategory>(
+    `/provider-categories/${providerCategoryId}/assign`,
+    {},
+    {
+      params: {
+        categoryId,
+      },
+    }
+  );
   return res.data;
 };
 
-const getAllGroups = async (): Promise<ICategoryGroup[]> => {
-  const res = await axios.get<ICategoryGroup[]>('/category-groups');
+const getOne = async (id: string): Promise<ICategory> => {
+  const res = await axios.get<ICategory>(`/categories/${id}`);
   return res.data;
 };
 
-const extractProductFilters = (filters: IFilters): Partial<ICategory> => ({
+const getAll = async (): Promise<ICategory> => {
+  const res = await axios.get<ICategory>('/categories?tree=true');
+  return res.data;
+};
+
+const extractProductFilters = (
+  filters: IFilters
+): Partial<IProviderCategory> => ({
   ...(filters.providerId && { providerId: filters.providerId }),
-  ...(filters.categoryGroupId && { groupId: filters.categoryGroupId }),
+  ...(filters.providerCategoryCode && { code: filters.providerCategoryCode }),
+  ...(filters.categoryId && { categoryId: filters.categoryId }),
 });
 
 const categoriesScreenControl: IScreenControl = {
@@ -80,16 +108,16 @@ const categoriesScreenControl: IScreenControl = {
   readScreenMeta(data) {
     return data.categoriesMeta;
   },
-  async refreshFilters(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
     return {
-      type: 'REFRESH_CATEGORIES',
-      value: await find(filters, data.categoriesMeta),
+      type: 'REFRESH_PROVIDER_CATEGORIES',
+      value: await findProviderCategories(filters, data.categoriesMeta),
     };
   },
   async refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction> {
     return {
-      type: 'REFRESH_CATEGORIES',
-      value: await find(filters, page),
+      type: 'REFRESH_PROVIDER_CATEGORIES',
+      value: await findProviderCategories(filters, page),
     };
   },
   async refreshSort(
@@ -99,8 +127,8 @@ const categoriesScreenControl: IScreenControl = {
     data: IData
   ): Promise<DataAction> {
     return {
-      type: 'REFRESH_CATEGORIES',
-      value: await find(filters, {
+      type: 'REFRESH_PROVIDER_CATEGORIES',
+      value: await findProviderCategories(filters, {
         ...data.categoriesMeta,
         sort,
         direction,
@@ -111,11 +139,12 @@ const categoriesScreenControl: IScreenControl = {
 
 const categoriesService = {
   getOne,
-  getAll,
-  find,
-  update,
-  getOneGroup,
-  getAllGroups,
+  getRoot: getAll,
+  assignCategory,
+  getOneProviderCategory,
+  getAllProviderCategories,
+  findProviderCategories,
+  updateProviderCategories,
   categoriesScreenControl,
 };
 export default categoriesService;

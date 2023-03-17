@@ -17,7 +17,7 @@ const ScreenSection: React.FC<Props> = ({
   sortFields,
   meta,
 }) => (
-  <div className="divide-y divide-zinc-900 rounded-md bg-secondary px-4 pt-2 pb-6">
+  <div className="divide-y divide-zinc-900 rounded-md bg-secondary p-4 shadow-lg shadow-black">
     {(title || sortFields || meta) && (
       <div className="flex w-full flex-col items-center">
         {sortFields && <ScreenSectionSort fields={sortFields} />}

@@ -37,7 +37,8 @@ const DropdownItemButton: React.FC<Props> = ({
         className={cn(
           'flex items-center justify-center rounded-full opacity-90',
           {
-            'h-9 w-9 bg-zinc-700 bg-opacity-20': rightIcon && centered,
+            'h-9 w-9 bg-zinc-700 bg-opacity-20 dark:bg-zinc-200':
+              rightIcon && centered,
             'h-6 w-6': rightIcon && !centered,
           }
         )}

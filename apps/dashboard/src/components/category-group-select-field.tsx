@@ -1,24 +1,24 @@
 import { useDataDispatch } from '@root/context-providers/data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
 import categoriesService, {
-  ICategory,
+  IProviderCategory,
 } from '@root/services/categories.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import FieldControlButtons from './field-control-buttons';
 
 interface Props {
-  category: ICategory;
+  category: IProviderCategory;
 }
 
 const CategoryGroupSelectField: React.FC<Props> = ({ category }) => {
   const dataDispatch = useDataDispatch();
   const { options } = useFilters();
   const [editing, setEditing] = useState(false);
-  const [selectedGroupId, setSelectedGroupId] = useState(category.groupId);
+  const [selectedId, setSelectedId] = useState(category.categoryId);
 
   useEffect(() => {
-    setSelectedGroupId(category.groupId ? category.groupId : '');
+    setSelectedId(category.categoryId ? category.categoryId : '');
   }, [category]);
 
   const onEdit = () => {
@@ -26,44 +26,40 @@ const CategoryGroupSelectField: React.FC<Props> = ({ category }) => {
   };
   const onCancel = () => {
     setEditing(false);
-    setSelectedGroupId(category.groupId ? category.groupId : '');
+    setSelectedId(category.categoryId ? category.categoryId : '');
   };
   const onSave = () => {
     setEditing(false);
     categoriesService
-      .update(category.id, { groupId: selectedGroupId })
+      .assignCategory(category.id, selectedId === '-----' ? null : selectedId)
       .then((updated) => {
-        dataDispatch({ type: 'UPDATE_CATEGORY', value: updated });
+        dataDispatch({ type: 'UPDATE_PROVIDER_CATEGORY', value: updated });
       });
   };
 
   return (
-    <div className="flex h-full items-center space-x-1">
+    <div className="flex h-full w-full items-center space-x-1">
       <label
         htmlFor="group"
-        className="mr-1 block w-12 text-center text-xs font-medium text-gray-900"
+        className="mx-4 block w-12 text-center text-xs font-medium text-gray-900"
       >
-        Category Group
+        Linked GMC Category
       </label>
-      <div className="flex flex-wrap items-center justify-center space-x-1">
+      <div className="flex items-center justify-center space-x-1">
         <select
           id="group"
           className={cn(
-            'block w-36 min-w-fit rounded-lg border border-gray-600 bg-gray-700 p-1 text-center text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+            'mr-2 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-center text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
             {
               // 'text-gray-400': !filters.providerActivation,
             }
           )}
           disabled={!editing}
-          value={selectedGroupId}
-          onChange={(e) => setSelectedGroupId(e.target.value)}
+          value={selectedId}
+          onChange={(e) => setSelectedId(e.target.value)}
         >
           <option value={null}>-----</option>
-          {options.categoryGroupSelect.map((group) => (
-            <option key={group.id} value={group.name}>
-              {group.name}
-            </option>
-          ))}
+          {options.categorySelect}
         </select>
         <FieldControlButtons
           active={editing}
@@ -75,5 +71,9 @@ const CategoryGroupSelectField: React.FC<Props> = ({ category }) => {
     </div>
   );
 };
+
+function getSpacer(spaces) {
+  return `${'='.repeat(spaces)}${spaces + 1}>  - `;
+}
 
 export default CategoryGroupSelectField;

@@ -11,7 +11,7 @@ interface Props {
 
 const FavoritesDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
   return (
-    <ul className={`flex w-full flex-col gap-1 rounded-lg p-1.5`}>
+    <ul className={`flex w-full flex-col gap-1 rounded-lg py-1.5`}>
       <DropdownItemButton
         handleClick={() => {
           setActiveMenu(DropdownMenuName.MAIN);
@@ -34,9 +34,9 @@ const FavoritesDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
           />
         }
       >
-        <span className="text-lg">Favorites</span>
+        <span className="text-base">Favorites</span>
       </DropdownItemButton>
-      <hr className="border-zinc-700" />
+      <hr className="border-black dark:border-white" />
       <div className="flex h-16 w-full items-center justify-center text-sm">
         Coming Soon...
       </div>

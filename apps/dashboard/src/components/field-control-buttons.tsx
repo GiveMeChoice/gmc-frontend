@@ -32,7 +32,7 @@ const FieldControlButtons: React.FC<Props> = ({
 
 const ControlButton = ({ children, onClick }) => (
   <button
-    className="hover flex h-7 w-7 items-center justify-center rounded-full duration-75 hover:bg-zinc-300 active:bg-primary-light-30"
+    className="hover flex h-9 w-9 items-center justify-center rounded-full duration-150 hover:bg-zinc-300 active:bg-primary-light-30"
     onClick={onClick}
   >
     <svg

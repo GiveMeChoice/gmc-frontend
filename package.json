@@ -17,7 +17,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "studio": "npm --prefix studio run start",
     "studio:build": "npm --prefix studio run build",
-    "dev:sf": "firebase emulators:start"
+    "search": "firebase emulators:start",
+    "search:deploy": "firebase deploy --only functions"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

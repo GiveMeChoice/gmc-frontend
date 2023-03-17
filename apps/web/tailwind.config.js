@@ -46,7 +46,7 @@ for (const color of colorList) {
 }
 
 config.safelist = safeList;
-
+config.darkMode = 'class';
 config.theme.borderRadius = {
   ...defaultTheme.borderRadius,
   'hero-flare': '632px',
