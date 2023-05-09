@@ -50,7 +50,7 @@ const MobileMenu: React.FC = () => {
       </div>
       <div className="flex w-full justify-end pb-4">
         <a
-          href="https://www.instagram.com/giveme.choice/"
+          href="https://www.instagram.com/giveme_choice/"
           target="_blank"
           rel="noreferrer noopener"
         >

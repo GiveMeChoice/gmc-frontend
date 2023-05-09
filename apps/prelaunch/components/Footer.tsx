@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col-reverse items-center justify-between md:flex-row md:items-center">
           <div>
             <a
-              href="https://www.instagram.com/giveme.choice/"
+              href="https://www.instagram.com/giveme_choice/"
               target="_blank"
               rel="noreferrer noopener"
             >
