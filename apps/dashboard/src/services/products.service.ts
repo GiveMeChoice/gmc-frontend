@@ -1,7 +1,7 @@
 import { IData, DataAction } from '@root/context-providers/data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { IProviderCategory } from './categories.service';
+import { IMerchantCategory } from './categories.service';
 import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
@@ -56,7 +56,7 @@ export interface IProduct {
     code?: string;
     groupId?: string;
   };
-  providerCategory?: Partial<IProviderCategory>;
+  providerCategory?: Partial<IMerchantCategory>;
 }
 
 export type Review = {

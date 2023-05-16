@@ -134,7 +134,7 @@ export const FiltersProvider: React.FC = ({ children }) => {
       });
       categoriesService.getRoot().then((root) => {
         const options: ReactFragment[] = [];
-        prepareCategoryOptions(root, [], options);
+        prepareTreeOptions(root, [], options);
         dispatch({
           type: 'INIT_CATEGORY_GROUP_SELECT_OPTIONS',
           value: options,
@@ -149,22 +149,22 @@ export const FiltersProvider: React.FC = ({ children }) => {
     }
   }, [auth.user]);
 
-  const prepareCategoryOptions = (
-    category: ICategory,
+  const prepareTreeOptions = (
+    node: ICategory | ILabelGroup,
     parentNames: string[],
     options: any[]
   ) => {
     let levelNames = [];
-    if (category.name !== 'Root') {
-      levelNames = parentNames.concat([category.name]);
+    if (node.name !== 'Root') {
+      levelNames = parentNames.concat([node.name]);
       options.push(
-        <option key={options.length} value={category.id}>
+        <option key={options.length} value={node.id}>
           {levelNames.join(' > ')}
         </option>
       );
     }
-    category.children.forEach((cat) => {
-      prepareCategoryOptions(cat, levelNames, options);
+    node.children.forEach((cat) => {
+      prepareTreeOptions(cat, levelNames, options);
     });
   };
 

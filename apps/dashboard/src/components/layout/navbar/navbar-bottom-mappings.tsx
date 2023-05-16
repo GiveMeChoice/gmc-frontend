@@ -24,16 +24,6 @@ const NavbarBottomMappings: React.FC = () => {
       </Link>
       <Link
         className={cn('flex w-28 justify-center p-3 duration-150', {
-          ' bolder-text text-primary': location.pathname.includes('/brands'),
-          'hover:bolder-text hover:scale-105 hover:text-white':
-            !location.pathname.includes('/brands'),
-        })}
-        to="/mappings/brands"
-      >
-        Brands
-      </Link>
-      <Link
-        className={cn('flex w-28 justify-center p-3 duration-150', {
           'bolder-text text-primary': location.pathname.includes('/labels'),
           'hover:bolder-text hover:scale-105 hover:text-white':
             !location.pathname.includes('/labels'),
@@ -42,13 +32,23 @@ const NavbarBottomMappings: React.FC = () => {
       >
         Labels
       </Link>
+      <Link
+        className={cn('flex w-28 justify-center p-3 duration-150', {
+          ' bolder-text text-primary': location.pathname.includes('/brands'),
+          'hover:bolder-text hover:scale-105 hover:text-white':
+            !location.pathname.includes('/brands'),
+        })}
+        to="/mappings/brands"
+      >
+        Brands
+      </Link>
       <div
         className={cn(
           'relative top-0 z-0 flex w-28 justify-center duration-300',
           {
-            '-left-28': location.pathname.includes('/labels'),
-            '-left-56': location.pathname.includes('/brands'),
             '-left-80 pr-8': location.pathname.includes('/categories'),
+            '-left-56': location.pathname.includes('/labels'),
+            '-left-28': location.pathname.includes('/brands'),
           }
         )}
       >

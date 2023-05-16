@@ -1,6 +1,10 @@
-import { QueryDslQueryContainer } from '@elastic/elasticsearch/lib/api/types';
+import {
+  QueryDslQueryContainer,
+  SearchRequest,
+  Sort,
+} from '@elastic/elasticsearch/lib/api/types';
 import Client from '@elastic/elasticsearch/lib/client';
-import * as functions from 'firebase-functions';
+import { https, logger } from 'firebase-functions';
 import { defineString } from 'firebase-functions/params';
 import {
   SearchFunctionRequestDto,
@@ -12,12 +16,12 @@ const elasticNode = defineString('ELASTIC_NODE');
 const elasticUsername = defineString('ELASTIC_USERNAME');
 const elasticPassword = defineString('ELASTIC_PASSWORD');
 
-export const searchFunction = functions.https.onCall(
+export const searchFunction = https.onCall(
   async (
     req: SearchFunctionRequestDto,
     context
   ): Promise<SearchFunctionResponseDto> => {
-    console.log(req);
+    logger.info(req);
     // Initialize Client
     const elasticClient = new Client({
       node: elasticNode.value(),
@@ -62,15 +66,15 @@ export const searchFunction = functions.https.onCall(
     if (req.filters.region) {
       filter.push({
         match_phrase: {
-          'provider.region': req.filters.region,
+          region: req.filters.region,
         },
       });
     }
-    // Store (Provider)
+    // Store (Merchant)
     if (req.filters.store) {
       filter.push({
         match_phrase: {
-          'provider.key': req.filters.store,
+          'merchant.name': req.filters.store,
         },
       });
     }
@@ -78,170 +82,204 @@ export const searchFunction = functions.https.onCall(
     if (req.filters.brand) {
       filter.push({
         match_phrase: {
-          brand: req.filters.brand,
+          'brand.code': req.filters.brand.key,
         },
       });
     }
     // Categories
     if (req.filters.category) {
-      filter.push({
-        match_phrase: {
-          'category.gmcCategory.name.keyword': req.filters.category,
-        },
-      });
-    }
-    if (req.filters.subcategory1) {
-      filter.push({
-        match_phrase: {
-          'category.gmcCategory.subcategory.name.keyword':
-            req.filters.subcategory1,
-        },
-      });
-    }
-    if (req.filters.subcategory2) {
-      filter.push({
-        match_phrase: {
-          'category.gmcCategory.subcategory.subcategory.name.keyword':
-            req.filters.subcategory2,
-        },
-      });
+      if (req.filters.category.subfilter) {
+        if (req.filters.category.subfilter.subfilter) {
+          filter.push({
+            match_phrase: {
+              'category.gmcCategory.subcategory.subcategory.name.keyword':
+                req.filters.category.subfilter.subfilter.value,
+            },
+          });
+        } else {
+          filter.push({
+            match_phrase: {
+              'category.gmcCategory.subcategory.name.keyword':
+                req.filters.category.subfilter.value,
+            },
+          });
+        }
+      } else {
+        filter.push({
+          match_phrase: {
+            'category.gmcCategory.name.keyword': req.filters.category.value,
+          },
+        });
+      }
     }
     // Labels
-    if (req.filters.label) {
-      filter.push({
-        match_phrase: {
-          'label.gmcLabel.name.keyword': req.filters.label,
-        },
+    if (req.filters.labels) {
+      req.filters.labels.forEach((labelFilter) => {
+        if (labelFilter.subfilter) {
+          if (labelFilter.subfilter.subfilter) {
+            filter.push({
+              nested: {
+                path: 'labels',
+                query: {
+                  match_phrase: {
+                    'labels.group.sublabel.sublabel.name.keyword':
+                      labelFilter.subfilter.subfilter.value,
+                  },
+                },
+              },
+            });
+          } else {
+            filter.push({
+              nested: {
+                path: 'labels',
+                query: {
+                  match_phrase: {
+                    'labels.group.sublabel.name.keyword':
+                      labelFilter.subfilter.value,
+                  },
+                },
+              },
+            });
+          }
+        } else {
+          filter.push({
+            nested: {
+              path: 'labels',
+              query: {
+                match_phrase: {
+                  'labels.group.name.keyword': labelFilter.value,
+                },
+              },
+            },
+          });
+        }
       });
     }
-    if (req.filters.sublabel1) {
-      filter.push({
-        match_phrase: {
-          'category.gmcLabel.sublabel.name.keyword': req.filters.sublabel1,
-        },
+    // SORT ARRAY
+    const sort: Sort = [];
+    if (req.sort && req.sort === 'price') {
+      sort.push({
+        price: { order: 'asc', mode: 'avg' },
       });
     }
-    if (req.filters.sublabel2) {
-      filter.push({
-        match_phrase: {
-          'category.gmcLabel.sublabel.sublabel.name.keyword':
-            req.filters.sublabel2,
+    const searchReq: SearchRequest = {
+      from: req.page ? req.page * (req.pageSize ? req.pageSize : 10) : 0,
+      size: req.pageSize ? req.pageSize : 10,
+      query: {
+        bool: {
+          must,
+          filter,
         },
-      });
-    }
+      },
+      sort,
+      aggs: {
+        price_ranges: {
+          range: {
+            field: 'price',
+            keyed: true,
+            ranges: [
+              {
+                key: 'cheap',
+                to: 15,
+              },
+              {
+                key: 'average',
+                from: 15,
+                to: 100,
+              },
+              {
+                key: 'expensive',
+                from: 100,
+              },
+            ],
+          },
+        },
+        stores: {
+          terms: {
+            field: 'merchant.name.keyword',
+          },
+        },
+        brands: {
+          terms: {
+            field: 'brand.code',
+            size: 20,
+          },
+          aggs: {
+            brand_name: {
+              top_hits: {
+                size: 1,
+                _source: {
+                  include: ['brand.name'],
+                },
+              },
+            },
+          },
+        },
+        categories: {
+          terms: {
+            field: 'category.gmcCategory.name.keyword',
+            order: {
+              _count: 'desc',
+            },
+            size: 20,
+          },
+          aggs: {
+            subcategories_1: {
+              terms: {
+                field: 'category.gmcCategory.subcategory.name.keyword',
+                order: {
+                  _count: 'desc',
+                },
+                size: 20,
+              },
+              aggs: {
+                subcategories_2: {
+                  terms: {
+                    field:
+                      'category.gmcCategory.subcategory.subcategory.name.keyword',
+                    order: {
+                      _count: 'desc',
+                    },
+                    size: 20,
+                  },
+                },
+              },
+            },
+          },
+        },
+        labels: {
+          nested: {
+            path: 'labels',
+          },
+          aggs: {
+            label: {
+              terms: { field: 'labels.group.name.keyword', size: 20 },
+              aggs: {
+                sublabels_1: {
+                  terms: { field: 'labels.group.sublabel.name.keyword' },
+                  aggs: {
+                    sublabels_2: {
+                      terms: {
+                        field: 'labels.group.sublabel.sublabel.name.keyword',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    };
     // EXECUTE SEARCH
     try {
-      const result = await elasticClient.search<SearchProductDto>({
-        from: req.page ? req.page * (req.pageSize ? req.pageSize : 10) : 0,
-        size: req.pageSize ? req.pageSize : 10,
-        query: {
-          bool: {
-            must,
-            filter,
-          },
-        },
-        aggs: {
-          price_ranges: {
-            range: {
-              field: 'price',
-              keyed: true,
-              ranges: [
-                {
-                  key: 'cheap',
-                  to: 15,
-                },
-                {
-                  key: 'average',
-                  from: 15,
-                  to: 100,
-                },
-                {
-                  key: 'expensive',
-                  from: 100,
-                },
-              ],
-            },
-          },
-          stores: {
-            terms: {
-              field: 'provider.key',
-            },
-          },
-          brands: {
-            terms: {
-              field: 'brand.keyword',
-              size: 10,
-            },
-          },
-          categories: {
-            terms: {
-              field: 'category.gmcCategory.name.keyword',
-              order: {
-                _count: 'desc',
-              },
-              size: 10,
-            },
-            aggs: {
-              subcategories_1: {
-                terms: {
-                  field: 'category.gmcCategory.subcategory.name.keyword',
-                  order: {
-                    _count: 'desc',
-                  },
-                  size: 10,
-                },
-                aggs: {
-                  subcategories_2: {
-                    terms: {
-                      field:
-                        'category.gmcCategory.subcategory.subcategory.name.keyword',
-                      order: {
-                        _count: 'desc',
-                      },
-                      size: 10,
-                    },
-                  },
-                },
-              },
-            },
-          },
-          labels: {
-            terms: {
-              field: 'label.gmcLabel.name.keyword',
-              order: {
-                _count: 'desc',
-              },
-              size: 10,
-            },
-            aggs: {
-              sublabels_1: {
-                terms: {
-                  field: 'label.gmcLabel.sublabel.name.keyword',
-                  order: {
-                    _count: 'desc',
-                  },
-                  size: 10,
-                },
-                aggs: {
-                  sublabels_2: {
-                    terms: {
-                      field: 'label.gmcLabel.sublabel.sublabel.name.keyword',
-                      order: {
-                        _count: 'desc',
-                      },
-                      size: 10,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      });
+      logger.debug(`Request: ${JSON.stringify(searchReq)}`);
+      const result = await elasticClient.search<SearchProductDto>(searchReq);
+      logger.debug(`Result: ${JSON.stringify(result)}`);
       // Get Aggregation Restuls
       const storesAggs = result.aggregations!['stores'] as any;
       const brandsAggs = result.aggregations!['brands'] as any;
-      // const priceRangeAggs = result.aggregations!['price_ranges'] as any;
+      const priceRangeAggs = result.aggregations!['price_ranges'] as any;
       const categoriesAggs = result.aggregations!['categories'] as any;
       const labelsAggs = result.aggregations!['labels'] as any;
       return {
@@ -255,7 +293,8 @@ export const searchFunction = functions.https.onCall(
             count: bucket.doc_count,
           })),
           brands: brandsAggs.buckets.map((bucket: any) => ({
-            value: bucket.key,
+            key: bucket.key,
+            value: bucket.brand_name.hits.hits[0]._source.brand.name,
             count: bucket.doc_count,
           })),
           categories: categoriesAggs.buckets.map((bucket: any) => ({
@@ -270,7 +309,7 @@ export const searchFunction = functions.https.onCall(
               })),
             })),
           })),
-          labels: labelsAggs.buckets.map((bucket: any) => ({
+          labels: labelsAggs.label.buckets.map((bucket: any) => ({
             value: bucket.key,
             count: bucket.doc_count,
             subfacets: bucket.sublabels_1.buckets.map((sub1: any) => ({
@@ -282,6 +321,25 @@ export const searchFunction = functions.https.onCall(
               })),
             })),
           })),
+          priceRanges: [
+            {
+              priceRange: 'cheap',
+              from: 0,
+              to: priceRangeAggs.buckets.cheap.to,
+              count: priceRangeAggs.buckets.cheap.doc_count,
+            },
+            {
+              priceRange: 'average',
+              from: priceRangeAggs.buckets.average.from,
+              to: priceRangeAggs.buckets.average.to,
+              count: priceRangeAggs.buckets.average.doc_count,
+            },
+            {
+              priceRange: 'expensive',
+              from: priceRangeAggs.buckets.expensive.from,
+              count: priceRangeAggs.buckets.expensive.doc_count,
+            },
+          ],
         },
       };
     } catch (e: any) {

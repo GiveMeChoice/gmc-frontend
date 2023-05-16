@@ -9,9 +9,9 @@ const Layout = ({ preview = false, children }) => {
   return (
     <div
       id="screen"
-      className={`min-h-screen bg-${
+      className={`h-screen bg-${
         getUserTheme(profile).base
-      } z-0 border-black transition-colors duration-300 ease-in-out dark:border-white dark:text-white dark:decoration-white`}
+      } z-0 flex flex-col border-black transition-colors duration-300 ease-in-out dark:border-white dark:text-white dark:decoration-white`}
     >
       {/* {preview && <PreviewAlert />} */}
       <Navbar />

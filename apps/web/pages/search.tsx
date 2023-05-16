@@ -7,7 +7,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
-import SearchBar from '../components/SearchBar';
 import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
 import SearchProductCompare from '../components/SearchPage/SearchProductCompare';
 import SearchProductList from '../components/SearchPage/SearchProductList';
@@ -23,6 +22,7 @@ export default function Search({ props }) {
     query: router.query.q as string,
     filters: {
       region: 'UK',
+      labels: [],
     },
   });
   const [executeCallable, executing, error] = useHttpsCallable<
@@ -40,6 +40,7 @@ export default function Search({ props }) {
         query: router.query.q as string,
         filters: {
           region: 'UK',
+          labels: [],
         },
       };
       setSearchRequest(req);
@@ -53,6 +54,7 @@ export default function Search({ props }) {
     try {
       setLoading(true);
       let result = await executeCallable(request);
+      console.log('search result: ', result);
       setSearchResponse(result.data);
     } catch (err) {
       console.log(err);
@@ -90,6 +92,15 @@ export default function Search({ props }) {
     setCompareModeOn(true);
   };
 
+  const handleSortChange = async (sort?: string) => {
+    const updatedRequest = {
+      ...searchRequest,
+      sort,
+    };
+    setSearchRequest(updatedRequest);
+    await executeSearch(updatedRequest);
+  };
+
   return (
     <>
       <Head>
@@ -97,24 +108,20 @@ export default function Search({ props }) {
       </Head>
 
       <div className="fixed h-full w-full">
-        <div className="mb-2 flex h-24 w-full justify-center pl-4">
-          <div className="w-1/2">
-            <SearchBar />
-          </div>
-        </div>
-
         <div
           id="search-result-container"
-          className="flex h-full w-full flex-col border-x-2 border-black px-3 dark:border-white md:flex-row md:border-x-0 md:px-0"
+          className="mt-24 flex h-full w-full flex-col border-x-2 border-black px-3 pt-1 dark:border-white md:flex-row md:border-x-0 md:px-0"
         >
           <SearchChoiceBar
             loading={loading || executing}
             hits={searchResponse.hits}
             filters={searchRequest.filters}
             facets={searchResponse.facets}
+            sort={searchRequest.sort}
             compareModeOn={compareModeOn}
             onFilterChange={handleFilterChange}
             onCompareModeChange={handleSetCompareMode}
+            onSortChange={handleSortChange}
           />
           <div
             id="search-products"

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import DiscoverFooter from '../components/DiscoverFooter';
-import SearchBar from '../components/SearchBar';
+import GiveMeBar from '../components/GiveMeBar';
 
 export default function Home() {
   return (

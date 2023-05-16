@@ -25,12 +25,12 @@ export const themeClasses = {
   },
   GMC_HEART: {
     base: 'gmc-heart-light-50',
-    modal: 'gmc-heart-light-30',
+    modal: 'gmc-heart-light-40',
     dark: false,
   },
   GMC_GLACIER: {
     base: 'gmc-glacier-light-50',
-    modal: 'gmc-glacier-light-30',
+    modal: 'gmc-glacier-light-40',
     dark: false,
   },
   GMC_BEACH: {
@@ -40,22 +40,22 @@ export const themeClasses = {
   },
   GMC_SURF: {
     base: 'gmc-surf-light-50',
-    modal: 'gmc-surf-light-20',
+    modal: 'gmc-surf-light-30',
     dark: false,
   },
   GMC_SOIL: {
     base: 'gmc-soil-light-50',
-    modal: 'gmc-soil-light-30',
+    modal: 'gmc-soil-light-40',
     dark: false,
   },
   GMC_BERRY: {
     base: 'gmc-berry-light-50',
-    modal: 'gmc-berry-light-30',
+    modal: 'gmc-berry-light-40',
     dark: false,
   },
   GMC_SUNSET: {
     base: 'gmc-sunset-light-50',
-    modal: 'gmc-sunset-light-30',
+    modal: 'gmc-sunset-light-40',
     dark: false,
   },
   GMC_OCEAN: {

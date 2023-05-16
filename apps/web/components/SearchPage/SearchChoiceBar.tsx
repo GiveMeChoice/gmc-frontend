@@ -12,9 +12,11 @@ interface Props {
   hits: number;
   filters: SearchFunctionFiltersDto;
   facets: SearchFunctionFacetsDto;
+  sort: string;
   compareModeOn: boolean;
   onFilterChange: (filters: SearchFunctionFiltersDto) => void;
   onCompareModeChange: (on: boolean) => void;
+  onSortChange: (sort: string) => void;
 }
 
 const SearchChoiceBar: React.FC<Props> = ({
@@ -22,15 +24,17 @@ const SearchChoiceBar: React.FC<Props> = ({
   hits,
   filters,
   facets,
+  sort,
   compareModeOn,
   onFilterChange,
   onCompareModeChange,
+  onSortChange,
 }) => {
   const { profile } = useUser();
 
   return (
     <div
-      className={`flex flex-col border-black p-4 pb-10 bg-${
+      className={`flex flex-col border-black p-5 bg-${
         getUserTheme(profile).modal
       } h-full overflow-y-auto dark:border-white md:w-1/3 md:border-t-2 md:border-r-2 xl:w-1/4`}
       id="choice-bar-container"
@@ -38,15 +42,17 @@ const SearchChoiceBar: React.FC<Props> = ({
       <SearchChoiceBarSummary
         loading={loading}
         hits={hits}
+        sort={sort}
         compareModeOn={compareModeOn}
         onCompareModeChange={onCompareModeChange}
+        onSortChange={onSortChange}
       />
       <SearchChoiceBarFilters
         filters={filters}
         compareModeOn={compareModeOn}
         onFilterChange={onFilterChange}
       />
-      {!loading && !compareModeOn && (
+      {!loading && (
         <SearchChoiceBarFacets
           facets={facets}
           activeFilters={filters}

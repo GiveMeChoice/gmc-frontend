@@ -57,7 +57,7 @@ const LabelsScreen: React.FC = () => {
           <ScreenSectionRow key={i}>
             <ScreenSectionCell>
               <div className="flex h-full w-32 items-center justify-center break-words px-1 text-sm font-medium">
-                {readProviderKey(l.providerId)}
+                {readProviderKey(l.merchantId)}
               </div>
             </ScreenSectionCell>
             <ScreenSectionCell>
@@ -70,7 +70,7 @@ const LabelsScreen: React.FC = () => {
             </ScreenSectionCell>
             <ScreenSectionCell>
               <div className="flex h-full w-12 items-center justify-center px-2">
-                <img className="w-12" src={l.icon} alt="label icon" />
+                <img className="w-12" src={l.logoUrl} alt="label icon" />
               </div>
             </ScreenSectionCell>
             <ScreenSectionCell>

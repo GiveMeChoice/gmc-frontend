@@ -1,5 +1,7 @@
 import React, { ReactFragment } from 'react';
 import cn from 'classnames';
+import { getUserTheme } from '../../../lib/theme';
+import { useUser } from '../../UserProvider';
 
 interface Props {
   handleClick: () => void;
@@ -15,18 +17,24 @@ const DropdownItemButton: React.FC<Props> = ({
   centered,
   children,
 }) => {
+  const { profile } = useUser();
   return (
     <a
       href="#"
       onClick={handleClick}
-      className="flex h-14 w-full cursor-pointer items-center justify-between gap-3 rounded-lg px-2.5 text-sm transition-colors duration-150 ease-in-out hover:bg-zinc-700 hover:bg-opacity-10 active:bg-zinc-600 active:bg-opacity-20"
+      className="flex h-14 w-full cursor-pointer items-center justify-between gap-4 rounded-lg px-2.5 text-sm transition-colors duration-150 ease-in-out hover:bg-zinc-800 hover:bg-opacity-10 active:bg-zinc-600 active:bg-opacity-20"
     >
       <div className="flex items-center gap-3">
         <span
-          className={cn('flex items-center justify-center rounded-full', {
-            'h-9 w-9 bg-zinc-700 bg-opacity-20': leftIcon && !centered,
-            'h-6 w-6 opacity-80': leftIcon && centered,
-          })}
+          className={cn(
+            `flex items-center justify-center rounded-full bg-${
+              getUserTheme(profile).modal
+            }`,
+            {
+              'h-9 w-9 border border-zinc-800': leftIcon && !centered,
+              'h-6 w-6 bg-transparent opacity-80': leftIcon && centered,
+            }
+          )}
         >
           {leftIcon}
         </span>
@@ -35,11 +43,12 @@ const DropdownItemButton: React.FC<Props> = ({
       {centered && children}
       <span
         className={cn(
-          'flex items-center justify-center rounded-full opacity-90',
+          `flex items-center justify-center rounded-full opacity-90 bg-${
+            getUserTheme(profile).modal
+          }`,
           {
-            'h-9 w-9 bg-zinc-700 bg-opacity-20 dark:bg-zinc-200':
-              rightIcon && centered,
-            'h-6 w-6': rightIcon && !centered,
+            'h-9 w-9 border border-zinc-800': rightIcon && centered,
+            'h-6 w-6 bg-transparent': rightIcon && !centered,
           }
         )}
       >

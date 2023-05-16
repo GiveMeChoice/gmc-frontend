@@ -5,14 +5,15 @@ import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 
-export interface ILabel {
+export interface IMerchantLabel {
   id: string;
-  providerId: string;
+  merchantId: string;
   code: string;
+  name: string;
   description: string;
   createdAt: Date;
   infoLink: string;
-  icon: string;
+  logoUrl: string;
   groupId?: string;
   provider?: {
     id?: string;
@@ -25,17 +26,21 @@ export interface ILabel {
 export interface ILabelGroup {
   id: string;
   name: string;
+  description: string;
+  children: ILabelGroup[];
 }
 
-const getOne = async (id): Promise<ILabel> => {
-  const res = await axios.get<ILabel>(`/labels/${id}`);
+const getOne = async (id): Promise<IMerchantLabel> => {
+  const res = await axios.get<IMerchantLabel>(`/labels/${id}`);
   return res.data;
 };
 
+// const getRoot = async
+
 const getAll = async (
   pageRequest?: PageRequest
-): Promise<PageResponse<ILabel>> => {
-  const res = await axios.get<PageResponse<ILabel>>('/labels', {
+): Promise<PageResponse<IMerchantLabel>> => {
+  const res = await axios.get<PageResponse<IMerchantLabel>>('/labels', {
     params: pageRequest,
   });
   return res.data;
@@ -44,8 +49,8 @@ const getAll = async (
 const find = async (
   filters: IFilters,
   pageRequest?: PageRequest
-): Promise<PageResponse<ILabel>> => {
-  const res = await axios.post<PageResponse<ILabel>>(
+): Promise<PageResponse<IMerchantLabel>> => {
+  const res = await axios.post<PageResponse<IMerchantLabel>>(
     '/labels/find',
     extractProductFilters(filters),
     {
@@ -55,8 +60,8 @@ const find = async (
   return res.data;
 };
 
-const update = async (id: string, updates: Partial<ILabel>) => {
-  const res = await axios.put<ILabel>(`/labels/${id}`, updates);
+const update = async (id: string, updates: Partial<IMerchantLabel>) => {
+  const res = await axios.put<IMerchantLabel>(`/labels/${id}`, updates);
   return res.data;
 };
 
@@ -70,8 +75,8 @@ const getAllGroups = async (): Promise<ILabelGroup[]> => {
   return res.data;
 };
 
-const extractProductFilters = (filters: IFilters): Partial<ILabel> => ({
-  ...(filters.providerId && { providerId: filters.providerId }),
+const extractProductFilters = (filters: IFilters): Partial<IMerchantLabel> => ({
+  ...(filters.providerId && { merchantId: filters.providerId }),
   ...(filters.labelGroupId && { groupId: filters.labelGroupId }),
 });
 

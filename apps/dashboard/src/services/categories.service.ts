@@ -5,9 +5,9 @@ import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 
-export interface IProviderCategory {
+export interface IMerchantCategory {
   id: string;
-  providerId: string;
+  merchantId: string;
   code: string;
   description: string;
   createdAt: Date;
@@ -26,15 +26,15 @@ export interface ICategory {
   children: ICategory[];
 }
 
-const getOneProviderCategory = async (id): Promise<IProviderCategory> => {
-  const res = await axios.get<IProviderCategory>(`/provider-categories/${id}`);
+const getOneProviderCategory = async (id): Promise<IMerchantCategory> => {
+  const res = await axios.get<IMerchantCategory>(`/provider-categories/${id}`);
   return res.data;
 };
 
 const getAllProviderCategories = async (
   pageRequest?: PageRequest
-): Promise<PageResponse<IProviderCategory>> => {
-  const res = await axios.get<PageResponse<IProviderCategory>>(
+): Promise<PageResponse<IMerchantCategory>> => {
+  const res = await axios.get<PageResponse<IMerchantCategory>>(
     '/provider-categories',
     {
       params: pageRequest,
@@ -46,8 +46,8 @@ const getAllProviderCategories = async (
 const findProviderCategories = async (
   filters: IFilters,
   pageRequest?: PageRequest
-): Promise<PageResponse<IProviderCategory>> => {
-  const res = await axios.post<PageResponse<IProviderCategory>>(
+): Promise<PageResponse<IMerchantCategory>> => {
+  const res = await axios.post<PageResponse<IMerchantCategory>>(
     '/provider-categories/find',
     extractProductFilters(filters),
     {
@@ -59,9 +59,9 @@ const findProviderCategories = async (
 
 const updateProviderCategories = async (
   id: string,
-  updates: Partial<IProviderCategory>
+  updates: Partial<IMerchantCategory>
 ) => {
-  const res = await axios.put<IProviderCategory>(
+  const res = await axios.put<IMerchantCategory>(
     `/provider-categories/${id}`,
     updates
   );
@@ -71,8 +71,8 @@ const updateProviderCategories = async (
 const assignCategory = async (
   providerCategoryId: string,
   categoryId: string
-): Promise<IProviderCategory> => {
-  const res = await axios.post<IProviderCategory>(
+): Promise<IMerchantCategory> => {
+  const res = await axios.post<IMerchantCategory>(
     `/provider-categories/${providerCategoryId}/assign`,
     {},
     {
@@ -96,8 +96,8 @@ const getAll = async (): Promise<ICategory> => {
 
 const extractProductFilters = (
   filters: IFilters
-): Partial<IProviderCategory> => ({
-  ...(filters.providerId && { providerId: filters.providerId }),
+): Partial<IMerchantCategory> => ({
+  ...(filters.providerId && { merchantId: filters.providerId }),
   ...(filters.providerCategoryCode && { code: filters.providerCategoryCode }),
   ...(filters.categoryId && { categoryId: filters.categoryId }),
 });

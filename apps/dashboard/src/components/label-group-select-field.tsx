@@ -1,12 +1,12 @@
 import { useDataDispatch } from '@root/context-providers/data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
-import labelsService, { ILabel } from '@root/services/labels.service';
+import labelsService, { IMerchantLabel } from '@root/services/labels.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import FieldControlButtons from './field-control-buttons';
 
 interface Props {
-  label: ILabel;
+  label: IMerchantLabel;
 }
 
 const LabelGroupSelectField: React.FC<Props> = ({ label }) => {

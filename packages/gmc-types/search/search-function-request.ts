@@ -1,5 +1,6 @@
 export interface SearchFunctionRequestDto {
   query?: string;
+  sort?: string;
   page?: number;
   pageSize?: number;
   filters: SearchFunctionFiltersDto;
@@ -8,12 +9,18 @@ export interface SearchFunctionRequestDto {
 export interface SearchFunctionFiltersDto {
   region?: string;
   store?: string;
-  brand?: string;
-  category?: string;
-  subcategory1?: string;
-  subcategory2?: string;
-  label?: string;
-  sublabel1?: string;
-  sublabel2?: string;
+  brand?: SearchFunctionKeyedFilterDto;
+  category?: SearchFunctionNestedFilterDto;
+  labels?: SearchFunctionNestedFilterDto[];
   priceRange?: 'cheap' | 'average' | 'expensive';
+}
+
+export interface SearchFunctionNestedFilterDto {
+  value: string;
+  subfilter?: SearchFunctionNestedFilterDto;
+}
+
+export interface SearchFunctionKeyedFilterDto {
+  key: string;
+  value: string;
 }

@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import { Theme } from 'gmc-types';
 import { formatErrorMessage } from 'helpers';
 import React, { useState } from 'react';
 import { LoadingSpinner } from 'ui';
@@ -30,6 +31,7 @@ const SignUpForm: React.FC<Props> = ({ moveToLogin }) => {
         firstName,
         lastName,
         displayName: `${firstName} ${lastName}`.trim(),
+        theme: Theme.GMC_DEFAULT,
       });
     } catch (err) {
       setError(formatErrorMessage(err));

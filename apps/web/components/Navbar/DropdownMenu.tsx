@@ -33,7 +33,7 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
   };
 
   const handleClickaway = (e: PointerEvent) => {
-    const menuContainer = e.target.closest('#dropdown-menu');
+    const menuContainer = (e.target as any).closest('#dropdown-menu');
     if (!menuContainer) {
       closeMenu();
     }
@@ -63,8 +63,8 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     <div
       id="dropdown-menu"
       className={cn(
-        `dropdown-menu transition-height absolute top-14 max-h-fit w-80 max-w-full overflow-hidden rounded-md border-2 border-black shadow-xl duration-300 ease-in-out dark:border-white bg-${
-          getUserTheme(profile).modal
+        `dropdown-menu transition-height absolute top-20 z-50 max-h-fit w-80 max-w-full overflow-hidden rounded-md border-1.5 border-black shadow-xl duration-300 ease-in-out dark:border-white bg-${
+          getUserTheme(profile).base
         }`,
         {
           'pointer-events-none -z-10 h-0 opacity-0': !open,

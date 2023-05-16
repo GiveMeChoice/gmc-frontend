@@ -73,7 +73,7 @@ const CategoriesScreen: React.FC = () => {
           <ScreenSectionRow key={i}>
             <ScreenSectionCell>
               <div className="flex h-full w-28 items-center justify-center break-words px-1 text-sm font-medium">
-                {readProviderKey(c.providerId)}
+                {readProviderKey(c.merchantId)}
               </div>
             </ScreenSectionCell>
             <ScreenSectionCell>
@@ -85,7 +85,7 @@ const CategoriesScreen: React.FC = () => {
             <ScreenSectionCell styles="flex justify-center items-center">
               <button
                 className="flex h-20 w-full flex-col items-center justify-center rounded-md border border-zinc-500 p-2 hover:bg-primary-light-50 active:bg-primary"
-                onClick={() => onViewProducts(c.providerId, c.code)}
+                onClick={() => onViewProducts(c.merchantId, c.code)}
               >
                 <span className="text-sm">Products:</span>
                 <span className="text-sm">{c.productCount}</span>

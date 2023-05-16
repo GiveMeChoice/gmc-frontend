@@ -4,6 +4,7 @@ import React from 'react';
 import { auth, firestore, googleAuthProvider } from '../../../lib/firebase';
 import cn from 'classnames';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { Theme } from 'gmc-types';
 
 interface Props {
   loading: boolean;
@@ -17,6 +18,7 @@ const SocialLoginButtons: React.FC<Props> = ({ loading }) => {
     if (!docSnap.exists()) {
       setDoc(userDocRef, {
         displayName: cred.user.displayName,
+        theme: Theme.GMC_DEFAULT,
       });
     }
     console.log('from google: ', cred);

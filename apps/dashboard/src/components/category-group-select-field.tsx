@@ -1,14 +1,14 @@
 import { useDataDispatch } from '@root/context-providers/data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
 import categoriesService, {
-  IProviderCategory,
+  IMerchantCategory,
 } from '@root/services/categories.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import FieldControlButtons from './field-control-buttons';
 
 interface Props {
-  category: IProviderCategory;
+  category: IMerchantCategory;
 }
 
 const CategoryGroupSelectField: React.FC<Props> = ({ category }) => {
@@ -49,7 +49,7 @@ const CategoryGroupSelectField: React.FC<Props> = ({ category }) => {
         <select
           id="group"
           className={cn(
-            'mr-2 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-center text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+            'mr-2 block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-center text-sm text-white placeholder-secondary-dark-10 focus:border-blue-500 focus:ring-blue-500',
             {
               // 'text-gray-400': !filters.providerActivation,
             }

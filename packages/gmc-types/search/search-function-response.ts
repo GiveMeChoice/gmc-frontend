@@ -14,16 +14,18 @@ export interface SearchFunctionFacetsDto {
   brands?: TermFacetDto[];
   categories?: TermFacetDto[];
   labels?: TermFacetDto[];
-  priceRanges?: RangeFacetDto;
+  priceRanges?: RangeFacetDto[];
 }
 
 export interface TermFacetDto {
+  key?: string;
   value: string;
   count: number;
   subfacets?: TermFacetDto[];
 }
 
 export interface RangeFacetDto {
+  priceRange: 'cheap' | 'average' | 'expensive';
   from?: number;
   to?: number;
   count: number;

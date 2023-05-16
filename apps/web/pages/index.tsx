@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import DiscoverFooter from '../components/DiscoverFooter';
-import SearchBar from '../components/SearchBar';
+import GiveMeBar from '../components/GiveMeBar';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
 
       <div className="container mx-auto flex min-h-screen flex-col items-center justify-center ">
         <div className="mb-20 flex w-full justify-center">
-          <SearchBar />
+          <GiveMeBar />
         </div>
         <DiscoverFooter />
       </div>

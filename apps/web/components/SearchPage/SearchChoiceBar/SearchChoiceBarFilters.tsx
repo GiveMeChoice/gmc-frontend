@@ -1,7 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import cn from 'classnames';
-import { SearchFunctionFiltersDto } from 'gmc-types';
+import {
+  SearchFunctionFiltersDto,
+  SearchFunctionKeyedFilterDto,
+} from 'gmc-types';
 import React, { useEffect, useState } from 'react';
+import { getUserTheme } from '../../../lib/theme';
+import { useUser } from '../../UserProvider';
+import SearchChoiceBarFilterChip from './SearchChoiceBarFilterChip';
+import SearchChoiceBarLabelChip from './SearchChoiceBarLabelChip';
 
 interface Props {
   filters: SearchFunctionFiltersDto;
@@ -9,98 +15,160 @@ interface Props {
   onFilterChange: (updated: SearchFunctionFiltersDto) => void;
 }
 
+interface IDisplayFilters {
+  store?: string;
+  brand?: SearchFunctionKeyedFilterDto;
+  category?: string;
+  priceRange?: string;
+  labels?: string[];
+}
+
 const SearchChoiceBarFilters: React.FC<Props> = ({
   filters,
   compareModeOn,
   onFilterChange,
 }) => {
-  const [displayFilters, setDisplayFilters] =
-    useState<SearchFunctionFiltersDto>({});
+  const { profile } = useUser();
+  const [displayFilters, setDisplayFilters] = useState<IDisplayFilters>({});
 
   useEffect(() => {
-    let category = null;
-    if (filters.category) {
-      category = filters.category;
-      if (filters.subcategory1) category += ` > ${filters.subcategory1}`;
-      if (filters.subcategory2) category += ` > ${filters.subcategory2}`;
-    }
-    let label = null;
-    if (filters.label) {
-      label = filters.label;
-      if (filters.sublabel1) label += ` > ${filters.sublabel1}`;
-      if (filters.sublabel2) label += ` > ${filters.sublabel2}`;
-    }
-    const displayed = {
-      ...filters,
-      category,
-      label,
-    };
-    delete displayed.region;
-    delete displayed.subcategory1;
-    delete displayed.subcategory2;
-    delete displayed.sublabel1;
-    delete displayed.sublabel2;
-    console.log('To Display: ', displayed);
-    setDisplayFilters(displayed);
+    setDisplayFilters(convertFiltersToDisplay(filters));
   }, [filters]);
 
-  const handleRemoveFilter = (e) => {
+  const convertFiltersToDisplay = (
+    filters: SearchFunctionFiltersDto
+  ): IDisplayFilters => {
+    const display: IDisplayFilters = {};
+    if (filters.category) {
+      display.category = filters.category.value;
+      if (filters.category.subfilter) {
+        display.category += ` > ${filters.category.subfilter.value}`;
+        if (filters.category.subfilter.subfilter) {
+          display.category += ` > ${filters.category.subfilter.subfilter.value}`;
+        }
+      }
+    }
+    if (filters.brand) {
+      display.brand = filters.brand;
+    }
+    if (filters.store) {
+      display.store = filters.store;
+    }
+    if (filters.labels.length > 0) {
+      display.labels = [];
+      filters.labels.forEach((labelFilter) => {
+        let labeldisplay = labelFilter.value;
+        if (labelFilter.subfilter) {
+          labeldisplay += ` > ${labelFilter.subfilter.value}`;
+          if (labelFilter.subfilter.subfilter) {
+            labeldisplay += ` > ${labelFilter.subfilter.subfilter.value}`;
+          }
+        }
+        display.labels.push(labeldisplay);
+      });
+    }
+    if (filters.priceRange) {
+      display.priceRange = filters.priceRange;
+    }
+    return display;
+  };
+
+  const handleFilterChipClick = (name: string) => {
     {
-      delete filters[e.target.id];
-      if (e.target.id === 'category') {
-        delete filters.subcategory1;
-        delete filters.subcategory2;
-      }
-      if (e.target.id === 'label') {
-        delete filters.sublabel1;
-        delete filters.sublabel2;
-      }
+      delete filters[name];
       onFilterChange(filters);
     }
   };
 
+  const handleLabelChipClick = (index: number) => {
+    {
+      onFilterChange({
+        labels: filters.labels.filter((x, i) => i !== index),
+      });
+    }
+  };
+
   return (
-    <div id="choice-bar-filters" className="flex flex-col gap-4">
-      <div className="flex items-center gap-4">
-        <img
-          draggable={false}
-          src="/img/filters-icon.png"
-          alt="Filters Icon"
-          height={20}
-          width={20}
-        />
-        <span className="text-xl">Filters</span>
+    <div
+      id="choice-bar-filters"
+      className="flex flex-col gap-4 border-t border-black pt-3"
+    >
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <img
+            draggable={false}
+            src="/img/filters-icon.png"
+            alt="Filters Icon"
+            height={20}
+            width={20}
+          />
+          <span className="text-xl">Filters</span>
+        </div>
+        {Object.keys(displayFilters).length > 0 && (
+          <div
+            className={`cursor-pointer rounded-full border border-zinc-800 bg-${
+              getUserTheme(profile).base
+            } px-2 py-0.5 text-xs text-zinc-800 shadow-sm hover:bg-zinc-200 active:bg-zinc-300`}
+            onClick={() => {
+              onFilterChange({
+                brand: null,
+                labels: [],
+                category: null,
+                priceRange: null,
+                region: null,
+                store: null,
+              });
+            }}
+          >
+            Clear All
+          </div>
+        )}
       </div>
-      <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm">
-        {Object.keys(displayFilters).map((key) => (
-          <>
-            {key !== 'region' && filters[key] && (
-              <div className="">
-                <span
-                  id={key}
-                  className={cn(
-                    'peer cursor-pointer rounded-full border border-zinc-800 px-2.5 py-1.5 shadow-sm',
-                    {
-                      'bg-gmc-berry-light-30 hover:bg-gmc-berry-light-20':
-                        key === 'category',
-                      'bg-gmc-forest-light-40 hover:bg-gmc-forest-light-30':
-                        key === 'store',
-                      'bg-gmc-surf-light-30 hover:bg-gmc-surf-light-10':
-                        key === 'brand',
-                    }
-                  )}
-                  title={key}
-                  onClick={handleRemoveFilter}
-                >
-                  {displayFilters[key]}
-                </span>
-                <div className="relative bottom-3/4 right-2 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-black bg-primary text-center text-xs opacity-0 peer-hover:opacity-100 peer-active:bg-primary-dark-10">
-                  X
-                </div>
-              </div>
-            )}
-          </>
-        ))}
+      <div className="flex flex-wrap items-center gap-x-2.5 text-sm">
+        {displayFilters.store && (
+          <SearchChoiceBarFilterChip
+            onClick={handleFilterChipClick}
+            name={'store'}
+            value={displayFilters.store}
+          />
+        )}
+        {displayFilters.category && (
+          <SearchChoiceBarFilterChip
+            onClick={handleFilterChipClick}
+            name={'category'}
+            value={displayFilters.category}
+          />
+        )}
+        {displayFilters.brand && (
+          <SearchChoiceBarFilterChip
+            onClick={handleFilterChipClick}
+            name={'brand'}
+            key={displayFilters.brand.key}
+            value={displayFilters.brand.value}
+          />
+        )}
+        {displayFilters.priceRange && (
+          <SearchChoiceBarFilterChip
+            onClick={handleFilterChipClick}
+            name={'priceRange'}
+            key={displayFilters.priceRange}
+            value={
+              displayFilters.priceRange === 'cheap'
+                ? '£ 0 - £ 15'
+                : displayFilters.priceRange === 'average'
+                ? '£ 15 - £ 100'
+                : '£ 100 +'
+            }
+          />
+        )}
+        {displayFilters.labels &&
+          displayFilters.labels.map((labelName, i) => (
+            <SearchChoiceBarLabelChip
+              onClick={handleLabelChipClick}
+              index={i}
+              value={labelName}
+            />
+          ))}
       </div>
     </div>
   );

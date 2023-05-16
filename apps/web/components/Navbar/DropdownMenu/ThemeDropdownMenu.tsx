@@ -4,14 +4,16 @@ import DropdownItemButton from './DropdownItemButton';
 import ThemeColorButton from './ThemeColorButton';
 import Image from 'next/image';
 import { Theme } from 'gmc-types';
+import { useUser } from '../../UserProvider';
 
 interface Props {
   setActiveMenu: (name: DropdownMenuName) => void;
 }
 
 const ThemeDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
+  const { profile } = useUser();
   return (
-    <ul className={`flex w-full flex-col gap-1 rounded-lg p-1.5`}>
+    <div className={`flex w-full flex-col gap-1 rounded-lg px-1.5 py-2.5`}>
       <DropdownItemButton
         handleClick={() => {
           setActiveMenu(DropdownMenuName.MAIN);
@@ -36,8 +38,8 @@ const ThemeDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
       >
         <span className="text-base">Appearance</span>
       </DropdownItemButton>
-      <hr className="border-black dark:border-white" />
-      <li className="flex w-full flex-col gap-3 py-3">
+      <hr className="my-1 border-black dark:border-white" />
+      <div className="flex w-full flex-col gap-3 py-3">
         <div className="flex w-full justify-evenly">
           <ThemeColorButton
             color="white"
@@ -104,8 +106,15 @@ const ThemeDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
             title="Ocean"
           />
         </div>
-      </li>
-    </ul>
+      </div>
+      <hr className="mt-1 border-black dark:border-white" />
+      <div className="my-2.5 flex justify-center py-1 text-sm">
+        Selected Theme:&nbsp;
+        <span className="font-bold italic">
+          {profile.theme.toString().split('_')[1]}
+        </span>
+      </div>
+    </div>
   );
 };
 

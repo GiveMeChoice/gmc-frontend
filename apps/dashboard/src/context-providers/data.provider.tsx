@@ -1,7 +1,7 @@
 import { IBrand } from '@root/services/brands.service';
-import { IProviderCategory } from '@root/services/categories.service';
+import { IMerchantCategory } from '@root/services/categories.service';
 import { IJobStatus } from '@root/services/jobs.service';
-import { ILabel } from '@root/services/labels.service';
+import { IMerchantLabel } from '@root/services/labels.service';
 import { IProduct } from '@root/services/products.service';
 import { IProvider } from '@root/services/providers.service';
 import { IRun } from '@root/services/runs.service';
@@ -30,9 +30,9 @@ export interface IData {
   runsMeta: PageMeta;
   products: IProduct[];
   productsMeta: PageMeta;
-  labels: ILabel[];
+  labels: IMerchantLabel[];
   labelsMeta: PageMeta;
-  categories: IProviderCategory[];
+  categories: IMerchantCategory[];
   categoriesMeta: PageMeta;
   brands: IBrand[];
   brandsMeta: PageMeta;
@@ -77,11 +77,11 @@ export type DataAction =
     }
   | {
       type: 'REFRESH_LABELS';
-      value: PageResponse<ILabel>;
+      value: PageResponse<IMerchantLabel>;
     }
   | {
       type: 'REFRESH_PROVIDER_CATEGORIES';
-      value: PageResponse<IProviderCategory>;
+      value: PageResponse<IMerchantCategory>;
     }
   | {
       type: 'REFRESH_BRANDS';
@@ -109,11 +109,11 @@ export type DataAction =
     }
   | {
       type: 'UPDATE_LABEL';
-      value: ILabel;
+      value: IMerchantLabel;
     }
   | {
       type: 'UPDATE_PROVIDER_CATEGORY';
-      value: IProviderCategory;
+      value: IMerchantCategory;
     };
 
 const DataContext = createContext<IData>(null);

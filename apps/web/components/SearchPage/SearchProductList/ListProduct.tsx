@@ -18,8 +18,8 @@ const ListProduct: React.FC<Props> = ({ index, product, selectProduct }) => {
     >
       <div
         className={`hidden w-1/4 items-center justify-center border-r-2 border-black text-5xl dark:border-white bg-${
-          getUserTheme(profile).accent
-        } md:flex`}
+          getUserTheme(profile).modal
+        } group-hover:bg-primary md:flex`}
       >
         {index + 1}
       </div>
@@ -42,7 +42,7 @@ const ListProduct: React.FC<Props> = ({ index, product, selectProduct }) => {
             }`}
           </span>
           <div className="flex items-center gap-4">
-            <span className="font-bold">{product.brand}</span>
+            <span className="font-bold">{product.brand.name}</span>
             <span className="text-sm">{product.price}</span>
           </div>
         </div>
@@ -53,7 +53,7 @@ const ListProduct: React.FC<Props> = ({ index, product, selectProduct }) => {
           {index + 1}
         </div>
         <div
-          className={`-z-10 flex h-2/3 scale-110 items-center justify-center bg-zinc-500 duration-300 md:h-full`}
+          className={`-z-10 flex h-2/3 scale-110 items-center justify-center bg-white duration-300 md:h-full`}
         >
           <img
             src={product.images.list.url}
