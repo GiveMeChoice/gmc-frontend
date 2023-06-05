@@ -1,10 +1,13 @@
-import { IData, DataAction } from '@root/context-providers/data.provider';
+import {
+  IScreenData,
+  ScreenDataAction,
+} from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { IMerchantCategory } from './categories.service';
-import { IScreenControl } from './screen-controls.service';
+import { IMerchantCategory } from './merchant-categories.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
+import { IScreenControl } from './shared/screen-control.interface';
 
 export interface IProduct {
   id: string;
@@ -172,14 +175,14 @@ const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
     providerProductId: filters.productProviderId,
   }),
   source: {
-    ...(filters.sourceActivation && {
-      active: filters.sourceActivation === 'active',
+    ...(filters.channelActivation && {
+      active: filters.channelActivation === 'active',
     }),
-    ...(filters.sourceIdentifier && {
-      identifier: filters.sourceIdentifier,
+    ...(filters.channelId && {
+      identifier: filters.channelId,
     }),
-    ...(filters.sourceStatus && {
-      status: filters.sourceStatus,
+    ...(filters.channelStatus && {
+      status: filters.channelStatus,
     }),
   },
   label: {
@@ -189,7 +192,9 @@ const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
     ...(filters.labelGroupId && { groupId: filters.labelGroupId }),
   },
   providerCategory: {
-    ...(filters.providerCategoryCode && { code: filters.providerCategoryCode }),
+    ...(filters.providerCategoryCode && {
+      merchantCategoryCode: filters.providerCategoryCode,
+    }),
     ...(filters.categoryId && { categoryId: filters.categoryId }),
   },
 });
@@ -200,26 +205,32 @@ const productsScreenControl: IScreenControl = {
   readScreenMeta(data) {
     return data.productsMeta;
   },
-  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(
+    filters: IFilters,
+    data: IScreenData
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_PRODUCTS',
+      type: 'SCREEN_REFRESH_PRODUCTS',
       value: await find(filters, data.productsMeta),
     };
   },
-  async refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction> {
+  async changePage(
+    page: PageRequest,
+    filters: IFilters
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_PRODUCTS',
+      type: 'SCREEN_REFRESH_PRODUCTS',
       value: await find(filters, page),
     };
   },
-  async refreshSort(
+  async sortData(
     sort: string,
     direction: string,
     filters: IFilters,
-    data: IData
-  ): Promise<DataAction> {
+    data: IScreenData
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_PRODUCTS',
+      type: 'SCREEN_REFRESH_PRODUCTS',
       value: await find(filters, {
         ...data.productsMeta,
         sort,
@@ -229,23 +240,23 @@ const productsScreenControl: IScreenControl = {
   },
 };
 
-const mappingAssistantScreenControl: IScreenControl = {
-  pathname: '/mapping-assistant',
-  title: 'Mapping Assistant',
-  readScreenMeta: () => null,
-  refreshData: () => null,
-  refreshPage: () => null,
-  refreshSort: () => null,
-};
+// const mappingAssistantScreenControl: IScreenControl = {
+//   pathname: '/mapping-assistant',
+//   title: 'Mapping Assistant',
+//   readScreenMeta: () => null,
+//   refreshData: () => null,
+//   refreshPage: () => null,
+//   refreshSort: () => null,
+// };
 
-const searchScreenControl: IScreenControl = {
-  pathname: '/search',
-  title: 'GMC Search',
-  readScreenMeta: () => null,
-  refreshData: () => null,
-  refreshPage: () => null,
-  refreshSort: () => null,
-};
+// const searchScreenControl: IScreenControl = {
+//   pathname: '/search',
+//   title: 'GMC Search',
+//   readScreenMeta: () => null,
+//   refreshData: () => null,
+//   refreshPage: () => null,
+//   refreshSort: () => null,
+// };
 
 const productsService = {
   find,
@@ -260,7 +271,7 @@ const productsService = {
   mapToIndexable,
   getCurrentlyIndexed,
   productsScreenControl,
-  mappingAssistantScreenControl,
-  searchScreenControl,
+  // mappingAssistantScreenControl,
+  // searchScreenControl,
 };
 export default productsService;

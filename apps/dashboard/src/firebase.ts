@@ -1,9 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  connectAuthEmulator,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { connectAuthEmulator, getAuth } from 'firebase/auth';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 
 // Import the functions you need from the SDKs you need
 // import { getAnalytics } from 'firebase/analytics';
@@ -24,10 +21,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+
+// Auth exports
+export const auth = getAuth(app);
+auth.languageCode = 'en';
 if (process.env.NODE_ENV === 'development') {
   connectAuthEmulator(auth, 'http://localhost:9099');
+  console.log('connected to auth emulator');
 }
-// const analytics = getAnalytics(app);
-export { auth };
-export default app;
+
+// Firestore exports
+export const firestore = getFirestore(app);
+if (process.env.NODE_ENV === 'development') {
+  connectFirestoreEmulator(firestore, 'localhost', 8080);
+  console.log('connected to firestore emulator');
+}

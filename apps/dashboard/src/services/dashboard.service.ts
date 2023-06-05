@@ -1,12 +1,12 @@
-import { IScreenControl } from './screen-controls.service';
+import { IScreenControl } from './shared/screen-control.interface';
 
 const dashboardScreenControl: IScreenControl = {
   pathname: '/',
   title: 'Dashboard',
   readScreenMeta: () => null,
   refreshData: () => null,
-  refreshPage: () => null,
-  refreshSort: () => null,
+  changePage: () => null,
+  sortData: () => null,
 };
 
 const dashboardService = {

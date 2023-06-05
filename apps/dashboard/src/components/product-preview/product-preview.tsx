@@ -1,15 +1,15 @@
 import { IProduct } from '@root/services/products.service';
 import React from 'react';
-import LoadingWheel from '../loading-wheel';
+import LoadingWheel from '../shared/loading-wheel';
 import ProductPreviewImage from './product-preview-image';
 import ProductPreviewInfo from './product-preview-info';
 import ProductPreviewLabels from './product-preview-labels';
 import ProductPreviewReviews from './product-preview-reviews';
 import cn from 'classnames';
 import {
-  useData,
-  useDataDispatch,
-} from '@root/context-providers/data.provider';
+  useScreenData,
+  useScreenDataDispatch,
+} from '@root/context-providers/screen-data.provider';
 
 interface Props {
   previewOn?: boolean;
@@ -18,8 +18,8 @@ interface Props {
 }
 
 const ProductPreview: React.FC<Props> = ({ previewOn, onClose, product }) => {
-  const { previewProduct } = useData();
-  const dataDispatch = useDataDispatch();
+  const { previewProduct } = useScreenData();
+  const dataDispatch = useScreenDataDispatch();
 
   return (
     <div

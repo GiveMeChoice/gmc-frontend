@@ -1,21 +1,23 @@
-import { IData, DataAction } from '@root/context-providers/data.provider';
+import {
+  ScreenDataAction,
+  IScreenData,
+} from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
+import { IScreenControl } from './shared/screen-control.interface';
 
 export interface IProvider {
   id: string;
   key: string;
-  description: string;
-  active: boolean;
-  runIntervalHours: number;
-  expirationHours: number;
-  sourcesCount: number;
+  description: string; //updateable
+  active: boolean; //updateable
+  runIntervalHours: number; //updateable
+  expirationHours: number; //updateable
+  // Calculated fields
+  channelCount: number;
   productCount: number;
-  categoryCount: number;
-  labelCount: number;
 }
 
 const find = async (
@@ -68,31 +70,37 @@ const extractProviderFilters = (filters: IFilters) => ({
 });
 
 const providersScreenControl: IScreenControl = {
-  pathname: '/providers',
+  pathname: '/integration/providers',
   title: 'Providers',
   readScreenMeta(data) {
     return data.providersMeta;
   },
-  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(
+    filters: IFilters,
+    data: IScreenData
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_PROVIDERS',
+      type: 'SCREEN_REFRESH_PROVIDERS',
       value: await find(filters, data.providersMeta),
     };
   },
-  async refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction> {
+  async changePage(
+    page: PageRequest,
+    filters: IFilters
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_PROVIDERS',
+      type: 'SCREEN_REFRESH_PROVIDERS',
       value: await find(filters, page),
     };
   },
-  async refreshSort(
+  async sortData(
     sort: string,
     direction: string,
     filters: IFilters,
-    data: IData
-  ): Promise<DataAction> {
+    data: IScreenData
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_PROVIDERS',
+      type: 'SCREEN_REFRESH_PROVIDERS',
       value: await find(filters, {
         ...data.providersMeta,
         sort,

@@ -1,37 +1,37 @@
 import {
-  useDataDispatch,
-  useData,
-} from '@root/context-providers/data.provider';
-import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import screenControlsService from '@root/services/screen-controls.service';
+import {
+  useScreenData,
+  useScreenDataDispatch,
+} from '@root/context-providers/screen-data.provider';
+import screensService from '@root/services/screens.service';
 import cn from 'classnames';
 import React from 'react';
-import LoadingWheel from '../loading-wheel';
+import LoadingWheel from '../shared/loading-wheel';
 import FiltersContainer from './filters-bar/filters-container';
 
 interface Props {}
 
 const FiltersBar: React.FC<Props> = () => {
-  const { activeFilters, options, filterBarVisible } = useFilters();
+  const { activeFilters, filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
-  const dataDispatch = useDataDispatch();
-  const data = useData();
+  const screenDataDispatch = useScreenDataDispatch();
+  const screenData = useScreenData();
 
   const refreshData = async () => {
     try {
-      dataDispatch({ type: 'START_LOADING' });
-      const action = await screenControlsService.refreshData(
+      screenDataDispatch({ type: 'SCREEN_START_LOADING' });
+      const action = await screensService.refreshData(
         activeFilters,
-        data
+        screenData
       );
-      if (action) dataDispatch(action);
+      if (action) screenDataDispatch(action);
     } catch (err) {
       console.error(err);
     } finally {
-      dataDispatch({ type: 'FINISH_LOADING' });
+      screenDataDispatch({ type: 'SCREEN_END_LOADING' });
     }
   };
 
@@ -53,31 +53,31 @@ const FiltersBar: React.FC<Props> = () => {
       >
         <h2 className="pt-5 pl-4 text-3xl text-primary">Filters</h2>
         <div className="flex h-20 w-full flex-col items-center justify-center">
-          {data.loading ? (
+          {screenData.loading ? (
             <LoadingWheel size="w-14 h-14" />
           ) : (
             <>
-              <div className="flex w-full justify-center gap-2 px-2">
+              <div className="flex w-full justify-evenly gap-2 px-2">
                 <button
+                  title="ctrl + c"
+                  className="flex h-10 w-2/5 flex-col items-center justify-center rounded-full border-3 border-gmc-heart bg-secondary py-0.5 text-base hover:bg-secondary-dark-10 active:bg-primary"
+                  onClick={() => {
+                    filtersDispatch({
+                      type: 'FILTERS_CLEAR',
+                    });
+                  }}
+                >
+                  <span>Clear Filters</span>
+                </button>
+                <button
+                  title="ctrl + r"
                   className={cn(
-                    'flex w-1/2 flex-col items-center justify-center rounded-full border-2 border-primary bg-secondary py-0.5 text-base font-bold hover:bg-secondary-dark-10 active:bg-primary',
+                    'flex h-10 w-2/5 flex-col items-center justify-center rounded-full border-3 border-gmc-forest-light-20 bg-secondary py-0.5 text-base hover:bg-secondary-dark-10 active:bg-primary',
                     {}
                   )}
                   onClick={refreshData}
                 >
-                  <span>Refresh</span>
-                  <span className="pb-0.5 text-xs">ctrl + r</span>
-                </button>
-                <button
-                  className="flex w-1/2 flex-col items-center justify-center rounded-full border-2 border-gmc-heart bg-secondary py-0.5 text-base font-bold hover:bg-secondary-dark-10 active:bg-primary"
-                  onClick={() => {
-                    filtersDispatch({
-                      type: 'CLEAR_FILTERS',
-                    });
-                  }}
-                >
-                  <span>Clear</span>
-                  <span className="pb-0.5 text-xs">ctrl + c</span>
+                  <span>Refresh Data</span>
                 </button>
               </div>
             </>

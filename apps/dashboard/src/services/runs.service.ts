@@ -1,9 +1,12 @@
-import { IData, DataAction } from '@root/context-providers/data.provider';
+import {
+  IScreenData,
+  ScreenDataAction,
+} from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { IScreenControl } from './screen-controls.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
+import { IScreenControl } from './shared/screen-control.interface';
 
 export interface IRun {
   id: string;
@@ -34,7 +37,7 @@ const find = async (
   pageRequest?: PageRequest
 ): Promise<PageResponse<IRun>> => {
   const res = await axios.post<PageResponse<IRun>>(
-    '/source-runs/find',
+    '/runs/find',
     extractRunFilters(filters),
     {
       params: pageRequest,
@@ -46,8 +49,8 @@ const find = async (
 function extractRunFilters(filters: IFilters): Partial<IRun> {
   return {
     source: {
-      ...(filters.sourceIdentifier && {
-        identifier: filters.sourceIdentifier,
+      ...(filters.channelId && {
+        identifier: filters.channelId,
       }),
       ...(filters.providerId && {
         providerId: filters.providerId,
@@ -57,31 +60,37 @@ function extractRunFilters(filters: IFilters): Partial<IRun> {
 }
 
 const runsScreenControl: IScreenControl = {
-  pathname: '/product-sources/runs',
+  pathname: '/integration/runs',
   title: 'Runs',
   readScreenMeta(data) {
     return data.runsMeta;
   },
-  async refreshData(filters: IFilters, data: IData): Promise<DataAction> {
+  async refreshData(
+    filters: IFilters,
+    data: IScreenData
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_RUNS',
+      type: 'SCREEN_REFRESH_RUNS',
       value: await find(filters, data.runsMeta),
     };
   },
-  async refreshPage(page: PageRequest, filters: IFilters): Promise<DataAction> {
+  async changePage(
+    page: PageRequest,
+    filters: IFilters
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_RUNS',
+      type: 'SCREEN_REFRESH_RUNS',
       value: await find(filters, page),
     };
   },
-  async refreshSort(
+  async sortData(
     sort: string,
     direction: string,
     filters: IFilters,
-    data: IData
-  ): Promise<DataAction> {
+    data: IScreenData
+  ): Promise<ScreenDataAction> {
     return {
-      type: 'REFRESH_RUNS',
+      type: 'SCREEN_REFRESH_RUNS',
       value: await find(filters, {
         ...data.runsMeta,
         sort,

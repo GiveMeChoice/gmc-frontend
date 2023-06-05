@@ -1,24 +1,12 @@
 import { getApp, initializeApp } from 'firebase/app';
 import {
+  GoogleAuthProvider,
   connectAuthEmulator,
   getAuth,
-  GoogleAuthProvider,
 } from 'firebase/auth';
-import {
-  getFirestore,
-  connectFirestoreEmulator,
-  collection,
-  where,
-  getDocs,
-  query,
-  limit,
-} from 'firebase/firestore';
+import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions';
 import { getStorage } from 'firebase/storage';
-import {
-  connectFunctionsEmulator,
-  getFunctions,
-  httpsCallable,
-} from 'firebase/functions';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -55,6 +43,7 @@ if (process.env.NODE_ENV === 'development') {
   connectFirestoreEmulator(firestore, 'localhost', 8080);
   console.log('connected to firestore emulator');
 }
+
 // Storage exports
 export const storage = getStorage(firebaseApp);
 export const STATE_CHANGED = 'state_changed';
@@ -65,4 +54,3 @@ if (process.env.NODE_ENV === 'development') {
   connectFunctionsEmulator(functions, 'localhost', 5001);
   console.log('connected to functions emulator');
 }
-// export const searchFunction = httpsCallable(functions, 'search');

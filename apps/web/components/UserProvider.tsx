@@ -36,6 +36,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (user) {
       const ref = doc(getFirestore(), 'users', user.uid);
       unsubscribe = onSnapshot(ref, (doc) => {
+        console.log('snapshot listneer registered');
         let profileDoc = doc.data() as IUserProfile;
         setProfile(profileDoc);
         if (getUserTheme(profileDoc).dark) {

@@ -1,8 +1,5 @@
-import { IData, DataAction } from '@root/context-providers/data.provider';
-import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { IScreenControl } from './screen-controls.service';
-import { PageRequest } from './shared/page-request.interface';
+import { IScreenControl } from './shared/screen-control.interface';
 
 export interface IJobStatus {
   name: string;
@@ -63,10 +60,10 @@ const jobsScreenControl: IScreenControl = {
   refreshData() {
     return null;
   },
-  refreshPage() {
+  changePage() {
     return null;
   },
-  refreshSort() {
+  sortData() {
     return null;
   },
 };

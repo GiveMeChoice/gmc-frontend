@@ -1,8 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import dashboardService from '@root/services/dashboard.service';
+import jobsService from '@root/services/jobs.service';
+import merchantCategoriesService from '@root/services/merchant-categories.service';
+import merchantsService from '@root/services/merchants.service';
 import productsService from '@root/services/products.service';
 import providersService from '@root/services/providers.service';
-import sourcesService from '@root/services/sources.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import ScreenLinkButton from './sidebar/screen-link-button';
@@ -10,6 +12,7 @@ const GMCLogo = require('../../assets/images/GMC_logo.svg');
 const GMCG = require('../../assets/images/GMC_G.svg');
 const HomeIcon = require('../../assets/images/home-icon.svg');
 const UserIcon = require('../../assets/images/user-icon.svg');
+const DataMapIcon = require('../../assets/images/data-map-icon.svg');
 const TreeIcon = require('../../assets/images/tree-icon.svg');
 const CartIcon = require('../../assets/images/cart-icon.svg');
 const BananasIcon = require('../../assets/images/bananas-icon.svg');
@@ -20,7 +23,7 @@ const PinIcon = require('../../assets/images/pin-icon.svg');
 
 const Sidebar: React.FC = () => {
   const [pinExpand, setPinExpand] = useState(false);
-  const [pinShrink, setPinShrink] = useState(false);
+  const [pinShrink, setPinShrink] = useState(true);
 
   useEffect(() => {
     const onResize = () => {
@@ -84,61 +87,51 @@ const Sidebar: React.FC = () => {
       <div className="mt-14 flex h-full flex-col justify-between">
         <div className="flex flex-col items-center space-y-2 active:[&>*]:bg-primary">
           <ScreenLinkButton
-            link={dashboardService.dashboardScreenControl.pathname}
-            title="Home"
+            screen={dashboardService.dashboardScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
             <img className="h-5" src={HomeIcon} alt="home icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link={providersService.providersScreenControl.pathname}
-            title={providersService.providersScreenControl.title}
+            screen={merchantsService.merchantsScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src={UserIcon} alt="user icon" />
+            <img className="h-5" src={CartIcon} alt="tree icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link={sourcesService.sourcesScreenControl.pathname}
-            title={sourcesService.sourcesScreenControl.title}
+            screen={providersService.providersScreenControl}
+            alternativeTitle="Integration"
+            alternativePathMatch="/integration/"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src={TreeIcon} alt="tree icon" />
+            <img className="h-5" src={TreeIcon} alt="user icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link="/mappings"
-            title="Mappings"
+            alternativeTitle="Mappings"
+            alternativePathMatch="/mappings/"
+            screen={merchantCategoriesService.categoriesScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
-            <img className="h-5" src={BasketIcon} alt="basket icon" />
+            <img className="h-5" src={DataMapIcon} alt="basket icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link={productsService.productsScreenControl.pathname}
-            title={productsService.productsScreenControl.title}
+            screen={productsService.productsScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
             <img className="h-5" src={BananasIcon} alt="bananas icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            link="/jobs"
-            title="Jobs"
+            screen={jobsService.jobsScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
             <img className="h-5" src={HumanIcon} alt="human icon" />
           </ScreenLinkButton>
-          {/* <ScreenLinkButton
-            link="/search"
-            title="Search"
-            pinExpand={pinExpand}
-            pinShrink={pinShrink}
-          >
-            <img className="h-5" src={SearchIcon} alt="search icon" />
-          </ScreenLinkButton> */}
         </div>
         <div className="flex w-full justify-center">
           <button
@@ -146,9 +139,10 @@ const Sidebar: React.FC = () => {
             className={cn(
               'flex h-8 w-8 items-center justify-center rounded-full',
               {
-                'hover:bg-gmc-berry hover:bg-opacity-30 active:bg-opacity-60':
+                'hover:bg-gmc-berry hover:bg-opacity-40 active:bg-opacity-70':
                   !pinExpand && !pinShrink,
-                'bg-gmc-berry bg-opacity-70': pinExpand || pinShrink,
+                'bg-gmc-berry bg-opacity-70 hover:bg-opacity-80 active:bg-opacity-90':
+                  pinExpand || pinShrink,
               }
             )}
           >

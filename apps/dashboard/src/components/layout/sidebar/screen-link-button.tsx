@@ -1,29 +1,36 @@
+import screensService from '@root/services/screens.service';
+import { IScreenControl } from '@root/services/shared/screen-control.interface';
+import cn from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cn from 'classnames';
-import { matchesLocation } from '@root/helpers/matches-location';
 
 interface Props {
-  link: string;
-  title: string;
+  screen: IScreenControl;
+  alternativeTitle?: string;
+  alternativePathMatch?: string;
   pinExpand: boolean;
   pinShrink: boolean;
 }
 
 const ScreenLinkButton: React.FC<Props> = ({
-  link,
-  title,
+  screen,
+  alternativeTitle,
+  alternativePathMatch,
   pinExpand,
   pinShrink,
   children,
 }) => {
   return (
     <Link
-      to={link}
-      title={title}
+      to={screen.pathname}
+      title={alternativeTitle ? alternativeTitle : screen.title}
       className={cn('flex py-4 text-sm font-bold duration-150', {
-        'hover:bg-primary-light-40': !matchesLocation(link),
-        'bg-primary': matchesLocation(link),
+        'hover:bg-primary-light-40': !screensService.isActivePath(
+          alternativePathMatch ? alternativePathMatch : screen.pathname
+        ),
+        'bg-primary': screensService.isActivePath(
+          alternativePathMatch ? alternativePathMatch : screen.pathname
+        ),
         'w-52 justify-start rounded-md': pinExpand,
         'lg:w-52 lg:justify-start lg:rounded-md': !pinShrink,
         'w-3/4 justify-center rounded-full': !pinExpand,
@@ -43,7 +50,7 @@ const ScreenLinkButton: React.FC<Props> = ({
           hidden: !pinExpand,
         })}
       >
-        {title}
+        {alternativeTitle ? alternativeTitle : screen.title}
       </span>
     </Link>
   );

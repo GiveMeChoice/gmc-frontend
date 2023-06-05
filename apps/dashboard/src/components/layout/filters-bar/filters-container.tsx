@@ -2,11 +2,21 @@ import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
+import { useMasterData } from '@root/context-providers/master-data.provider';
 import cn from 'classnames';
 import React from 'react';
+import MerchantFilters from './merchant-filters';
+import ProviderFilters from './provider-filters';
+import ChannelFilters from './channel-filters';
 
 const FiltersContainer: React.FC = () => {
-  const { activeFilters, options, filterBarVisible } = useFilters();
+  const {
+    channelStatuses,
+    productStatuses,
+    gmcCategorySelect,
+    gmcLabelSelect,
+  } = useMasterData();
+  const { activeFilters, filterBarVisible } = useFilters();
   const filtersDispatch = useFiltersDispatch();
 
   const handleFieldChange = (e) => {
@@ -15,7 +25,7 @@ const FiltersContainer: React.FC = () => {
       [e.target.id]: e.target.value,
     };
     filtersDispatch({
-      type: 'SAVE_FILTERS',
+      type: 'FILTERS_SAVE',
       value: updatedFilters,
     });
   };
@@ -29,128 +39,9 @@ const FiltersContainer: React.FC = () => {
           { hidden: !filterBarVisible }
         )}
       >
-        <div className="flex w-full items-center py-4 ">
-          <div className="mr-2 w-2/3">
-            <label
-              htmlFor="providerId"
-              className="mb-1.5 block text-base font-medium text-gray-900 dark:text-white"
-            >
-              Provider Key
-            </label>
-            <select
-              id="providerId"
-              className={cn(
-                'block h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-                {
-                  'text-gray-400': !activeFilters.providerId,
-                }
-              )}
-              value={activeFilters.providerId}
-              onChange={handleFieldChange}
-            >
-              <option value="">{'-----'}</option>
-              {options.providerSelect.map((p, i) => (
-                <option key={i} value={p.id}>
-                  {p.key}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="w-1/3">
-            <label
-              htmlFor="providerActivation"
-              className="blcok mb-1.5 w-full text-center text-base font-medium text-gray-900 dark:text-white"
-            >
-              Active
-            </label>
-            <select
-              id="providerActivation"
-              className={cn(
-                'block h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-                {
-                  'text-gray-400': !activeFilters.providerActivation,
-                }
-              )}
-              value={activeFilters.providerActivation}
-              onChange={handleFieldChange}
-            >
-              <option value="">-----</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
-        </div>
-
-        <div className="flex w-full flex-col gap-2 py-3 ">
-          <div className="w-54">
-            <label
-              htmlFor="sourceIdentifier"
-              className="my-1.5 text-base font-medium text-gray-900 dark:text-white"
-            >
-              Source Identifier
-            </label>
-            <input
-              id="sourceIdentifier"
-              type="search"
-              className="h-10 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              value={activeFilters.sourceIdentifier}
-              onChange={handleFieldChange}
-            />
-          </div>
-
-          <div className="flex w-full">
-            <div className="mr-2 w-2/3">
-              <label
-                htmlFor="sourceStatus"
-                className="my-1.5 text-base font-medium text-gray-900 dark:text-white"
-              >
-                Source Status
-              </label>
-              <select
-                id="sourceStatus"
-                className={cn(
-                  'h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-                  {
-                    'text-gray-400': !activeFilters.sourceStatus,
-                  }
-                )}
-                value={activeFilters.sourceStatus}
-                onChange={handleFieldChange}
-              >
-                <option value="">-----</option>
-                {options.sourceStatusSelect.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="w-1/3">
-              <label
-                htmlFor="sourceActivation"
-                className="my-1.5 w-full text-center text-base font-medium text-gray-900 dark:text-white"
-              >
-                Active
-              </label>
-              <select
-                id="sourceActivation"
-                className={cn(
-                  'h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
-                  {
-                    'text-gray-400': !activeFilters.sourceActivation,
-                  }
-                )}
-                value={activeFilters.sourceActivation}
-                onChange={handleFieldChange}
-              >
-                <option value="">-----</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <MerchantFilters onFieldChange={handleFieldChange} />
+        <ProviderFilters onFieldChange={handleFieldChange} />
+        <ChannelFilters onFieldChange={handleFieldChange} />
 
         <div className="flex w-full flex-col py-3 ">
           <div className="flex w-full gap-2 ">
@@ -164,7 +55,7 @@ const FiltersContainer: React.FC = () => {
               <input
                 id="productShortId"
                 type="search"
-                className="block h-10 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                className="block h-10 w-full rounded-md border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-secondary-dark-10 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 value={activeFilters.productShortId}
                 onChange={handleFieldChange}
               />
@@ -179,7 +70,7 @@ const FiltersContainer: React.FC = () => {
               <input
                 id="productProviderId"
                 type="search"
-                className="block h-10 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                className="block h-10 w-full rounded-md border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-secondary-dark-10 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
                 value={activeFilters.productProviderId}
                 onChange={handleFieldChange}
               />
@@ -196,7 +87,7 @@ const FiltersContainer: React.FC = () => {
               <select
                 id="productStatus"
                 className={cn(
-                  'block h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                  'block h-10 w-full rounded-md border border-secondary-dark-10 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                   {
                     'text-gray-400': !activeFilters.productStatus,
                   }
@@ -205,7 +96,7 @@ const FiltersContainer: React.FC = () => {
                 onChange={handleFieldChange}
               >
                 <option value="">-----</option>
-                {options.productStatusSelect.map((s) => (
+                {productStatuses.map((s) => (
                   <option key={s} value={s}>
                     {s}
                   </option>
@@ -250,7 +141,7 @@ const FiltersContainer: React.FC = () => {
             <select
               id="categoryId"
               className={cn(
-                'block h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                'block h-10 w-full rounded-md border border-secondary-dark-10 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                 {
                   'text-gray-400': !activeFilters.categoryId,
                 }
@@ -259,7 +150,7 @@ const FiltersContainer: React.FC = () => {
               onChange={handleFieldChange}
             >
               <option value="">-----</option>
-              {options.categorySelect}
+              {gmcCategorySelect}
             </select>
           </div>
           <div className="w-full">
@@ -272,7 +163,7 @@ const FiltersContainer: React.FC = () => {
             <input
               id="providerCategoryCode"
               type="search"
-              className="block h-10 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              className="block h-10 w-full rounded-md border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-secondary-dark-10 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               value={activeFilters.providerCategoryCode}
               onChange={handleFieldChange}
             />
@@ -287,7 +178,7 @@ const FiltersContainer: React.FC = () => {
             <select
               id="labelGroupId"
               className={cn(
-                'block h-10 w-full rounded-full border border-gray-600 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+                'block h-10 w-full rounded-md border border-secondary-dark-10 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
                 {
                   'text-gray-400': !activeFilters.labelGroupId,
                 }
@@ -296,9 +187,9 @@ const FiltersContainer: React.FC = () => {
               onChange={handleFieldChange}
             >
               <option value="">-----</option>
-              {options.labelGroupSelect.map((group, i) => (
-                <option key={i} value={group.id}>
-                  {group.name}
+              {gmcLabelSelect.map((gmcLabel, i) => (
+                <option key={i} value={gmcLabel}>
+                  {gmcLabel.name}
                 </option>
               ))}
             </select>
@@ -313,7 +204,7 @@ const FiltersContainer: React.FC = () => {
             <input
               id="providerLabelCode"
               type="search"
-              className="block h-10 w-full rounded-full border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              className="block h-10 w-full rounded-md border border-gray-300 bg-gray-50 p-1 pl-3 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-secondary-dark-10 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               value={activeFilters.providerLabelCode}
               onChange={handleFieldChange}
             />

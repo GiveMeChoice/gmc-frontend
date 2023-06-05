@@ -1,10 +1,15 @@
+import channelsService from '@root/services/channels.service';
+import merchantBrandsService from '@root/services/merchant-brands.service';
+import merchantCategoriesService from '@root/services/merchant-categories.service';
+import merchantLabelsService from '@root/services/merchant-labels.service';
+import providersService from '@root/services/providers.service';
+import runsService from '@root/services/runs.service';
+import screensService from '@root/services/screens.service';
 import cn from 'classnames';
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import NavbarSublink from './navbar-bottom/navbar-sublink';
 
 const NavbarBottomMappings: React.FC = () => {
-  const location = useLocation();
-
   return (
     <div
       className={cn(
@@ -12,43 +17,24 @@ const NavbarBottomMappings: React.FC = () => {
         {}
       )}
     >
-      <Link
-        className={cn('flex w-28 justify-center p-3 duration-150', {
-          'bolder-text text-primary': location.pathname.includes('/categories'),
-          'hover:bolder-text hover:scale-105 hover:text-white':
-            !location.pathname.includes('/categories'),
-        })}
-        to="/mappings/categories"
-      >
-        Categories
-      </Link>
-      <Link
-        className={cn('flex w-28 justify-center p-3 duration-150', {
-          'bolder-text text-primary': location.pathname.includes('/labels'),
-          'hover:bolder-text hover:scale-105 hover:text-white':
-            !location.pathname.includes('/labels'),
-        })}
-        to="/mappings/labels"
-      >
-        Labels
-      </Link>
-      <Link
-        className={cn('flex w-28 justify-center p-3 duration-150', {
-          ' bolder-text text-primary': location.pathname.includes('/brands'),
-          'hover:bolder-text hover:scale-105 hover:text-white':
-            !location.pathname.includes('/brands'),
-        })}
-        to="/mappings/brands"
-      >
-        Brands
-      </Link>
+      <NavbarSublink
+        screen={merchantCategoriesService.categoriesScreenControl}
+      />
+      <NavbarSublink screen={merchantLabelsService.labelsScreenControl} />
+      <NavbarSublink screen={merchantBrandsService.brandsScreenControl} />
       <div
         className={cn(
           'relative top-0 z-0 flex w-28 justify-center duration-300',
           {
-            '-left-80 pr-8': location.pathname.includes('/categories'),
-            '-left-56': location.pathname.includes('/labels'),
-            '-left-28': location.pathname.includes('/brands'),
+            '-left-80 pr-8': screensService.isActive(
+              merchantCategoriesService.categoriesScreenControl
+            ),
+            '-left-56': screensService.isActive(
+              merchantLabelsService.labelsScreenControl
+            ),
+            '-left-28': screensService.isActive(
+              merchantBrandsService.brandsScreenControl
+            ),
           }
         )}
       >

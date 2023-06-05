@@ -38,8 +38,8 @@ body {
 .switch {
   position: relative;
   display: inline-block;
-  width: 53px;
-  height: 27px;
+  width: 54px;
+  height: 25px;
 }
 
 /* Hide default HTML checkbox */
@@ -67,8 +67,8 @@ body {
   content: '';
   height: 18px;
   width: 18px;
-  left: 4px;
-  bottom: 4px;
+  left: 3px;
+  bottom: 3px;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   @apply bg-secondary;

@@ -1,0 +1,68 @@
+import EditableField from '@root/components/shared/editableField';
+import EditableTextArea from '@root/components/shared/editableTextArea';
+import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
+import merchantsService, { IMerchant } from '@root/services/merchants.service';
+import React, { useState } from 'react';
+
+interface Props {
+  merchant: IMerchant;
+}
+
+const EditableMerchantFields: React.FC<Props> = ({ merchant }) => {
+  const screenDataDispatch = useScreenDataDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleFieldSave = (updates: Partial<IMerchant>) => {
+    setLoading(true);
+    merchantsService
+      .update(merchant.id, updates)
+      .then((updatedMerchant) => {
+        screenDataDispatch({
+          type: 'SCREEN_UPDATE_MERCHANT',
+          value: updatedMerchant,
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  return (
+    <div className="flex divide-x divide-zinc-500 border-t border-zinc-500">
+      <div className="flex w-full flex-col p-4">
+        <EditableField
+          title="Name"
+          initialValue={merchant.name}
+          fieldType="text"
+          onSave={(name) => handleFieldSave({ name })}
+          loading={loading}
+          width="w-36"
+        />
+        <EditableTextArea
+          title="Details"
+          initialValue={merchant.description}
+          onSave={(description) => handleFieldSave({ description })}
+          width="flex-grow"
+        />
+        <EditableField
+          title="Logo"
+          initialValue={merchant.logo}
+          fieldType="url"
+          onSave={(logo) => handleFieldSave({ logo })}
+          loading={loading}
+          width="flex-grow"
+        />
+        <EditableField
+          title="URL"
+          initialValue={merchant.url}
+          fieldType="url"
+          onSave={(url) => handleFieldSave({ url })}
+          loading={loading}
+          width="flex-grow"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default EditableMerchantFields;

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
 import cn from 'classnames';
-import SocialLoginButtons from './SocialLoginButtons';
-import { LoadingSpinner } from 'ui';
-import { auth } from '../../../lib/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { formatErrorMessage } from 'helpers';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import { LoadingSpinner } from 'ui';
+import { auth } from '../../../lib/firebase';
+import SocialLoginButtons from './SocialLoginButtons';
 
 interface Props {
   moveToSignUp: () => void;
