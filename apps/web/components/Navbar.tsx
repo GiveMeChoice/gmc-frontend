@@ -2,13 +2,12 @@ import cn from 'classnames';
 import { useRouter } from 'next/router';
 import React from 'react';
 import 'react-responsive-modal/styles.css';
-import GiveMeBar from './GiveMeBar';
-import HomeButton from './Navbar/HomeButton';
-
-import LocaleButton from './Navbar/LocaleButton';
+import GiveMeBarNav from './Navbar/GiveMeBarNav';
+import LinkChips from './Navbar/LinkChips/LinkChips';
 import LoginButton from './Navbar/LoginButton';
-import UserButton from './Navbar/UserButton';
+import ProfileButton from './Navbar/ProfileButton';
 import { useUser } from './UserProvider';
+import HomeButton from './Navbar/HomeButton';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -16,20 +15,26 @@ const Navbar: React.FC = () => {
   return (
     <nav
       id="navbar-content"
-      className={cn('fixed z-10 flex h-24 w-full items-center gap-x-8 px-8', {
-        'justify-end': router.route === '/',
-        'justify-between': router.route !== '/',
-      })}
-    >
-      {router.route === '/' || (
-        <div className="flex items-center gap-6">
-          <GiveMeBar />
-        </div>
+      className={cn(
+        'fixed z-10 flex h-20 w-full items-center gap-x-8 border-black bg-white px-10 pb-1',
+        {
+          'justify-end': router.route === '/',
+          'justify-between border-b-1.5': router.route !== '/',
+        }
       )}
-      <div className="flex items-center gap-6">
+    >
+      <div className="flex w-1/2 items-center">
+        {router.route === '/' || (
+          <div className="flex w-full items-center gap-x-6">
+            <GiveMeBarNav />
+          </div>
+        )}
+      </div>
+      <div className="flex items-center gap-x-6">
+        <LinkChips />
+        {/* <LocaleButton /> */}
         <HomeButton />
-        <LocaleButton />
-        {user ? <UserButton /> : <LoginButton />}
+        {user ? <ProfileButton /> : <LoginButton />}
       </div>
     </nav>
   );

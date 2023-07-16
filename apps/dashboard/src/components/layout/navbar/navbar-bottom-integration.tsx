@@ -10,13 +10,22 @@ const NavbarBottomIntegration: React.FC = () => {
   return (
     <div
       className={cn(
-        'flex w-full border-b-2 border-secondary bg-zinc-900 pl-4 text-secondary-dark-10',
+        'flex h-12 w-full border-b-2 border-secondary bg-zinc-900 pl-4 text-secondary-dark-10',
         {}
       )}
     >
-      <NavbarSublink screen={providersService.providersScreenControl} />
-      <NavbarSublink screen={channelsService.channelsScreenControl} />
-      <NavbarSublink screen={runsService.runsScreenControl} />
+      <NavbarSublink
+        screen={providersService.providersScreenControl}
+        actionType="SCREEN_REFRESH_PROVIDERS"
+      />
+      <NavbarSublink
+        screen={channelsService.channelsScreenControl}
+        actionType="SCREEN_REFRESH_CHANNELS"
+      />
+      <NavbarSublink
+        screen={runsService.runsScreenControl}
+        actionType="SCREEN_REFRESH_RUNS"
+      />
       <div
         className={cn(
           'relative top-0 z-0 flex w-28 justify-center duration-300',

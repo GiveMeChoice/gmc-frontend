@@ -1,3 +1,11 @@
+import {
+  initialFilters,
+  useFiltersDispatch,
+} from '@root/context-providers/filters.provider';
+import {
+  ScreenDataAction,
+  useScreenDataDispatch,
+} from '@root/context-providers/screen-data.provider';
 import screensService from '@root/services/screens.service';
 import { IScreenControl } from '@root/services/shared/screen-control.interface';
 import cn from 'classnames';
@@ -6,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   screen: IScreenControl;
+  actionType?: string;
   alternativeTitle?: string;
   alternativePathMatch?: string;
   pinExpand: boolean;
@@ -14,12 +23,26 @@ interface Props {
 
 const ScreenLinkButton: React.FC<Props> = ({
   screen,
+  actionType,
   alternativeTitle,
   alternativePathMatch,
   pinExpand,
   pinShrink,
   children,
 }) => {
+  const screenDispatch = useScreenDataDispatch();
+  const filtersDispatch = useFiltersDispatch();
+
+  const handleClick = () => {
+    if (actionType) {
+      filtersDispatch({ type: 'FILTERS_SAVE', value: initialFilters });
+      screenDispatch({
+        type: actionType as any,
+        value: { data: [], meta: {} },
+      });
+    }
+  };
+
   return (
     <Link
       to={screen.pathname}
@@ -34,7 +57,12 @@ const ScreenLinkButton: React.FC<Props> = ({
         'w-52 justify-start rounded-md': pinExpand,
         'lg:w-52 lg:justify-start lg:rounded-md': !pinShrink,
         'w-3/4 justify-center rounded-full': !pinExpand,
+        'pointer-events-none':
+          location.pathname.includes(screen.pathname) ||
+          (alternativePathMatch &&
+            location.pathname.includes(alternativePathMatch)),
       })}
+      onClick={handleClick}
     >
       <div
         className={cn('flex justify-center', {

@@ -21,7 +21,7 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className="mb-10 flex max-h-fit flex-col gap-y-1"
+      className="flex max-h-fit flex-col gap-y-1 p-4"
       id="choice-bar-summary"
     >
       <div className="flex h-20 w-full justify-between">
@@ -53,7 +53,7 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
         )}
         <button
           className={cn(
-            'flex h-10 min-w-fit items-center justify-center gap-x-2 rounded-sm border-2 border-black py-1.5 px-2.5 text-black hover:bg-primary active:bg-primary-dark-10',
+            'flex h-10 min-w-fit items-center justify-center gap-x-2 rounded-sm border-1.5 border-black py-1.5 px-2.5 text-black hover:bg-primary active:bg-primary-dark-10',
             {
               hidden: !compareModeOn,
             }
@@ -72,7 +72,7 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
       {/* <div className="flex w-full justify-end py-4">
                 <button
                   className={cn(
-                    'flex h-10 w-full items-center justify-center gap-x-3 rounded-sm border-2 border-black bg-white py-2 text-black hover:bg-primary active:bg-primary-dark-10',
+                    'flex h-10 w-full items-center justify-center gap-x-3 rounded-sm border-1.5 border-black bg-white py-2 text-black hover:bg-primary active:bg-primary-dark-10',
                     {
                       hidden: compareModeOn,
                     }
@@ -88,9 +88,9 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
                   />
                 </button>
               </div> */}
-      <div className="flex flex-col">
+      <div className="flex flex-col py-1.5">
         <div className="w-full pb-1 text-center text-sm">Prioritize By</div>
-        <div className="flex h-10 w-full border-2 border-black">
+        <div className="flex h-10 w-full border-1.5 border-black">
           <button
             className={cn('w-1/2 text-center', {
               'bg-zinc-900 text-white': !sort,

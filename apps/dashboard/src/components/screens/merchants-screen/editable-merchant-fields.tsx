@@ -1,5 +1,5 @@
-import EditableField from '@root/components/shared/editableField';
-import EditableTextArea from '@root/components/shared/editableTextArea';
+import EditableField from '@root/components/shared/editable-field';
+import EditableTextArea from '@root/components/shared/editable-text-area';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import merchantsService, { IMerchant } from '@root/services/merchants.service';
 import React, { useState } from 'react';
@@ -29,7 +29,7 @@ const EditableMerchantFields: React.FC<Props> = ({ merchant }) => {
 
   return (
     <div className="flex divide-x divide-zinc-500 border-t border-zinc-500">
-      <div className="flex w-full flex-col p-4">
+      <div className="w-full space-y-1 p-4">
         <EditableField
           title="Name"
           initialValue={merchant.name}
@@ -39,7 +39,7 @@ const EditableMerchantFields: React.FC<Props> = ({ merchant }) => {
           width="w-36"
         />
         <EditableTextArea
-          title="Details"
+          title="Descript."
           initialValue={merchant.description}
           onSave={(description) => handleFieldSave({ description })}
           width="flex-grow"

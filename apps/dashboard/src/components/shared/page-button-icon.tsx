@@ -16,7 +16,7 @@ const PageButtonIcon: React.FC<Props> = ({ direction, size, disabled }) => {
       x="0px"
       y="0px"
       className={cn(`h-${size} rounded-full`, {
-        'fill-black hover:bg-primary': !disabled,
+        'fill-zinc-800 hover:bg-primary': !disabled,
         'fill-zinc-300': disabled,
       })}
       viewBox="0 0 300 300"

@@ -59,15 +59,15 @@ const ScreenSectionSort: React.FC<Props> = ({ fields }) => {
   };
 
   return (
-    <div className="mb-1 flex flex-wrap divide-x divide-white rounded-full text-xs font-bold ">
+    <div className="mb-1 flex flex-wrap divide-x divide-secondary rounded-full text-xs font-bold">
       {fields.map((field, i) => (
         <button
           key={i}
           id={field.name}
-          className={cn('mt-1 h-7 w-24', {
+          className={cn('h-6 py-0.5 px-6', {
             'rounded-l-full': i === 0,
             'rounded-r-full': i === fields.length - 1,
-            'bg-zinc-800 text-white': activeField !== field.name,
+            'bg-zinc-800 text-secondary': activeField !== field.name,
             'bg-gmc-sunset text-zinc-800':
               activeField === field.name && activeDirection === 'ASC',
             'bg-gmc-surf text-zinc-800':

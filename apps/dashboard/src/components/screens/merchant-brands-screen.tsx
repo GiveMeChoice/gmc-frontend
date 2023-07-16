@@ -18,7 +18,7 @@ const MerchantBrandsScreen: React.FC = () => {
     useScreenData();
   const dataDispatch = useScreenDataDispatch();
   const { activeFilters } = useFilters();
-  const { readProviderKey } = useMasterData();
+  const { readMerchantKey } = useMasterData();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const MerchantBrandsScreen: React.FC = () => {
           <ScreenSectionRow key={i}>
             <ScreenSectionCell>
               <div className="w-38 flex h-full items-center justify-center px-1 text-sm font-medium">
-                {readProviderKey(b.providerId)}
+                {readMerchantKey(b.merchantId)}
               </div>
             </ScreenSectionCell>
             <ScreenSectionCell>
@@ -63,14 +63,14 @@ const MerchantBrandsScreen: React.FC = () => {
                     {b.merchantBrandCode}
                   </span>
                 </div>
-                <img className="h-10" src={b.icon} alt="brand img" />
+                <img className="h-10" src={b.logo} alt="brand img" />
               </div>
             </ScreenSectionCell>
           </ScreenSectionRow>
         ))
       ) : (
         <ScreenSectionRow>
-          <span className="m-3">
+          <span className="m-3 ml-6 text-sm italic">
             {loading ? 'Loading...' : 'No Categories Found'}
           </span>
         </ScreenSectionRow>

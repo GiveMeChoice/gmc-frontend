@@ -65,11 +65,31 @@ const update = async (id: string, updates: Partial<IMerchantLabel>) => {
   return res.data;
 };
 
+const assignGmcLabel = async (
+  merchantLabelId: string,
+  gmcLabelId: string
+): Promise<IMerchantLabel> => {
+  const res = await axios.post<IMerchantLabel>(
+    `/merchant-labels/${merchantLabelId}/assign`,
+    {},
+    {
+      params: {
+        gmcLabelId,
+      },
+    }
+  );
+  return res.data;
+};
+
 const extractMerchantLabelFilters = (
   filters: IFilters
 ): Partial<IMerchantLabel> => ({
-  ...(filters.providerId && { merchantId: filters.providerId }),
-  ...(filters.labelGroupId && { groupId: filters.labelGroupId }),
+  ...(filters.merchantId && { merchantId: filters.merchantId }),
+  ...(filters.merchantLabelCode && {
+    merchantLabelCode: filters.merchantLabelCode,
+  }),
+  ...(filters.gmcLabelId && { gmcLabelId: filters.gmcLabelId }),
+  ...(filters.labelUnassigned && { unassigned: true }),
 });
 
 const labelsScreenControl: IScreenControl = {
@@ -118,6 +138,7 @@ const merchantLabelsService = {
   getAll,
   find,
   update,
+  assignGmcLabel,
   labelsScreenControl,
 };
 export default merchantLabelsService;

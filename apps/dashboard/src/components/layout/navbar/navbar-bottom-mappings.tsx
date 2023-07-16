@@ -1,9 +1,6 @@
-import channelsService from '@root/services/channels.service';
 import merchantBrandsService from '@root/services/merchant-brands.service';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
 import merchantLabelsService from '@root/services/merchant-labels.service';
-import providersService from '@root/services/providers.service';
-import runsService from '@root/services/runs.service';
 import screensService from '@root/services/screens.service';
 import cn from 'classnames';
 import React from 'react';
@@ -13,15 +10,22 @@ const NavbarBottomMappings: React.FC = () => {
   return (
     <div
       className={cn(
-        'flex w-full border-b-2 border-secondary bg-zinc-900 pl-4 text-secondary-dark-10',
+        'flex h-12 w-full border-b-2 border-secondary bg-zinc-900 pl-4 text-secondary-dark-10',
         {}
       )}
     >
       <NavbarSublink
         screen={merchantCategoriesService.categoriesScreenControl}
+        actionType="SCREEN_REFRESH_MERCHANT_CATEGORIES"
       />
-      <NavbarSublink screen={merchantLabelsService.labelsScreenControl} />
-      <NavbarSublink screen={merchantBrandsService.brandsScreenControl} />
+      <NavbarSublink
+        screen={merchantLabelsService.labelsScreenControl}
+        actionType="SCREEN_REFRESH_MERCHANT_LABELS"
+      />
+      <NavbarSublink
+        screen={merchantBrandsService.brandsScreenControl}
+        actionType="SCREEN_REFRESH_MERCHANT_BRANDS"
+      />
       <div
         className={cn(
           'relative top-0 z-0 flex w-28 justify-center duration-300',

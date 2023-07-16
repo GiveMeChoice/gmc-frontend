@@ -110,7 +110,7 @@ export default function Search({ props }) {
       <div className="fixed h-full w-full">
         <div
           id="search-result-container"
-          className="mt-24 flex h-full w-full flex-col border-x-2 border-black px-3 pt-1 dark:border-white md:flex-row md:border-x-0 md:px-0"
+          className="flex h-full w-full flex-col border-x-2 border-black px-3  dark:border-white md:flex-row md:border-x-0 md:px-0"
         >
           <SearchChoiceBar
             loading={loading || executing}
@@ -125,7 +125,7 @@ export default function Search({ props }) {
           />
           <div
             id="search-products"
-            className="flex h-full flex-wrap overflow-y-auto border-t-2 border-black pb-32 dark:border-white md:w-2/3 xl:w-3/4"
+            className="flex h-full flex-wrap overflow-y-auto pb-32 dark:border-white md:w-2/3 xl:w-3/4"
           >
             {loading || executing ? (
               <div className="flex h-full w-full items-center justify-center">

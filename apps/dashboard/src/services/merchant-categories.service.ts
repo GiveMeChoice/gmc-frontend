@@ -23,12 +23,12 @@ export interface IMerchantCategory {
   productCount: number;
 }
 
-const getOneProviderCategory = async (id): Promise<IMerchantCategory> => {
+const getOne = async (id): Promise<IMerchantCategory> => {
   const res = await axios.get<IMerchantCategory>(`/merchant-categories/${id}`);
   return res.data;
 };
 
-const getAllProviderCategories = async (
+const getAll = async (
   pageRequest?: PageRequest
 ): Promise<PageResponse<IMerchantCategory>> => {
   const res = await axios.get<PageResponse<IMerchantCategory>>(
@@ -40,13 +40,13 @@ const getAllProviderCategories = async (
   return res.data;
 };
 
-const findProviderCategories = async (
+const find = async (
   filters: IFilters,
   pageRequest?: PageRequest
 ): Promise<PageResponse<IMerchantCategory>> => {
   const res = await axios.post<PageResponse<IMerchantCategory>>(
     '/merchant-categories/find',
-    extractProductFilters(filters),
+    extractCategoryFilters(filters),
     {
       params: pageRequest,
     }
@@ -54,10 +54,7 @@ const findProviderCategories = async (
   return res.data;
 };
 
-const updateProviderCategories = async (
-  id: string,
-  updates: Partial<IMerchantCategory>
-) => {
+const update = async (id: string, updates: Partial<IMerchantCategory>) => {
   const res = await axios.put<IMerchantCategory>(
     `/merchant-categories/${id}`,
     updates
@@ -65,33 +62,34 @@ const updateProviderCategories = async (
   return res.data;
 };
 
-const assignCategory = async (
-  providerCategoryId: string,
-  categoryId: string
+const assignGmcCategory = async (
+  merchantCategoryId: string,
+  gmcCategoryId: string
 ): Promise<IMerchantCategory> => {
   const res = await axios.post<IMerchantCategory>(
-    `/merchant-categories/${providerCategoryId}/assign`,
+    `/merchant-categories/${merchantCategoryId}/assign`,
     {},
     {
       params: {
-        categoryId,
+        gmcCategoryId,
       },
     }
   );
   return res.data;
 };
 
-const extractProductFilters = (
+const extractCategoryFilters = (
   filters: IFilters
 ): Partial<IMerchantCategory> => ({
-  ...(filters.providerId && { merchantId: filters.providerId }),
-  ...(filters.providerCategoryCode && {
-    merchantCategoryCode: filters.providerCategoryCode,
+  ...(filters.merchantId && { merchantId: filters.merchantId }),
+  ...(filters.merchantCategoryCode && {
+    merchantCategoryCode: filters.merchantCategoryCode,
   }),
-  ...(filters.categoryId && { categoryId: filters.categoryId }),
+  ...(filters.gmcCategoryId && { gmcCategoryId: filters.gmcCategoryId }),
+  ...(filters.categoryUnassigned && { unassigned: true }),
 });
 
-const merchantCategoriesScreenControl: IScreenControl = {
+const categoriesScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-categories',
   title: 'Categories',
   readScreenMeta(data) {
@@ -103,7 +101,7 @@ const merchantCategoriesScreenControl: IScreenControl = {
   ): Promise<ScreenDataAction> {
     return {
       type: 'SCREEN_REFRESH_MERCHANT_CATEGORIES',
-      value: await findProviderCategories(filters, data.merchantCategoriesMeta),
+      value: await find(filters, data.merchantCategoriesMeta),
     };
   },
   async changePage(
@@ -112,7 +110,7 @@ const merchantCategoriesScreenControl: IScreenControl = {
   ): Promise<ScreenDataAction> {
     return {
       type: 'SCREEN_REFRESH_MERCHANT_CATEGORIES',
-      value: await findProviderCategories(filters, page),
+      value: await find(filters, page),
     };
   },
   async sortData(
@@ -123,7 +121,7 @@ const merchantCategoriesScreenControl: IScreenControl = {
   ): Promise<ScreenDataAction> {
     return {
       type: 'SCREEN_REFRESH_MERCHANT_CATEGORIES',
-      value: await findProviderCategories(filters, {
+      value: await find(filters, {
         ...data.merchantCategoriesMeta,
         sort,
         direction,
@@ -133,11 +131,11 @@ const merchantCategoriesScreenControl: IScreenControl = {
 };
 
 const merchantCategoriesService = {
-  assignCategory,
-  getOneProviderCategory,
-  getAllProviderCategories,
-  findProviderCategories,
-  updateProviderCategories,
-  categoriesScreenControl: merchantCategoriesScreenControl,
+  assignGmcCategory,
+  getOne,
+  getAll,
+  find,
+  update,
+  categoriesScreenControl,
 };
 export default merchantCategoriesService;

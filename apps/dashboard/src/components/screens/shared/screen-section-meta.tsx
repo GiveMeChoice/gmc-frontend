@@ -39,7 +39,7 @@ const ScreenSectionMeta: React.FC<Props> = ({ meta }) => {
   };
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 text-sm">
       <div className="space-x-1.5">
         <span className="">
           {`${meta.pageNumber * meta.pageSize + 1} - ${

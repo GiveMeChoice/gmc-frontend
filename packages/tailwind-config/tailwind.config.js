@@ -13,7 +13,9 @@ module.exports = {
       0: '0',
       1.5: '1.5px',
       2: '2px',
+      2.5: '2.5px',
       3: '3px',
+      3.5: '3.5px',
       4: '4px',
       5: '5px',
       6: '6px',
@@ -30,6 +32,13 @@ module.exports = {
       width: {
         128: '32rem',
       },
+      height: {
+        22: '5.5rem',
+        128: '32rem',
+      },
+      margin: {
+        22: '5.5rem',
+      },
       transitionProperty: {
         width: 'width',
       },
@@ -39,6 +48,8 @@ module.exports = {
       },
       fontSize: {
         menu: '8.441rem',
+        '2.5xl': '2.125rem',
+        '3.5xl': '2.375rem',
       },
       textDecorationThickness: {
         3: '3px',
@@ -220,5 +231,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss/plugin')(({ addVariant }) => {
+      addVariant('search-cancel', '&::-webkit-search-cancel-button');
+    }),
+  ],
 };

@@ -91,7 +91,7 @@ const SearchChoiceBarFilters: React.FC<Props> = ({
   return (
     <div
       id="choice-bar-filters"
-      className="flex flex-col gap-4 border-t border-black pt-3"
+      className="flex flex-col gap-y-3 border-y border-black px-3 pt-4 pb-2"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
@@ -102,7 +102,7 @@ const SearchChoiceBarFilters: React.FC<Props> = ({
             height={20}
             width={20}
           />
-          <span className="text-xl">Filters</span>
+          <span className="text-xl">Search Filters</span>
         </div>
         {Object.keys(displayFilters).length > 0 && (
           <div
@@ -124,7 +124,7 @@ const SearchChoiceBarFilters: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <div className="flex flex-wrap items-center gap-x-2.5 text-sm">
+      <div className="flex flex-wrap items-center gap-x-2 text-sm">
         {displayFilters.store && (
           <SearchChoiceBarFilterChip
             onClick={handleFilterChipClick}

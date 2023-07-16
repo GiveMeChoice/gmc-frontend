@@ -11,14 +11,11 @@ import ScreenLinkButton from './sidebar/screen-link-button';
 const GMCLogo = require('../../assets/images/GMC_logo.svg');
 const GMCG = require('../../assets/images/GMC_G.svg');
 const HomeIcon = require('../../assets/images/home-icon.svg');
-const UserIcon = require('../../assets/images/user-icon.svg');
 const DataMapIcon = require('../../assets/images/data-map-icon.svg');
 const TreeIcon = require('../../assets/images/tree-icon.svg');
 const CartIcon = require('../../assets/images/cart-icon.svg');
 const BananasIcon = require('../../assets/images/bananas-icon.svg');
-const BasketIcon = require('../../assets/images/basket-icon.svg');
 const HumanIcon = require('../../assets/images/human-icon.svg');
-const SearchIcon = require('../../assets/images/search-icon.svg');
 const PinIcon = require('../../assets/images/pin-icon.svg');
 
 const Sidebar: React.FC = () => {
@@ -95,6 +92,7 @@ const Sidebar: React.FC = () => {
           </ScreenLinkButton>
           <ScreenLinkButton
             screen={merchantsService.merchantsScreenControl}
+            actionType="SCREEN_REFRESH_MERCHANTS"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
@@ -104,6 +102,7 @@ const Sidebar: React.FC = () => {
             screen={providersService.providersScreenControl}
             alternativeTitle="Integration"
             alternativePathMatch="/integration/"
+            actionType="SCREEN_REFRESH_PROVIDERS"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
@@ -113,6 +112,7 @@ const Sidebar: React.FC = () => {
             alternativeTitle="Mappings"
             alternativePathMatch="/mappings/"
             screen={merchantCategoriesService.categoriesScreenControl}
+            actionType="SCREEN_REFRESH_MERCHANT_CATEGORIES"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
@@ -120,6 +120,7 @@ const Sidebar: React.FC = () => {
           </ScreenLinkButton>
           <ScreenLinkButton
             screen={productsService.productsScreenControl}
+            actionType="SCREEN_REFRESH_PRODUCTS"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >

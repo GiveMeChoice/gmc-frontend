@@ -16,8 +16,7 @@ const DropdownItemButton: React.FC<Props> = ({
   children,
 }) => {
   return (
-    <a
-      href="#"
+    <button
       onClick={handleClick}
       className="flex h-14 w-full cursor-pointer items-center justify-between gap-4 rounded-lg px-2.5 text-sm transition-colors duration-150 ease-in-out hover:bg-zinc-800 hover:bg-opacity-10 active:bg-zinc-600 active:bg-opacity-20"
     >
@@ -44,7 +43,7 @@ const DropdownItemButton: React.FC<Props> = ({
       >
         {rightIcon}
       </span>
-    </a>
+    </button>
   );
 };
 

@@ -12,26 +12,28 @@ const MerchantFilters: React.FC<Props> = ({ onFieldChange }) => {
   const { merchantKeys, merchantRegions } = useMasterData();
 
   return (
-    <div className="flex w-full items-center py-4 ">
+    <div className="flex w-full items-center">
       <div className="mr-2 w-2/3">
         <label
           htmlFor="merchantId"
-          className="mb-0.5 ml-1 block text-base font-medium text-gray-900 dark:text-white"
+          className="ml-1 mb-1 block text-xs font-medium text-gray-900 dark:text-white"
         >
           Merchant Key
         </label>
         <select
           id="merchantId"
           className={cn(
-            'block h-10 w-full rounded-md border border-secondary-dark-10 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+            'block h-9 w-full rounded-md border border-secondary-dark-10 bg-zinc-600 p-2 text-xs text-secondary placeholder-secondary focus:border-primary focus:ring-primary',
             {
-              'text-gray-400': !activeFilters.merchantId,
+              'text-secondary-dark-20': !activeFilters.merchantId,
             }
           )}
           value={activeFilters.merchantId}
           onChange={onFieldChange}
         >
-          <option value="">{'-----'}</option>
+          <option className="focus:ring-primary" value="">
+            {'-----'}
+          </option>
           {merchantKeys.map((m, i) => (
             <option key={i} value={m.id}>
               {m.key}
@@ -43,14 +45,14 @@ const MerchantFilters: React.FC<Props> = ({ onFieldChange }) => {
       <div className="w-1/3">
         <label
           htmlFor="merchantRegion"
-          className="mb-0.5 ml-1 block w-full text-base font-medium text-gray-900 dark:text-white"
+          className="ml-1 mb-1 block w-full text-xs font-medium text-gray-900 dark:text-white"
         >
           Region
         </label>
         <select
           id="merchantRegion"
           className={cn(
-            'block h-10 w-full rounded-md border border-secondary-dark-10 bg-gray-700 p-1 pl-2 text-base text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500',
+            'block h-9 w-full rounded-md border border-secondary-dark-10 bg-zinc-600 p-1 pl-2 text-xs text-white placeholder-gray-400 focus:border-primary focus:ring-primary',
             {
               'text-gray-400': !activeFilters.merchantRegion,
             }

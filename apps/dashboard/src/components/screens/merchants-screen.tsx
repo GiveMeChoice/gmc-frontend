@@ -37,7 +37,7 @@ const MerchantsScreen: React.FC = () => {
         ))
       ) : (
         <ScreenSectionRow>
-          <span className="m-3">
+          <span className="m-3 ml-6 text-sm italic">
             {loading ? 'Loading...' : 'No Merchants Found'}
           </span>
         </ScreenSectionRow>

@@ -19,7 +19,7 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
   const { profile } = useUser();
 
   return (
-    <div key="name">
+    <div key={name} className="h-10">
       <div
         onClick={() => onClick(name)}
         title={name}

@@ -14,30 +14,26 @@ const Layout: React.FC = () => {
   const data = useScreenData();
   const { initialized } = useMasterData();
   return (
-    <div className="flex h-screen bg-zinc-900">
+    <div className="flex h-screen overflow-y-auto bg-zinc-900">
       <ProductPreview product={data.previewProduct} />
       <Sidebar />
-      <div className="flex h-full w-full flex-col">
+      <div className="flex h-full w-full flex-col overflow-y-auto">
         <Navbar />
-        <div className="flex overflow-y-auto">
-          {location.pathname.includes('mapping-assistant') ||
-          location.pathname === '/' ? (
-            <Outlet />
-          ) : (
-            <>
-              <ScreenContainer>
-                {initialized ? (
-                  <Outlet />
-                ) : (
-                  <div className="flex h-full w-full flex-col items-center justify-center space-y-8">
-                    <h1 className="italic text-white">INITIALIZING</h1>
-                    <LoadingWheel size="h-16" />
-                  </div>
-                )}
-              </ScreenContainer>
-            </>
-          )}
-        </div>
+        {location.pathname.includes('mapping-assistant') ||
+        location.pathname === '/' ? (
+          <Outlet />
+        ) : (
+          <ScreenContainer>
+            {initialized ? (
+              <Outlet />
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center space-y-8">
+                <h1 className="italic text-white">INITIALIZING</h1>
+                <LoadingWheel size="h-16" />
+              </div>
+            )}
+          </ScreenContainer>
+        )}
       </div>
       {!location.pathname.includes('mapping-assistant') && <FiltersBar />}
     </div>

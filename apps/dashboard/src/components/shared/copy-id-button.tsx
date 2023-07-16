@@ -10,7 +10,7 @@ interface Props {
 const CopyIdButton: React.FC<Props> = ({ id, content }) => (
   <>
     <div
-      className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full duration-100 hover:bg-zinc-300 active:bg-primary-light-30"
+      className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full duration-100 hover:bg-zinc-300 active:bg-primary-light-30"
       onClick={() => {
         navigator.clipboard.writeText(content ? JSON.stringify(content) : id);
         document
@@ -23,7 +23,7 @@ const CopyIdButton: React.FC<Props> = ({ id, content }) => (
         }, 1350);
       }}
     >
-      <img className="h-3.5 w-3.5" src={CopyIcon} alt="Copy Provider ID" />
+      <img className="h-3 w-3" src={CopyIcon} alt="Copy Provider ID" />
     </div>
     <div
       id={`copy-button-${id}`}

@@ -1,22 +1,25 @@
 import {
-  useScreenData,
-  useScreenDataDispatch,
-} from '@root/context-providers/screen-data.provider';
-import {
   IFilters,
   initialFilters,
-  ProviderSelectType,
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
+import { useMasterData } from '@root/context-providers/master-data.provider';
+import {
+  useScreenData,
+  useScreenDataDispatch,
+} from '@root/context-providers/screen-data.provider';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
+import { IMerchant } from '@root/services/merchants.service';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CategoryGroupSelectField from '../shared/category-group-select-field';
+import GmcCategorySelect from '../shared/gmc-category-select';
+import CopyIdButton from '../shared/copy-id-button';
+import FramedButton from '../shared/framed-button';
+import MerchantChip from './merchants-screen/merchant-chip';
 import ScreenSection from './shared/screen-section';
-import ScreenSectionCell from './shared/screen-section-cell';
 import ScreenSectionRow from './shared/screen-section-row';
-import { useMasterData } from '@root/context-providers/master-data.provider';
+import productsService from '@root/services/products.service';
 
 const MerchantCategoriesScreen: React.FC = () => {
   const {
@@ -26,7 +29,6 @@ const MerchantCategoriesScreen: React.FC = () => {
   const dataDispatch = useScreenDataDispatch();
   const filtersDispatch = useFiltersDispatch();
   const { activeFilters } = useFilters();
-  const { readProviderKey } = useMasterData();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -34,7 +36,7 @@ const MerchantCategoriesScreen: React.FC = () => {
     if (!categories.length) {
       setLoading(true);
       merchantCategoriesService
-        .findProviderCategories(activeFilters, categoriesMeta)
+        .find(activeFilters, categoriesMeta)
         .then((labels) => {
           dataDispatch({
             type: 'SCREEN_REFRESH_MERCHANT_CATEGORIES',
@@ -47,67 +49,69 @@ const MerchantCategoriesScreen: React.FC = () => {
     }
   }, []);
 
-  const onViewProducts = (providerId, providerCategoryCode) => {
+  const onViewProducts = (merchantId, merchantCategoryCode) => {
     const sourceFilters: IFilters = {
       ...initialFilters,
-      providerId,
-      providerCategoryCode,
+      merchantId,
+      merchantCategoryCode,
     };
     filtersDispatch({ type: 'FILTERS_SAVE', value: sourceFilters });
     dataDispatch({
       type: 'SCREEN_REFRESH_PRODUCTS',
       value: { data: [], meta: {} },
     });
-    navigate('/products');
+    navigate(productsService.productsScreenControl.pathname);
   };
 
   return (
     <ScreenSection
-      title={'Provider Categories'}
-      sortFields={
-        [
-          // { name: 'code', title: 'Code' },
-          // { name: 'createdAt', title: 'Created At' },
-          // { name: 'gmcCategoryId', title: 'GMC Category' },
-        ]
-      }
+      title={'Merchant Categories'}
+      sortFields={[
+        { name: 'merchantCategoryCode', title: 'Merchant Category' },
+        { name: 'gmcCategoryId', title: 'GMC Category' },
+      ]}
       meta={categoriesMeta}
     >
       {categories.length ? (
-        categories.map((c, i) => (
+        categories.map((category, i) => (
           <ScreenSectionRow key={i}>
-            <ScreenSectionCell>
-              <div className="flex h-full w-28 items-center justify-center break-words px-1 text-sm font-medium">
-                {readProviderKey(c.merchantId)}
+            <div className="flex w-full divide-x divide-zinc-400">
+              <div className="flex w-2/12 items-center justify-center p-4">
+                <MerchantChip
+                  merchant={category.merchant as IMerchant}
+                  clickable={true}
+                />
               </div>
-            </ScreenSectionCell>
-            <ScreenSectionCell>
-              <div className="flex h-full w-72 flex-col items-start justify-center break-words px-2 py-1">
-                <span className="font-bold">{c.description}</span>
-                <span className="mt-2 text-sm italic">
-                  {c.merchantCategoryCode}
-                </span>
+              <div className="flex w-8/12 flex-col divide-y divide-zinc-400">
+                <div className="flex w-full items-center justify-center gap-x-1.5 py-4">
+                  <span className="text-sm italic">{category.name}</span>
+                  <CopyIdButton id={category.merchantCategoryCode} />
+                </div>
+                <div className="py-2">
+                  <GmcCategorySelect category={category} />
+                </div>
               </div>
-            </ScreenSectionCell>
-            <ScreenSectionCell styles="flex justify-center items-center">
-              <button
-                className="flex h-20 w-full flex-col items-center justify-center rounded-md border border-zinc-500 p-2 hover:bg-primary-light-50 active:bg-primary"
-                onClick={() =>
-                  onViewProducts(c.merchantId, c.merchantCategoryCode)
-                }
-              >
-                <span className="text-sm">Products:</span>
-                <span className="text-sm">{c.productCount}</span>
-              </button>
-            </ScreenSectionCell>
-            <ScreenSectionCell styles="w-1/2">
-              <CategoryGroupSelectField category={c} />
-            </ScreenSectionCell>
+              <div className="flex h-full w-2/12 items-center justify-center p-4">
+                <div className="h-full w-2/3">
+                  <FramedButton
+                    title={`Products:`}
+                    count={category.productCount}
+                    disabled={category.productCount === 0}
+                    onClick={() =>
+                      onViewProducts(
+                        category.merchantId,
+                        category.merchantCategoryCode
+                      )
+                    }
+                  />
+                </div>
+              </div>
+            </div>
           </ScreenSectionRow>
         ))
       ) : (
         <ScreenSectionRow>
-          <span className="m-3">
+          <span className="m-3 ml-6 text-sm italic">
             {loading ? 'Loading...' : 'No Categories Found'}
           </span>
         </ScreenSectionRow>

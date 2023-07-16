@@ -1,4 +1,4 @@
-import FramedCountButton from '@root/components/shared/framed-count-button';
+import FramedButton from '@root/components/shared/framed-button';
 import {
   IFilters,
   initialFilters,
@@ -38,7 +38,7 @@ const ProviderButtonPanel: React.FC<Props> = ({ provider }) => {
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-4">
-      <FramedCountButton
+      <FramedButton
         title="Channels"
         count={provider.channelCount}
         onClick={handleChannelsClick}

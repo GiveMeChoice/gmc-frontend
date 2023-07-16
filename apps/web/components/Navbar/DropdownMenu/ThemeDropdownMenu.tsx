@@ -13,7 +13,7 @@ interface Props {
 const ThemeDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
   const { profile } = useUser();
   return (
-    <div className={`flex w-full flex-col gap-1 rounded-lg px-1.5 py-2.5`}>
+    <div className={`flex w-full flex-col gap-1 rounded-lg px-2 py-2.5`}>
       <DropdownItemButton
         handleClick={() => {
           setActiveMenu(DropdownMenuName.MAIN);

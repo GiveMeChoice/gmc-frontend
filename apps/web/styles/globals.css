@@ -31,7 +31,9 @@ body {
 
 /* DropdownMenu Transitions  */
 .dropdown-menu {
-  transform: translateX(-50%);
+  transform: translateX(8%);
+  top: 4.5rem;
+  background-color: #f0f0f5;
 }
 .menu-primary-enter {
   position: absolute;
@@ -61,4 +63,10 @@ body {
 .menu-secondary-exit-active {
   transform: translateX(110%);
   transition: all var(--speed) ease;
+}
+
+.gmc-search-bar {
+  selector::-webkit-search-cancel-button {
+    color: red;
+  }
 }

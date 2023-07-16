@@ -11,7 +11,13 @@ const ToggleFilterBarButton: React.FC = () => {
 
   return (
     <div
-      className="ml-6 flex aspect-square h-12 w-12 cursor-pointer items-center justify-center rounded-full  border-secondary duration-150 hover:bg-zinc-800 active:bg-opacity-50"
+      className={cn(
+        'ml-6 flex aspect-square h-10 w-10 cursor-pointer items-center justify-center rounded-full border-1.5 duration-150 hover:bg-zinc-800 active:bg-opacity-50',
+        {
+          'border-primary': filterBarVisible,
+          'border-secondary-dark-10': !filterBarVisible,
+        }
+      )}
       onClick={() => {
         filtersDispatch({ type: 'FILTERS_BAR_TOGGLE' });
       }}

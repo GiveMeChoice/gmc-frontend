@@ -24,7 +24,7 @@ const DropdownMenuTransition: React.FC<Props> = ({
       unmountOnExit
       onEnter={calcHeight}
     >
-      <div className="flex w-full flex-col px-3">{children}</div>
+      <div className="flex w-full flex-col">{children}</div>
     </CSSTransition>
   );
 };

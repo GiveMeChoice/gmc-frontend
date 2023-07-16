@@ -8,34 +8,27 @@ import { IMerchantCategory } from './merchant-categories.service';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
+import { IMerchantBrand } from './merchant-brands.service';
+import { IMerchantLabel } from './merchant-labels.service';
+import { IMerchant } from './merchants.service';
+import { IChannel } from './channels.service';
 
 export interface IProduct {
   id: string;
-  providerId: string;
-  source: {
-    id?: string;
-    identifier?: string;
-    description?: string;
-    status?: string;
-  };
-  provider?: {
-    id?: string;
-    key?: string;
-  };
-  providerProductId: string;
   shortId: string;
+  merchantId: string;
+  merchantProductCode: string;
+  channelId: string;
   createdAt: Date;
   updatedAt: Date;
-  integrationStatus: string;
-  sourceId: string;
+  // INTEGRATION METADATA
+  status: string;
   createdByRunId: string;
   refreshedByRunId: string;
   refreshedAt: Date;
   refreshReason: string;
-  sourceDate: Date;
   expiresAt: Date;
   keepAliveCount: number;
-  hasIntegrationError: boolean;
   errorMessage: string;
   // PRODUCT DATA
   sku: string;
@@ -44,29 +37,31 @@ export interface IProduct {
   rating: number;
   ratingsTotal: number;
   price: number;
+  shippingPrice: number;
   currency: string;
-  brand: {
-    code: string;
-    description: string;
-  };
-  listImage: string;
-  mainImage: string;
-  secondaryImage: string;
-  offerLink: string;
-  reviews: Review[];
-  labels: Label[];
-  label?: {
-    code?: string;
-    groupId?: string;
-  };
-  providerCategory?: Partial<IMerchantCategory>;
+  // RELATIONS
+  images: IProductImage[];
+  reviews: IProductReview[];
+  merchantLabels: IMerchantLabel[];
+  merchantBrand: IMerchantBrand;
+  merchantCategory: Partial<IMerchantCategory>;
+  merchant: Partial<IMerchant>;
+  channel: Partial<IChannel>;
 }
 
-export type Review = {
+export type IProductReview = {
+  id: string;
   author: string;
   text: string;
   rating: number;
   submittedOn: Date;
+};
+
+export type IProductImage = {
+  id: string;
+  url: string;
+  primary: boolean;
+  type: 'LIST' | 'DETAIL';
 };
 
 export type Label = {
@@ -88,7 +83,7 @@ const find = async (
 ): Promise<PageResponse<IProduct>> => {
   const res = await axios.post<PageResponse<IProduct>>(
     '/products/find',
-    extractProductFilters(filters),
+    applyProductFilters(filters),
     {
       params: pageRequest,
     }
@@ -115,23 +110,6 @@ const update = async (
   updates: Partial<IProduct>
 ): Promise<IProduct> => {
   const res = await axios.put<IProduct>(`/products/${id}`, updates);
-  return res.data;
-};
-
-const extract = async (
-  id: string,
-  skipCache = false
-): Promise<ExtractResult> => {
-  const res = await axios.post(
-    '/etl/extract-product',
-    {},
-    { params: { id, skipCache } }
-  );
-  return res.data;
-};
-
-const map = async (id: string): Promise<Partial<IProduct>> => {
-  const res = await axios.post('/etl/map-product', {}, { params: { id } });
   return res.data;
 };
 
@@ -164,39 +142,50 @@ const search = async (q: string): Promise<IProduct[]> => {
   return res.data;
 };
 
-const extractProductFilters = (filters: IFilters): Partial<IProduct> => ({
-  ...(filters.productIntegrationError && { hasIntegrationError: true }),
-  ...(filters.providerId && { provider: { id: filters.providerId } }),
-  ...(filters.productStatus && {
-    integrationStatus: filters.productStatus,
+const applyProductFilters = (filters: IFilters): Partial<IProduct> => ({
+  // Merchant
+  ...(filters.merchantId && { merchantId: filters.merchantId }),
+  ...(filters.merchantRegion && {
+    merchant: { region: filters.merchantRegion },
   }),
-  ...(filters.productShortId && { shortId: filters.productShortId }),
-  ...(filters.productProviderId && {
-    providerProductId: filters.productProviderId,
+  // Provider / Channel
+  ...((filters.providerId ||
+    filters.providerActivation ||
+    filters.channelId ||
+    filters.channelStatus ||
+    filters.channelActivation) && {
+    channel: {
+      ...(filters.providerId && { providerId: filters.providerId }),
+      ...(filters.channelId && { id: filters.channelId }),
+      ...(filters.channelStatus && { status: filters.channelStatus }),
+      ...(filters.channelActivation && {
+        active: filters.channelActivation === 'active',
+      }),
+    },
   }),
-  source: {
-    ...(filters.channelActivation && {
-      active: filters.channelActivation === 'active',
-    }),
-    ...(filters.channelId && {
-      identifier: filters.channelId,
-    }),
-    ...(filters.channelStatus && {
-      status: filters.channelStatus,
-    }),
-  },
-  label: {
-    ...(filters.providerLabelCode && {
-      code: filters.providerLabelCode,
-    }),
-    ...(filters.labelGroupId && { groupId: filters.labelGroupId }),
-  },
-  providerCategory: {
-    ...(filters.providerCategoryCode && {
-      merchantCategoryCode: filters.providerCategoryCode,
-    }),
-    ...(filters.categoryId && { categoryId: filters.categoryId }),
-  },
+  //Product
+  ...(filters.gmcProductId && { shortId: filters.gmcProductId }),
+  ...(filters.merchantProductCode && {
+    merchantProductCode: filters.merchantProductCode,
+  }),
+  ...(filters.productStatus && { status: filters.productStatus }),
+  ...(filters.productError && { error: true }),
+  ...((filters.merchantCategoryCode || filters.gmcCategoryId) && {
+    merchantCategory: {
+      ...(filters.merchantCategoryCode && {
+        merchantCategoryCode: filters.merchantCategoryCode,
+      }),
+      ...(filters.gmcCategoryId && { gmcCategoryId: filters.gmcCategoryId }),
+    },
+  }),
+  ...((filters.merchantLabelCode || filters.gmcLabelId) && {
+    merchantLabel: {
+      ...(filters.merchantLabelCode && {
+        merchantLabelCode: filters.merchantLabelCode,
+      }),
+      ...(filters.gmcLabelId && { gmcLabelId: filters.gmcLabelId }),
+    },
+  }),
 });
 
 const productsScreenControl: IScreenControl = {
@@ -263,8 +252,6 @@ const productsService = {
   update,
   getAll,
   getOne,
-  map,
-  extract,
   refresh,
   search,
   index,

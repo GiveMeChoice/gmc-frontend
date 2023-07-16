@@ -34,9 +34,9 @@ const SearchChoiceBar: React.FC<Props> = ({
 
   return (
     <div
-      className={`flex flex-col border-black p-5 bg-${
+      className={`flex flex-col border-black bg-${
         getUserTheme(profile).modal
-      } h-full overflow-y-auto dark:border-white md:w-1/3 md:border-t-2 md:border-r-2 xl:w-1/4`}
+      } h-full  dark:border-white md:w-1/3  md:border-r-1.5 xl:w-1/4`}
       id="choice-bar-container"
     >
       <SearchChoiceBarSummary

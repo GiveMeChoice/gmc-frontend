@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "webpack server",
     "build": "webpack --mode production",
-    "start": "http-server ./dist --port 8080 -P http://localhost:8080?"
+    "start": "http-server ./apps/dashboard/dist --port 8080 -P http://localhost:8080?"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",

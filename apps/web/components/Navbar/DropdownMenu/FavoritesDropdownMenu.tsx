@@ -1,9 +1,7 @@
+import Image from 'next/image';
 import React from 'react';
-import { Theme } from '../../../lib/theme';
 import { DropdownMenuName } from '../DropdownMenu';
 import DropdownItemButton from './DropdownItemButton';
-import ThemeColorButton from './ThemeColorButton';
-import Image from 'next/image';
 
 interface Props {
   setActiveMenu: (name: DropdownMenuName) => void;
@@ -11,7 +9,7 @@ interface Props {
 
 const FavoritesDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
   return (
-    <ul className={`flex w-full flex-col gap-1 rounded-lg py-1.5`}>
+    <ul className={`flex w-full flex-col gap-1 rounded-lg py-1.5 px-2`}>
       <DropdownItemButton
         handleClick={() => {
           setActiveMenu(DropdownMenuName.MAIN);

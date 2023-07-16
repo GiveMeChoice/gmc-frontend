@@ -44,13 +44,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             logOut();
           } else {
             setProfile(profileDoc);
-            console.log('nav1');
             navigate('/');
           }
         });
       } else {
         setProfile(null);
-        console.log('nav2');
         if (!screensService.isActivePath('/login')) {
           navigate('/');
         }

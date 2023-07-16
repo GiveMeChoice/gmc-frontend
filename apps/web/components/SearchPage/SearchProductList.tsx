@@ -12,7 +12,7 @@ const SearchProductList: React.FC<Props> = ({ products, onProductSelect }) => {
     <>
       {products &&
         products.map((product, i) => (
-          <div className="flex w-full border-r-2 border-b-2 border-l-2 border-black dark:border-white md:border-l-0">
+          <div className="flex w-full border-r-1.5 border-b-1.5 border-l-1.5 border-black dark:border-white md:border-l-0">
             <LeadListProduct
               key={i}
               index={i}

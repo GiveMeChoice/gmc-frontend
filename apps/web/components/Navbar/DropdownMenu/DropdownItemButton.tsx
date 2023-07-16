@@ -19,10 +19,9 @@ const DropdownItemButton: React.FC<Props> = ({
 }) => {
   const { profile } = useUser();
   return (
-    <a
-      href="#"
+    <button
       onClick={handleClick}
-      className="flex h-14 w-full cursor-pointer items-center justify-between gap-4 rounded-lg px-2.5 text-sm transition-colors duration-150 ease-in-out hover:bg-zinc-800 hover:bg-opacity-10 active:bg-zinc-600 active:bg-opacity-20"
+      className="flex h-14 w-full cursor-pointer items-center justify-between gap-4 rounded-full px-4 text-sm transition-colors duration-150 ease-in-out hover:bg-secondary-dark-10  active:bg-secondary-dark-20"
     >
       <div className="flex items-center gap-3">
         <span
@@ -54,7 +53,7 @@ const DropdownItemButton: React.FC<Props> = ({
       >
         {rightIcon}
       </span>
-    </a>
+    </button>
   );
 };
 

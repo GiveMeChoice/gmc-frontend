@@ -1,5 +1,5 @@
 import ConfirmableButton from '@root/components/shared/confirmable-button';
-import FramedCountButton from '@root/components/shared/framed-count-button';
+import FramedButton from '@root/components/shared/framed-button';
 import {
   IFilters,
   initialFilters,
@@ -35,7 +35,7 @@ const ChannelButtonPanel: React.FC<Props> = ({ channel }) => {
     setChannelFilter();
     screenDataDispatch({
       type: 'SCREEN_REFRESH_RUNS',
-      value: { data: [], meta: {} },
+      value: { data: [], meta: { sort: 'runAt', direction: 'DESC' } },
     });
     navigate(runsService.runsScreenControl.pathname);
   };
@@ -65,24 +65,23 @@ const ChannelButtonPanel: React.FC<Props> = ({ channel }) => {
   };
 
   return (
-    <div className="bg-gmc flex h-full flex-col items-center justify-center gap-y-4">
-      <FramedCountButton
+    <>
+      <FramedButton
         title="Runs"
         count={channel.runCount}
         onClick={handleRunsClick}
       />
-      <FramedCountButton
+      <FramedButton
         title="Products"
         count={channel.productCount}
         onClick={handleProductsClick}
-        color="gmc-beach"
       />
       <ConfirmableButton
         title="Execute Run"
         disabled={!channel.active}
         onConfirm={() => handleExecuteRun(channel.id)}
       />
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import DiscoverFooter from '../components/DiscoverFooter';
-import GiveMeBar from '../components/GiveMeBar';
+import GiveMeBarHome from '../components/GiveMeBarHome';
 
 export default function Home() {
   return (

@@ -7,13 +7,11 @@ import axios from 'axios';
 import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
+import { IChannel } from './channels.service';
 
 export interface IRun {
   id: string;
-  runAt: Date;
-  runTime: number;
-  sourceDate: Date;
-  sourceId: string;
+  channelId: string;
   foundCount: number;
   ownedCount: number;
   createdCount: number;
@@ -24,12 +22,11 @@ export interface IRun {
   keepAliveSignalCount: number;
   refreshSignalCount: number;
   failureCount: number;
+  runAt: Date;
+  contentDate: Date;
+  runTime: number;
   errorMessage: string;
-  source: {
-    providerId?: string;
-    identifier?: string;
-    description?: string;
-  };
+  channel?: Partial<IChannel>;
 }
 
 const find = async (
@@ -48,14 +45,20 @@ const find = async (
 
 function extractRunFilters(filters: IFilters): Partial<IRun> {
   return {
-    source: {
-      ...(filters.channelId && {
-        identifier: filters.channelId,
-      }),
-      ...(filters.providerId && {
-        providerId: filters.providerId,
-      }),
-    },
+    ...(filters.channelId && {
+      channelId: filters.channelId,
+    }),
+    ...((filters.providerId ||
+      filters.merchantId ||
+      filters.merchantRegion) && {
+      channel: {
+        ...(filters.providerId && { providerId: filters.providerId }),
+        ...(filters.merchantId && { merchantId: filters.merchantId }),
+        ...(filters.merchantRegion && {
+          merchant: { region: filters.merchantRegion },
+        }),
+      },
+    }),
   };
 }
 

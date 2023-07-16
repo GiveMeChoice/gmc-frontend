@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import Image from 'next/image';
-import router from 'next/router';
 import React from 'react';
 import { auth } from '../../../lib/firebase';
 import { DropdownMenuName } from '../DropdownMenu';
@@ -9,9 +8,10 @@ import ProfileDropdownSection from './MainDropdownMenu/ProfileDropdownSection';
 
 interface Props {
   setActiveMenu: (name: DropdownMenuName) => void;
+  close: () => void;
 }
 
-const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
+const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu, close }) => {
   const handleSignOut = async () => {
     try {
       await auth.signOut();
@@ -21,29 +21,9 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
   };
 
   return (
-    <div className="pb-3">
-      <ProfileDropdownSection />
-      <div className="my-2 flex flex-col">
-        {/* <DropdownItemButton
-          handleClick={() => {
-            if (router.pathname === '/') {
-              router.reload();
-            } else {
-              router.push('/');
-            }
-          }}
-          leftIcon={
-            <Image
-              draggable={false}
-              src="/img/home.svg"
-              alt="Home Icon"
-              height={20}
-              width={20}
-            />
-          }
-        >
-          <span className="text-base">Home</span>
-        </DropdownItemButton> */}
+    <div className="bg-secondary pb-2.5">
+      <ProfileDropdownSection close={close} />
+      <div className="my-2 flex flex-col px-2">
         <DropdownItemButton
           handleClick={() => {
             setActiveMenu(DropdownMenuName.FAVORITES);
@@ -90,21 +70,22 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
       </div>
 
       <hr className="mb-2 border-black dark:border-white" />
-
-      <DropdownItemButton handleClick={handleSignOut} centered>
-        <div className="flex items-center gap-1">
-          <span className="text-base">Sign Out</span>
-          <div className="flex h-8 w-8 items-center justify-center rounded-full">
-            <Image
-              draggable={false}
-              src="/img/logout.svg"
-              alt="Logout Icon"
-              height={22}
-              width={22}
-            />
+      <div className="px-2">
+        <DropdownItemButton handleClick={handleSignOut} centered>
+          <div className="flex items-center gap-1">
+            <span className="text-base">Sign Out</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-full">
+              <Image
+                draggable={false}
+                src="/img/logout.svg"
+                alt="Logout Icon"
+                height={22}
+                width={22}
+              />
+            </div>
           </div>
-        </div>
-      </DropdownItemButton>
+        </DropdownItemButton>
+      </div>
     </div>
   );
 };

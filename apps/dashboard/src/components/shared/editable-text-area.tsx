@@ -43,7 +43,7 @@ const EditableTextArea: React.FC<Props> = ({
           `h-fit ${width} resize-none rounded-sm border p-1.5 pl-2.5 text-sm`,
           {
             'border-zinc-800 bg-white text-zinc-800': editing,
-            'border-zinc-400 bg-secondary-dark-10 bg-opacity-50 text-zinc-500':
+            'border-zinc-500 bg-secondary-dark-10 bg-opacity-50 text-zinc-500':
               !editing,
           }
         )}

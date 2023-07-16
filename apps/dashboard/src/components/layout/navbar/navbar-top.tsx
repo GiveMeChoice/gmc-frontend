@@ -11,15 +11,17 @@ const NavbarTop: React.FC = () => {
     } else if (
       screensService.getCurrentScreen().pathname.includes('/integration/')
     ) {
-      return 'Integration';
+      return 'Integration Settings';
     } else {
       return screensService.getCurrentScreen().title;
     }
   };
 
   return (
-    <div className="flex w-full items-center justify-between border-b-2 border-secondary bg-zinc-900 px-6 py-3 text-secondary lg:px-7 xl:px-16">
-      <h2 className="w-1/3 p-3  text-xl font-bold lg:text-2xl">{getTitle()}</h2>
+    <div className="flex h-20 w-full items-center justify-between border-b-2 border-secondary bg-zinc-900 px-6 text-secondary lg:px-7 xl:px-16">
+      <h2 className="w-1/3 whitespace-nowrap text-xl font-bold lg:text-2xl">
+        {getTitle()}
+      </h2>
       <div className="flex w-1/2 justify-center lg:w-1/2">
         <NavButtons />
       </div>

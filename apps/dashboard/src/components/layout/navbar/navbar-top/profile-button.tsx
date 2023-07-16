@@ -3,6 +3,7 @@ import { useAuth } from '@root/components/auth/auth.provider';
 import React, { useEffect, useState } from 'react';
 import DropdownMenu from './dropdown-menu';
 import cn from 'classnames';
+const AngleDownIcon = require('../../../../assets/images/angle-down.svg');
 
 const ProfileButton: React.FC = () => {
   const auth = useAuth();
@@ -15,22 +16,44 @@ const ProfileButton: React.FC = () => {
   }, [location.pathname]);
   return (
     <>
-      <img
+      <button
+        title="Menu"
+        className={cn(
+          `group flex h-10 w-10 items-center justify-center rounded-full border-1.5 border-secondary bg-secondary text-zinc-900 shadow-sm transition-transform duration-150 active:border-1.5`,
+          {
+            'bg-primary hover:scale-105 hover:opacity-90': !menuOpen,
+            'scale-105': menuOpen,
+          }
+        )}
         onClick={() => {
           setMenuOpen(!menuOpen);
         }}
-        src={auth.user.photoURL}
-        className={cn(
-          'mr-3 h-10 w-10 cursor-pointer rounded-full ring-2 ring-black ',
-          {
-            'opacity-70 ring-primary active:ring-white': menuOpen,
-            'ring-white hover:ring-primary': !menuOpen,
-          }
+      >
+        {menuOpen ? (
+          <img
+            className="absolute h-6 cursor-pointer rounded-full"
+            draggable={false}
+            src={AngleDownIcon}
+            alt="Angle Down"
+          />
+        ) : (
+          <>
+            {auth.user.photoURL ? (
+              <img
+                draggable={false}
+                className="rounded-full"
+                src={auth.user.photoURL}
+                referrerPolicy="no-referrer"
+                alt="profile photo"
+              />
+            ) : (
+              <span className="pb-0.5 text-2xl">
+                {auth.user.displayName ? auth.user.displayName[0] : 'U'}
+              </span>
+            )}
+          </>
         )}
-        height={96}
-        width={96}
-        alt="asdf"
-      />
+      </button>
       <DropdownMenu open={menuOpen} closeMenu={closeMenu} />
     </>
   );

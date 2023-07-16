@@ -37,50 +37,47 @@ const FiltersBar: React.FC<Props> = () => {
 
   return (
     <div
-      className={cn(
-        'z-10 h-full overflow-hidden border-l-secondary bg-zinc-900 duration-300',
-        {
-          'w-0 border-0': !filterBarVisible,
-          'w-128 border-l-2': filterBarVisible,
-        }
-      )}
+      className={cn('z-10 h-full overflow-hidden  bg-zinc-900 duration-300', {
+        'w-0 border-0': !filterBarVisible,
+        'w-128 border-l-2': filterBarVisible,
+      })}
     >
       <div
-        className={cn('flex flex-col justify-between border-b border-primary', {
-          flex: filterBarVisible,
-          hidden: !filterBarVisible,
-        })}
+        className={cn(
+          'flex h-20 flex-col justify-between border-b-2 border-secondary',
+          {
+            flex: filterBarVisible,
+            hidden: !filterBarVisible,
+          }
+        )}
       >
-        <h2 className="pt-5 pl-4 text-3xl text-primary">Filters</h2>
-        <div className="flex h-20 w-full flex-col items-center justify-center">
+        <div className="flex h-full w-full flex-col items-center justify-center whitespace-nowrap">
           {screenData.loading ? (
-            <LoadingWheel size="w-14 h-14" />
+            <LoadingWheel size="w-9 h-9" />
           ) : (
-            <>
-              <div className="flex w-full justify-evenly gap-2 px-2">
-                <button
-                  title="ctrl + c"
-                  className="flex h-10 w-2/5 flex-col items-center justify-center rounded-full border-3 border-gmc-heart bg-secondary py-0.5 text-base hover:bg-secondary-dark-10 active:bg-primary"
-                  onClick={() => {
-                    filtersDispatch({
-                      type: 'FILTERS_CLEAR',
-                    });
-                  }}
-                >
-                  <span>Clear Filters</span>
-                </button>
-                <button
-                  title="ctrl + r"
-                  className={cn(
-                    'flex h-10 w-2/5 flex-col items-center justify-center rounded-full border-3 border-gmc-forest-light-20 bg-secondary py-0.5 text-base hover:bg-secondary-dark-10 active:bg-primary',
-                    {}
-                  )}
-                  onClick={refreshData}
-                >
-                  <span>Refresh Data</span>
-                </button>
-              </div>
-            </>
+            <div className="flex w-full justify-evenly gap-2 px-2">
+              <button
+                title="ctrl + c"
+                className="flex h-9 w-2/5 flex-col items-center justify-center rounded-full border-2 border-gmc-heart bg-secondary py-0.5 text-xs hover:bg-secondary-dark-10 active:bg-secondary-dark-20"
+                onClick={() => {
+                  filtersDispatch({
+                    type: 'FILTERS_CLEAR',
+                  });
+                }}
+              >
+                <span>Clear Filters</span>
+              </button>
+              <button
+                title="ctrl + r"
+                className={cn(
+                  'flex h-9 w-2/5 flex-col items-center justify-center rounded-full border-2 border-gmc-forest-light-20 bg-secondary py-0.5 text-xs hover:bg-secondary-dark-10 active:bg-secondary-dark-20',
+                  {}
+                )}
+                onClick={refreshData}
+              >
+                <span>Refresh Data</span>
+              </button>
+            </div>
           )}
         </div>
       </div>

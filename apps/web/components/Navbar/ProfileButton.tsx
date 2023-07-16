@@ -6,7 +6,7 @@ import { getUserTheme } from '../../lib/theme';
 import { useUser } from '../UserProvider';
 import DropdownMenu from './DropdownMenu';
 
-const UserButton: React.FC = () => {
+const ProfileButton: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const closeMenu = () => {
     setMenuOpen(false);
@@ -65,4 +65,4 @@ const UserButton: React.FC = () => {
   );
 };
 
-export default UserButton;
+export default ProfileButton;

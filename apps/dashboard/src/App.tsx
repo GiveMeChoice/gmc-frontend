@@ -28,7 +28,7 @@ import providersService from './services/providers.service';
 import channelsService from './services/channels.service';
 import productsService from './services/products.service';
 import merchantCategoriesService from './services/merchant-categories.service';
-import MerchantLabelsScreen from './components/screens/merchant-labels-screens';
+import MerchantLabelsScreen from './components/screens/merchant-labels-screen';
 import merchantLabelsService from './services/merchant-labels.service';
 import merchantBrandsService from './services/merchant-brands.service';
 import merchantsService from './services/merchants.service';

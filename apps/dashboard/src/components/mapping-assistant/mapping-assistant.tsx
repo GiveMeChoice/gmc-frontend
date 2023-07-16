@@ -1,4 +1,5 @@
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
+import integrationService from '@root/services/integration.service';
 import productsService, { IProduct } from '@root/services/products.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
@@ -16,7 +17,7 @@ const MappingAssistant: React.FC = () => {
   const [extracted, setExtracted] = useState(null);
   const [canExtract, setCanExtract] = useState<NodeJS.Timeout>();
   const [extracting, setExtracting] = useState(false);
-  const [showExtracted, setShowExtracted] = useState(false);
+  const [showExtracted, setShowExtracted] = useState(true);
 
   const [mapped, setMapped] = useState(null);
   const [mappedLoading, setMappedLoading] = useState(false);
@@ -43,7 +44,7 @@ const MappingAssistant: React.FC = () => {
     });
     productsService.getOne(shortId).then((product) => {
       setProduct(product);
-      setProviderKey(product.provider.key);
+      setProviderKey(product.merchant.key);
     });
   }, [shortId]);
 
@@ -58,8 +59,8 @@ const MappingAssistant: React.FC = () => {
       clearTimeout(canExtract);
       setCanExtract(null);
       setExtracted(null);
-      productsService
-        .extract(shortId, true)
+      integrationService
+        .extractProduct(shortId, true)
         .then((data) => setExtracted(data))
         .finally(() => {
           setExtracting(false);
@@ -70,8 +71,8 @@ const MappingAssistant: React.FC = () => {
   const onRemap = () => {
     setMapped(null);
     setMappedLoading(true);
-    productsService
-      .map(shortId)
+    integrationService
+      .mapProduct(shortId, false)
       .then((data) => setMapped(data))
       .finally(() => setMappedLoading(false));
   };
@@ -87,8 +88,8 @@ const MappingAssistant: React.FC = () => {
       clearTimeout(canProductRefresh);
       setCanProductRefresh(null);
       setProduct(null);
-      productsService
-        .refresh(shortId)
+      integrationService
+        .refreshProduct(shortId, false)
         .then((data) => setProduct(data))
         .finally(() => {
           setProductRefreshing(false);
@@ -137,7 +138,7 @@ const MappingAssistant: React.FC = () => {
   };
 
   return (
-    <div className="flex h-full w-full max-w-full overflow-y-hidden overflow-x-scroll pb-8">
+    <div id="mapping-assistant" className="flex h-full w-full pb-8">
       <div className="flex w-1/12 flex-col items-center p-3 text-xs  text-primary">
         <div className="flex flex-col items-center space-y-0.5">
           <span className="text-xs font-bold">Provider</span>
@@ -246,35 +247,38 @@ const MappingAssistant: React.FC = () => {
             DATA DISPLAY
       */}
 
-      <div id="data-display" className="mr-80 flex h-full w-fit gap-2">
+      <div
+        id="data-display"
+        className="flex h-full gap-2 overflow-y-hidden overflow-x-scroll"
+      >
         {/* EXTRACTED */}
         <div
           className={cn(
-            'h-screen bg-zinc-800  text-xs transition-width duration-500 ease-in-out',
+            'h-full max-h-screen  bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
             {
               'w-128': showExtracted,
               'w-24': !showExtracted,
             }
           )}
         >
-          <div className="relative top-0 left-0 h-full w-full">
-            <div
-              className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
-              onClick={() => {
-                setShowExtracted(!showExtracted);
-              }}
-            >
-              <span className="p-2">EXTRACTED</span>{' '}
-              {showExtracted && (
-                <CopyIdButton id={shortId + '-extracted'} content={extracted} />
-              )}
-            </div>
+          <div
+            className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
+            onClick={() => {
+              setShowExtracted(!showExtracted);
+            }}
+          >
+            <span className="p-2">EXTRACTED</span>{' '}
+            {showExtracted && (
+              <CopyIdButton id={shortId + '-extracted'} content={extracted} />
+            )}
+          </div>
+          <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
             {showExtracted && (
               <JSONPretty
                 id="json-pretty"
                 data={extracted ? extracted : { loading: extracting }}
-                mainStyle="padding:1em"
-                style={{ height: '100%', overflowY: 'auto' }}
+                mainStyle="padding:1em;padding-bottom:7em"
+                style={{ height: '100%', paddingBottom: '25px' }}
               />
             )}
           </div>
@@ -282,30 +286,30 @@ const MappingAssistant: React.FC = () => {
         {/* MAPPED */}
         <div
           className={cn(
-            'h-full max-h-screen bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
+            'h-full max-h-screen  bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
             {
               'w-128': showMapped,
               'w-24': !showMapped,
             }
           )}
         >
-          <div className="relative top-0 left-0 h-full w-full">
-            <div
-              className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
-              onClick={() => {
-                setShowMapped(!showMapped);
-              }}
-            >
-              <span className="p-2">MAPPED</span>{' '}
-              {showMapped && (
-                <CopyIdButton id={shortId + '-mapped'} content={mapped} />
-              )}
-            </div>
+          <div
+            className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
+            onClick={() => {
+              setShowMapped(!showMapped);
+            }}
+          >
+            <span className="p-2">MAPPED</span>{' '}
+            {showMapped && (
+              <CopyIdButton id={shortId + '-mapped'} content={mapped} />
+            )}
+          </div>
+          <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
             {showMapped && (
               <JSONPretty
                 id="json-pretty"
                 data={mapped ? mapped : { loading: mappedLoading }}
-                mainStyle="padding:1em"
+                mainStyle="padding:1em;padding-bottom:7em"
                 style={{ height: '100%', overflowY: 'auto' }}
               />
             )}
@@ -321,24 +325,24 @@ const MappingAssistant: React.FC = () => {
             }
           )}
         >
-          <div className="relative top-0 left-0 h-full w-full">
-            <div
-              className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
-              onClick={() => {
-                setShowProduct(!showProduct);
-              }}
-            >
-              <span className="p-2">PRODUCT</span>{' '}
-              {showProduct && (
-                <CopyIdButton id={shortId + '-loaded'} content={product} />
-              )}
-            </div>
+          <div
+            className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
+            onClick={() => {
+              setShowProduct(!showProduct);
+            }}
+          >
+            <span className="p-2">LIVE PRODUCT</span>{' '}
+            {showProduct && (
+              <CopyIdButton id={shortId + '-loaded'} content={product} />
+            )}
+          </div>
+          <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
             {showProduct && (
               <JSONPretty
                 id="json-pretty"
                 data={product ? product : { loading: productRefreshing }}
-                mainStyle="padding:1em"
-                style={{ height: '100%', overflowY: 'auto' }}
+                mainStyle="padding:1em;padding-bottom:7em"
+                style={{ height: '100%' }}
               />
             )}
           </div>
@@ -346,35 +350,35 @@ const MappingAssistant: React.FC = () => {
         {/* INDEXABLE MAP */}
         <div
           className={cn(
-            'h-full max-h-screen bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
+            'h-full max-h-screen  bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
             {
               'w-128': showIndexable,
               'w-24': !showIndexable,
             }
           )}
         >
-          <div className="relative top-0 left-0 h-full w-full">
-            <div
-              className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
-              onClick={() => {
-                setShowIndexable(!showIndexable);
-              }}
-            >
-              <span className="p-2">Indexable Map</span>{' '}
-              {showIndexable && (
-                <CopyIdButton
-                  id={shortId + '-indexable'}
-                  content={indexableMap}
-                />
-              )}
-            </div>
+          <div
+            className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
+            onClick={() => {
+              setShowIndexable(!showIndexable);
+            }}
+          >
+            <span className="p-2">Mapped (INDEX)</span>{' '}
+            {showIndexable && (
+              <CopyIdButton
+                id={shortId + '-indexable'}
+                content={indexableMap}
+              />
+            )}
+          </div>
+          <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
             {showIndexable && (
               <JSONPretty
                 id="json-pretty"
                 data={
                   indexableMap ? indexableMap : { loading: mappingIndexable }
                 }
-                mainStyle="padding:1em"
+                mainStyle="padding:1em;padding-bottom:7em"
                 style={{ height: '100%', overflowY: 'auto' }}
               />
             )}
@@ -384,28 +388,28 @@ const MappingAssistant: React.FC = () => {
         {/* CURRENTLY INDEXED */}
         <div
           className={cn(
-            'h-full max-h-screen bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
+            'h-full max-h-screen  bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
             {
               'w-128': showIndexedProduct,
               'w-24': !showIndexedProduct,
             }
           )}
         >
-          <div className="relative top-0 left-0 h-full w-full">
-            <div
-              className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
-              onClick={() => {
-                setShowIndexedProduct(!showIndexedProduct);
-              }}
-            >
-              <span className="p-2">Currently Indexed</span>
-              {showIndexedProduct && (
-                <CopyIdButton
-                  id={shortId + '-indexed-product'}
-                  content={indexedProduct}
-                />
-              )}
-            </div>
+          <div
+            className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
+            onClick={() => {
+              setShowIndexedProduct(!showIndexedProduct);
+            }}
+          >
+            <span className="p-2">LIVE INDEXED</span>
+            {showIndexedProduct && (
+              <CopyIdButton
+                id={shortId + '-indexed-product'}
+                content={indexedProduct}
+              />
+            )}
+          </div>
+          <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
             {showIndexedProduct && (
               <JSONPretty
                 id="json-pretty"
@@ -414,7 +418,7 @@ const MappingAssistant: React.FC = () => {
                     ? indexedProduct
                     : { loading: reindexingProduct }
                 }
-                mainStyle="padding:1em"
+                mainStyle="padding:1em;padding-bottom:7em"
                 style={{ height: '100%', overflowY: 'auto' }}
               />
             )}

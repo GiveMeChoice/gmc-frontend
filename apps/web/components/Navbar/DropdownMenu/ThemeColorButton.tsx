@@ -48,7 +48,7 @@ const ThemeColorButton: React.FC<Props> = ({ color, theme, title }) => {
     >
       <div
         className={cn('h-full w-full rounded-full', {
-          'border-2 border-primary': isActive(),
+          'border-1.5 border-primary': isActive(),
         })}
       />
     </div>

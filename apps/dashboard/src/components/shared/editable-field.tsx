@@ -43,9 +43,9 @@ const EditableField: React.FC<Props> = ({
     <div className="flex w-full items-center gap-x-2">
       <span className="w-16 text-xs">{title}</span>
       <input
-        className={cn(`h-fit ${width} rounded-sm border p-1 pl-2 text-sm`, {
+        className={cn(`h-fit ${width} rounded-sm border p-1 pl-2 text-xs`, {
           'border-zinc-800 bg-white text-zinc-800': editing,
-          'border-zinc-400 bg-secondary-dark-10 bg-opacity-50 text-zinc-500':
+          'border-zinc-500 bg-secondary-dark-10 bg-opacity-50 text-zinc-500':
             !editing,
         })}
         type={fieldType}

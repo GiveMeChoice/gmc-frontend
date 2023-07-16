@@ -14,7 +14,7 @@ const ChannelLastRunDate: React.FC<Props> = ({
   active,
 }) => {
   return (
-    <div className="flex w-full flex-col items-center gap-y-2 border-t border-zinc-500 pt-4 text-xs">
+    <div className="flex w-full flex-col items-center gap-y-2 text-xs">
       <div className="flex w-56 flex-col items-center justify-center gap-y-1">
         {lastRunAt ? (
           <>

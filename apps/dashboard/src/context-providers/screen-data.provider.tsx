@@ -292,10 +292,10 @@ export const initialData: IScreenData = {
   merchants: [],
   merchantsMeta: { sort: 'key', direction: 'ASC' },
   merchantLabels: [],
-  merchantLabelsMeta: { sort: 'code', direction: 'ASC' },
+  merchantLabelsMeta: { sort: 'merchantLabelCode', direction: 'ASC' },
   merchantCategories: [],
-  merchantCategoriesMeta: { sort: 'code', direction: 'ASC' },
+  merchantCategoriesMeta: { sort: 'merchantCategoryCode', direction: 'ASC' },
   merchantBrands: [],
-  merchantBrandsMeta: { sort: 'code', direction: 'ASC' },
+  merchantBrandsMeta: { sort: 'merchantBrandCode', direction: 'ASC' },
   previewProduct: null,
 };

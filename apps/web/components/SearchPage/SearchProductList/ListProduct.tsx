@@ -17,14 +17,14 @@ const ListProduct: React.FC<Props> = ({ index, product, selectProduct }) => {
       onClick={() => selectProduct(index)}
     >
       <div
-        className={`hidden w-1/4 items-center justify-center border-r-2 border-black text-5xl dark:border-white bg-${
+        className={`hidden w-1/4 items-center justify-center border-r-1.5 border-black text-5xl dark:border-white bg-${
           getUserTheme(profile).modal
         } group-hover:bg-primary md:flex`}
       >
         {index + 1}
       </div>
       <div
-        className={`w-1/2 border-r-2 border-black dark:border-white bg-${
+        className={`w-1/2 border-r-1.5 border-black dark:border-white bg-${
           getUserTheme(profile).accent
         }`}
       >
@@ -49,7 +49,7 @@ const ListProduct: React.FC<Props> = ({ index, product, selectProduct }) => {
       </div>
 
       <div className="flex w-1/2 flex-col overflow-hidden md:w-1/4">
-        <div className="flex h-1/3 w-full items-center justify-center border-b-2 border-black bg-opacity-80 text-4xl group-hover:bg-primary dark:border-white md:hidden md:border-r-2">
+        <div className="flex h-1/3 w-full items-center justify-center border-b-1.5 border-black bg-opacity-80 text-4xl group-hover:bg-primary dark:border-white md:hidden md:border-r-1.5">
           {index + 1}
         </div>
         <div

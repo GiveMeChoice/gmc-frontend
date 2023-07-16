@@ -15,14 +15,16 @@ export interface IFilters {
   channelId?: string;
   channelActivation?: string;
   channelStatus?: string;
-  productShortId?: string;
-  productProviderId?: string;
+  gmcProductId?: string;
+  merchantProductCode?: string;
   productStatus?: string;
-  productIntegrationError?: boolean;
-  providerLabelCode?: string;
-  labelGroupId?: string;
-  providerCategoryCode?: string;
-  categoryId?: string;
+  productError?: boolean;
+  merchantLabelCode?: string;
+  gmcLabelId?: string;
+  labelUnassigned?: boolean;
+  merchantCategoryCode?: string;
+  gmcCategoryId?: string;
+  categoryUnassigned?: boolean;
 }
 
 export type FiltersContextType = {
@@ -68,13 +70,13 @@ export const initialFilters: IFilters = {
   channelActivation: '',
   channelStatus: '',
   productStatus: '',
-  productShortId: '',
-  productProviderId: '',
-  productIntegrationError: false,
-  providerLabelCode: '',
-  labelGroupId: '',
-  providerCategoryCode: '',
-  categoryId: '',
+  gmcProductId: '',
+  merchantProductCode: '',
+  productError: false,
+  merchantLabelCode: '',
+  gmcLabelId: '',
+  merchantCategoryCode: '',
+  gmcCategoryId: '',
 };
 
 const FiltersContext = createContext<FiltersContextType>(null);

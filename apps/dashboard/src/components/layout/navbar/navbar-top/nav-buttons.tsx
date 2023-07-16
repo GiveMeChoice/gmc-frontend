@@ -26,11 +26,11 @@ const NavButtons: React.FC = () => {
     <div className="mt-1 flex space-x-2">
       <button
         className={cn(
-          'flex h-9 w-20 items-center justify-center rounded-md border-2 p-3 pb-3.5 text-5xl',
+          'flex h-9 w-20 items-center justify-center rounded-full border-1.5 p-3 pb-3.5 text-5xl',
           {
             'border-secondary-dark-40 bg-inherit bg-zinc-600 text-secondary-dark-40':
               history.state && history.state.key === rootKey,
-            'border-secondary text-white hover:bg-gmc-soil active:bg-gmc-soil-dark-10':
+            'border-secondary text-white hover:bg-zinc-800 active:border-primary active:bg-opacity-50':
               !history.state || history.state.key !== rootKey,
           }
         )}
@@ -41,11 +41,11 @@ const NavButtons: React.FC = () => {
       </button>
       <button
         className={cn(
-          'flex h-9 w-20 items-center justify-center rounded-md border-2 p-3 pb-3.5 text-5xl',
+          'flex h-9 w-20 items-center justify-center rounded-full border-1.5 p-3 pb-3.5 text-5xl',
           {
             'border-secondary-dark-40 bg-inherit bg-zinc-600 text-secondary-dark-40':
               history.state && history.state.idx === maxIdx,
-            'border-secondary text-white hover:bg-gmc-soil active:bg-gmc-soil-dark-10':
+            'border-secondary text-white hover:bg-zinc-800 active:border-primary active:bg-opacity-50':
               history.state && history.state.idx < maxIdx,
           }
         )}

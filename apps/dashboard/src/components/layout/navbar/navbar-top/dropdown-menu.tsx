@@ -52,7 +52,7 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     <div
       id="dropdown-menu"
       className={cn(
-        `dropdown-menu transition-height absolute top-20 z-50 max-h-fit w-80 max-w-full overflow-hidden rounded-md border border-black bg-secondary text-black shadow-xl duration-300 ease-in-out`,
+        `dropdown-menu transition-height absolute top-20 z-50 max-h-fit w-80 max-w-full overflow-hidden rounded-md border-1.5 border-black bg-secondary text-black shadow-xl duration-300 ease-in-out`,
         {
           'pointer-events-none -z-10 h-0 opacity-0': !open,
         }

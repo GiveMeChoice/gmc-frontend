@@ -51,16 +51,16 @@ const SearchChoiceBarFacets: React.FC<Props> = ({
   };
 
   return (
-    <div className="h-full overflow-y-auto border-t border-black">
+    <div className="h-full overflow-y-auto">
       {facets && (
-        <div id="choice-bar-facets" className="flex flex-col pb-32">
+        <div id="choice-bar-facets" className="flex h-full flex-col px-5 pb-32">
           {facets.stores && facets.stores.length > 0 && (
             <>
               {/* 
             STORES
         */}
               <span className="pt-3 text-lg font-bold">Stores</span>
-              <div className="flex flex-col px-2 text-sm">
+              <div className="text-md flex flex-col px-2">
                 {facets.stores.map((store) => (
                   <div className="flex items-center gap-x-1">
                     {activeFilters.store === store.value && (
@@ -96,7 +96,7 @@ const SearchChoiceBarFacets: React.FC<Props> = ({
             CATEGORIES
         */}
               <span className="pt-3 text-lg font-bold">Categories</span>
-              <div className="flex flex-col px-2 text-sm">
+              <div className="text-md flex flex-col px-2">
                 {facets.categories
                   .sort((a, b) => (a.value > b.value ? 1 : -1))
                   .map((categoryFacet) => (
@@ -246,7 +246,7 @@ const SearchChoiceBarFacets: React.FC<Props> = ({
             LABELS
         */}
               <span className="pt-3 text-lg font-bold">Labels</span>
-              <div className="flex flex-col px-2 text-sm">
+              <div className="text-md flex flex-col px-2">
                 {facets.labels
                   .sort((a, b) => (a.value > b.value ? 1 : -1))
                   .map((labelFacet) => (
@@ -330,7 +330,7 @@ const SearchChoiceBarFacets: React.FC<Props> = ({
             facets.priceRanges.find((pr) => pr.count > 0) && (
               <>
                 <span className="pt-3 text-lg font-bold">Price</span>
-                <div className="flex flex-col px-2 text-sm">
+                <div className="text-md flex flex-col px-2">
                   {facets.priceRanges.find(
                     (pr) => pr.count > 0 && pr.priceRange === 'cheap'
                   ) && (
@@ -452,7 +452,7 @@ const SearchChoiceBarFacets: React.FC<Props> = ({
             BRANDS
         */}
               <span className="pt-3 text-lg font-bold">Brands</span>
-              <div className="flex flex-col px-2 text-sm">
+              <div className="text-md flex flex-col px-2">
                 {facets.brands.map((brand) => (
                   <div className="flex items-center gap-x-1">
                     {activeFilters.brand &&

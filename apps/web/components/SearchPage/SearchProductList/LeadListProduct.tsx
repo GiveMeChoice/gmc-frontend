@@ -26,12 +26,12 @@ const LeadListProduct: React.FC<Props> = ({
         <div className="flex h-full w-3/5 flex-col">
           {/* product title box */}
           <div
-            className={`hidden h-fit w-full border-b-2 border-black  dark:border-white md:flex bg-${
+            className={`hidden h-fit w-full border-b-1.5 border-black  dark:border-white md:flex bg-${
               getUserTheme(profile).base
             }`}
           >
             <div
-              className={`flex aspect-square h-24 max-h-full items-center justify-center border-r-2 border-black bg-${
+              className={`flex aspect-square h-24 max-h-full items-center justify-center border-r-1.5 border-black bg-${
                 getUserTheme(profile).modal
               } text-4xl duration-100 group-hover:bg-primary`}
             >
@@ -50,11 +50,11 @@ const LeadListProduct: React.FC<Props> = ({
 
         {/* image */}
         <div
-          className={`group relative flex max-h-full w-2/5  flex-col items-start justify-center border-l-2 border-black bg-white`}
+          className={`group relative flex max-h-full w-2/5  flex-col items-start justify-center border-l-1.5 border-black bg-white`}
         >
           <div className="flex h-full items-center py-2">
             <img
-              src={product.images.list.url}
+              src={product.images && product.images.list.url}
               className="absolute h-auto max-h-full w-auto transition-transform duration-500"
             />
           </div>
@@ -65,7 +65,7 @@ const LeadListProduct: React.FC<Props> = ({
           >
             <img
               draggable={false}
-              src="/img/magnify.svg"
+              src="/img/search.svg"
               alt="Magnify Icon"
               className="h-1/2"
             />
