@@ -8,6 +8,8 @@ import 'react-json-pretty/themes/monikai.css';
 import { useParams } from 'react-router-dom';
 import CopyIdButton from '../shared/copy-id-button';
 import LoadingWheel from '../shared/loading-wheel';
+import { ProductDocument } from 'gmc-types';
+import productDocumentsService from '@root/services/product-documents.service';
 
 const MappingAssistant: React.FC = () => {
   const { shortId } = useParams();
@@ -28,24 +30,26 @@ const MappingAssistant: React.FC = () => {
   const [productRefreshing, setProductRefreshing] = useState(false);
   const [showProduct, setShowProduct] = useState(true);
 
-  const [indexableMap, setIndexableMap] = useState<any>(null);
-  const [canMapIndexable, setCanMapIndexable] = useState<NodeJS.Timeout>();
-  const [mappingIndexable, setMappingIndexable] = useState(false);
-  const [showIndexable, setShowIndexable] = useState(false);
+  const [mappedDocument, setMappedDocument] = useState<ProductDocument>(null);
+  const [canMapDocument, setCanMapDocument] = useState<NodeJS.Timeout>();
+  const [mappingDocument, setMappingDocument] = useState(false);
+  const [showMappedDocument, setShowMappedDocument] = useState(false);
 
-  const [indexedProduct, setIndexedProduct] = useState<any>(null);
-  const [canReindexProduct, setCanReindexProduct] = useState<NodeJS.Timeout>();
-  const [reindexingProduct, setReindexingProduct] = useState(false);
-  const [showIndexedProduct, setShowIndexedProduct] = useState(true);
+  const [productDocument, setProductDocument] = useState<ProductDocument>(null);
+  const [canIndexProduct, setCanIndexProduct] = useState<NodeJS.Timeout>();
+  const [indexingProduct, setIndexingProduct] = useState(false);
+  const [showProductDocument, setShowProductDocument] = useState(true);
 
   useEffect(() => {
-    productsService.getCurrentlyIndexed(shortId).then((indexed) => {
-      setIndexedProduct(indexed);
-    });
-    productsService.getOne(shortId).then((product) => {
-      setProduct(product);
-      setProviderKey(product.merchant.key);
-    });
+    if (shortId) {
+      productDocumentsService.getOne(shortId).then((document) => {
+        setProductDocument(document);
+      });
+      productsService.getOne(shortId).then((product) => {
+        setProduct(product);
+        setProviderKey(product.merchant.key);
+      });
+    }
   }, [shortId]);
 
   const onExtract = () => {
@@ -97,42 +101,42 @@ const MappingAssistant: React.FC = () => {
     }
   };
 
-  const onMapIndexable = () => {
-    if (!canMapIndexable) {
+  const onMapDocument = () => {
+    if (!canMapDocument) {
       const timeout = setTimeout(() => {
-        setCanMapIndexable(null);
+        setCanMapDocument(null);
       }, 2000);
-      setCanMapIndexable(timeout);
+      setCanMapDocument(timeout);
     } else {
-      setMappingIndexable(true);
-      clearTimeout(canMapIndexable);
-      setCanMapIndexable(null);
-      setIndexableMap(null);
-      productsService
-        .mapToIndexable(shortId)
-        .then((data) => setIndexableMap(data))
+      setMappingDocument(true);
+      clearTimeout(canMapDocument);
+      setCanMapDocument(null);
+      setMappedDocument(null);
+      productDocumentsService
+        .map(shortId)
+        .then((doc) => setMappedDocument(doc))
         .finally(() => {
-          setMappingIndexable(false);
+          setMappingDocument(false);
         });
     }
   };
 
-  const onReindex = () => {
-    if (!canReindexProduct) {
+  const onIndex = () => {
+    if (!canIndexProduct) {
       const timeout = setTimeout(() => {
-        setCanReindexProduct(null);
+        setCanIndexProduct(null);
       }, 2000);
-      setCanReindexProduct(timeout);
+      setCanIndexProduct(timeout);
     } else {
-      setReindexingProduct(true);
-      clearTimeout(canReindexProduct);
-      setCanReindexProduct(null);
-      setIndexedProduct(null);
-      productsService
+      setIndexingProduct(true);
+      clearTimeout(canIndexProduct);
+      setCanIndexProduct(null);
+      setProductDocument(null);
+      productDocumentsService
         .index(shortId)
-        .then((data) => setIndexedProduct(data))
+        .then((doc) => setProductDocument(doc))
         .finally(() => {
-          setReindexingProduct(false);
+          setIndexingProduct(false);
         });
     }
   };
@@ -176,7 +180,7 @@ const MappingAssistant: React.FC = () => {
           className="mt-8 h-16 w-full rounded-md border-2 border-gmc-surf px-2  py-1 text-xs text-secondary hover:bg-zinc-700 active:bg-gmc-surf active:bg-opacity-50"
           onClick={onRemap}
         >
-          REMAP SOURCE
+          REMAP PRODUCT
         </button>
         {/* REFRESH BUTTON  */}
         <button
@@ -205,19 +209,19 @@ const MappingAssistant: React.FC = () => {
             'mt-8 flex h-16 w-20 items-center justify-center rounded-md border-2 px-2 text-xs text-secondary active:bg-opacity-50',
             {
               'border-gmc-surf hover:bg-zinc-700 active:bg-gmc-surf':
-                !canMapIndexable,
-              'border-gmc-heart bg-gmc-heart bg-opacity-20': canMapIndexable,
+                !canMapDocument,
+              'border-gmc-heart bg-gmc-heart bg-opacity-20': canMapDocument,
             }
           )}
-          onClick={onMapIndexable}
-          disabled={mappingIndexable}
+          onClick={onMapDocument}
+          disabled={mappingDocument}
         >
-          {mappingIndexable ? (
+          {mappingDocument ? (
             <div className="">
               <LoadingWheel size="w-8" />
             </div>
           ) : (
-            `${canMapIndexable ? 'CONFIRM' : 'MAP INDEXABLE'}`
+            `${canMapDocument ? 'CONFIRM' : 'MAP DOCUMENT'}`
           )}
         </button>
         {/* REINDEX BUTTON  */}
@@ -226,19 +230,19 @@ const MappingAssistant: React.FC = () => {
             'mt-8 flex h-16 w-20 items-center justify-center rounded-md border-2 px-2 text-xs text-secondary active:bg-opacity-50',
             {
               'border-gmc-sunset hover:bg-zinc-700 active:bg-gmc-sunset':
-                !canReindexProduct,
-              'border-gmc-heart bg-gmc-heart bg-opacity-20': canReindexProduct,
+                !canIndexProduct,
+              'border-gmc-heart bg-gmc-heart bg-opacity-20': canIndexProduct,
             }
           )}
-          onClick={onReindex}
-          disabled={reindexingProduct}
+          onClick={onIndex}
+          disabled={indexingProduct}
         >
-          {reindexingProduct ? (
+          {indexingProduct ? (
             <div className="">
               <LoadingWheel size="w-8" />
             </div>
           ) : (
-            `${canReindexProduct ? 'CONFIRM' : 'REINDEX'}`
+            `${canIndexProduct ? 'CONFIRM' : 'REINDEX'}`
           )}
         </button>
       </div>
@@ -352,31 +356,31 @@ const MappingAssistant: React.FC = () => {
           className={cn(
             'h-full max-h-screen  bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
             {
-              'w-128': showIndexable,
-              'w-24': !showIndexable,
+              'w-128': showMappedDocument,
+              'w-24': !showMappedDocument,
             }
           )}
         >
           <div
             className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
             onClick={() => {
-              setShowIndexable(!showIndexable);
+              setShowMappedDocument(!showMappedDocument);
             }}
           >
-            <span className="p-2">Mapped (INDEX)</span>{' '}
-            {showIndexable && (
+            <span className="p-2">MAPPED DOCUMENT</span>{' '}
+            {showMappedDocument && (
               <CopyIdButton
                 id={shortId + '-indexable'}
-                content={indexableMap}
+                content={mappedDocument}
               />
             )}
           </div>
           <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
-            {showIndexable && (
+            {showMappedDocument && (
               <JSONPretty
                 id="json-pretty"
                 data={
-                  indexableMap ? indexableMap : { loading: mappingIndexable }
+                  mappedDocument ? mappedDocument : { loading: mappingDocument }
                 }
                 mainStyle="padding:1em;padding-bottom:7em"
                 style={{ height: '100%', overflowY: 'auto' }}
@@ -390,33 +394,33 @@ const MappingAssistant: React.FC = () => {
           className={cn(
             'h-full max-h-screen  bg-zinc-800 text-xs transition-width duration-500 ease-in-out',
             {
-              'w-128': showIndexedProduct,
-              'w-24': !showIndexedProduct,
+              'w-128': showProductDocument,
+              'w-24': !showProductDocument,
             }
           )}
         >
           <div
             className="flex h-12 cursor-pointer items-center justify-center space-x-1 bg-secondary pl-2 font-bold"
             onClick={() => {
-              setShowIndexedProduct(!showIndexedProduct);
+              setShowProductDocument(!showProductDocument);
             }}
           >
-            <span className="p-2">LIVE INDEXED</span>
-            {showIndexedProduct && (
+            <span className="p-2">LIVE DOCUMENT</span>
+            {showProductDocument && (
               <CopyIdButton
                 id={shortId + '-indexed-product'}
-                content={indexedProduct}
+                content={productDocument}
               />
             )}
           </div>
           <div className="relative top-0 left-0 h-full w-full overflow-y-scroll">
-            {showIndexedProduct && (
+            {showProductDocument && (
               <JSONPretty
                 id="json-pretty"
                 data={
-                  indexedProduct
-                    ? indexedProduct
-                    : { loading: reindexingProduct }
+                  productDocument
+                    ? productDocument
+                    : { loading: indexingProduct }
                 }
                 mainStyle="padding:1em;padding-bottom:7em"
                 style={{ height: '100%', overflowY: 'auto' }}

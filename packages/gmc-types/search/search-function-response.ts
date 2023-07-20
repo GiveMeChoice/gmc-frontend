@@ -1,10 +1,10 @@
-import { SearchProductDto } from './product/search-product.dto';
+import { ProductDocument } from './document/product.document';
 
 export interface SearchFunctionResponseDto {
   hits: number;
   page?: number;
   pageSize?: number;
-  data?: SearchProductDto[];
+  data?: ProductDocument[];
   error?: string;
   facets?: SearchFunctionFacetsDto;
 }

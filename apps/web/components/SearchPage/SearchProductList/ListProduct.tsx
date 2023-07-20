@@ -1,11 +1,11 @@
-import { SearchProductDto } from 'gmc-types';
+import { ProductDocument } from 'gmc-types';
 import React from 'react';
 import { getUserTheme } from '../../../lib/theme';
 import { useUser } from '../../UserProvider';
 
 interface Props {
   index: number;
-  product: SearchProductDto;
+  product: ProductDocument;
   selectProduct: (i) => void;
 }
 

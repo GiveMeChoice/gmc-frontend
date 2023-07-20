@@ -1,16 +1,26 @@
 import cn from 'classnames';
-import { SearchProductDto } from 'gmc-types';
-import React from 'react';
+import {
+  ImageDocument,
+  MerchantLabelDocument,
+  ProductDocument,
+} from 'gmc-types';
+import React, { useEffect, useState } from 'react';
 import { getUserTheme } from '../../../lib/theme';
 import { useUser } from '../../UserProvider';
 
 interface Props {
   index: number;
-  product: SearchProductDto;
+  product: ProductDocument;
   isLast: boolean;
   nextProduct: () => void;
   prevProduct: () => void;
 }
+
+type FlatLabel = {
+  merchantLabel: MerchantLabelDocument;
+  type: string;
+  name: string;
+};
 
 const ComparableProduct: React.FC<Props> = ({
   index,
@@ -19,7 +29,31 @@ const ComparableProduct: React.FC<Props> = ({
   nextProduct,
   prevProduct,
 }) => {
+  const [images, setImages] = useState<ImageDocument[]>([]);
   const { profile } = useUser();
+  const [labels, setLabels] = useState<FlatLabel[]>([]);
+  const [labelGroups, setLabelGroups] = useState<string[]>([]);
+
+  useEffect(() => {
+    const flatLabels: FlatLabel[] = product.labels.map((label) => ({
+      merchantLabel: label.merchantLabel,
+      type: label.gmcLabel.name,
+      name: !label.gmcLabel.sublabel
+        ? label.gmcLabel.name
+        : !label.gmcLabel.sublabel.sublabel
+        ? label.gmcLabel.sublabel.name
+        : label.gmcLabel.sublabel.sublabel.name,
+    }));
+    setLabels(flatLabels);
+    setLabelGroups(
+      product.labels
+        .map((l) => l.gmcLabel.name)
+        .filter(onlyUnique)
+        .sort()
+    );
+    setImages(product.images.filter((img) => img.type === 'DETAIL'));
+  }, [product]);
+
   return (
     <div className="flex h-full w-full flex-col">
       <div className="flex w-full border-b-1.5 border-black dark:border-white">
@@ -83,19 +117,41 @@ const ComparableProduct: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className="flex w-full border-b-1.5 border-black dark:border-white">
-        <div className="flex aspect-[4/5] w-1/5 items-center justify-center border-r-1.5 border-black px-1.5 dark:border-white">
+      <div className="flex w-full divide-x-1.5 divide-black border-b-1.5 border-black dark:border-white">
+        <div className="flex h-full w-1/4 flex-col divide-y-1.5 divide-black">
+          {labelGroups.map((group) => (
+            <div className="p-2">
+              {group}
+              <div className="flex flex-col">
+                {labels
+                  .filter((l) => l.type === group)
+                  .map((label) => (
+                    <span className="">
+                      {label.name}
+                      {'->'}
+                      {label.merchantLabel.name}
+                    </span>
+                  ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <span className="h-full w-2/5 overflow-y-auto p-4 text-sm dark:border-white">
+          {product.description}
+        </span>
+        <div className="flex aspect-[4/5] w-1/5 items-center justify-center px-1.5 dark:border-white">
           <img
-            src={product.images.detail.url}
+            src={images.length ? images[0].url : ''}
             className="block h-auto w-auto rounded-xl"
           />
         </div>
-        <span className="h-full w-2/5 overflow-y-auto border-r-1.5 border-black p-4 text-sm dark:border-white">
-          {product.description}
-        </span>
       </div>
     </div>
   );
 };
 
 export default ComparableProduct;
+
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}

@@ -9,7 +9,7 @@ import { defineString } from 'firebase-functions/params';
 import {
   SearchFunctionRequestDto,
   SearchFunctionResponseDto,
-  SearchProductDto,
+  ProductDocument,
 } from 'gmc-types';
 
 const elasticNode = defineString('ELASTIC_NODE');
@@ -66,7 +66,7 @@ export const searchFunction = https.onCall(
     if (req.filters.region) {
       filter.push({
         match_phrase: {
-          region: req.filters.region,
+          'merchant.region': req.filters.region,
         },
       });
     }
@@ -122,7 +122,7 @@ export const searchFunction = https.onCall(
                 path: 'labels',
                 query: {
                   match_phrase: {
-                    'labels.group.sublabel.sublabel.name.keyword':
+                    'labels.gmcLabel.sublabel.sublabel.name.keyword':
                       labelFilter.subfilter.subfilter.value,
                   },
                 },
@@ -134,7 +134,7 @@ export const searchFunction = https.onCall(
                 path: 'labels',
                 query: {
                   match_phrase: {
-                    'labels.group.sublabel.name.keyword':
+                    'labels.gmcLabel.sublabel.name.keyword':
                       labelFilter.subfilter.value,
                   },
                 },
@@ -147,7 +147,7 @@ export const searchFunction = https.onCall(
               path: 'labels',
               query: {
                 match_phrase: {
-                  'labels.group.name.keyword': labelFilter.value,
+                  'labels.gmcLabel.name.keyword': labelFilter.value,
                 },
               },
             },
@@ -253,14 +253,14 @@ export const searchFunction = https.onCall(
           },
           aggs: {
             label: {
-              terms: { field: 'labels.group.name.keyword', size: 20 },
+              terms: { field: 'labels.gmcLabel.name.keyword', size: 20 },
               aggs: {
                 sublabels_1: {
-                  terms: { field: 'labels.group.sublabel.name.keyword' },
+                  terms: { field: 'labels.gmcLabel.sublabel.name.keyword' },
                   aggs: {
                     sublabels_2: {
                       terms: {
-                        field: 'labels.group.sublabel.sublabel.name.keyword',
+                        field: 'labels.gmcLabel.sublabel.sublabel.name.keyword',
                       },
                     },
                   },
@@ -274,7 +274,7 @@ export const searchFunction = https.onCall(
     // EXECUTE SEARCH
     try {
       logger.debug(`Request: ${JSON.stringify(searchReq)}`);
-      const result = await elasticClient.search<SearchProductDto>(searchReq);
+      const result = await elasticClient.search<ProductDocument>(searchReq);
       logger.debug(`Result: ${JSON.stringify(result)}`);
       // Get Aggregation Restuls
       const storesAggs = result.aggregations!['stores'] as any;
@@ -286,7 +286,7 @@ export const searchFunction = https.onCall(
         hits: Number((result.hits.total as any).value),
         page: req.page ? req.page : 0,
         pageSize: req.pageSize ? req.pageSize : 10,
-        data: result.hits.hits.map((hit) => hit._source as SearchProductDto),
+        data: result.hits.hits.map((hit) => hit._source as ProductDocument),
         facets: {
           stores: storesAggs.buckets.map((bucket: any) => ({
             value: bucket.key,

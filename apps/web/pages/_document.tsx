@@ -1,12 +1,11 @@
 import Document, {
   DocumentContext,
   DocumentInitialProps,
-  Html,
   Head,
+  Html,
   Main,
   NextScript,
 } from 'next/document';
-import cn from 'classnames';
 
 class MyDocument extends Document {
   static async getInitialProps(

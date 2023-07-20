@@ -26,6 +26,7 @@ export interface IProduct {
   createdByRunId: string;
   refreshedByRunId: string;
   refreshedAt: Date;
+  indexedAt: Date;
   refreshReason: string;
   expiresAt: Date;
   keepAliveCount: number;
@@ -119,26 +120,6 @@ const refresh = async (id: string): Promise<IProduct> => {
     {},
     { params: { id } }
   );
-  return res.data;
-};
-
-const index = async (id: string): Promise<any> => {
-  const res = await axios.post(`/products/${id}/index`);
-  return res.data;
-};
-
-const mapToIndexable = async (id: string): Promise<any> => {
-  const res = await axios.post(`/products/${id}/index/map`);
-  return res.data;
-};
-
-const getCurrentlyIndexed = async (id: string): Promise<any> => {
-  const res = await axios.get(`/products/${id}/index/current`);
-  return res.data;
-};
-
-const search = async (q: string): Promise<IProduct[]> => {
-  const res = await axios.post(`/products/search?q=${q}`);
   return res.data;
 };
 
@@ -253,10 +234,6 @@ const productsService = {
   getAll,
   getOne,
   refresh,
-  search,
-  index,
-  mapToIndexable,
-  getCurrentlyIndexed,
   productsScreenControl,
   // mappingAssistantScreenControl,
   // searchScreenControl,

@@ -30,10 +30,9 @@ const Navbar: React.FC = () => {
           </div>
         )}
       </div>
-      <div className="flex items-center gap-x-6">
-        <LinkChips />
-        {/* <LocaleButton /> */}
+      <div className="flex items-center gap-x-4">
         <HomeButton />
+        <LinkChips />
         {user ? <ProfileButton /> : <LoginButton />}
       </div>
     </nav>

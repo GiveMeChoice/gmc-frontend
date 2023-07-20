@@ -1,12 +1,12 @@
-import { SearchProductDto } from 'gmc-types';
-import React from 'react';
+import { ProductDocument } from 'gmc-types';
+import React, { useEffect, useState } from 'react';
 import { getUserTheme } from '../../../lib/theme';
 import ProductInfoBox from '../SearchProductCompare/InfoBox';
 import { useUser } from '../../UserProvider';
 
 interface Props {
   index: number;
-  product: SearchProductDto;
+  product: ProductDocument;
   selectProduct: (i: number) => void;
 }
 
@@ -16,6 +16,17 @@ const LeadListProduct: React.FC<Props> = ({
   selectProduct,
 }) => {
   const { profile } = useUser();
+  const [imgSrc, setImgSrc] = useState<string>('');
+  useEffect(() => {
+    let images = product.images.filter((img) => img.type === 'LIST');
+    if (images.length === 0) {
+      images = product.images;
+    }
+    if (images.length > 0) {
+      const primary = images.find((img) => img.primary);
+      setImgSrc(primary ? primary.url : images[0].url);
+    }
+  }, [product]);
   return (
     <div className="group flex h-fit w-full flex-col">
       <div
@@ -54,7 +65,7 @@ const LeadListProduct: React.FC<Props> = ({
         >
           <div className="flex h-full items-center py-2">
             <img
-              src={product.images && product.images.list.url}
+              src={imgSrc.startsWith('http') ? imgSrc : `http://${imgSrc}`}
               className="absolute h-auto max-h-full w-auto transition-transform duration-500"
             />
           </div>

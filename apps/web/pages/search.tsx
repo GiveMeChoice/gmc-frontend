@@ -107,7 +107,7 @@ export default function Search({ props }) {
         <title>Search | Give Me Choice</title>
       </Head>
 
-      <div className="fixed h-full w-full">
+      <div className="fixed mt-20 h-full w-full">
         <div
           id="search-result-container"
           className="flex h-full w-full flex-col border-x-2 border-black px-3  dark:border-white md:flex-row md:border-x-0 md:px-0"

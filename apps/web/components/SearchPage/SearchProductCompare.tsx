@@ -1,9 +1,10 @@
-import { SearchProductDto } from 'gmc-types';
+import { ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import ComparableProduct from './SearchProductCompare/ComparableProduct';
+import ComparableProduct2 from './SearchProductCompare/ComparableProduct2';
 
 interface Props {
-  products: SearchProductDto[];
+  products: ProductDocument[];
   selected: number;
 }
 
@@ -22,7 +23,7 @@ const SearchProductCompare: React.FC<Props> = ({ products, selected }) => {
   };
 
   return (
-    <ComparableProduct
+    <ComparableProduct2
       product={products[selectedProductIndex]}
       index={selectedProductIndex}
       isLast={selectedProductIndex + 1 === products.length}

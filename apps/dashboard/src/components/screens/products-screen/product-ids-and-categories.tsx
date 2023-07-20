@@ -9,12 +9,19 @@ interface Props {
 const ProductIdsAndCategories: React.FC<Props> = ({ product }) => {
   return (
     <div className="flex w-full justify-center gap-x-12 py-2.5 text-xs">
-      <div className="flex flex-col items-center justify-evenly">
+      <div className="flex flex-col items-center justify-evenly gap-y-1">
         <div className="flex items-center gap-x-1">
           <span className="font-bold text-zinc-600">Merchant ID:</span>
           <span className="">{product.merchantProductCode}</span>
           <CopyIdButton id={product.merchantProductCode} />
         </div>
+        <div className="flex items-center gap-x-1">
+          <span className="font-bold text-zinc-600">GMC ID:</span>
+          <span className="">{product.shortId}</span>
+          <CopyIdButton id={product.shortId} />
+        </div>
+      </div>
+      <div className="flex flex-col items-center justify-evenly gap-y-1">
         <div className="flex items-center gap-x-1">
           <span className="">
             {product.merchantCategory
@@ -23,20 +30,23 @@ const ProductIdsAndCategories: React.FC<Props> = ({ product }) => {
           </span>
           <CopyIdButton id={product.merchantProductCode} />
         </div>
-      </div>
-      <div className="flex flex-col items-center justify-evenly">
-        <div className="flex items-center gap-x-1">
-          <span className="font-bold text-zinc-600">GMC ID:</span>
-          <span className="">{product.shortId}</span>
-          <CopyIdButton id={product.shortId} />
-        </div>
         <div className="flex items-center gap-x-1">
           <span className="">
             {product.merchantCategory && product.merchantCategory.gmcCategory
               ? product.merchantCategory.gmcCategory.name
-              : 'No GMG Category Assigned'}
+              : 'GMG Category Unassigned'}
           </span>
         </div>
+      </div>
+      <div className="flex flex-col items-center justify-evenly gap-y-1">
+        <span>{product.merchantLabels.length} Labels</span>
+        <span>
+          {
+            product.merchantLabels.filter((label) => label.gmcLabelId == null)
+              .length
+          }{' '}
+          Unassigned
+        </span>
       </div>
     </div>
   );

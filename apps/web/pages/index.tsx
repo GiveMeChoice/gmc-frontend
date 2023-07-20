@@ -1,11 +1,13 @@
 import Head from 'next/head';
-import DiscoverFooter from '../components/DiscoverFooter';
+import Image from 'next/image';
 import GiveMeBarHome from '../components/GiveMeBarHome';
 import LinkChips from '../components/Navbar/LinkChips/LinkChips';
 import ProfileButton from '../components/Navbar/ProfileButton';
-import Image from 'next/image';
+import { useUser } from '../components/UserProvider';
+import LoginButton from '../components/Navbar/LoginButton';
 
 export default function Home() {
+  const { user } = useUser();
   return (
     <>
       <Head>
@@ -15,7 +17,7 @@ export default function Home() {
       <section className="max-w-screen container mx-auto flex h-screen flex-col items-center justify-between">
         <div className="flex w-full justify-end space-x-6 p-4">
           <LinkChips />
-          <ProfileButton />
+          {user ? <ProfileButton /> : <LoginButton />}
         </div>
         <div className="flex h-1/2 w-2/3 items-center justify-center">
           <GiveMeBarHome />

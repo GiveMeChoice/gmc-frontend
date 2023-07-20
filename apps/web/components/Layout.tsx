@@ -17,7 +17,7 @@ const Layout = ({ preview = false, children }) => {
       } z-0 flex flex-col transition-colors duration-300 ease-in-out dark:border-white dark:text-white dark:decoration-white`}
     >
       {preview && <PreviewAlert />}
-      {router.pathname !== '/' && <Navbar />}
+      {router.pathname !== '/' && router.pathname !== '/access' && <Navbar />}
       <main className="">{children}</main>
     </div>
   );

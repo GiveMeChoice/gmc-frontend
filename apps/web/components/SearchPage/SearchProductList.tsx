@@ -1,9 +1,9 @@
-import { SearchProductDto } from 'gmc-types';
+import { ProductDocument } from 'gmc-types';
 import React from 'react';
 import LeadListProduct from './SearchProductList/LeadListProduct';
 
 interface Props {
-  products: SearchProductDto[];
+  products: ProductDocument[];
   onProductSelect: (index: number) => void;
 }
 

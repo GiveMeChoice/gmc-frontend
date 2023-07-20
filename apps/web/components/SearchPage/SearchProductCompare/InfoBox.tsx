@@ -1,15 +1,33 @@
-import { SearchProductDto } from 'gmc-types';
-import React from 'react';
+import { ProductDocument } from 'gmc-types';
+import React, { useEffect, useState } from 'react';
 import { getUserTheme } from '../../../lib/theme';
 import { useUser } from '../../UserProvider';
 import cn from 'classnames';
 
 interface Props {
-  product: SearchProductDto;
+  product: ProductDocument;
 }
+
+type SimpleLabel = {
+  type: string;
+  name: string;
+};
 
 const ProductInfoBox: React.FC<Props> = ({ product }) => {
   const { profile } = useUser();
+  const [labels, setLabels] = useState<SimpleLabel[]>([]);
+
+  useEffect(() => {
+    const simpleLabels = product.labels.map((label) => ({
+      type: label.gmcLabel.name,
+      name: !label.gmcLabel.sublabel
+        ? label.gmcLabel.name
+        : !label.gmcLabel.sublabel.sublabel
+        ? label.gmcLabel.sublabel.name
+        : label.gmcLabel.sublabel.sublabel.name,
+    }));
+    setLabels(simpleLabels);
+  }, [product]);
 
   return (
     <div
@@ -19,9 +37,9 @@ const ProductInfoBox: React.FC<Props> = ({ product }) => {
     >
       <div className="flex items-center justify-between gap-4 pr-2 font-bold">
         <div className="flex items-center gap-2">
-          {product.brand.logoUrl && (
+          {product.brand.logo && (
             <img
-              src={product.brand.logoUrl}
+              src={product.brand.logo}
               className="h-12 w-12 rounded-full border border-zinc-500"
             />
           )}
@@ -38,28 +56,29 @@ const ProductInfoBox: React.FC<Props> = ({ product }) => {
             : ''}
         </span>
       </div>
-      <div className="flex items-center gap-1">
-        <span className="pr-1 text-sm">Sold by:</span>
+      <div className="flex w-full items-center justify-end gap-1">
+        {/* <span className="pr-1 text-sm">Sold by:</span> */}
         <img
-          src={product.merchant.logoUrl}
+          src={product.merchant.logo}
           className="h-8 w-8 rounded-full border border-zinc-500"
         />
         <span className="text-sm font-bold">{product.merchant.name}</span>
       </div>
       <div className="flex flex-wrap gap-2">
-        {product.labels.map((label) => (
+        {labels.map((label) => (
           // <div className="rounded-full border border-zinc-800">
           //   <div className="rounded-full border-1.5 ">
-          <div className="bg-opacity flex items-center gap-1.5 rounded-full border border-zinc-700 px-1.5 py-1 pr-3 text-sm shadow-sm">
-            <img
-              src={
-                label.merchantLabel.logoUrl || label.merchantLabel.description
+          <div
+            className={cn(
+              'flex items-center gap-1.5 rounded-full border border-zinc-700 px-3 py-1 text-xs shadow-sm',
+              {
+                'bg-primary': label.type === 'Certifications',
+                'bg-gmc-beach-light-10': label.type === 'Origin',
+                'bg-gmc-soil-light-50': label.type === 'Uncategorized',
               }
-              className="h-6 w-6 rounded-full border border-zinc-500 bg-secondary p-0.5"
-            />
-            {label.merchantLabel.name}
-            {/* </div>
-            </div> */}
+            )}
+          >
+            {label.name}
           </div>
         ))}
       </div>

@@ -65,11 +65,6 @@ const GmcLabelSelect: React.FC<Props> = ({ label }) => {
       >
         <option value="">-----</option>
         {gmcLabelSelect}
-        {/* {gmcLabelSelect.map((group, i) => (
-            <option key={i} value={group.id}>
-              {group.name}
-            </option>
-          ))} */}
       </select>
       <FieldControlButtons
         active={editing}

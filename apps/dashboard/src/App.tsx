@@ -2,37 +2,36 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './components/auth/protected-route';
-import MerchantBrandsScreen from './components/screens/merchant-brands-screen';
-import HomeScreen from './components/screens/home-screen';
-import JobsScreen from './components/screens/jobs-screen/jobs';
 import Layout from './components/layout/layout';
+import MappingAssistant from './components/mapping-assistant/mapping-assistant';
+import ChannelsScreen from './components/screens/channels-screen';
+import JobsScreen from './components/screens/jobs-screen/jobs';
 import LoginScreen from './components/screens/login-screen';
+import MerchantBrandsScreen from './components/screens/merchant-brands-screen';
+import MerchantCategoriesScreen from './components/screens/merchant-categories-screen';
+import MerchantLabelsScreen from './components/screens/merchant-labels-screen';
+import MerchantsScreen from './components/screens/merchants-screen';
 import ProductsScreen from './components/screens/products-screen';
 import ProvidersScreen from './components/screens/providers-screen';
 import RunsScreen from './components/screens/runs-screen';
-import ChannelsScreen from './components/screens/channels-screen';
-import {
-  useScreenData,
-  useScreenDataDispatch,
-} from './context-providers/screen-data.provider';
 import {
   useFilters,
   useFiltersDispatch,
 } from './context-providers/filters.provider';
+import {
+  useScreenData,
+  useScreenDataDispatch,
+} from './context-providers/screen-data.provider';
+import channelsService from './services/channels.service';
+import merchantBrandsService from './services/merchant-brands.service';
+import merchantCategoriesService from './services/merchant-categories.service';
+import merchantLabelsService from './services/merchant-labels.service';
+import merchantsService from './services/merchants.service';
+import productsService from './services/products.service';
+import providersService from './services/providers.service';
 import runsService from './services/runs.service';
 import screensService from './services/screens.service';
 import './styles.css';
-import MappingAssistant from './components/mapping-assistant/mapping-assistant';
-import MerchantCategoriesScreen from './components/screens/merchant-categories-screen';
-import providersService from './services/providers.service';
-import channelsService from './services/channels.service';
-import productsService from './services/products.service';
-import merchantCategoriesService from './services/merchant-categories.service';
-import MerchantLabelsScreen from './components/screens/merchant-labels-screen';
-import merchantLabelsService from './services/merchant-labels.service';
-import merchantBrandsService from './services/merchant-brands.service';
-import merchantsService from './services/merchants.service';
-import MerchantsScreen from './components/screens/merchants-screen';
 
 function App() {
   axios.defaults.baseURL = process.env.PI_API_URL;
@@ -83,7 +82,7 @@ function App() {
           <Route
             index
             element={
-              <Navigate to={channelsService.channelsScreenControl.pathname} />
+              <Navigate to={productsService.productsScreenControl.pathname} />
             }
           />
           <Route

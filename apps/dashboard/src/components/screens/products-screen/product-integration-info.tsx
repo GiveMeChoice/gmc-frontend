@@ -29,8 +29,10 @@ const ProductIntegrationInfo: React.FC<Props> = ({ product }) => {
         </div>
         <hr className="w-full border-zinc-300" />
         <div className="flex flex-wrap items-center gap-x-1.5">
-          <span className="text-center font-bold">Last Refresh:</span>
-          <span>{toDateString(product.refreshedAt)}</span>
+          <span className="text-center font-bold">Refreshed At:</span>
+          <span>{`${toDateString(product.refreshedAt)} (${
+            product.refreshReason
+          })`}</span>
         </div>
       </div>
       <div className="flex w-1/3 flex-col items-center justify-center gap-y-2 px-4">
@@ -42,8 +44,8 @@ const ProductIntegrationInfo: React.FC<Props> = ({ product }) => {
           <>
             <hr className="w-full border-zinc-300" />
             <div className="flex flex-wrap items-center gap-x-1.5">
-              <span className="text-center font-bold">Refresh Via:</span>
-              <span className="italic">{product.refreshReason}</span>
+              <span className="text-center font-bold">Indexed At:</span>
+              <span className="italic">{toDateString(product.indexedAt)}</span>
             </div>
           </>
         )}
