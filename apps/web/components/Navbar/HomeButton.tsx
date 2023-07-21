@@ -8,7 +8,7 @@ const HomeButton: React.FC = () => {
       <div className="flex h-9 w-24 cursor-pointer items-end rounded-full duration-200 hover:bg-zinc-900 hover:shadow-md active:bg-transparent active:shadow-sm">
         <span
           className={
-            'z-20 flex h-9 w-24 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 bg-white pb-0.5 shadow-sm transition-transform duration-200 ease-in-out  hover:-translate-y-0.5 hover:bg-gmc-glacier-light-30 active:translate-y-0 active:border-zinc-700 active:bg-gmc-glacier-light-10'
+            'z-20 flex h-9 w-24 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 bg-white pb-0.5 shadow-sm transition-transform duration-200 ease-in-out  hover:-translate-y-0.5 hover:bg-secondary active:translate-y-0 active:border-zinc-700 active:bg-secondary-dark-10'
           }
         >
           <Image

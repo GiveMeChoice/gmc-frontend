@@ -39,7 +39,7 @@ export default function Home() {
         </svg>
       </section>
       <section className="flex h-screen w-full items-center">
-        <div className="relative flex h-4/5 w-1/4 shadow-2xl">
+        <div className="relative flex h-4/5 w-1/4 border-y-2 border-black shadow-2xl">
           <Image
             priority
             src="/img/images/hero9.jpg"
@@ -49,10 +49,10 @@ export default function Home() {
             alt="hero"
           />
         </div>
-        <div className="relative flex h-full w-3/5 shadow-2xl">
+        <div className="relative flex h-full w-3/5 rounded-sm border-2 border-black shadow-2xl">
           <Image
             priority
-            className="rounded-md"
+            // className="rounded-sm"
             src="/img/images/hero10.jpg"
             layout="fill"
             objectFit="cover"
@@ -60,7 +60,7 @@ export default function Home() {
             alt="hero"
           />
         </div>
-        <div className="relative flex h-4/5 w-1/4 shadow-2xl">
+        <div className="relative flex h-4/5 w-1/4 border-y-2 border-black shadow-2xl">
           <Image
             priority
             src="/img/images/hero4.jpg"
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </section>
       <section className="flex w-full items-center justify-center bg-white pt-36 pb-24">
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-6 rounded-full border-1.5 border-secondary bg-secondary py-2 pl-3 pr-0 shadow-xl">
           <Image
             src="/img/G_LOGO_GREEN.svg"
             alt="GMC Logo"
@@ -84,22 +84,25 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <section className="flex flex-wrap bg-secondary px-8 py-28">
+      <section className="flex flex-wrap border-t-2 border-black bg-secondary  px-8 py-28">
         <div className="flex w-1/3 items-center justify-center">
-          <div className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-3xl bg-white shadow-2xl">
-            <div className="flex h-1/2 flex-col items-center justify-evenly p-3 px-8">
-              <div className="flex w-full flex-col items-center justify-center space-y-4">
-                <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-600 bg-gmc-beach lg:w-14">
+          <a
+            className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-xl bg-white shadow-2xl"
+            href="/search"
+          >
+            <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
+              <div className="flex items-center justify-center rounded-full border-1.5 border-zinc-800 bg-gmc-beach py-1 pl-1.5 pr-3">
+                <div className="flex aspect-square w-8 items-center justify-center rounded-full border border-zinc-600 bg-white lg:w-12">
                   <Image
                     className="select-none rounded-full"
                     draggable={false}
                     src="/img/search.svg"
                     alt="give me"
-                    width="30"
-                    height="30"
+                    width="26"
+                    height="26"
                   />
                 </div>
-                <span className="text-2xl">Search & Compare</span>
+                <span className="px-6 text-xl">Search</span>
               </div>
               <p className="text-center text-sm font-bold">
                 Search for sustainable products from hundreds of brands and
@@ -107,7 +110,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative flex h-1/2 w-full flex-grow">
+            <div className="relative flex h-2/5 w-full flex-grow border-t-1.5 border-zinc-800">
               <Image
                 priority
                 className="rounded-b-xl"
@@ -118,24 +121,27 @@ export default function Home() {
                 alt="hero"
               />
             </div>
-          </div>
+          </a>
         </div>
 
         <div className="flex w-1/3 items-center justify-center">
-          <div className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-3xl bg-white shadow-2xl">
-            <div className="flex h-1/2 flex-col items-center justify-evenly p-3 px-8">
-              <div className="flex w-full flex-col items-center justify-center space-y-4">
-                <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-600 bg-gmc-surf lg:w-14">
+          <a
+            className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-xl bg-white shadow-2xl"
+            href="/discover"
+          >
+            <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
+              <div className="flex items-center justify-center rounded-full border-1.5 border-zinc-800 bg-gmc-surf py-1 pl-1.5 pr-3">
+                <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-600 bg-white lg:w-12">
                   <Image
                     className="select-none rounded-full"
                     draggable={false}
                     src="/img/tree.svg"
                     alt="give me"
-                    width="30"
-                    height="30"
+                    width="26"
+                    height="26"
                   />
                 </div>
-                <span className="text-2xl">Discover</span>
+                <span className="px-6 text-xl">Discover</span>
               </div>
               <p className="text-center text-sm font-bold">
                 Discover new products and brands with curated and personalised
@@ -143,7 +149,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative flex h-1/2 w-full flex-grow">
+            <div className="relative flex h-2/5 w-full flex-grow border-t-1.5 border-zinc-800">
               <Image
                 priority
                 className="rounded-b-xl"
@@ -154,23 +160,26 @@ export default function Home() {
                 alt="hero"
               />
             </div>
-          </div>
+          </a>
         </div>
         <div className="flex w-1/3 items-center justify-center">
-          <div className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-3xl bg-white shadow-2xl">
-            <div className="flex h-1/2 flex-col items-center justify-evenly p-3 px-8">
-              <div className="flex w-full flex-col items-center justify-center space-y-4">
-                <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-600 bg-gmc-sunset lg:w-14">
+          <a
+            className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-xl bg-white shadow-2xl"
+            href="/"
+          >
+            <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
+              <div className="flex items-center justify-center rounded-full border-1.5 border-zinc-800 bg-gmc-sunset py-1 pl-1.5 pr-3">
+                <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-600 bg-white lg:w-12">
                   <Image
                     className="select-none rounded-full"
                     draggable={false}
                     src="/img/person.svg"
                     alt="give me"
-                    width="30"
-                    height="30"
+                    width="26"
+                    height="26"
                   />
                 </div>
-                <span className="text-2xl">Personalise</span>
+                <span className="px-6 text-xl">Personalise</span>
               </div>
               <p className="text-center text-sm font-bold">
                 Highlight the causes and goals you care about and let us help
@@ -178,7 +187,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative flex h-1/2 w-full flex-grow">
+            <div className="relative flex h-2/5 w-full flex-grow border-t-1.5 border-zinc-800">
               <Image
                 priority
                 className="rounded-b-xl"
@@ -189,9 +198,14 @@ export default function Home() {
                 alt="hero"
               />
             </div>
-          </div>
+          </a>
         </div>
       </section>
+
+      <section className="flex w-full items-center justify-center border-y-1.5 border-black bg-white pt-36 pb-24">
+        Sign Up for a FREE ACCOUNT / Newsletter / etc...
+      </section>
+
       <footer className="flex h-64 w-full items-end justify-between bg-secondary px-28 pb-20">
         <div className="flex flex-col-reverse items-center justify-between md:flex-row md:items-center">
           <div>

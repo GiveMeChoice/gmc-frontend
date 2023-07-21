@@ -70,11 +70,11 @@ export const searchFunction = https.onCall(
         },
       });
     }
-    // Store (Merchant)
-    if (req.filters.store) {
+    // Merchant
+    if (req.filters.merchant) {
       filter.push({
         match_phrase: {
-          'merchant.name': req.filters.store,
+          'merchant.name': req.filters.merchant,
         },
       });
     }
@@ -194,7 +194,7 @@ export const searchFunction = https.onCall(
             ],
           },
         },
-        stores: {
+        merchants: {
           terms: {
             field: 'merchant.name.keyword',
           },
@@ -255,12 +255,23 @@ export const searchFunction = https.onCall(
             label: {
               terms: { field: 'labels.gmcLabel.name.keyword', size: 20 },
               aggs: {
+                top_reverse_nested: {
+                  reverse_nested: {},
+                },
                 sublabels_1: {
                   terms: { field: 'labels.gmcLabel.sublabel.name.keyword' },
                   aggs: {
+                    top_reverse_nested: {
+                      reverse_nested: {},
+                    },
                     sublabels_2: {
                       terms: {
                         field: 'labels.gmcLabel.sublabel.sublabel.name.keyword',
+                      },
+                      aggs: {
+                        top_reverse_nested: {
+                          reverse_nested: {},
+                        },
                       },
                     },
                   },
@@ -277,18 +288,20 @@ export const searchFunction = https.onCall(
       const result = await elasticClient.search<ProductDocument>(searchReq);
       logger.debug(`Result: ${JSON.stringify(result)}`);
       // Get Aggregation Restuls
-      const storesAggs = result.aggregations!['stores'] as any;
+      const merchantsAggs = result.aggregations!['merchants'] as any;
       const brandsAggs = result.aggregations!['brands'] as any;
       const priceRangeAggs = result.aggregations!['price_ranges'] as any;
       const categoriesAggs = result.aggregations!['categories'] as any;
       const labelsAggs = result.aggregations!['labels'] as any;
       return {
         hits: Number((result.hits.total as any).value),
+        query: req.query,
         page: req.page ? req.page : 0,
         pageSize: req.pageSize ? req.pageSize : 10,
+        sort: req.sort,
         data: result.hits.hits.map((hit) => hit._source as ProductDocument),
         facets: {
-          stores: storesAggs.buckets.map((bucket: any) => ({
+          merchants: merchantsAggs.buckets.map((bucket: any) => ({
             value: bucket.key,
             count: bucket.doc_count,
           })),
@@ -311,13 +324,13 @@ export const searchFunction = https.onCall(
           })),
           labels: labelsAggs.label.buckets.map((bucket: any) => ({
             value: bucket.key,
-            count: bucket.doc_count,
+            count: bucket.top_reverse_nested.doc_count,
             subfacets: bucket.sublabels_1.buckets.map((sub1: any) => ({
               value: sub1.key,
-              count: sub1.doc_count,
+              count: sub1.top_reverse_nested.doc_count,
               subfacets: sub1.sublabels_2.buckets.map((sub2: any) => ({
                 value: sub2.key,
-                count: sub2.doc_count,
+                count: sub2.top_reverse_nested.doc_count,
               })),
             })),
           })),
@@ -344,6 +357,11 @@ export const searchFunction = https.onCall(
       };
     } catch (e: any) {
       return {
+        query: req.query,
+        sort: req.sort,
+        page: req.page,
+        pageSize: req.pageSize,
+        data: [],
         hits: 0,
         error: e.message,
       };

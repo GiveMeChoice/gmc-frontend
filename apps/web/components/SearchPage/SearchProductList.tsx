@@ -9,10 +9,10 @@ interface Props {
 
 const SearchProductList: React.FC<Props> = ({ products, onProductSelect }) => {
   return (
-    <>
+    <div className="flex h-full w-full flex-wrap">
       {products &&
         products.map((product, i) => (
-          <div className="flex w-full border-r-1.5 border-b-1.5 border-l-1.5 border-black dark:border-white md:border-l-0">
+          <div className="flex w-1/2 border-r-1.5 border-b-1.5 border-l-1.5 border-black dark:border-white md:border-l-0">
             <LeadListProduct
               key={i}
               index={i}
@@ -21,7 +21,7 @@ const SearchProductList: React.FC<Props> = ({ products, onProductSelect }) => {
             />
           </div>
         ))}
-    </>
+    </div>
   );
 };
 

@@ -33,7 +33,7 @@ const ProductInfoBox: React.FC<Props> = ({ product }) => {
     <div
       className={`h-full w-full bg-${
         getUserTheme(profile).base
-      } flex flex-col gap-4 px-5 pt-4 pb-6`}
+      } flex flex-col justify-between gap-y-5 px-7 pt-5 pb-7`}
     >
       <div className="flex items-center justify-between gap-4 pr-2 font-bold">
         <div className="flex items-center gap-2">
@@ -45,29 +45,29 @@ const ProductInfoBox: React.FC<Props> = ({ product }) => {
           )}
           <span className="font-bold">{product.brand.name}</span>
         </div>
-        <span className="text-lg">£ {product.price}</span>
+        <span className="text-xl">£ {product.price}</span>
       </div>
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-zinc-800">
+
+      <div className="flex items-end justify-between gap-12">
+        <span className="w-2/3 text-xs text-zinc-600">
           {product.description
-            ? `${product.description.substring(0, 250).trim()}${
-                product.description.length > 250 ? '...' : ''
+            ? `${product.description.substring(0, 100).trim()}${
+                product.description.length > 100 ? '...' : ''
               }`
             : ''}
         </span>
+        <div className="flex items-center justify-end gap-1">
+          <img
+            src={product.merchant.logo}
+            className="h-8 w-8 rounded-full border border-zinc-500"
+          />
+          <span className="whitespace-nowrap text-sm font-bold">
+            {product.merchant.name}
+          </span>
+        </div>
       </div>
-      <div className="flex w-full items-center justify-end gap-1">
-        {/* <span className="pr-1 text-sm">Sold by:</span> */}
-        <img
-          src={product.merchant.logo}
-          className="h-8 w-8 rounded-full border border-zinc-500"
-        />
-        <span className="text-sm font-bold">{product.merchant.name}</span>
-      </div>
-      <div className="flex flex-wrap gap-2">
+      {/* <div className="flex flex-wrap gap-2">
         {labels.map((label) => (
-          // <div className="rounded-full border border-zinc-800">
-          //   <div className="rounded-full border-1.5 ">
           <div
             className={cn(
               'flex items-center gap-1.5 rounded-full border border-zinc-700 px-3 py-1 text-xs shadow-sm',
@@ -81,7 +81,7 @@ const ProductInfoBox: React.FC<Props> = ({ product }) => {
             {label.name}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

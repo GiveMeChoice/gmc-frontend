@@ -1,16 +1,13 @@
-import {
-  SearchFunctionFiltersDto,
-  SearchFunctionRequestDto,
-  SearchFunctionResponseDto,
-} from 'gmc-types';
+import { SearchFunctionRequestDto, SearchFunctionResponseDto } from 'gmc-types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
+import ComparableProduct from '../components/SearchPage/ComparableProduct';
 import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
-import SearchProductCompare from '../components/SearchPage/SearchProductCompare';
 import SearchProductList from '../components/SearchPage/SearchProductList';
 import { functions } from '../lib/firebase';
+import LeadListProduct from '../components/SearchPage/SearchProductList/LeadListProduct';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -18,13 +15,6 @@ export default function Search({ props }) {
     useState<SearchFunctionResponseDto>({
       hits: 0,
     });
-  const [searchRequest, setSearchRequest] = useState<SearchFunctionRequestDto>({
-    query: router.query.q as string,
-    filters: {
-      region: 'UK',
-      labels: [],
-    },
-  });
   const [executeCallable, executing, error] = useHttpsCallable<
     SearchFunctionRequestDto,
     SearchFunctionResponseDto
@@ -43,12 +33,22 @@ export default function Search({ props }) {
           labels: [],
         },
       };
-      setSearchRequest(req);
-      executeSearch(req);
+      handleSearch(req);
     }
   }, [router.isReady, router.query]);
 
-  const executeSearch = async (
+  const handleSetCompareMode = (on: boolean) => {
+    window.scroll(0, 0);
+    setCompareProductIndex(0);
+    setCompareModeOn(on);
+  };
+
+  const handleProductSelect = (index: number) => {
+    setCompareProductIndex(index);
+    setCompareModeOn(true);
+  };
+
+  const handleSearch = async (
     request: SearchFunctionRequestDto
   ): Promise<SearchFunctionResponseDto> => {
     try {
@@ -67,86 +67,65 @@ export default function Search({ props }) {
     }
   };
 
-  const handleFilterChange = async (
-    updatedFilter: SearchFunctionFiltersDto
-  ) => {
-    const updatedRequest = {
-      ...searchRequest,
-      filters: {
-        ...searchRequest.filters,
-        ...updatedFilter,
-      },
-    };
-    setSearchRequest(updatedRequest);
-    setCompareModeOn(false);
-    await executeSearch(updatedRequest);
-  };
-
-  const handleSetCompareMode = (on: boolean) => {
-    setCompareProductIndex(0);
-    setCompareModeOn(on);
-  };
-
-  const handleProductSelect = (index: number) => {
-    setCompareProductIndex(index);
-    setCompareModeOn(true);
-  };
-
-  const handleSortChange = async (sort?: string) => {
-    const updatedRequest = {
-      ...searchRequest,
-      sort,
-    };
-    setSearchRequest(updatedRequest);
-    await executeSearch(updatedRequest);
-  };
-
   return (
     <>
       <Head>
         <title>Search | Give Me Choice</title>
       </Head>
 
-      <div className="fixed mt-20 h-full w-full">
-        <div
-          id="search-result-container"
-          className="flex h-full w-full flex-col border-x-2 border-black px-3  dark:border-white md:flex-row md:border-x-0 md:px-0"
-        >
+      <div
+        id="search-page"
+        className="fixed mt-24 flex h-full w-full divide-x-1.5 divide-black pb-28"
+      >
+        <div id="choice-bar-container" className="h-full w-1/4 overflow-y-auto">
           <SearchChoiceBar
             loading={loading || executing}
-            hits={searchResponse.hits}
-            filters={searchRequest.filters}
-            facets={searchResponse.facets}
-            sort={searchRequest.sort}
+            searchResponse={searchResponse}
             compareModeOn={compareModeOn}
-            onFilterChange={handleFilterChange}
             onCompareModeChange={handleSetCompareMode}
-            onSortChange={handleSortChange}
+            onSearch={handleSearch}
           />
-          <div
-            id="search-products"
-            className="flex h-full flex-wrap overflow-y-auto pb-32 dark:border-white md:w-2/3 xl:w-3/4"
-          >
-            {loading || executing ? (
-              <div className="flex h-full w-full items-center justify-center">
-                Loading animation...
-              </div>
-            ) : (
-              <>
-                {compareModeOn ? (
-                  <SearchProductCompare
-                    products={searchResponse.data}
-                    selected={compareProductIndex}
-                  />
-                ) : (
-                  <SearchProductList
-                    products={searchResponse.data}
-                    onProductSelect={handleProductSelect}
-                  />
-                )}
-              </>
-            )}
-          </div>
+        </div>
+        <div
+          id="search-product-container"
+          className="flex h-full w-3/4 flex-wrap overflow-y-auto"
+        >
+          {loading || executing ? (
+            <div className="flex h-full items-center justify-center">
+              Loading animation... ?
+            </div>
+          ) : (
+            <>
+              {compareModeOn ? (
+                <ComparableProduct
+                  product={searchResponse.data[compareProductIndex]}
+                  index={compareProductIndex}
+                  isLast={
+                    compareProductIndex + 1 === searchResponse.data.length
+                  }
+                  nextProduct={() =>
+                    setCompareProductIndex(compareProductIndex + 1)
+                  }
+                  prevProduct={() =>
+                    setCompareProductIndex(compareProductIndex - 1)
+                  }
+                />
+              ) : (
+                <>
+                  {searchResponse.data.length &&
+                    searchResponse.data.map((product, i) => (
+                      <LeadListProduct
+                        key={i}
+                        index={i}
+                        product={product}
+                        selectProduct={() => handleProductSelect(i)}
+                      />
+                    ))}
+                  <div />
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
     </>

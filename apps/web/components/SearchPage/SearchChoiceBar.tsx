@@ -1,62 +1,85 @@
 /* eslint-disable @next/next/no-img-element */
-import { SearchFunctionFacetsDto, SearchFunctionFiltersDto } from 'gmc-types';
-import React from 'react';
-import { getUserTheme } from '../../lib/theme';
-import { useUser } from '../UserProvider';
-import SearchChoiceBarFacets from './SearchChoiceBar/SearchChoiceBarFacets';
-import SearchChoiceBarFilters from './SearchChoiceBar/SearchChoiceBarFilters';
+import {
+  SearchFunctionFiltersDto,
+  SearchFunctionRequestDto,
+  SearchFunctionResponseDto,
+} from 'gmc-types';
+import React, { useState } from 'react';
+import SearchChoiceBarFacetList from './SearchChoiceBar/SearchChoiceBarFacetList';
+import SearchChoiceBarFilterBox from './SearchChoiceBar/SearchChoiceBarFilterBox';
 import SearchChoiceBarSummary from './SearchChoiceBar/SearchChoiceBarSummary';
 
 interface Props {
   loading: boolean;
-  hits: number;
-  filters: SearchFunctionFiltersDto;
-  facets: SearchFunctionFacetsDto;
-  sort: string;
+  searchResponse: SearchFunctionResponseDto;
   compareModeOn: boolean;
-  onFilterChange: (filters: SearchFunctionFiltersDto) => void;
   onCompareModeChange: (on: boolean) => void;
-  onSortChange: (sort: string) => void;
+  onSearch: (
+    req: SearchFunctionRequestDto
+  ) => Promise<SearchFunctionResponseDto>;
 }
 
 const SearchChoiceBar: React.FC<Props> = ({
   loading,
-  hits,
-  filters,
-  facets,
-  sort,
+  searchResponse,
   compareModeOn,
-  onFilterChange,
+  onSearch,
   onCompareModeChange,
-  onSortChange,
 }) => {
-  const { profile } = useUser();
+  const [activeFilters, setActiveFilters] = useState<SearchFunctionFiltersDto>(
+    {}
+  );
+
+  const handleFilterChange = async (
+    changedFilters: SearchFunctionFiltersDto
+  ) => {
+    const updatedFilters = {
+      ...activeFilters,
+      ...changedFilters,
+    };
+    onSearch({
+      query: searchResponse.query,
+      sort: searchResponse.sort,
+      page: searchResponse.page,
+      pageSize: searchResponse.pageSize,
+      filters: updatedFilters,
+    });
+    setActiveFilters(updatedFilters);
+  };
+
+  const handleSortChange = async (updatedSort: string) => {
+    onSearch({
+      query: searchResponse.query,
+      sort: updatedSort,
+      page: searchResponse.page,
+      pageSize: searchResponse.pageSize,
+      filters: activeFilters,
+    });
+  };
 
   return (
-    <div
-      className={`flex flex-col border-black bg-${
-        getUserTheme(profile).modal
-      } h-full  dark:border-white md:w-1/3  md:border-r-1.5 xl:w-1/4`}
-      id="choice-bar-container"
-    >
+    <div className={`flex h-full w-full flex-col divide-y-1.5 divide-black`}>
       <SearchChoiceBarSummary
         loading={loading}
-        hits={hits}
-        sort={sort}
+        searchResponse={searchResponse}
         compareModeOn={compareModeOn}
         onCompareModeChange={onCompareModeChange}
-        onSortChange={onSortChange}
+        onSortChange={handleSortChange}
       />
-      <SearchChoiceBarFilters
-        filters={filters}
-        compareModeOn={compareModeOn}
-        onFilterChange={onFilterChange}
-      />
-      {!loading && (
-        <SearchChoiceBarFacets
-          facets={facets}
-          activeFilters={filters}
-          onFilterChange={onFilterChange}
+      {searchResponse && (
+        <SearchChoiceBarFilterBox
+          filters={activeFilters}
+          compareModeOn={compareModeOn}
+          onFilterChange={handleFilterChange}
+        />
+      )}
+      {loading || !searchResponse.facets ? (
+        <div />
+      ) : (
+        <SearchChoiceBarFacetList
+          facets={searchResponse.facets}
+          activeFilters={activeFilters}
+          onFilterChange={handleFilterChange}
         />
       )}
     </div>

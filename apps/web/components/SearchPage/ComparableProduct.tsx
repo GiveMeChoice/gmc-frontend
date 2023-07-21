@@ -20,9 +20,10 @@ export type FlatLabel = {
   merchantLabel: MerchantLabelDocument;
   type: string;
   name: string;
+  description: string;
 };
 
-const ComparableProduct2: React.FC<Props> = (props) => {
+const ComparableProduct: React.FC<Props> = (props) => {
   const [flatLabels, setFlatLabels] = useState<FlatLabel[]>([]);
   const [labelSpotlight, setLabelSpotlight] = useState(0);
 
@@ -37,47 +38,56 @@ const ComparableProduct2: React.FC<Props> = (props) => {
         : !label.gmcLabel.sublabel.sublabel
         ? label.gmcLabel.sublabel.name
         : label.gmcLabel.sublabel.sublabel.name,
+      description: !label.gmcLabel.sublabel
+        ? label.gmcLabel.description
+        : !label.gmcLabel.sublabel.sublabel
+        ? label.gmcLabel.sublabel.description
+        : label.gmcLabel.sublabel.sublabel.description,
     }));
     setFlatLabels(flattened);
   }, [props.product]);
 
   return (
-    <div className="flex  w-full flex-col divide-y-1.5 divide-black">
-      {/*  */}
-      <ComparableProductTitleRow {...props} />
-      {/*  */}
-      <div className="flex w-full divide-x-1.5 divide-black">
-        <div className="w-7/12 divide-y-1.5 divide-black">
-          <ComparableProductBuyBox product={props.product} />
+    <>
+      {props.product && (
+        <div className="flex h-full w-full flex-col divide-y-1.5 divide-black">
+          {/*  */}
+          <ComparableProductTitleRow {...props} />
+          {/*  */}
+          <div className="flex w-full divide-x-1.5 divide-black">
+            <div className="w-7/12 divide-y-1.5 divide-black">
+              <ComparableProductBuyBox product={props.product} />
+            </div>
+            <div className="w-5/12">
+              <ComparableProductImages product={props.product} />
+            </div>
+          </div>
+          {/*  */}
+          <div className="flex w-full divide-x-1.5 divide-black">
+            <div className="w-4/12">
+              <ComparableProductDescription
+                description={props.product.description}
+              />
+            </div>
+            <div className="flex w-3/12">
+              <ComparableProductLabels
+                labels={flatLabels}
+                spotlight={labelSpotlight}
+                setSpotlight={setLabelSpotlight}
+              />
+            </div>
+            <div className="flex w-5/12">
+              <ComparableProductLabelInfo label={flatLabels[labelSpotlight]} />
+            </div>
+          </div>
+          <div className=""></div>
         </div>
-        <div className="w-5/12">
-          <ComparableProductImages product={props.product} />
-        </div>
-      </div>
-      {/*  */}
-      <div className="flex w-full divide-x-1.5 divide-black">
-        <div className="w-4/12">
-          <ComparableProductDescription
-            description={props.product.description}
-          />
-        </div>
-        <div className="flex w-3/12">
-          <ComparableProductLabels
-            labels={flatLabels}
-            spotlight={labelSpotlight}
-            setSpotlight={setLabelSpotlight}
-          />
-        </div>
-        <div className="flex w-5/12">
-          <ComparableProductLabelInfo label={flatLabels[labelSpotlight]} />
-        </div>
-      </div>
-      <div className=""></div>
-    </div>
+      )}
+    </>
   );
 };
 
-export default ComparableProduct2;
+export default ComparableProduct;
 
 function onlyUnique(value, index, array) {
   return array.indexOf(value) === index;

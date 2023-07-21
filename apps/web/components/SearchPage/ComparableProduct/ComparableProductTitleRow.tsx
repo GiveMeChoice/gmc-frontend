@@ -33,8 +33,7 @@ const ComparableProductTitleRow: React.FC<Props> = ({
           className={cn(
             `flex aspect-4/3 h-full select-none items-center justify-center bg-secondary dark:border-white`,
             {
-              'bg-inherit': index !== 0,
-              'cursor-pointer hover:bg-primary active:bg-primary-light-20':
+              'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
                 index !== 0,
             }
           )}
@@ -55,8 +54,7 @@ const ComparableProductTitleRow: React.FC<Props> = ({
           className={cn(
             `flex aspect-4/3 h-full select-none items-center justify-center bg-secondary`,
             {
-              'bg-inherit': !isLast,
-              'cursor-pointer hover:bg-primary active:bg-primary-light-20':
+              'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
                 !isLast,
             }
           )}

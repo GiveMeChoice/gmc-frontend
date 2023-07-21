@@ -80,9 +80,9 @@ const GiveMeBarHome: React.FC<Props> = () => {
       />
       <button
         className={cn(
-          'asbolute flex aspect-square h-5 w-5 items-center justify-center rounded-full border-secondary-dark-30 pb-1  text-secondary-dark-30 opacity-0 outline transition-colors',
+          'asbolute border-zinc-800zz flex aspect-square h-5 w-5 items-center justify-center rounded-full pb-1  text-zinc-800 opacity-0 outline transition-colors',
           {
-            '-translate-x-6 -translate-y-2.5 bg-secondary duration-100 hover:border-secondary-dark-40 hover:text-secondary-dark-40 hover:opacity-90 active:bg-secondary-dark-10 peer-hover:opacity-90 peer-focus:opacity-90':
+            '-translate-x-6 -translate-y-2.5 bg-secondary duration-100 hover:border-zinc-800 hover:text-zinc-800 hover:opacity-90 active:bg-secondary-dark-10 peer-hover:opacity-90 peer-focus:opacity-90':
               query,
             'opacity-0': !query,
           }

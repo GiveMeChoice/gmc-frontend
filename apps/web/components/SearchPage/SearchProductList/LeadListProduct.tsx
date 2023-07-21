@@ -1,7 +1,7 @@
 import { ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import { getUserTheme } from '../../../lib/theme';
-import ProductInfoBox from '../SearchProductCompare/InfoBox';
+import ProductInfoBox from './InfoBox';
 import { useUser } from '../../UserProvider';
 
 interface Props {
@@ -28,59 +28,36 @@ const LeadListProduct: React.FC<Props> = ({
     }
   }, [product]);
   return (
-    <div className="group flex h-fit w-full flex-col">
-      <div
-        className="flex h-full w-full cursor-pointer"
-        onClick={() => selectProduct(index)}
-      >
-        {/* info */}
-        <div className="flex h-full w-3/5 flex-col">
-          {/* product title box */}
-          <div
-            className={`hidden h-fit w-full border-b-1.5 border-black  dark:border-white md:flex bg-${
-              getUserTheme(profile).base
-            }`}
-          >
-            <div
-              className={`flex aspect-square h-24 max-h-full items-center justify-center border-r-1.5 border-black bg-${
-                getUserTheme(profile).modal
-              } text-4xl duration-100 group-hover:bg-primary`}
-            >
-              {index + 1}
-            </div>
-            <p className="flex h-24 max-w-full flex-grow items-center justify-center overflow-ellipsis p-3 px-5 text-lg group-hover:underline">
-              {product.title}
-              {/* {`${product.title.substring(0, 80)}${
-                product.title.length > 80 ? '...' : ''
-              }`} */}
-            </p>
-          </div>
-          {/* info box */}
+    <div
+      className="group flex max-h-96 w-1/2 cursor-pointer flex-col divide-y-1.5 divide-black border-r-1.5 border-b-1.5 border-black"
+      onClick={() => selectProduct(index)}
+    >
+      <div className={'flex divide-x-1.5 divide-black'}>
+        <div
+          className={`flex aspect-4/3 w-20 items-center justify-center bg-secondary
+              text-3xl duration-100 group-hover:bg-primary`}
+        >
+          {index + 1}
+        </div>
+        <p className="flex max-w-full flex-grow items-center justify-center overflow-ellipsis p-3 px-5 group-hover:underline">
+          {product.title}
+        </p>
+      </div>
+      <div className="flex h-full w-full divide-x-1.5 divide-black">
+        <div className="w-2/3">
           <ProductInfoBox product={product} />
         </div>
-
-        {/* image */}
         <div
-          className={`group relative flex max-h-full w-2/5  flex-col items-start justify-center border-l-1.5 border-black bg-white`}
+          className={`group relative flex max-h-full w-1/3  flex-col items-start justify-center  bg-white`}
         >
-          <div className="flex h-full items-center py-2">
-            <img
-              src={imgSrc.startsWith('http') ? imgSrc : `http://${imgSrc}`}
-              className="absolute h-auto max-h-full w-auto transition-transform duration-500"
-            />
+          <div className="flex h-full w-full items-center justify-center">
+            <div className="p-2">
+              <img
+                src={imgSrc.startsWith('http') ? imgSrc : `http://${imgSrc}`}
+                className="transition-transform duration-300 group-hover:scale-[1.035]"
+              />
+            </div>
           </div>
-          <span
-            className={`relative top-full  flex h-1/4 w-full -translate-y-full items-center justify-center opacity-0 group-hover:opacity-100 bg-${
-              getUserTheme(profile).modal
-            } border-t border-zinc-200 bg-opacity-80 duration-200`}
-          >
-            <img
-              draggable={false}
-              src="/img/search.svg"
-              alt="Magnify Icon"
-              className="h-1/2"
-            />
-          </span>
         </div>
       </div>
     </div>

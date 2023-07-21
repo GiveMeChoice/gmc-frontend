@@ -13,7 +13,7 @@ const ComaprableProductBuyNowButton: React.FC<Props> = ({ product }) => {
       href={product.offerUrl}
       target="_blank"
       rel="noreferrer"
-      className="flex select-none items-center gap-x-2 rounded-sm border border-black bg-zinc-800 py-3 px-4 text-base text-white shadow-md transition-shadow duration-200 hover:scale-[1.02] hover:text-primary hover:shadow-2xl"
+      className="flex select-none items-center gap-x-2 rounded-sm border border-black bg-zinc-900 py-3 px-4 text-base text-white shadow-md transition-all duration-200 hover:scale-[1.02] hover:text-primary hover:shadow-2xl"
     >
       <span className="">Buy Now at {product.merchant.name}</span>
       <div

@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
     <nav
       id="navbar-content"
       className={cn(
-        'fixed z-10 flex h-20 w-full items-center gap-x-8 border-black bg-white px-10 pb-1',
+        'fixed z-10 flex h-24 w-full items-center gap-x-8 border-black bg-white px-10 pb-1',
         {
           'justify-end': router.route === '/',
           'justify-between border-b-1.5': router.route !== '/',
@@ -26,12 +26,12 @@ const Navbar: React.FC = () => {
       <div className="flex w-1/2 items-center">
         {router.route === '/' || (
           <div className="flex w-full items-center gap-x-6">
+            {/* <HomeButton /> */}
             <GiveMeBarNav />
           </div>
         )}
       </div>
       <div className="flex items-center gap-x-4">
-        <HomeButton />
         <LinkChips />
         {user ? <ProfileButton /> : <LoginButton />}
       </div>

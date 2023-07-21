@@ -8,7 +8,7 @@ export interface SearchFunctionRequestDto {
 
 export interface SearchFunctionFiltersDto {
   region?: string;
-  store?: string;
+  merchant?: string;
   brand?: SearchFunctionKeyedFilterDto;
   category?: SearchFunctionNestedFilterDto;
   labels?: SearchFunctionNestedFilterDto[];

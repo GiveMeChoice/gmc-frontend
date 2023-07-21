@@ -2,6 +2,8 @@ import { ProductDocument } from './document/product.document';
 
 export interface SearchFunctionResponseDto {
   hits: number;
+  query?: string;
+  sort?: string;
   page?: number;
   pageSize?: number;
   data?: ProductDocument[];
@@ -10,7 +12,7 @@ export interface SearchFunctionResponseDto {
 }
 
 export interface SearchFunctionFacetsDto {
-  stores?: TermFacetDto[];
+  merchants?: TermFacetDto[];
   brands?: TermFacetDto[];
   categories?: TermFacetDto[];
   labels?: TermFacetDto[];

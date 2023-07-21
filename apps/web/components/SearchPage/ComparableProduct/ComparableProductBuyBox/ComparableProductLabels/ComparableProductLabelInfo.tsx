@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import React, { useEffect } from 'react';
-import { FlatLabel } from '../../../ComparableProduct2';
+import { FlatLabel } from '../../../ComparableProduct';
 
 interface Props {
   label: FlatLabel;
@@ -29,9 +29,7 @@ const ComparableProductLabelInfo: React.FC<Props> = ({ label }) => {
             <div className="text-zinc-500">
               {label.type} {' > '} {label.name}
             </div>
-            <div className="text-sm">
-              Certification labels are blah blah blah blah blah
-            </div>
+            <div className="text-sm">{label.description}</div>
           </div>
           <div className="flex w-full flex-col items-center gap-y-4 px-8 py-6">
             <div className="w-full text-center text-sm underline">

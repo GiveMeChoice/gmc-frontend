@@ -2,7 +2,7 @@ import { LabelDocument, MerchantLabelDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import ComparableProductLabelInfo from './ComparableProductLabels/ComparableProductLabelInfo';
-import { FlatLabel } from '../../ComparableProduct2';
+import { FlatLabel } from '../../ComparableProduct';
 
 interface Props {
   labels: FlatLabel[];
@@ -20,7 +20,7 @@ const ComparableProductLabels: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex w-full flex-col items-center justify-evenly space-y-2 px-3">
+    <div className="flex w-full flex-col items-center space-y-2 px-3 pt-4">
       <div className="flex flex-wrap justify-center gap-x-4 gap-y-5 px-4 pt-4 pb-8 text-sm">
         {labels.map((sl) => (
           <div
@@ -42,7 +42,6 @@ const ComparableProductLabels: React.FC<Props> = ({
           </div>
         ))}
       </div>
-      <div />
     </div>
   );
 };

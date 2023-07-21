@@ -19,11 +19,15 @@ const ComparableBuyBoxHeart: React.FC<Props> = ({ product }) => {
 
   return (
     <div
-      className={cn('h-14 w-14 cursor-pointer active:scale-[1.04]', {
-        'fill-gmc-heart stroke-black active:fill-gmc-heart-light-10': favorited,
-        'fill-white stroke-black hover:fill-gmc-heart-light-50  active:fill-gmc-heart-light-10':
-          !favorited,
-      })}
+      className={cn(
+        'h-12 w-12 cursor-pointer select-none active:scale-[1.04]',
+        {
+          'fill-gmc-heart stroke-black active:fill-gmc-heart-light-10':
+            favorited,
+          'fill-white stroke-black hover:fill-gmc-heart-light-50  active:fill-gmc-heart-light-10':
+            !favorited,
+        }
+      )}
       onClick={handleClick}
     >
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

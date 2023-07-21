@@ -1,11 +1,11 @@
+import cn from 'classnames';
+import { SearchFunctionResponseDto } from 'gmc-types';
 import React from 'react';
 import { LoadingSpinner } from 'ui';
-import cn from 'classnames';
 
 interface Props {
   loading: boolean;
-  hits: number;
-  sort: string;
+  searchResponse: SearchFunctionResponseDto;
   compareModeOn: boolean;
   onCompareModeChange: (on: boolean) => void;
   onSortChange: (sort: string) => void;
@@ -13,17 +13,13 @@ interface Props {
 
 const SearchChoiceBarSummary: React.FC<Props> = ({
   loading,
-  hits,
-  sort,
+  searchResponse,
   compareModeOn,
   onCompareModeChange,
   onSortChange,
 }) => {
   return (
-    <div
-      className="flex max-h-fit flex-col gap-y-1 p-4"
-      id="choice-bar-summary"
-    >
+    <div className="flex max-h-fit flex-col gap-y-7 bg-secondary p-7">
       <div className="flex h-20 w-full justify-between">
         {loading ? (
           <div className="flex w-full justify-between pr-4">
@@ -32,18 +28,14 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
           </div>
         ) : (
           <>
-            {hits ? (
-              <div className="flex flex-col gap-2">
-                <span className="text-3xl">{`Top ${
-                  hits >= 10 ? 10 : hits
+            {searchResponse.hits ? (
+              <div className="flex flex-col gap-y-4">
+                <span className="text-2xl">{`Top ${
+                  searchResponse.hits >= 10 ? 10 : searchResponse.hits
                 } Choices`}</span>
-                <div
-                  className={cn('flex items-baseline gap-2 pl-1', {
-                    hidden: compareModeOn,
-                  })}
-                >
-                  <span className="text-sm">Choices Available:</span>
-                  <span>{hits}</span>
+                <div className={cn('flex items-baseline gap-2 pl-1', {})}>
+                  <span className="text-sm">Total Choices Available:</span>
+                  <span>{searchResponse.hits}</span>
                 </div>
               </div>
             ) : (
@@ -53,7 +45,7 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
         )}
         <button
           className={cn(
-            'flex h-10 min-w-fit items-center justify-center gap-x-2 rounded-sm border-1.5 border-black py-1.5 px-2.5 text-black hover:bg-primary active:bg-primary-dark-10',
+            'flex h-9 min-w-fit items-center justify-center gap-x-2 rounded-sm border border-black px-2 pr-2.5 text-sm text-black hover:bg-primary active:bg-primary-dark-10',
             {
               hidden: !compareModeOn,
             }
@@ -64,60 +56,44 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
             draggable={false}
             src="/img/left-arrow.svg"
             alt="Left arrow"
-            className={cn('h-7 max-h-full w-auto')}
+            className={cn('h-5 max-h-full w-auto')}
           />
-          <span>Results</span>
+          <span>View All</span>
         </button>
       </div>
-      {/* <div className="flex w-full justify-end py-4">
-                <button
-                  className={cn(
-                    'flex h-10 w-full items-center justify-center gap-x-3 rounded-sm border-1.5 border-black bg-white py-2 text-black hover:bg-primary active:bg-primary-dark-10',
-                    {
-                      hidden: compareModeOn,
-                    }
-                  )}
-                  onClick={() => onCompareModeChange(!compareModeOn)}
-                >
-                  <span>Compare Top Choices</span>
-                  <img
-                    draggable={false}
-                    src="/img/right-arrow.svg"
-                    alt="Right arrow"
-                    className={cn('h-7 max-h-full w-auto')}
-                  />
-                </button>
-              </div> */}
-      <div className="flex flex-col py-1.5">
-        <div className="w-full pb-1 text-center text-sm">Prioritize By</div>
-        <div className="flex h-10 w-full border-1.5 border-black">
+      {/* <span className="bold w-full px-2 pt-2 pb-6 text-xl italic">{`" ${searchResponse.query.toUpperCase()} "`}</span> */}
+      {searchResponse.hits ? (
+        <div className="flex h-9 w-full border-1.5 border-black text-sm">
           <button
             className={cn('w-1/2 text-center', {
-              'bg-zinc-900 text-white': !sort,
-              'text-black hover:bg-primary active:bg-primary-dark-10': sort,
+              'bg-zinc-900 text-white': !searchResponse.sort,
+              'text-black hover:bg-primary-light-30 active:bg-primary-light-10':
+                searchResponse.sort,
             })}
             onClick={() => {
               onSortChange(null);
             }}
-            disabled={!sort}
+            disabled={!searchResponse.sort}
           >
-            Best Match
+            BEST MATCH
           </button>
           <button
             className={cn('w-1/2 text-center', {
-              'bg-zinc-900 text-white': sort === 'price',
-              'text-black hover:bg-primary active:bg-primary-dark-10':
-                sort !== 'price',
+              'bg-zinc-900 text-white': searchResponse.sort === 'price',
+              'text-black hover:bg-primary-light-30 active:bg-primary-light-10':
+                searchResponse.sort !== 'price',
             })}
             onClick={() => {
               onSortChange('price');
             }}
-            disabled={sort === 'price'}
+            disabled={searchResponse.sort === 'price'}
           >
-            Lowest Price
+            LOWEST PRICE
           </button>
         </div>
-      </div>
+      ) : (
+        <> </>
+      )}
     </div>
   );
 };
