@@ -88,7 +88,7 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex flex-col bg-secondary py-7">
+    <div className="flex flex-col bg-white py-7">
       <div className="flex items-center justify-between gap-x-4 px-7">
         <div className="flex items-center gap-4">
           <img

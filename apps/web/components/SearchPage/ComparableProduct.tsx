@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ComparableProductBuyBox from './ComparableProduct/ComparableProductBuyBox';
 import ComparableProductDescription from './ComparableProduct/ComparableProductBuyBox/ComarableProductDescription';
 import ComparableProductLabels from './ComparableProduct/ComparableProductBuyBox/ComarableProductLabels';
-import ComparableProductLabelInfo from './ComparableProduct/ComparableProductBuyBox/ComparableProductLabels/ComparableProductLabelInfo';
+import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductBuyBox/ComparableProductLabels/ComparableProductLabelSpotlight';
 import ComparableProductImages from './ComparableProduct/ComparableProductImages';
 import ComparableProductTitleRow from './ComparableProduct/ComparableProductTitleRow';
 
@@ -29,33 +29,35 @@ const ComparableProduct: React.FC<Props> = (props) => {
 
   useEffect(() => {
     setLabelSpotlight(0);
-    const flattened = props.product.labels.map((label, index) => ({
-      index,
-      merchantLabel: label.merchantLabel,
-      type: label.gmcLabel.name,
-      name: !label.gmcLabel.sublabel
-        ? label.gmcLabel.name
-        : !label.gmcLabel.sublabel.sublabel
-        ? label.gmcLabel.sublabel.name
-        : label.gmcLabel.sublabel.sublabel.name,
-      description: !label.gmcLabel.sublabel
-        ? label.gmcLabel.description
-        : !label.gmcLabel.sublabel.sublabel
-        ? label.gmcLabel.sublabel.description
-        : label.gmcLabel.sublabel.sublabel.description,
-    }));
-    setFlatLabels(flattened);
+    if (props.product && props.product.labels) {
+      const flattened = props.product.labels.map((label, index) => ({
+        index,
+        merchantLabel: label.merchantLabel,
+        type: label.gmcLabel.name,
+        name: !label.gmcLabel.sublabel
+          ? label.gmcLabel.name
+          : !label.gmcLabel.sublabel.sublabel
+          ? label.gmcLabel.sublabel.name
+          : label.gmcLabel.sublabel.sublabel.name,
+        description: !label.gmcLabel.sublabel
+          ? label.gmcLabel.description
+          : !label.gmcLabel.sublabel.sublabel
+          ? label.gmcLabel.sublabel.description
+          : label.gmcLabel.sublabel.sublabel.description,
+      }));
+      setFlatLabels(flattened);
+    }
   }, [props.product]);
 
   return (
     <>
       {props.product && (
-        <div className="flex h-full w-full flex-col divide-y-1.5 divide-black">
+        <div className="flex h-full w-full flex-col divide-y-1.5 divide-secondary-dark-10">
           {/*  */}
           <ComparableProductTitleRow {...props} />
           {/*  */}
-          <div className="flex w-full divide-x-1.5 divide-black">
-            <div className="w-7/12 divide-y-1.5 divide-black">
+          <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
+            <div className="w-7/12 divide-y-1.5 divide-secondary-dark-10">
               <ComparableProductBuyBox product={props.product} />
             </div>
             <div className="w-5/12">
@@ -63,7 +65,7 @@ const ComparableProduct: React.FC<Props> = (props) => {
             </div>
           </div>
           {/*  */}
-          <div className="flex w-full divide-x-1.5 divide-black">
+          <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
             <div className="w-4/12">
               <ComparableProductDescription
                 description={props.product.description}
@@ -77,7 +79,9 @@ const ComparableProduct: React.FC<Props> = (props) => {
               />
             </div>
             <div className="flex w-5/12">
-              <ComparableProductLabelInfo label={flatLabels[labelSpotlight]} />
+              <ComparableProductLabelSpotlight
+                label={flatLabels[labelSpotlight]}
+              />
             </div>
           </div>
           <div className=""></div>

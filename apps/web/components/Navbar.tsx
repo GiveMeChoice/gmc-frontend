@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
     <nav
       id="navbar-content"
       className={cn(
-        'fixed z-10 flex h-24 w-full items-center gap-x-8 border-black bg-white px-10 pb-1',
+        'border-secondar-dark-10 fixed z-10 flex h-24 w-full items-center gap-x-8 bg-white px-10 pb-1',
         {
           'justify-end': router.route === '/',
           'justify-between border-b-1.5': router.route !== '/',

@@ -1,7 +1,7 @@
 import { LabelDocument, MerchantLabelDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import ComparableProductLabelInfo from './ComparableProductLabels/ComparableProductLabelInfo';
+import ComparableProductLabelSpotlight from './ComparableProductLabels/ComparableProductLabelSpotlight';
 import { FlatLabel } from '../../ComparableProduct';
 
 interface Props {
@@ -20,8 +20,24 @@ const ComparableProductLabels: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex w-full flex-col items-center space-y-2 px-3 pt-4">
-      <div className="flex flex-wrap justify-center gap-x-4 gap-y-5 px-4 pt-4 pb-8 text-sm">
+    <div className="flex w-full flex-col items-start space-y-1.5 p-6 pl-10">
+      {/* <div className="flex flex-col items-start space-y-2"> */}
+      {labels.map((sl) => (
+        <div className="flex items-center gap-x-2">
+          <div
+            className={cn('h-4 w-4 rounded-full', {
+              'bg-primary': sl.type === 'Certifications',
+              'bg-gmc-beach-light-10': sl.type === 'Origin',
+              'bg-gmc-soil-light-50': sl.type === 'Uncategorized',
+            })}
+          />
+          <span className="text-sm font-bold text-zinc-900">
+            {sl.name.toUpperCase()}
+          </span>
+        </div>
+      ))}
+      {/* </div> */}
+      {/* <div className="flex flex-wrap justify-center gap-x-4 gap-y-5 px-4 pt-4 pb-8 text-sm">
         {labels.map((sl) => (
           <div
             className={cn(
@@ -41,7 +57,7 @@ const ComparableProductLabels: React.FC<Props> = ({
             {sl.name}
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

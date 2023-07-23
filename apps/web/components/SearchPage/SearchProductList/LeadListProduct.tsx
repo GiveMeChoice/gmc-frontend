@@ -29,21 +29,21 @@ const LeadListProduct: React.FC<Props> = ({
   }, [product]);
   return (
     <div
-      className="group flex max-h-96 w-1/2 cursor-pointer flex-col divide-y-1.5 divide-black border-r-1.5 border-b-1.5 border-black"
+      className="group flex max-h-96 w-1/2 cursor-pointer flex-col divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-b-1.5 border-secondary-dark-10"
       onClick={() => selectProduct(index)}
     >
-      <div className={'flex divide-x-1.5 divide-black'}>
+      <div className={'flex divide-x-1.5 divide-secondary-dark-10'}>
         <div
-          className={`flex aspect-4/3 w-20 items-center justify-center bg-secondary
+          className={`flex aspect-4/3 h-20 items-center justify-center bg-secondary
               text-3xl duration-100 group-hover:bg-primary`}
         >
           {index + 1}
         </div>
-        <p className="flex max-w-full flex-grow items-center justify-center overflow-ellipsis p-3 px-5 group-hover:underline">
+        <p className="flex max-w-full flex-grow items-center justify-center overflow-ellipsis p-3 px-5 text-xl group-hover:underline">
           {product.title}
         </p>
       </div>
-      <div className="flex h-full w-full divide-x-1.5 divide-black">
+      <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
         <div className="w-2/3">
           <ProductInfoBox product={product} />
         </div>

@@ -14,7 +14,7 @@ const SearchChoiceBarMerchantFacets: React.FC<Props> = ({
   onFilterChange,
 }) => {
   return (
-    <div className="flex w-full flex-col divide-y divide-secondary-dark-30">
+    <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
       <span className="pl-1.5 text-lg font-bold">Merchants</span>
       <div className="text-md flex flex-col px-2 pl-2.5 pt-0.5">
         {merchantFacets.map((merchant) => (

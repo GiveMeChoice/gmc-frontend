@@ -58,7 +58,9 @@ const SearchChoiceBar: React.FC<Props> = ({
   };
 
   return (
-    <div className={`flex h-full w-full flex-col divide-y-1.5 divide-black`}>
+    <div
+      className={`divide--1.5 flex h-full w-full flex-col divide-secondary-dark-10`}
+    >
       <SearchChoiceBarSummary
         loading={loading}
         searchResponse={searchResponse}
