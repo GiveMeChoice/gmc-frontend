@@ -1,8 +1,6 @@
 import { ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
-import { getUserTheme } from '../../../lib/theme';
-import ProductInfoBox from './InfoBox';
-import { useUser } from '../../UserProvider';
+import ProductInfoBox from './LeadListProduct/InfoBox';
 
 interface Props {
   index: number;
@@ -15,7 +13,6 @@ const LeadListProduct: React.FC<Props> = ({
   product,
   selectProduct,
 }) => {
-  const { profile } = useUser();
   const [imgSrc, setImgSrc] = useState<string>('');
   useEffect(() => {
     let images = product.images.filter((img) => img.type === 'LIST');
