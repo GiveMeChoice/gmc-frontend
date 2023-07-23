@@ -1,10 +1,15 @@
-# Turborepo Tailwind CSS starter
+# Give Me Choice - Frontend Monorepo
 
-This is an official starter Turborepo.
+The GMC Frontend Repository utilizes Turporepo
 
 ## What's inside?
 
-This Turborepo includes the following packages/apps:
+GMC Frontend Repo includes:
+
+- Web App (www.givemechoice.com)
+- Prelaunch Site
+- Integration Dashboard
+- Search Function (GCP)
 
 ### Apps and Packages
 
@@ -52,3 +57,5 @@ cd with-tailwind
 yarn install
 git init . && git add . && git commit -m "Init"
 ```
+
+---
