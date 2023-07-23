@@ -4,10 +4,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
 import ComparableProduct from '../components/SearchPage/ComparableProduct';
+import LeadListProduct from '../components/SearchPage/LeadListProduct';
 import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
-import SearchProductList from '../components/SearchPage/SearchProductList';
 import { functions } from '../lib/firebase';
-import LeadListProduct from '../components/SearchPage/SearchProductList/LeadListProduct';
 
 export default function Search({ props }) {
   const router = useRouter();
