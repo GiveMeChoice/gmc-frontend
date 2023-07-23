@@ -43,16 +43,16 @@ const ComparableProductImages: React.FC<Props> = ({ product }) => {
             {Array.from(Array(images.length).keys()).map((i) => (
               <span
                 className={cn(
-                  'h-2.5 w-2.5 rounded-full border-1.5 border-black',
+                  'h-2.5 w-2.5 rounded-full border-1.5 border-zinc-900',
                   {
                     'bg-white': imageIndex !== i,
-                    'bg-black': imageIndex === i,
+                    'bg-zinc-900': imageIndex === i,
                   }
                 )}
               />
             ))}
           </div>
-          <div className="flex w-full justify-center divide-x-1.5 divide-black border-t-1.5 border-black">
+          <div className="flex w-full justify-center divide-x-1.5 divide-secondary-dark-10 border-t-1.5 border-secondary-dark-10">
             <button
               className={cn('flex w-1/2 items-center justify-center py-2', {
                 'hover:bg-primary': imageIndex !== 0,

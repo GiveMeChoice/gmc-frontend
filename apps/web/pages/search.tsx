@@ -74,7 +74,7 @@ export default function Search({ props }) {
 
       <div
         id="search-page"
-        className="fixed mt-24 flex h-full w-full divide-x-1.5 divide-black pb-28"
+        className="fixed mt-24 flex h-full w-full divide-x-1.5 divide-secondary-dark-10 pb-28"
       >
         <div id="choice-bar-container" className="h-full w-1/4 overflow-y-auto">
           <SearchChoiceBar

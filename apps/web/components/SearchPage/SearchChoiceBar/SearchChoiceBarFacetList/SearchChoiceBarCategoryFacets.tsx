@@ -29,7 +29,7 @@ const SearchChoiceBarCategoryFacets: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex w-full flex-col divide-y divide-secondary-dark-30">
+    <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
       <span className="pl-1.5 text-lg font-bold">Categories</span>
       <div className="text-md flex flex-col px-2 pl-2.5 pt-0.5">
         {categoryFacets

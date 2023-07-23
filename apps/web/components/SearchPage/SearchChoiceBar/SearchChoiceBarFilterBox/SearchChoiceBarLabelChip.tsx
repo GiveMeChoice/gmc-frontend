@@ -23,7 +23,38 @@ const SearchChoiceBarLabelChip: React.FC<Props> = ({
       >
         &times;
       </div>
+
       <div
+        className={cn(
+          'flex items-center gap-x-1.5 rounded-full border-1.5 border-secondary-dark-10 bg-white py-1 px-2',
+          {
+            // 'bg-primary': label.value === 'Certifications',
+            // 'bg-gmc-beach-light-10': label.value === 'Origin',
+            // 'bg-gmc-soil-light-50': label.value === 'Uncategorized',
+          }
+        )}
+      >
+        <div
+          className={cn('h-3 w-3 rounded-full', {
+            'bg-primary': label.value === 'Certifications',
+            'bg-gmc-beach-light-10': label.value === 'Origin',
+            'bg-gmc-soil-light-50': label.value === 'Uncategorized',
+          })}
+        />
+        {label.value.toUpperCase()}
+      </div>
+
+      {/* <div
+        className={cn('flex rounded-sm border-1.5 border-black py-1 px-4', {
+          'bg-primary': label.value === 'Certifications',
+          'bg-gmc-beach-light-10': label.value === 'Origin',
+          'bg-gmc-soil-light-50': label.value === 'Uncategorized',
+        })}
+      >
+        {label.value.toUpperCase()}
+      </div> */}
+
+      {/* <div
         key={index}
         onClick={() => onClick(index)}
         className={cn(
@@ -40,7 +71,7 @@ const SearchChoiceBarLabelChip: React.FC<Props> = ({
             ? label.subfilter.subfilter.value
             : label.subfilter.value
           : label.value}
-      </div>
+      </div> */}
     </div>
   );
 };

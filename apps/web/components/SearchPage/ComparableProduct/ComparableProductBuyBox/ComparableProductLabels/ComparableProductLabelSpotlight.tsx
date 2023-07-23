@@ -6,15 +6,26 @@ interface Props {
   label: FlatLabel;
 }
 
-const ComparableProductLabelInfo: React.FC<Props> = ({ label }) => {
-  // useEffect(() => {}, [label]);
-
+const ComparableProductLabelSpotlight: React.FC<Props> = ({ label }) => {
   return (
     <>
       {label && (
-        <div className="flex h-full w-full flex-col divide-y-1.5 divide-black">
+        <div className="flex h-full w-full flex-col divide-y-1.5 divide-secondary-dark-10">
           <div className="flex h-1/2 flex-col items-center justify-evenly gap-y-4 px-8 py-6">
-            <div
+            <div className="flex items-center gap-x-2">
+              <div
+                className={cn(
+                  'h-5 w-5 rounded-full border border-secondary-dark-10',
+                  {
+                    'bg-primary': label.type === 'Certifications',
+                    'bg-gmc-beach-light-10': label.type === 'Origin',
+                    'bg-gmc-soil-light-50': label.type === 'Uncategorized',
+                  }
+                )}
+              />
+              <span className="text-zinc-900">{label.name.toUpperCase()}</span>
+            </div>
+            {/* <div
               className={cn(
                 'w-fit cursor-pointer rounded-full border border-zinc-700 px-3 py-1 text-sm shadow-sm',
                 {
@@ -25,7 +36,7 @@ const ComparableProductLabelInfo: React.FC<Props> = ({ label }) => {
               )}
             >
               {label.name}
-            </div>
+            </div> */}
             <div className="text-zinc-500">
               {label.type} {' > '} {label.name}
             </div>
@@ -58,4 +69,4 @@ const ComparableProductLabelInfo: React.FC<Props> = ({ label }) => {
   );
 };
 
-export default ComparableProductLabelInfo;
+export default ComparableProductLabelSpotlight;
