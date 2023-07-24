@@ -1,7 +1,6 @@
-import React from 'react';
-import Image from 'next/image';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import React from 'react';
 
 interface Props {}
 

@@ -19,7 +19,7 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
   onSortChange,
 }) => {
   return (
-    <div className="flex max-h-fit flex-col gap-y-7 bg-white p-7">
+    <div className="flex max-h-fit flex-col gap-y-7 border-b-1.5 border-secondary-dark-10 bg-white p-7">
       <div className="flex h-20 w-full justify-between">
         {loading ? (
           <div className="flex w-full justify-between pr-4">
