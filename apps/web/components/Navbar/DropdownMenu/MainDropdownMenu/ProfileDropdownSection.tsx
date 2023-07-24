@@ -13,9 +13,7 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
 
   return (
     <div
-      className={`m-2 flex flex-col gap-y-2 rounded-t-2xl border border-secondary-dark-10 p-3 px-4 bg-${
-        getUserTheme(profile).modal
-      } bg-white`}
+      className={`m-2.5 mx-3 flex flex-col gap-y-2 rounded-t-2xl border-1.5 border-secondary-dark-10 bg-secondary p-3 px-8`}
     >
       <div className="flex w-full items-start justify-between">
         <div>
@@ -24,7 +22,7 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
               ? profile.displayName
               : 'Beautiful Stranger'}
           </div>
-          <div className="w-full pl-1 text-sm">{user.email}</div>
+          <div className="w-full pl-0.5 text-sm">{user.email}</div>
         </div>
 
         <div
@@ -49,9 +47,9 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
       </div>
       <div className="flex w-full justify-center">
         <button
-          className={`rounded-xl border border-secondary-dark-50 text-zinc-800 bg-${
+          className={`rounded-sm border border-zinc-800 text-zinc-800 bg-${
             getUserTheme(profile).base
-          } py-1 px-3 text-xs hover:bg-secondary active:bg-secondary-dark-10 dark:border-white`}
+          } py-1 px-3 text-xs hover:bg-primary active:bg-primary-dark-10 dark:border-white`}
           onClick={() => {
             close();
             if (router.pathname === '/profile') {

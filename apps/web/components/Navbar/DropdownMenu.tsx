@@ -6,6 +6,7 @@ import DropdownMenuTransition from './DropdownMenu/DropdownMenuTransition';
 import FavoritesDropdownMenu from './DropdownMenu/FavoritesDropdownMenu';
 import MainDropdownMenu from './DropdownMenu/MainDropdownMenu';
 import ThemeDropdownMenu from './DropdownMenu/ThemeDropdownMenu';
+import { useRouter } from 'next/router';
 
 interface Props {
   closeMenu: () => void;
@@ -24,6 +25,7 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
   );
   const [menuHeight, setMenuHeight] = useState(null);
   const dropdownRef = useRef(null);
+  const router = useRouter();
 
   const { profile } = useUser();
 
@@ -63,10 +65,12 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     <div
       id="dropdown-menu"
       className={cn(
-        `dropdown-menu transition-height absolute z-50 max-h-fit w-96 max-w-full overflow-hidden rounded-3xl border bg-secondary shadow-md shadow-zinc-500 duration-300 ease-in-out bg-${
+        `transition-height absolute z-50 max-h-fit w-96 max-w-full overflow-hidden rounded-3xl border border-zinc-700 bg-secondary shadow-sm shadow-zinc-700 duration-300 ease-in-out bg-${
           getUserTheme(profile).base
         }`,
         {
+          'dropdown-menu-home': router.route === '/',
+          'dropdown-menu': router.route !== '/',
           'pointer-events-none -z-10 h-0 opacity-0': !open,
         }
       )}

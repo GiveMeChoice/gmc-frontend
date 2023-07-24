@@ -31,18 +31,18 @@ body {
 
 /* DropdownMenu Transitions  */
 .dropdown-menu-home {
-  transform: translateX(50%);
-  top: 4.5rem;
+  transform: translateX(2%);
+  top: 5rem;
   background-color: #f0f0f5;
 }
 .dropdown-menu {
-  transform: translateX(0%);
-  top: 4.5rem;
+  transform: translateX(-10%);
+  top: 5rem;
   background-color: #f0f0f5;
 }
 .menu-primary-enter {
   position: absolute;
-  /* transform: translateX(-110%); */
+  transform: translateX(-110%);
 }
 .menu-primary-enter-active {
   transform: translateX(0%);

@@ -15,11 +15,11 @@ export default function Home() {
       </Head>
 
       <section className="max-w-screen container mx-auto flex h-screen flex-col items-center justify-between">
-        {/* <div className="flex w-full justify-end space-x-6 p-4"> */}
         <div className="border-secondar-dark-10 fixed z-10 flex h-24 w-full items-center justify-end gap-x-6 bg-white px-10 pb-1">
           <LinkChips />
           {user ? <ProfileButton /> : <LoginButton />}
         </div>
+        <div />
         <div className="flex h-1/2 w-2/3 items-center justify-center">
           <GiveMeBarHome />
         </div>

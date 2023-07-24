@@ -35,7 +35,7 @@ const GiveMeBarHome: React.FC<Props> = () => {
     >
       <button
         className={cn(
-          'flex h-12 w-48 cursor-pointer items-end rounded-full duration-200 hover:bg-zinc-900 hover:shadow-md active:bg-transparent active:shadow-sm',
+          'flex h-14 w-56 cursor-pointer items-end rounded-full duration-200 hover:bg-zinc-900 hover:shadow-md active:bg-transparent active:shadow-sm',
           {}
         )}
         disabled={!query}
@@ -43,7 +43,7 @@ const GiveMeBarHome: React.FC<Props> = () => {
       >
         <span
           className={cn(
-            'z-20 flex h-12 w-48 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200  ease-in-out hover:-translate-y-1 active:translate-y-0 active:border-zinc-700',
+            'z-20 flex h-14 w-56 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200  ease-in-out hover:-translate-y-1 active:translate-y-0 active:border-zinc-700',
             {}
           )}
         >
@@ -52,8 +52,8 @@ const GiveMeBarHome: React.FC<Props> = () => {
             draggable={false}
             src="/img/GIVE_ME.svg"
             alt="give me"
-            width="172"
-            height="50"
+            width="196"
+            height="52"
           />
         </span>
       </button>
@@ -61,7 +61,7 @@ const GiveMeBarHome: React.FC<Props> = () => {
       <input
         id="gmc-search-bar"
         className={cn(
-          'peer h-full w-full border-b-2.5 border-black bg-inherit pr-6 text-center text-2.5xl outline-none transition-width duration-700 ease-in-out md:pl-2 md:text-left',
+          'peer h-full w-full border-b-2.5 border-black bg-inherit pr-6 text-center text-4xl outline-none transition-width duration-700 ease-in-out md:pl-3 md:text-left',
           {}
         )}
         value={query}

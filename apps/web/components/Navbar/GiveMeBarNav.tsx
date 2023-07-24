@@ -57,9 +57,9 @@ const GiveMeBarNav: React.FC<Props> = () => {
       <input
         id="gmc-search-bar"
         className={cn(
-          'peer h-full w-32 border-b-2.5 border-black bg-inherit text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:text-2.5xl focus:placeholder-transparent md:pl-2 md:text-left',
+          'peer h-full w-32 border-b-2.5 border-black bg-inherit text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:pl-2.5 focus:text-3xl focus:placeholder-transparent md:pl-2 md:text-left',
           {
-            'w-full pr-6 text-2.5xl': query,
+            'w-full pr-6 pl-2.5 text-3xl': query,
             'text-4xl': !query,
           }
         )}

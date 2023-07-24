@@ -21,7 +21,7 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu, close }) => {
   };
 
   return (
-    <div className="bg-secondary pb-2.5">
+    <div className="bg-white pb-2.5">
       <ProfileDropdownSection close={close} />
       <div className="my-2 flex flex-col px-2">
         <DropdownItemButton
