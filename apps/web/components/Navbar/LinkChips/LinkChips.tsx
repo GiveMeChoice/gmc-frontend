@@ -106,7 +106,7 @@ const LinkChips: React.FC<Props> = () => {
             <Image
               className="select-none rounded-full"
               draggable={false}
-              src="/img/bag.svg"
+              src="/img/bananas.svg"
               alt="give me"
               width="17"
               height="17"

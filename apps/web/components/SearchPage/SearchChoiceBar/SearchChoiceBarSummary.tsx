@@ -88,7 +88,9 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
               </div>
             </div>
           ) : (
-            <span className="text-2xl">No Choices Available</span>
+            <div className="flex h-[160px] items-center justify-center">
+              <span className="text-2xl">No Choices Available</span>
+            </div>
           )}
         </>
       )}

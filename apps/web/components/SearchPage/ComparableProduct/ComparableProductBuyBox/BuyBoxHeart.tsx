@@ -22,7 +22,7 @@ const BuyBoxHeart: React.FC<Props> = ({ product }) => {
     <div
       id="buybox-heart"
       className={cn(
-        'm-1 h-14 w-14 cursor-pointer select-none transition-all duration-150 active:scale-[1.07]',
+        'm-1 h-[48px] w-[48px] cursor-pointer select-none transition-all duration-150 active:scale-[1.07]',
         {
           'fill-gmc-heart stroke-gmc-heart-dark-10 active:fill-gmc-heart-light-10':
             favorited,
