@@ -31,7 +31,7 @@ const ComparableProductLabels: React.FC<Props> = ({
       <div className="flex w-full justify-center divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10">
         <button
           className={cn(
-            'flex h-10 w-1/2 select-none items-center justify-center py-2',
+            'flex aspect-video w-1/2 select-none items-center justify-center py-2',
             {
               'hover:bg-primary': spotlight !== 0,
               'bg-secondary': spotlight === 0,
@@ -44,14 +44,14 @@ const ComparableProductLabels: React.FC<Props> = ({
             draggable={false}
             src="/img/up-arrow.svg"
             alt="Left arrow"
-            className={cn('w-6', {
+            className={cn('w-1/4', {
               hidden: spotlight === 0,
             })}
           />
         </button>
         <button
           className={cn(
-            'flex h-10 w-1/2 select-none items-center justify-center py-2',
+            'flex aspect-video w-1/2 select-none items-center justify-center py-2',
             {
               'hover:bg-primary': spotlight < labels.length - 1,
               'bg-secondary': spotlight === labels.length - 1,
@@ -64,7 +64,7 @@ const ComparableProductLabels: React.FC<Props> = ({
             draggable={false}
             src="/img/down-arrow.svg"
             alt="Right arrow"
-            className={cn('w-6', {
+            className={cn('w-1/4', {
               hidden: spotlight === labels.length - 1,
             })}
           />
