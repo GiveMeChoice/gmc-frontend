@@ -6,25 +6,27 @@ interface Props {
   product: ProductDocument;
 }
 
-const ComparableBuyBoxHeart: React.FC<Props> = ({ product }) => {
+const InfoBoxHeart: React.FC<Props> = ({ product }) => {
   const [favorited, setFavorited] = useState(false);
 
   useEffect(() => {
     setFavorited(false);
   }, [product]);
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.stopPropagation();
     setFavorited(!favorited);
   };
 
   return (
     <div
+      id="buybox-heart"
       className={cn(
-        'h-12 w-12 cursor-pointer select-none active:scale-[1.04]',
+        'h-11 w-11 cursor-pointer select-none transition-all duration-150 active:scale-[1.1]',
         {
-          'fill-gmc-heart stroke-black active:fill-gmc-heart-light-10':
+          'fill-gmc-heart stroke-gmc-heart-dark-10 active:fill-gmc-heart-light-10':
             favorited,
-          'fill-white stroke-black hover:fill-gmc-heart-light-50  active:fill-gmc-heart-light-10':
+          'fill-white stroke-zinc-800 hover:scale-[1.02] active:fill-gmc-heart-light-10 active:stroke-gmc-heart':
             !favorited,
         }
       )}
@@ -42,4 +44,4 @@ const ComparableBuyBoxHeart: React.FC<Props> = ({ product }) => {
   );
 };
 
-export default ComparableBuyBoxHeart;
+export default InfoBoxHeart;

@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import React from 'react';
-import { useUser } from '../../../UserProvider';
 
 interface Props {
   name: string;
@@ -17,8 +16,6 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
   invert,
   onClick,
 }) => {
-  const { profile } = useUser();
-
   return (
     <div className="group flex items-center justify-center text-sm">
       <div
@@ -33,8 +30,8 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
         className={cn(
           'cursor-pointer rounded-sm border-1.5 border-zinc-900 px-2 py-1 shadow-sm',
           {
-            'bg-zinc-900 text-white': !invert,
-            'bg-white text-black': invert,
+            'bg-zinc-900 text-white': true,
+            // 'bg-white text-black': invert,
           }
         )}
       >

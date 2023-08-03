@@ -20,7 +20,7 @@ const SearchChoiceBarFacetList: React.FC<Props> = ({
   return (
     <div
       id="choice-bar-facets"
-      className="flex h-full flex-col gap-y-5 bg-white px-7 pt-5 pb-10"
+      className="flex h-full flex-col gap-y-5 bg-white px-7 py-5"
     >
       {facets.labels.length > 0 && (
         <SearchChoiceBarLabelFacets
@@ -58,6 +58,7 @@ const SearchChoiceBarFacetList: React.FC<Props> = ({
           onFilterChange={onFilterChange}
         />
       )}
+      <hr />
     </div>
   );
 };

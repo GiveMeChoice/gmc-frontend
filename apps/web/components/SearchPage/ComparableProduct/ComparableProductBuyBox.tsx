@@ -1,9 +1,10 @@
 import { ProductDocument } from 'gmc-types';
 import React from 'react';
-import ComparableProductBuyBoxCategory from './ComparableProductBuyBox/ComparableProductBuyBoxCategory';
-import ComparableBuyBoxHeart from './ComparableProductBuyBox/ComparableProductBuyBoxHeart';
-import MerchantChip from '../../Shared/MerchantChip';
-import ComaprableProductBuyNowButton from './ComparableProductBuyBox/ComparableProductBuyNowButton';
+import BuyBoxBrand from './ComparableProductBuyBox/BuyBoxBrand';
+import BuyBoxBuyNowButton from './ComparableProductBuyBox/BuyBoxBuyNowButton';
+import BuyBoxCategory from './ComparableProductBuyBox/BuyBoxCategory';
+import BuyBoxHeart from './ComparableProductBuyBox/BuyBoxHeart';
+import BuyBoxPrice from './ComparableProductBuyBox/BuyBoxPrice';
 
 interface Props {
   product: ProductDocument;
@@ -11,43 +12,32 @@ interface Props {
 
 const ComparableProductBuyBox: React.FC<Props> = ({ product }) => {
   return (
-    <div className="pr-18 flex h-full w-full flex-col justify-between px-8 py-4">
-      <div className="flex w-full flex-col">
-        <ComparableProductBuyBoxCategory category={product.category} />
-
-        {/*  */}
-        <div className="items flex w-full flex-wrap items-center justify-between gap-y-4 pt-6">
-          <div className="flex items-center space-x-4">
-            <img
-              src={
-                'https://images.ethicalsuperstore.com/images/resize120/Dalit-new-Logo.jpg'
-              }
-              title="Merchant Logo"
-              className="h-11 w-11 rounded-full border border-zinc-800 shadow-sm"
-              alt="LOGO"
-            />
-            <div className="cursor-pointer text-xl hover:underline">
-              {product.brand.name}
-            </div>
-          </div>
-          <div className="flex items-center gap-x-10">
-            <div className="flex flex-col items-end">
-              <span className="text-4xl">£ {product.price}</span>
-              <span className="text-">
-                (+ £ {product.shippingPrice} Shipping Fee)
-              </span>
-            </div>
-            <ComparableBuyBoxHeart product={product} />
-          </div>
+    <div className="flex h-full w-full flex-col justify-between gap-y-6 py-7 pb-10 pr-12 pl-12">
+      <div className="items flex w-full items-center justify-between gap-y-4">
+        <div className="flex w-1/2 flex-wrap">
+          <BuyBoxBrand brand={product.brand} />
         </div>
-        {/*  */}
-        <div className="flex w-full flex-wrap items-end justify-between gap-y-4 px-1 pt-8">
-          <div className="flex flex-col items-start gap-y-1.5">
-            <span className="text-sm font-bold text-zinc-800">Offered By:</span>
-            <MerchantChip merchant={product.merchant} />
-          </div>
-          <ComaprableProductBuyNowButton product={product} />
+        <div className="mb-1 flex w-1/3 items-center justify-start gap-x-2">
+          <BuyBoxPrice
+            price={product.price}
+            shippingPrice={product.shippingPrice}
+            currency={product.currency}
+          />
         </div>
+      </div>
+      {/*  */}
+      <div className="flex w-full items-center justify-between gap-8">
+        {/* <BuyBoxMerchant merchant={product.merchant} /> */}
+        {/* <BuyBoxRating rating={product.rating} /> */}
+        <div className="pl-1">
+          <BuyBoxBuyNowButton product={product} />
+        </div>
+        <div className="pr-16">
+          <BuyBoxHeart product={product} />
+        </div>
+      </div>
+      <div className="flex w-full justify-start">
+        <BuyBoxCategory category={product.category} />
       </div>
     </div>
   );

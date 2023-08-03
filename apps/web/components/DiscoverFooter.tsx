@@ -3,28 +3,37 @@ import React from 'react';
 
 const DiscoverFooter: React.FC = () => {
   return (
-    <div className="fixed bottom-0 mb-8 flex flex-col items-center">
-      <span className="mb-8 text-sm">Discover</span>
-      <Link href="#">
-        <span className="cursor-pointer text-xl underline underline-offset-2 hover:text-primary">
-          Organic Skincare
-        </span>
-      </Link>
-      <Link href="#">
-        <span className="cursor-pointer text-xl underline underline-offset-2 hover:text-primary">
-          Palm Oil Free Chocolate
-        </span>
-      </Link>
-      <Link href="#">
-        <span className="cursor-pointer text-xl underline underline-offset-2 hover:text-primary">
-          Rainforest friendly Coffee
-        </span>
-      </Link>
-      <Link href="#">
-        <span className="cursor-pointer text-xl underline underline-offset-2 hover:text-primary">
-          Pre-Owned Clothing
-        </span>
-      </Link>
+    <div className="flex w-full flex-col items-center justify-evenly text-[21px]">
+      <div className="flex flex-col items-center">
+        <Link href="/search?q=Organic+Skincare">
+          <span className="group cursor-pointer underline underline-offset-2 hover:decoration-gmc-berry active:decoration-secondary-dark-40">
+            <span className="group-hover:text-gmc-berry">Organic</span>{' '}
+            <span className="group-hover:text-secondary-dark-40">Skincare</span>
+          </span>
+        </Link>
+        <Link href="/search?q=Palm+Oil+Free+Chocolate">
+          <span className="group cursor-pointer underline underline-offset-2 hover:decoration-gmc-heart active:decoration-secondary-dark-40">
+            <span className="group-hover:text-gmc-heart">Palm Oil Free</span>{' '}
+            <span className="group-hover:text-secondary-dark-40">
+              Chocolate
+            </span>
+          </span>
+        </Link>
+        <Link href="/search?q=Rainforest-Friendly+Coffee">
+          <span className="group cursor-pointer underline underline-offset-2 hover:decoration-gmc-surf active:decoration-secondary-dark-40">
+            <span className="group-hover:text-gmc-surf">
+              Rainforest-Friendly
+            </span>{' '}
+            <span className="group-hover:text-secondary-dark-40">Coffee</span>
+          </span>
+        </Link>
+        <Link href="/search?q=Pre-Owned+Clothing">
+          <span className="group cursor-pointer underline underline-offset-2 hover:decoration-gmc-soil active:decoration-secondary-dark-40">
+            <span className="group-hover:text-gmc-soil">Pre-Owned </span>
+            <span className="group-hover:text-secondary-dark-40">Clothing</span>
+          </span>
+        </Link>
+      </div>
     </div>
   );
 };

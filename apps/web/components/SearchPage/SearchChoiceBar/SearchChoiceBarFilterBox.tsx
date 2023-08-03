@@ -88,7 +88,7 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex flex-col bg-white py-7">
+    <div className="flex flex-col border-b-1.5 border-secondary-dark-10 bg-white py-7">
       <div className="flex items-center justify-between gap-x-4 px-7">
         <div className="flex items-center gap-4">
           <img
@@ -103,7 +103,7 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
         {(Object.keys(displayFilters).length > 0 ||
           (filters.labels && Object.keys(filters.labels).length > 0)) && (
           <div
-            className={`cursor-pointer rounded-sm border border-zinc-800 px-2 py-0.5 text-xs text-zinc-800 shadow-sm hover:bg-primary-light-40 active:bg-primary-light-10`}
+            className={`cursor-pointer rounded-sm border border-zinc-800 px-2 py-0.5 text-xs text-zinc-800 shadow-sm hover:bg-primary active:bg-primary-light-10`}
             onClick={() => {
               onFilterChange({
                 brand: null,
@@ -123,7 +123,7 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
         displayFilters.category ||
         displayFilters.brand ||
         displayFilters.priceRange) && (
-        <div className="flex flex-wrap items-center gap-y-2.5 pr-7 pl-3 pt-7">
+        <div className="flex flex-wrap items-center gap-y-3 pr-7 pl-2.5 pt-5">
           {displayFilters.merchant && (
             <SearchChoiceBarFilterChip
               onClick={handleFilterChipClick}
@@ -165,7 +165,7 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
         </div>
       )}
       {filters.labels && filters.labels.length > 0 && (
-        <div className="flex flex-wrap items-center gap-y-4 pr-7 pl-2.5 pt-7 text-sm">
+        <div className="flex flex-wrap items-center gap-y-3 pr-7 pl-2.5 pt-5 text-sm">
           {filters.labels.map((label, i) => (
             <SearchChoiceBarLabelChip
               onClick={handleLabelChipClick}

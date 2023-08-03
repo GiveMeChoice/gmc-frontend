@@ -40,7 +40,7 @@ const GiveMeBarNav: React.FC<Props> = () => {
       >
         <span
           className={cn(
-            'z-20 flex h-11 w-44 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-1  active:translate-y-0 active:border-zinc-700'
+            'z-20 flex h-11 w-44 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[5px]  active:translate-y-0 active:border-zinc-700'
           )}
         >
           <Image
@@ -48,7 +48,7 @@ const GiveMeBarNav: React.FC<Props> = () => {
             draggable={false}
             src="/img/GIVE_ME.svg"
             alt="give me"
-            width="155"
+            width="152"
             height="40"
           />
         </span>
@@ -57,9 +57,9 @@ const GiveMeBarNav: React.FC<Props> = () => {
       <input
         id="gmc-search-bar"
         className={cn(
-          'peer h-full w-32 border-b-2.5 border-black bg-inherit text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:pl-2.5 focus:text-3xl focus:placeholder-transparent md:pl-2 md:text-left',
+          'peer h-full w-32 border-b-3 border-black bg-inherit pl-2 text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:text-[31px] focus:placeholder-transparent md:text-left',
           {
-            'w-full pr-6 pl-2.5 text-3xl': query,
+            'w-full pr-6 text-[31px]': query,
             'text-4xl': !query,
           }
         )}
@@ -79,7 +79,7 @@ const GiveMeBarNav: React.FC<Props> = () => {
       />
       <button
         className={cn(
-          'asbolute text-secondary-zinc-900 flex aspect-square h-5 w-5 items-center justify-center rounded-full border-zinc-800  pb-1 opacity-0 outline transition-colors',
+          'asbolute text-secondary-zinc-900 flex aspect-square h-5 w-5 items-center justify-center rounded-full border-1.5  border-zinc-800 pb-1 opacity-0 transition-colors',
           {
             '-translate-x-6 -translate-y-2.5 bg-secondary duration-100 hover:border-zinc-800 hover:text-zinc-800 hover:opacity-90 active:bg-secondary-dark-10 peer-hover:opacity-90 peer-focus:opacity-90':
               query,

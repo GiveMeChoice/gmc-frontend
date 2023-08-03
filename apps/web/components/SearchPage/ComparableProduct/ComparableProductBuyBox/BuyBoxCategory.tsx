@@ -5,16 +5,16 @@ interface Props {
   category: CategoryDocument;
 }
 
-const ComparableProductBuyBoxCategory: React.FC<Props> = ({ category }) => {
+const BuyBoxCategory: React.FC<Props> = ({ category }) => {
   return (
-    <div className="flex w-full gap-x-1.5 text-zinc-500">
+    <div className="flex items-center gap-x-2.5 pt-1 text-[15px] text-zinc-600 underline-offset-2">
       {CategoryLink(
         category.gmcCategory.name,
         encodeURI(category.gmcCategory.name)
       )}
       {category.gmcCategory.subcategory && (
         <>
-          {'>'}
+          &gt;
           {CategoryLink(
             category.gmcCategory.subcategory.name,
             `${encodeURI(category.gmcCategory.name)}/${encodeURI(
@@ -23,7 +23,7 @@ const ComparableProductBuyBoxCategory: React.FC<Props> = ({ category }) => {
           )}
           {category.gmcCategory.subcategory.subcategory && (
             <>
-              {'>'}
+              &gt;
               {CategoryLink(
                 category.gmcCategory.subcategory.subcategory.name,
                 `${encodeURI(category.gmcCategory.name)}/${encodeURI(
@@ -38,12 +38,12 @@ const ComparableProductBuyBoxCategory: React.FC<Props> = ({ category }) => {
   );
 };
 
-function CategoryLink(name, link): ReactFragment {
+function CategoryLink(name: string, link): ReactFragment {
   return (
     <a className="hover:underline" href={`/discover/category/${link}`}>
-      {name}
+      {name.toLocaleUpperCase()}
     </a>
   );
 }
 
-export default ComparableProductBuyBoxCategory;
+export default BuyBoxCategory;

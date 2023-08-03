@@ -1,6 +1,7 @@
 import { ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
-import ProductInfoBox from './LeadListProduct/InfoBox';
+import ListProductInfoBox from './ListProduct/ListProductInfoBox';
+import ListProductHeading from './ListProduct/ListProductHeading';
 
 interface Props {
   index: number;
@@ -8,11 +9,7 @@ interface Props {
   selectProduct: (i: number) => void;
 }
 
-const LeadListProduct: React.FC<Props> = ({
-  index,
-  product,
-  selectProduct,
-}) => {
+const ListProduct: React.FC<Props> = ({ index, product, selectProduct }) => {
   const [imgSrc, setImgSrc] = useState<string>('');
   useEffect(() => {
     let images = product.images.filter((img) => img.type === 'LIST');
@@ -24,31 +21,30 @@ const LeadListProduct: React.FC<Props> = ({
       setImgSrc(primary ? primary.url : images[0].url);
     }
   }, [product]);
+
+  const handleProductClick = (e, index) => {
+    e.preventDefault();
+    console.log(e);
+    if (e.target.id !== 'list-product-heart') {
+      selectProduct(index);
+    }
+  };
+
   return (
     <div
-      className="group flex max-h-96 w-1/2 cursor-pointer flex-col divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-b-1.5 border-secondary-dark-10"
-      onClick={() => selectProduct(index)}
+      className="group flex max-h-[400px] w-1/2 cursor-pointer flex-col divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-b-1.5 border-secondary-dark-10"
+      onClick={(e) => handleProductClick(e, index)}
     >
-      <div className={'flex divide-x-1.5 divide-secondary-dark-10'}>
-        <div
-          className={`flex aspect-4/3 h-20 items-center justify-center bg-secondary
-              text-3xl duration-100 group-hover:bg-primary`}
-        >
-          {index + 1}
-        </div>
-        <p className="flex max-w-full flex-grow items-center justify-center overflow-ellipsis p-3 px-5 text-xl group-hover:underline">
-          {product.title}
-        </p>
-      </div>
+      <ListProductHeading index={index} title={product.title} />
       <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
-        <div className="w-2/3">
-          <ProductInfoBox product={product} />
+        <div className="w-3/5">
+          <ListProductInfoBox product={product} />
         </div>
         <div
-          className={`group relative flex max-h-full w-1/3  flex-col items-start justify-center  bg-white`}
+          className={`group relative flex max-h-full w-2/5  flex-col items-start justify-center  bg-white`}
         >
           <div className="flex h-full w-full items-center justify-center">
-            <div className="p-2">
+            <div className="p-2 py-3.5">
               <img
                 src={imgSrc.startsWith('http') ? imgSrc : `http://${imgSrc}`}
                 className="transition-transform duration-300 group-hover:scale-[1.035]"
@@ -61,4 +57,4 @@ const LeadListProduct: React.FC<Props> = ({
   );
 };
 
-export default LeadListProduct;
+export default ListProduct;

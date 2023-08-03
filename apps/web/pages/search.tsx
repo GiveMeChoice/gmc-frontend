@@ -1,12 +1,17 @@
-import { SearchFunctionRequestDto, SearchFunctionResponseDto } from 'gmc-types';
+import {
+  SearchFunctionFiltersDto,
+  SearchFunctionRequestDto,
+  SearchFunctionResponseDto,
+} from 'gmc-types';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
 import ComparableProduct from '../components/SearchPage/ComparableProduct';
-import LeadListProduct from '../components/SearchPage/LeadListProduct';
+import ListProduct from '../components/SearchPage/ListProduct';
 import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
 import { functions } from '../lib/firebase';
+import LoadingMarquee from '../components/SearchPage/LoadingMarquee';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -21,16 +26,18 @@ export default function Search({ props }) {
   const [compareModeOn, setCompareModeOn] = useState(false);
   const [compareProductIndex, setCompareProductIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [activeFilters, setActiveFilters] = useState<SearchFunctionFiltersDto>({
+    region: 'UK',
+    labels: [],
+  });
 
   useEffect(() => {
+    console.log('effect!');
     if (router.isReady) {
       setCompareModeOn(false);
       const req: SearchFunctionRequestDto = {
         query: router.query.q as string,
-        filters: {
-          region: 'UK',
-          labels: [],
-        },
+        filters: activeFilters,
       };
       handleSearch(req);
     }
@@ -54,6 +61,7 @@ export default function Search({ props }) {
       setLoading(true);
       let result = await executeCallable(request);
       console.log('search result: ', result);
+      setCompareProductIndex(0);
       setSearchResponse(result.data);
     } catch (err) {
       console.log(err);
@@ -74,7 +82,7 @@ export default function Search({ props }) {
 
       <div
         id="search-page"
-        className="fixed mt-24 flex h-full w-full divide-x-1.5 divide-secondary-dark-10 pb-28"
+        className="fixed mt-24 flex h-full w-full divide-x-1.5 divide-secondary-dark-10 pb-24"
       >
         <div id="choice-bar-container" className="h-full w-1/4 overflow-y-auto">
           <SearchChoiceBar
@@ -82,6 +90,8 @@ export default function Search({ props }) {
             searchResponse={searchResponse}
             compareModeOn={compareModeOn}
             onCompareModeChange={handleSetCompareMode}
+            activeFilters={activeFilters}
+            setActiveFilters={setActiveFilters}
             onSearch={handleSearch}
           />
         </div>
@@ -90,10 +100,18 @@ export default function Search({ props }) {
           className="flex h-full w-3/4 flex-wrap overflow-y-auto"
         >
           {loading || executing ? (
-            <div className="flex h-full items-center justify-center">
-              Loading animation... ?
+            <div className="background-animate boder-1.5 flex aspect-video h-full w-full flex-col items-center justify-evenly rounded-sm border-zinc-800 bg-gradient-to-r from-gmc-surf via-primary to-gmc-sunset">
+              <LoadingMarquee />
+              <div className="rounded-full border-1.5 border-black p-6">
+                <img
+                  className="h-28 w-28 rounded-full"
+                  src="/img/GMC_G_black.svg"
+                />
+              </div>
+              <LoadingMarquee />
             </div>
           ) : (
+            // </div>
             <>
               {compareModeOn ? (
                 <ComparableProduct
@@ -111,15 +129,16 @@ export default function Search({ props }) {
                 />
               ) : (
                 <>
-                  {searchResponse.data.length &&
+                  {searchResponse.data &&
                     searchResponse.data.map((product, i) => (
-                      <LeadListProduct
+                      <ListProduct
                         key={i}
                         index={i}
                         product={product}
                         selectProduct={() => handleProductSelect(i)}
                       />
                     ))}
+                  <div />
                   <div />
                 </>
               )}

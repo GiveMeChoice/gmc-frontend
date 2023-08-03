@@ -1,11 +1,11 @@
 import { MerchantLabelDocument, ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import ComparableProductBuyBox from './ComparableProduct/ComparableProductBuyBox';
-import ComparableProductDescription from './ComparableProduct/ComparableProductBuyBox/ComarableProductDescription';
-import ComparableProductLabels from './ComparableProduct/ComparableProductBuyBox/ComarableProductLabels';
-import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductBuyBox/ComparableProductLabels/ComparableProductLabelSpotlight';
+import ComparableProductDescription from './ComparableProduct/ComarableProductDescription';
+import ComparableProductLabels from './ComparableProduct/ComarableProductLabels';
+import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductLabels/ComparableProductLabelSpotlight';
 import ComparableProductImages from './ComparableProduct/ComparableProductImages';
-import ComparableProductTitleRow from './ComparableProduct/ComparableProductTitleRow';
+import ComparableProductHeading from './ComparableProduct/ComparableProductHeading';
 
 interface Props {
   index: number;
@@ -54,19 +54,19 @@ const ComparableProduct: React.FC<Props> = (props) => {
       {props.product && (
         <div className="flex h-full w-full flex-col divide-y-1.5 divide-secondary-dark-10">
           {/*  */}
-          <ComparableProductTitleRow {...props} />
+          <ComparableProductHeading {...props} />
           {/*  */}
           <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
-            <div className="w-7/12 divide-y-1.5 divide-secondary-dark-10">
-              <ComparableProductBuyBox product={props.product} />
-            </div>
             <div className="w-5/12">
               <ComparableProductImages product={props.product} />
+            </div>
+            <div className="w-7/12 divide-y-1.5 divide-secondary-dark-10">
+              <ComparableProductBuyBox product={props.product} />
             </div>
           </div>
           {/*  */}
           <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
-            <div className="w-4/12">
+            <div className="w-5/12">
               <ComparableProductDescription
                 description={props.product.description}
               />
@@ -78,7 +78,7 @@ const ComparableProduct: React.FC<Props> = (props) => {
                 setSpotlight={setLabelSpotlight}
               />
             </div>
-            <div className="flex w-5/12">
+            <div className="flex w-4/12">
               <ComparableProductLabelSpotlight
                 label={flatLabels[labelSpotlight]}
               />

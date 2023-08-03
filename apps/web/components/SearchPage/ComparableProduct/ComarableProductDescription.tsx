@@ -6,11 +6,13 @@ interface Props {
 
 const ComparableProductDescription: React.FC<Props> = ({ description }) => {
   return (
-    <div className="flex h-full max-h-96 w-full flex-col space-y-2 overflow-auto px-6 pt-4 pb-2">
+    <div className="flex h-full max-h-96 w-full flex-col space-y-2 overflow-auto px-6 pt-6 pb-2">
       {/* <div className="w-full text-center text-sm  underline">
         Product Description
       </div> */}
-      <div className="max-h flex flex-col p-3 py-1 text-sm">{description}</div>
+      <div className="max-h flex flex-col p-3 py-1 text-sm">
+        {description.replace(/\uFFFD/g, '')}
+      </div>
     </div>
   );
 };

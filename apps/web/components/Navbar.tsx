@@ -25,13 +25,13 @@ const Navbar: React.FC = () => {
     >
       <div className="flex w-1/2 items-center">
         {router.route === '/' || (
-          <div className="flex w-full items-center gap-x-6">
+          <div className="flex w-full items-center gap-x-7">
+            {/* <HomeButton /> */}
             <GiveMeBarNav />
           </div>
         )}
       </div>
       <div className="flex items-center gap-x-6">
-        <HomeButton />
         <LinkChips />
         {user ? <ProfileButton /> : <LoginButton />}
       </div>

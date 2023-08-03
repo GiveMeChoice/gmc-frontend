@@ -19,7 +19,7 @@ const SearchChoiceBarBrandFacets: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
-      <span className="pl-1.5 text-lg font-bold">Brands</span>
+      <span className="pl-1.5 text-lg font-bold">BRANDS</span>
       <div className="text-md flex flex-col px-2 pl-2.5 pt-0.5">
         {brandFacets.map((brand) => (
           <div className="flex items-center gap-x-1">
@@ -46,7 +46,7 @@ const SearchChoiceBarBrandFacets: React.FC<Props> = ({
                 })
               }
             >
-              {`${brand.value}`}&nbsp;&nbsp;
+              {`${brand.value.toLocaleUpperCase()}`}&nbsp;&nbsp;
               <span className="text-sm">({`${brand.count}`})</span>
             </span>
           </div>

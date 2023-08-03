@@ -14,6 +14,8 @@ interface Props {
   searchResponse: SearchFunctionResponseDto;
   compareModeOn: boolean;
   onCompareModeChange: (on: boolean) => void;
+  activeFilters: SearchFunctionFiltersDto;
+  setActiveFilters: (filters: SearchFunctionFiltersDto) => void;
   onSearch: (
     req: SearchFunctionRequestDto
   ) => Promise<SearchFunctionResponseDto>;
@@ -23,13 +25,11 @@ const SearchChoiceBar: React.FC<Props> = ({
   loading,
   searchResponse,
   compareModeOn,
+  activeFilters,
+  setActiveFilters,
   onSearch,
   onCompareModeChange,
 }) => {
-  const [activeFilters, setActiveFilters] = useState<SearchFunctionFiltersDto>(
-    {}
-  );
-
   const handleFilterChange = async (
     changedFilters: SearchFunctionFiltersDto
   ) => {
@@ -58,9 +58,7 @@ const SearchChoiceBar: React.FC<Props> = ({
   };
 
   return (
-    <div
-      className={`divide--1.5 flex h-full w-full flex-col divide-secondary-dark-10`}
-    >
+    <div className={`flex h-full w-full flex-col divide-secondary-dark-10`}>
       <SearchChoiceBarSummary
         loading={loading}
         searchResponse={searchResponse}
