@@ -14,8 +14,8 @@ const BuyBoxBuyNowButton: React.FC<Props> = ({ product }) => {
         href={product.offerUrl}
         target="_blank"
         rel="noreferrer"
-        className="z-20 flex w-full items-center justify-between gap-x-4
-      rounded-sm border border-zinc-800 bg-gradient-to-l from-gmc-surf-light-50 to-primary-light-50 py-2.5 px-8 pl-4 text-[16px] text-zinc-800 transition-transform duration-200 ease-in-out hover:-translate-y-[5px] hover:translate-x-[2px] active:translate-y-0 active:translate-x-0
+        className="-gradient-to-l z-20 flex w-full items-center justify-between
+      gap-x-4 rounded-sm border border-zinc-800 bg-gradient-to-r from-primary-light-50 to-gmc-surf-light-50 py-2.5 px-8 pl-4 text-[16px] text-zinc-800 transition-transform duration-200 ease-in-out hover:-translate-y-[5px] hover:translate-x-[2px] active:translate-y-0 active:translate-x-0
       "
       >
         <div className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-secondary">

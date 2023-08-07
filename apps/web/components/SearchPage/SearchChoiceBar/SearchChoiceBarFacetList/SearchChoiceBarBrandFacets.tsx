@@ -4,7 +4,7 @@ import {
   TermFacetDto,
 } from 'gmc-types';
 import React from 'react';
-import cn from 'classnames';
+import GenericFacetItem from './FacetItems/GenericFacetItem';
 
 interface Props {
   activeBrandFilter?: SearchFunctionKeyedFilterDto;
@@ -21,35 +21,25 @@ const SearchChoiceBarBrandFacets: React.FC<Props> = ({
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
       <span className="pl-1.5 text-lg font-bold">BRANDS</span>
       <div className="text-md flex flex-col px-2 pl-2.5 pt-0.5">
-        {brandFacets.map((brand) => (
-          <div className="flex items-center gap-x-1">
-            {activeBrandFilter && activeBrandFilter.key === brand.key && (
-              <div className="h-2.5 w-2.5 rounded-full border border-zinc-900 bg-zinc-900" />
-            )}
-            <span
-              className={cn(
-                'cursor-pointer hover:underline active:text-primary-dark-10',
-                {
-                  'font-bold':
-                    activeBrandFilter && activeBrandFilter.key === brand.key,
-                }
-              )}
-              onClick={() =>
-                onFilterChange({
-                  brand:
-                    activeBrandFilter && activeBrandFilter.key === brand.key
-                      ? null
-                      : {
-                          key: brand.key,
-                          value: brand.value,
-                        },
-                })
-              }
-            >
-              {`${brand.value.toLocaleUpperCase()}`}&nbsp;&nbsp;
-              <span className="text-sm">({`${brand.count}`})</span>
-            </span>
-          </div>
+        {brandFacets.map((brandFacet) => (
+          <GenericFacetItem
+            value={brandFacet.value}
+            selected={
+              activeBrandFilter && activeBrandFilter.key === brandFacet.key
+            }
+            count={brandFacet.count}
+            onClick={() =>
+              onFilterChange({
+                brand:
+                  activeBrandFilter && activeBrandFilter.key === brandFacet.key
+                    ? null
+                    : {
+                        key: brandFacet.key,
+                        value: brandFacet.value,
+                      },
+              })
+            }
+          />
         ))}
       </div>
     </div>

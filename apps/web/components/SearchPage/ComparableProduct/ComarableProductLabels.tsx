@@ -92,7 +92,8 @@ const ComparableProductLabels: React.FC<Props> = ({
               className={cn(
                 'text-[13px] font-bold text-zinc-800 transition-all duration-300',
                 {
-                  'pl-1.5 underline underline-offset-[3px]': spotlight === i,
+                  'pl-1.5 text-[16px] font-bold underline underline-offset-[3px]':
+                    spotlight === i,
                   'group-hover:pl-0.5 group-hover:underline group-hover:underline-offset-[3px]':
                     spotlight !== i,
                 }

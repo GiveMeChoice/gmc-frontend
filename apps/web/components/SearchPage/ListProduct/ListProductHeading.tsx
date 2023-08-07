@@ -1,16 +1,27 @@
 import React from 'react';
+import cn from 'classnames';
 
 interface Props {
   index: number;
   title: string;
+  blur?: boolean;
 }
 
-const ListProductHeading: React.FC<Props> = ({ index, title }) => {
+const ListProductHeading: React.FC<Props> = ({ index, title, blur }) => {
   return (
-    <div className={'flex divide-x-1.5 divide-secondary-dark-10'}>
+    <div
+      className={cn('flex divide-x-1.5 divide-secondary-dark-10', {
+        'pointer-events-none': blur,
+      })}
+    >
       <div
-        className={`flex aspect-square h-[76px] items-center justify-center bg-secondary
-              text-[27px] duration-100 group-hover:bg-primary`}
+        className={cn(
+          `flex aspect-square h-[76px] items-center justify-center bg-secondary
+        text-[27px] duration-100`,
+          {
+            'group-hover:bg-primary': !blur,
+          }
+        )}
       >
         {index + 1}
       </div>

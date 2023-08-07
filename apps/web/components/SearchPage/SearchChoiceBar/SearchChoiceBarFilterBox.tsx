@@ -53,19 +53,6 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
     if (filters.merchant) {
       display.merchant = filters.merchant;
     }
-    // if (filters.labels && filters.labels.length > 0) {
-    //   display.labels = [];
-    //   filters.labels.forEach((labelFilter) => {
-    //     let labeldisplay = labelFilter.value;
-    //     if (labelFilter.subfilter) {
-    //       labeldisplay = `${labelFilter.subfilter.value}`;
-    //       if (labelFilter.subfilter.subfilter) {
-    //         labeldisplay = `${labelFilter.subfilter.subfilter.value}`;
-    //       }
-    //     }
-    //     display.labels.push(labeldisplay);
-    //   });
-    // }
     if (filters.priceRange) {
       display.priceRange = filters.priceRange;
     }

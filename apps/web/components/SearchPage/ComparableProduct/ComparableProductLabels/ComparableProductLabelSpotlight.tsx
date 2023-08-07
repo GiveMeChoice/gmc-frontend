@@ -13,17 +13,13 @@ const ComparableProductLabelSpotlight: React.FC<Props> = ({ label }) => {
       {label && (
         <div className="flex h-[400px] w-full flex-col divide-y-1.5 divide-secondary-dark-10 overflow-y-auto">
           <div className="flex flex-col items-center gap-y-4 px-8 py-6">
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2.5 rounded-full py-1.5 px-3">
               <div
                 className={cn(
-                  `h-5 w-5 rounded-full border border-zinc-800 bg-${getLabelColor(
+                  `h-[17px] w-[17px] rounded-full border border-zinc-800 bg-${getLabelColor(
                     label.type
                   )}`,
-                  {
-                    // 'bg-primary': label.type === 'Certifications',
-                    // 'bg-gmc-beach-light-10': label.type === 'Origin',
-                    // 'bg-gmc-soil-light-50': label.type === 'Uncategorized',
-                  }
+                  {}
                 )}
               />
               <span className="text-zinc-900">{label.name.toUpperCase()}</span>

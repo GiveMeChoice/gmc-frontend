@@ -36,13 +36,13 @@ const SearchChoiceBarFacetList: React.FC<Props> = ({
           onFilterChange={onFilterChange}
         />
       )}
-      {facets.merchants && facets.merchants.length > 0 && (
+      {/* {facets.merchants && facets.merchants.length > 0 && (
         <SearchChoiceBarMerchantFacets
           activeMerchantFilter={activeFilters.merchant}
           merchantFacets={facets.merchants}
           onFilterChange={onFilterChange}
         />
-      )}
+      )} */}
       {facets.priceRanges.length &&
         facets.priceRanges.find((pr) => pr.count > 0) && (
           <SearchChoiceBarPriceFacets

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-responsive-modal';
 import cn from 'classnames';
 import SignUpForm from './EntryModal/SignUpForm';
@@ -6,11 +6,12 @@ import LoginForm from './EntryModal/LoginForm';
 
 interface Props {
   open: boolean;
+  signUp?: boolean;
   onClose: () => void;
 }
 
-const EntryModal: React.FC<Props> = ({ open, onClose }) => {
-  const [signUpForm, setSignUpForm] = useState(false);
+const EntryModal: React.FC<Props> = ({ open, signUp, onClose }) => {
+  const [signUpForm, setSignUpForm] = useState(signUp);
   return (
     <Modal
       open={open}
@@ -18,7 +19,7 @@ const EntryModal: React.FC<Props> = ({ open, onClose }) => {
         onClose();
       }}
       onAnimationEnd={() => {
-        setSignUpForm(false);
+        setSignUpForm(signUp);
       }}
       center
       styles={{

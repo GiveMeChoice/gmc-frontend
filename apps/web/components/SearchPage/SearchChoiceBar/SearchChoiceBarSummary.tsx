@@ -35,13 +35,13 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
                     searchResponse.hits >= 10 ? 10 : searchResponse.hits
                   } Choices`}</span>
                   <div className={cn('flex items-baseline gap-2 pl-1', {})}>
-                    <span className="text-sm">Total Choices Available:</span>
-                    <span>{searchResponse.hits}</span>
+                    <span className="text-[16px]">Choices Available:</span>
+                    <span className="text-[17px]">{searchResponse.hits}</span>
                   </div>
                 </div>
                 <button
                   className={cn(
-                    'mt-1 flex h-9 min-w-fit items-center justify-center gap-x-2 rounded-sm border border-black px-1.5 pr-2.5 text-xs text-black hover:bg-primary active:bg-primary-dark-10',
+                    'mt-1 flex h-9 min-w-fit items-center justify-center gap-x-2 rounded-sm border border-black px-2 pr-2.5 text-xs text-black hover:bg-primary active:bg-primary-dark-10',
                     {
                       hidden: !compareModeOn,
                     }

@@ -6,6 +6,7 @@ import {
 import React from 'react';
 import cn from 'classnames';
 import * as deepEqual from 'deep-equal';
+import GenericFacetItem from './FacetItems/GenericFacetItem';
 
 interface Props {
   activeCategoryFilter?: SearchFunctionNestedFilterDto;
@@ -31,132 +32,52 @@ const SearchChoiceBarCategoryFacets: React.FC<Props> = ({
   return (
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
       <span className="pl-1.5 text-lg font-bold">CATEGORIES</span>
-      <div className="text-md flex flex-col px-2 pl-2.5 pt-0.5">
+      <div className="flex flex-col px-2 pl-3 pt-0.5 text-[17px]">
         {categoryFacets
           .sort((a, b) => (a.value > b.value ? 1 : -1))
           .map((categoryFacet) => (
             <>
-              <div className="flex items-center gap-x-1">
-                {activeCategoryFilter &&
-                  activeCategoryFilter.value === categoryFacet.value &&
-                  !activeCategoryFilter.subfilter && (
-                    <div className="h-2.5 w-2.5 rounded-full border border-zinc-900 bg-zinc-900" />
-                  )}
-                <span
-                  className={cn(
-                    'cursor-pointer hover:underline active:text-primary-dark-10',
-                    {
-                      'font-bold':
-                        activeCategoryFilter &&
-                        activeCategoryFilter.value === categoryFacet.value,
-                    }
-                  )}
-                  onClick={() =>
-                    onCategoryFacetClick({ value: categoryFacet.value })
-                  }
-                >
-                  {`${categoryFacet.value}`}&nbsp;&nbsp;
-                  <span className="text-sm">({`${categoryFacet.count}`})</span>
-                </span>
-              </div>
+              <GenericFacetItem
+                value={categoryFacet.value}
+                selected={deepEqual(activeCategoryFilter, {
+                  value: categoryFacet.value,
+                })}
+                count={categoryFacet.count}
+                onClick={() =>
+                  onCategoryFacetClick({ value: categoryFacet.value })
+                }
+              />
               {/* 
-                    SUBCATEGORY 1 
-                */}
-              {/* {activeCategoryFilter &&
-                activeCategoryFilter.value === categoryFacet.value &&
-                categoryFacet.subfacets.length > 0 && ( */}
-              <div className="flex flex-col px-5 text-sm">
+                SUBCATEGORY 1
+              */}
+              <div className="flex flex-col pl-6 text-base">
                 {categoryFacet.subfacets.map((subcategory1Facet) => (
                   <>
-                    <div className="flex items-center gap-x-1">
-                      {activeCategoryFilter &&
-                        activeCategoryFilter.subfilter &&
-                        activeCategoryFilter.subfilter.value ===
-                          subcategory1Facet.value &&
-                        !activeCategoryFilter.subfilter.subfilter && (
-                          <div className="h-2.5 w-2.5 rounded-full border border-zinc-900 bg-zinc-900" />
-                        )}
-                      <span
-                        className={cn(
-                          'cursor-pointer hover:underline active:text-primary-dark-10',
-                          {
-                            'font-bold':
-                              activeCategoryFilter &&
-                              activeCategoryFilter.subfilter &&
-                              activeCategoryFilter.subfilter.value ===
-                                subcategory1Facet.value,
-                          }
-                        )}
-                        onClick={() =>
-                          onCategoryFacetClick({
-                            value: categoryFacet.value,
-                            subfilter: {
-                              value: subcategory1Facet.value,
-                            },
-                          })
-                        }
-                      >
-                        {`${subcategory1Facet.value}`}&nbsp;&nbsp;
-                        <span className="text-sm">
-                          ({`${subcategory1Facet.count}`})
-                        </span>
-                      </span>
-                    </div>
-                    {/* 
-                              SUBCATEGORY 2
-                          */}
-                    {activeCategoryFilter &&
-                      activeCategoryFilter.subfilter &&
-                      activeCategoryFilter.subfilter.value ===
-                        subcategory1Facet.value &&
-                      subcategory1Facet.subfacets.length > 0 && (
-                        <div className="flex flex-col px-5 text-sm">
-                          {subcategory1Facet.subfacets.map(
-                            (subcategory2Facet) => (
-                              <div className="flex items-center gap-x-1">
-                                {activeCategoryFilter.subfilter.subfilter &&
-                                  activeCategoryFilter.subfilter.subfilter
-                                    .value === subcategory2Facet.value && (
-                                    <div className="h-2.5 w-2.5 rounded-full border border-zinc-900 bg-white" />
-                                  )}
-                                <span
-                                  className={cn(
-                                    'cursor-pointer hover:underline active:text-primary-dark-10',
-                                    {
-                                      'font-bold':
-                                        activeCategoryFilter.subfilter
-                                          .subfilter &&
-                                        activeCategoryFilter.subfilter.subfilter
-                                          .value === subcategory2Facet.value,
-                                    }
-                                  )}
-                                  onClick={() =>
-                                    onCategoryFacetClick({
-                                      value: categoryFacet.value,
-                                      subfilter: {
-                                        value: subcategory1Facet.value,
-                                        subfilter: {
-                                          value: subcategory2Facet.value,
-                                        },
-                                      },
-                                    })
-                                  }
-                                >
-                                  {`${subcategory2Facet.value}`}
-                                  &nbsp;&nbsp;
-                                  <span className="text-sm">
-                                    ({`${subcategory2Facet.count}`})
-                                  </span>
-                                </span>
-                              </div>
-                            )
-                          )}
-                        </div>
+                    <GenericFacetItem
+                      value={subcategory1Facet.value}
+                      count={subcategory1Facet.count}
+                      selected={deepEqual(
+                        activeCategoryFilter,
+                        {
+                          value: categoryFacet.value,
+                          subfilter: {
+                            value: subcategory1Facet.value,
+                          },
+                        },
+                        { strict: true }
                       )}
+                      onClick={() =>
+                        onCategoryFacetClick({
+                          value: categoryFacet.value,
+                          subfilter: {
+                            value: subcategory1Facet.value,
+                          },
+                        })
+                      }
+                    />
                   </>
                 ))}
               </div>
-              {/* )} */}
             </>
           ))}
       </div>

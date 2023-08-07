@@ -25,7 +25,7 @@ const SearchChoiceBarLabelChip: React.FC<Props> = ({
 
       <div
         className={cn(
-          'flex cursor-pointer items-center gap-x-1.5 rounded-sm border-1.5 border-zinc-800 bg-white py-1 px-2'
+          'flex cursor-pointer items-center gap-x-1.5 rounded-sm border-1.5 border-secondary-dark-20 bg-white py-1 px-2'
         )}
         onClick={() => onClick(index)}
       >

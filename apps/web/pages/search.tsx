@@ -9,12 +9,15 @@ import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
 import ComparableProduct from '../components/SearchPage/ComparableProduct';
 import ListProduct from '../components/SearchPage/ListProduct';
-import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
-import { functions } from '../lib/firebase';
 import LoadingMarquee from '../components/SearchPage/LoadingMarquee';
+import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
+import SearchMarquee from '../components/SearchPage/SearchMarquee';
+import { useUser } from '../components/UserProvider';
+import { functions } from '../lib/firebase';
 
 export default function Search({ props }) {
   const router = useRouter();
+  const user = useUser();
   const [searchResponse, setSearchResponse] =
     useState<SearchFunctionResponseDto>({
       hits: 0,
@@ -59,7 +62,10 @@ export default function Search({ props }) {
   ): Promise<SearchFunctionResponseDto> => {
     try {
       setLoading(true);
-      let result = await executeCallable(request);
+      let result = await executeCallable({
+        ...request,
+        pageSize: 12,
+      });
       console.log('search result: ', result);
       setCompareProductIndex(0);
       setSearchResponse(result.data);
@@ -97,7 +103,7 @@ export default function Search({ props }) {
         </div>
         <div
           id="search-product-container"
-          className="flex h-full w-3/4 flex-wrap overflow-y-auto"
+          className="flex min-h-full w-3/4 flex-wrap overflow-y-auto bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50"
         >
           {loading || executing ? (
             <div className="background-animate boder-1.5 flex aspect-video h-full w-full flex-col items-center justify-evenly rounded-sm border-zinc-800 bg-gradient-to-r from-gmc-surf via-primary to-gmc-sunset">
@@ -135,13 +141,17 @@ export default function Search({ props }) {
                         key={i}
                         index={i}
                         product={product}
+                        blur={!user.user && i > 9}
+                        isLast={i === searchResponse.data.length - 1}
                         selectProduct={() => handleProductSelect(i)}
                       />
                     ))}
-                  <div />
-                  <div />
                 </>
               )}
+              <div className="flex h-[200px] w-full items-center border-t-1.5 bg-secondary"></div>
+              <div className="w-full pt-4">
+                <SearchMarquee />
+              </div>
             </>
           )}
         </div>

@@ -16,7 +16,7 @@ const ListProductInfoBox: React.FC<Props> = ({ product }) => {
         <div className="flex items-center justify-between text-zinc-800">
           <span className="text-[28px]">£ {product.price}</span>
         </div>
-        <div id="list-product-heart" className="" onClick={() => alert('yo')}>
+        <div id="list-product-heart" className="">
           <InfoBoxHeart product={product} />
         </div>
       </div>

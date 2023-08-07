@@ -10,10 +10,11 @@ const GiveMeBarNav: React.FC<Props> = () => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(router.pathname);
     if (router.isReady) {
       setQuery(router.query.q ? (router.query.q as string) : '');
     }
-  }, [router.isReady, router.pathname]);
+  }, [router.isReady, router.pathname, router]);
 
   const handleSearch = () => {
     if (query) {

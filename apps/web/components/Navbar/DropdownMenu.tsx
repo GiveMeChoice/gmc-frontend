@@ -65,7 +65,7 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     <div
       id="dropdown-menu"
       className={cn(
-        `transition-height absolute z-50 max-h-fit w-96 max-w-full overflow-hidden rounded-3xl border border-zinc-700 bg-secondary shadow-sm shadow-zinc-700 duration-300 ease-in-out bg-${
+        `transition-height absolute z-50 max-h-fit w-96 max-w-full overflow-hidden rounded-xl border border-zinc-700 bg-secondary shadow-sm shadow-zinc-700 duration-300 ease-in-out bg-${
           getUserTheme(profile).base
         }`,
         {

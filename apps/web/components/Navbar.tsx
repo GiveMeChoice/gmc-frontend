@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
     >
       <div className="flex w-1/2 items-center">
         {router.route === '/' || (
-          <div className="flex w-full items-center gap-x-7">
+          <div className="flex w-full items-center gap-x-5">
             {/* <HomeButton /> */}
             <GiveMeBarNav />
           </div>

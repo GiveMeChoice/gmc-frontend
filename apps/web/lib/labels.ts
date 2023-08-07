@@ -1,11 +1,11 @@
 export const getLabelColor = (label: string) => {
   switch (label.toLowerCase()) {
     case 'certification':
-      return 'gmc-dune';
+      return 'gmc-forest';
     case 'origin':
       return 'gmc-beach';
     case 'organic':
-      return 'gmc-forest';
+      return 'gmc-jungle';
     case 'fair trade':
       return 'gmc-soil';
     case 'production method':

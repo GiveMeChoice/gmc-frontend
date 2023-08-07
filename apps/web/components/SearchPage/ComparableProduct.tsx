@@ -52,7 +52,7 @@ const ComparableProduct: React.FC<Props> = (props) => {
   return (
     <>
       {props.product && (
-        <div className="flex h-full w-full flex-col divide-y-1.5 divide-secondary-dark-10">
+        <div className="flex h-fit w-full flex-col divide-y-1.5 divide-secondary-dark-10 bg-white">
           {/*  */}
           <ComparableProductHeading {...props} />
           {/*  */}
