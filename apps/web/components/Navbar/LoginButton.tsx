@@ -9,7 +9,7 @@ const LoginButton: React.FC = () => {
       <button
         onClick={() => setLoginModalOpen(true)}
         title="Log In / Sign-Up"
-        className="h-10 w-10 rounded-full border border-zinc-700 pr-0.5 pt-0.5 hover:bg-secondary hover:shadow-sm active:bg-secondary-dark-10"
+        className="h-10 w-10 rounded-full border border-zinc-700 pr-0.5 pt-0.5 hover:scale-[1.03] hover:bg-secondary hover:shadow-sm active:bg-secondary-dark-10"
       >
         <Image
           draggable={false}

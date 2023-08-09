@@ -80,7 +80,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             </a>
             <button
               className={cn(
-                'h-10 w-10 flex-col items-center justify-center gap-y-1 rounded-full border border-black p-1 hover:scale-[1.03] hover:bg-primary',
+                'h-10 w-10 flex-col items-center justify-center rounded-full border border-black pt-0.5 hover:scale-[1.03] hover:bg-primary',
                 {
                   flex: open,
                   hidden: !open,
@@ -88,9 +88,9 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
               )}
               onClick={close}
             >
-              <div className="w-5 border-b-2 border-black" />
-              <div className="my-0.5 w-[19px] border-b-2 border-black" />
-              <div className="w-5 border-b-2 border-black" />
+              <div className="w-7 -translate-x-[0px] rotate-45 border-b-1.5 border-black" />
+              {/* <div className="my-0.5 w-[19px] border-b-1.5 border-black" /> */}
+              <div className="w-7 translate-x-[0px] -translate-y-[2px] -rotate-45 border-b-1.5 border-black" />
             </button>
           </div>
           <div className="flex w-full flex-col gap-y-3">

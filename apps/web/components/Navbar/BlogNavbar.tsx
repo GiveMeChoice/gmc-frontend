@@ -6,12 +6,24 @@ import LoginButton from './LoginButton';
 import SideMenuButton from './SideMenuButton';
 import { useUser } from '../UserProvider';
 import ProfileButton from './ProfileButton';
+import { useRouter } from 'next/router';
 
 const BlogNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
+  const [postTitle, setPostTitle] = useState(null);
   const user = useUser();
+  const router = useRouter();
 
   useEffect(() => {
+    if (router.query.slug) {
+      setPostTitle(
+        (router as any).components['/blog/[slug]'].props.pageProps.data.post
+          .title
+      );
+    } else {
+      setPostTitle(null);
+    }
+
     var prevScrollpos = window.pageYOffset;
     const handleScrollUp = () => {
       var currentScrollPos = window.pageYOffset;
@@ -34,7 +46,7 @@ const BlogNavbar: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScrollUp);
     };
-  }, []);
+  }, [router.asPath]);
 
   return (
     <div className="flex h-[51px] w-full justify-between border-t-1.5 border-secondary-dark-10 text-sm">
@@ -78,72 +90,76 @@ const BlogNavbar: React.FC = () => {
         </Link>
         <div
           className={cn(
-            'group float-left flex w-36 flex-col overflow-hidden transition-width duration-500 hover:bg-primary',
+            'group float-left flex w-32 flex-col overflow-hidden transition-width duration-500 hover:bg-zinc-800 hover:text-white',
             {}
           )}
         >
           <Link className="h-full w-full" href="/blog">
             <div className="flex h-full w-full cursor-pointer items-center justify-center">
-              LATEST
+              Latest
             </div>
           </Link>
-          <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[47px] group-hover:block">
+          <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[49px] group-hover:block">
             <div className="pointer-events-auto flex h-1/3 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-              <div className="h-full w-1/4">LATEST POST 1</div>
-              <div className="h-full w-1/4">LATEST POST 2</div>
-              <div className="h-full w-1/4">LATEST POST 3</div>
-              <div className="h-full w-1/4">LATEST POST 4</div>
+              <div className="h-full w-1/4 text-black">LATEST POST 1</div>
+              <div className="h-full w-1/4 text-black">LATEST POST 2</div>
+              <div className="h-full w-1/4 text-black">LATEST POST 3</div>
+              <div className="h-full w-1/4 text-black">LATEST POST 4</div>
             </div>
           </div>
         </div>
         <div
           className={cn(
-            'group float-left flex w-36 flex-col overflow-hidden transition-width duration-500 hover:bg-primary',
+            'group float-left flex w-32 flex-col overflow-hidden transition-width duration-500 hover:bg-zinc-800 hover:text-white',
             {}
           )}
         >
           <Link className="h-full w-full" href="/blog/posts">
             <div className="flex h-full w-full cursor-pointer items-center justify-center">
-              ALL POSTS
+              All Posts
             </div>
           </Link>
-          <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[47px] group-hover:block">
+          <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[49px] group-hover:block">
             <div className="pointer-events-auto flex h-1/3 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-              <div className="h-full w-1/4">POST 1</div>
-              <div className="h-full w-1/4">POST 2</div>
-              <div className="h-full w-1/4">POST 3</div>
-              <div className="h-full w-1/4">POST 4</div>
+              <div className="h-full w-1/4 text-black">POST 1</div>
+              <div className="h-full w-1/4 text-black">POST 2</div>
+              <div className="h-full w-1/4 text-black">POST 3</div>
+              <div className="h-full w-1/4 text-black">POST 4</div>
             </div>
           </div>
         </div>
         <div
           className={cn(
-            'group float-left flex w-36 flex-col overflow-hidden transition-width duration-500 hover:bg-primary',
+            'group float-left flex w-32 flex-col overflow-hidden transition-width duration-500 hover:bg-zinc-800 hover:text-white',
             {}
           )}
         >
           <Link className="h-full w-full" href="/blog/tags">
             <div className="flex h-full w-full cursor-pointer items-center justify-center">
-              TAGS
+              Tags
             </div>
           </Link>
-          <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[47px] group-hover:block">
+          <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[49px] group-hover:block">
             <div className="pointer-events-auto flex h-1/3 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-              <div className="h-full w-1/4">TAG 1</div>
-              <div className="h-full w-1/4">TAG 2</div>
-              <div className="h-full w-1/4">TAG 3</div>
-              <div className="h-full w-1/4">TAG 4</div>
+              <div className="h-full w-1/4 text-black">TAG 1</div>
+              <div className="h-full w-1/4 text-black">TAG 2</div>
+              <div className="h-full w-1/4 text-black">TAG 3</div>
+              <div className="h-full w-1/4 text-black">TAG 4</div>
             </div>
           </div>
         </div>
-        <div />
+        <div className="flex h-full flex-grow items-center justify-center">
+          <span className="w-4/5 overflow-hidden text-ellipsis whitespace-nowrap text-center text-[16px] font-bold">
+            {postTitle}
+          </span>
+        </div>
       </div>
       <div
         className={cn(
           'mr-12 flex items-center  bg-white transition-width duration-500',
           {
             'w-0': !minmized,
-            'w-36': minmized,
+            'w-32': minmized,
           }
         )}
       >
@@ -153,7 +169,7 @@ const BlogNavbar: React.FC = () => {
             block: minmized,
           })}
         >
-          {user ? <ProfileButton /> : <LoginButton />}
+          {user.user ? <ProfileButton /> : <LoginButton />}
           <SideMenuButton />
         </div>
       </div>

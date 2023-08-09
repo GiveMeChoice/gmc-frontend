@@ -17,7 +17,7 @@ const SideMenuButton: React.FC = () => {
         onClick={handleSideMenuToggle}
       >
         <div className="w-5 border-b-2 border-black" />
-        <div className="my-0.5 w-[19px] border-b-2 border-black" />
+        <div className="my-[1px] w-[19px] border-b-2 border-black" />
         <div className="w-5 border-b-2 border-black" />
       </button>
       <SideMenu open={sideMenuOpen} close={handleSideMenuToggle} />

@@ -23,7 +23,7 @@ const ProfileButton: React.FC = () => {
       <button
         title="Menu"
         className={cn(
-          `group flex h-10 w-10 items-center justify-center rounded-full border-1.5 border-black shadow-sm transition-transform duration-150 active:border-1.5 dark:border-white bg-${
+          `group flex h-10 w-10 items-center justify-center rounded-full border border-black shadow-sm transition-transform duration-150 active:border-1.5 dark:border-white bg-${
             getUserTheme(profile).modal
           }`,
           {
@@ -44,7 +44,7 @@ const ProfileButton: React.FC = () => {
           />
         ) : (
           <>
-            {user && user.photoURL ? (
+            {user.photoURL ? (
               <img
                 draggable={false}
                 className="rounded-full"
@@ -54,7 +54,7 @@ const ProfileButton: React.FC = () => {
               />
             ) : (
               <span className="pb-0.5 text-2xl">
-                {user && user.displayName ? user.displayName[0] : 'U'}
+                {user.displayName ? user.displayName[0] : 'U'}
               </span>
             )}
           </>
