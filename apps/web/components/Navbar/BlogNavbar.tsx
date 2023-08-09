@@ -140,7 +140,7 @@ const BlogNavbar: React.FC = () => {
       </div>
       <div
         className={cn(
-          'mr-12 flex items-center  justify-center bg-white transition-width duration-500',
+          'mr-12 flex items-center  bg-white transition-width duration-500',
           {
             'w-0': !minmized,
             'w-36': minmized,

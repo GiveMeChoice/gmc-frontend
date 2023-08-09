@@ -22,7 +22,9 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
               ? profile.displayName
               : 'Beautiful Stranger'}
           </div>
-          <div className="w-full pl-0.5 text-sm">{user.email}</div>
+          <div className="w-full pl-0.5 text-sm">
+            {user && user.email ? user.email : ''}
+          </div>
         </div>
 
         <div
@@ -30,7 +32,7 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
             getUserTheme(profile).base
           }`}
         >
-          {user.photoURL ? (
+          {user && user.photoURL ? (
             <img
               draggable={false}
               className="rounded-full"
@@ -40,7 +42,7 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
             />
           ) : (
             <span className="pb-0.5 text-2xl">
-              {user.displayName ? user.displayName[0] : 'B'}
+              {user && user.displayName ? user.displayName[0] : 'B'}
             </span>
           )}
         </div>

@@ -44,7 +44,7 @@ const ProfileButton: React.FC = () => {
           />
         ) : (
           <>
-            {user.photoURL ? (
+            {user && user.photoURL ? (
               <img
                 draggable={false}
                 className="rounded-full"
@@ -54,7 +54,7 @@ const ProfileButton: React.FC = () => {
               />
             ) : (
               <span className="pb-0.5 text-2xl">
-                {user.displayName ? user.displayName[0] : 'U'}
+                {user && user.displayName ? user.displayName[0] : 'U'}
               </span>
             )}
           </>
