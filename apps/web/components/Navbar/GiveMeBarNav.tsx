@@ -22,7 +22,7 @@ const GiveMeBarNav: React.FC<Props> = () => {
         `/search?q=${encodeURIComponent(query.trim()).replace(/[%20]+/g, '+')}`
       );
     } else {
-      document.getElementById('gmc-search-bar').focus();
+      // document.getElementById('gmc-search-bar').focus();
     }
   };
 
@@ -58,10 +58,10 @@ const GiveMeBarNav: React.FC<Props> = () => {
       <input
         id="gmc-search-bar"
         className={cn(
-          'peer h-full w-32 border-b-3 border-black bg-inherit pl-2 text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:text-[31px] focus:placeholder-transparent md:text-left',
+          'peer h-full border-b-3 border-black bg-inherit pl-2 text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:text-[31px] focus:placeholder-transparent md:text-left',
           {
             'w-full pr-6 text-[31px]': query,
-            'text-4xl': !query,
+            'w-32 text-4xl': !query,
           }
         )}
         value={query}

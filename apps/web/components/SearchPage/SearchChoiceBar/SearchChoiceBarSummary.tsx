@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { SearchFunctionResponseDto } from 'gmc-types';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { LoadingSpinner } from 'ui';
 
@@ -7,7 +8,7 @@ interface Props {
   loading: boolean;
   searchResponse: SearchFunctionResponseDto;
   compareModeOn: boolean;
-  onCompareModeChange: (on: boolean) => void;
+  removeCompareMode: () => void;
   onSortChange: (sort: string) => void;
 }
 
@@ -15,9 +16,10 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
   loading,
   searchResponse,
   compareModeOn,
-  onCompareModeChange,
+  removeCompareMode,
   onSortChange,
 }) => {
+  const router = useRouter();
   return (
     <div className="flex w-full flex-col border-b-1.5 border-secondary-dark-10 bg-white p-7">
       {loading ? (
@@ -46,7 +48,7 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
                       hidden: !compareModeOn,
                     }
                   )}
-                  onClick={() => onCompareModeChange(!compareModeOn)}
+                  onClick={() => removeCompareMode()}
                 >
                   <img
                     draggable={false}
@@ -89,7 +91,9 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
             </div>
           ) : (
             <div className="flex h-[160px] items-center justify-center">
-              <span className="text-2xl">No Choices Available</span>
+              {router.query.q && (
+                <span className="text-2xl">No Choices Available</span>
+              )}
             </div>
           )}
         </>

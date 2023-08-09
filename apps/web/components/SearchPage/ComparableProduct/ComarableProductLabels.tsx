@@ -74,26 +74,31 @@ const ComparableProductLabels: React.FC<Props> = ({
         {labels.map((sl, i) => (
           <div
             className={cn(
-              'group ml-10 flex items-center gap-x-2 whitespace-pre-wrap rounded-sm transition-all duration-300',
+              'group ml-10 flex w-fit items-center gap-x-2 whitespace-pre-wrap rounded-sm transition-none duration-300',
               {
                 'cursor-pointer': spotlight !== i,
+                'border-1.5 border-secondary-dark-20 py-1 px-2 pr-3.5':
+                  spotlight === i,
               }
             )}
             onClick={() => setSpotlight(i)}
           >
             <div
               className={cn(
-                `h-4 w-4 rounded-full bg-primary transition-all duration-300 bg-${getLabelColor(
+                `h-3.5 w-3.5 rounded-full bg-primary transition-all duration-300 bg-${getLabelColor(
                   sl.type
-                )}`
+                )}`,
+                {
+                  'h-3 w-3': spotlight === i,
+                }
               )}
             />
             <span
               className={cn(
                 'text-[13px] font-bold text-zinc-800 transition-all duration-300',
                 {
-                  'pl-1.5 text-[16px] font-bold underline underline-offset-[3px]':
-                    spotlight === i,
+                  // 'pl-1.5 text-[16px] font-bold underline underline-offset-[3px]':
+                  //   spotlight === i,
                   'group-hover:pl-0.5 group-hover:underline group-hover:underline-offset-[3px]':
                     spotlight !== i,
                 }

@@ -1,24 +1,19 @@
 // import { PreviewAlert } from 'blog';
 import { PreviewAlert } from 'blog';
-import { getUserTheme } from '../lib/theme';
-import Navbar from './Navbar';
-import { useUser } from './UserProvider';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
+import Navbar from './Navbar';
 
 const Layout = ({ preview = false, children }) => {
-  const { profile } = useUser();
   const router = useRouter();
 
   return (
-    <div
-      id="screen"
-      className={`h-screen bg-${
-        getUserTheme(profile).base
-      } z-0 flex flex-col transition-colors duration-300 ease-in-out dark:border-white dark:text-white dark:decoration-white`}
-    >
+    <div id="screen" className={`z-0 flex h-screen flex-col`}>
       {preview && <PreviewAlert />}
       {router.pathname !== '/' && router.pathname !== '/access' && <Navbar />}
-      <main className="">{children}</main>
+      <main className={cn('', { 'mt-22': router.pathname !== '/' })}>
+        {children}
+      </main>
     </div>
   );
 };

@@ -27,48 +27,82 @@ export default function Search({ props }) {
     SearchFunctionResponseDto
   >(functions, 'searchFunction');
   const [compareModeOn, setCompareModeOn] = useState(false);
-  const [compareProductIndex, setCompareProductIndex] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [compareProductIndex, setCompareProductIndex] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [activeFilters, setActiveFilters] = useState<SearchFunctionFiltersDto>({
     region: 'UK',
     labels: [],
   });
 
   useEffect(() => {
-    console.log('effect!');
+    console.log(router);
+    console.log(JSON.stringify(router.query));
     if (router.isReady) {
-      setCompareModeOn(false);
-      const req: SearchFunctionRequestDto = {
-        query: router.query.q as string,
-        filters: activeFilters,
-      };
-      handleSearch(req);
+      if (router.query.q && router.query.q !== searchResponse.query) {
+        // setCompareModeOn(!!router.query.choice);
+        const req: SearchFunctionRequestDto = {
+          query: router.query.q as string,
+          filters: activeFilters,
+        };
+        handleSearch(
+          req,
+          router.query.choice ? Number(router.query.choice) - 1 : 0
+        );
+      } else if (
+        router.query.choice &&
+        Number(router.query.choice) - 1 !== compareProductIndex
+      ) {
+        setCompareModeOn(true);
+        setCompareProductIndex(Number(router.query.choice) - 1);
+      } else if (!router.query.choice) {
+        setCompareModeOn(false);
+      }
     }
-  }, [router.isReady, router.query]);
+  }, [router.isReady, router.query, router.pathname]);
 
-  const handleSetCompareMode = (on: boolean) => {
+  const handleRemoveCompareMode = () => {
     window.scroll(0, 0);
     setCompareProductIndex(0);
-    setCompareModeOn(on);
+    setCompareModeOn(false);
+    router.replace(
+      `/search?q=${encodeURIComponent(
+        (router.query.q as string).trim()
+      ).replace(/[%20]+/g, '+')}`
+    );
   };
 
   const handleProductSelect = (index: number) => {
     setCompareProductIndex(index);
     setCompareModeOn(true);
+    router.replace(
+      `/search?q=${encodeURIComponent(
+        (router.query.q as string).trim()
+      ).replace(/[%20]+/g, '+')}&choice=${index + 1}`
+    );
   };
 
   const handleSearch = async (
-    request: SearchFunctionRequestDto
+    request: SearchFunctionRequestDto,
+    index?: number
   ): Promise<SearchFunctionResponseDto> => {
+    console.log('searching...');
     try {
       setLoading(true);
       let result = await executeCallable({
         ...request,
         pageSize: 12,
       });
-      console.log('search result: ', result);
-      setCompareProductIndex(0);
+      // setCompareProductIndex(index && index < result.data.hits - 1 ? index : 0);
       setSearchResponse(result.data);
+      router.replace(
+        `/search?q=${encodeURIComponent(
+          (router.query.q as string).trim()
+        ).replace(/[%20]+/g, '+')}${
+          index || compareModeOn
+            ? `&choice=${index && index <= result.data.hits ? index + 1 : 1}`
+            : ''
+        }`
+      );
     } catch (err) {
       console.log(err);
       return {
@@ -88,14 +122,17 @@ export default function Search({ props }) {
 
       <div
         id="search-page"
-        className="fixed mt-24 flex h-full w-full divide-x-1.5 divide-secondary-dark-10 pb-24"
+        className="fixed flex h-full w-full divide-x-1.5 divide-secondary-dark-10 pb-24"
       >
-        <div id="choice-bar-container" className="h-full w-1/4 overflow-y-auto">
+        <div
+          id="choice-bar-container"
+          className="h-full w-1/3 overflow-y-auto xl:w-1/4"
+        >
           <SearchChoiceBar
             loading={loading || executing}
             searchResponse={searchResponse}
             compareModeOn={compareModeOn}
-            onCompareModeChange={handleSetCompareMode}
+            removeCompareMode={handleRemoveCompareMode}
             activeFilters={activeFilters}
             setActiveFilters={setActiveFilters}
             onSearch={handleSearch}
@@ -103,7 +140,7 @@ export default function Search({ props }) {
         </div>
         <div
           id="search-product-container"
-          className="flex min-h-full w-3/4 flex-wrap overflow-y-auto bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50"
+          className="flex min-h-full w-2/3 flex-wrap overflow-y-auto bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
         >
           {loading || executing ? (
             <div className="background-animate boder-1.5 flex aspect-video h-full w-full flex-col items-center justify-evenly rounded-sm border-zinc-800 bg-gradient-to-r from-gmc-surf via-primary to-gmc-sunset">
@@ -127,10 +164,10 @@ export default function Search({ props }) {
                     compareProductIndex + 1 === searchResponse.data.length
                   }
                   nextProduct={() =>
-                    setCompareProductIndex(compareProductIndex + 1)
+                    handleProductSelect(compareProductIndex + 1)
                   }
                   prevProduct={() =>
-                    setCompareProductIndex(compareProductIndex - 1)
+                    handleProductSelect(compareProductIndex - 1)
                   }
                 />
               ) : (

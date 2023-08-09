@@ -8,6 +8,7 @@ import { MoreStories } from '../components/more-stories';
 import { indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts } from '../lib/sanity.server';
+import { useEffect } from 'react';
 
 export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
   const { data: allPosts } = usePreviewSubscription(indexQuery(preview), {
@@ -15,6 +16,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
     enabled: preview,
   });
   const [heroPost, ...morePosts] = allPosts || [];
+
   return (
     <>
       <Layout preview={preview}>

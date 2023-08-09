@@ -13,7 +13,7 @@ interface Props {
   loading: boolean;
   searchResponse: SearchFunctionResponseDto;
   compareModeOn: boolean;
-  onCompareModeChange: (on: boolean) => void;
+  removeCompareMode: () => void;
   activeFilters: SearchFunctionFiltersDto;
   setActiveFilters: (filters: SearchFunctionFiltersDto) => void;
   onSearch: (
@@ -28,7 +28,7 @@ const SearchChoiceBar: React.FC<Props> = ({
   activeFilters,
   setActiveFilters,
   onSearch,
-  onCompareModeChange,
+  removeCompareMode,
 }) => {
   const handleFilterChange = async (
     changedFilters: SearchFunctionFiltersDto
@@ -63,7 +63,7 @@ const SearchChoiceBar: React.FC<Props> = ({
         loading={loading}
         searchResponse={searchResponse}
         compareModeOn={compareModeOn}
-        onCompareModeChange={onCompareModeChange}
+        removeCompareMode={removeCompareMode}
         onSortChange={handleSortChange}
       />
       {searchResponse && (

@@ -1,6 +1,5 @@
 import Head from 'next/head';
-import DiscoverFooter from '../components/DiscoverFooter';
-import GiveMeBarHome from '../components/GiveMeBarHome';
+import DiscoverFooter from '../../components/DiscoverFooter';
 
 export default function Home() {
   return (
@@ -14,7 +13,7 @@ export default function Home() {
           id="search-result-container"
           className="flex h-full w-full flex-col px-3 pt-1 dark:border-white md:flex-row md:border-x-0 md:px-0"
         >
-          <GiveMeBarHome />
+          DISCOVERY SECTION
         </div>
         <DiscoverFooter />
       </div>

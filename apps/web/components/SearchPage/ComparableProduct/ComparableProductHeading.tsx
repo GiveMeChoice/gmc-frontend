@@ -19,7 +19,7 @@ const ComparableProductHeading: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex h-24 w-full justify-between divide-x-1.5 divide-secondary-dark-10">
-      <div className="flex aspect-4/3 h-full items-center justify-center bg-secondary p-8">
+      <div className="flex aspect-4/3 h-full items-center justify-center bg-primary p-8">
         <span className="text-4xl">{index + 1}</span>
       </div>
       <div className="flex flex-grow items-center justify-center px-6">

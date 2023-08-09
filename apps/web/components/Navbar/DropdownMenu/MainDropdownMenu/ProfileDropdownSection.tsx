@@ -13,7 +13,7 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
 
   return (
     <div
-      className={`m-2.5 mx-3 flex flex-col gap-y-2 rounded-t-2xl border-1.5 border-secondary-dark-10 bg-secondary p-3 px-8`}
+      className={`m-2.5 mx-3 flex flex-col gap-y-2 rounded-sm border border-zinc-800 bg-secondary p-3 px-8`}
     >
       <div className="flex w-full items-start justify-between">
         <div>
