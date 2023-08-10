@@ -10,9 +10,13 @@ const GiveMeBarNav: React.FC<Props> = () => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log(router.pathname);
     if (router.isReady) {
       setQuery(router.query.q ? (router.query.q as string) : '');
+    }
+    if (router.pathname === '/search' && !router.query.q) {
+      document.getElementById('gmc-search-bar').focus();
+    } else {
+      document.getElementById('gmc-search-bar').blur();
     }
   }, [router.isReady, router.pathname, router]);
 
@@ -22,7 +26,7 @@ const GiveMeBarNav: React.FC<Props> = () => {
         `/search?q=${encodeURIComponent(query.trim()).replace(/[%20]+/g, '+')}`
       );
     } else {
-      // document.getElementById('gmc-search-bar').focus();
+      document.getElementById('gmc-search-bar').focus();
     }
   };
 

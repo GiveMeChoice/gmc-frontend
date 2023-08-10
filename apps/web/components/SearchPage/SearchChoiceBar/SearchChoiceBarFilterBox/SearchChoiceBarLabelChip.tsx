@@ -18,14 +18,14 @@ const SearchChoiceBarLabelChip: React.FC<Props> = ({
     <div key={index} className="group flex items-center justify-center text-sm">
       <div
         onClick={() => onClick(index)}
-        className="relative bottom-3.5 left-2 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5  text-center text-xs text-zinc-900 opacity-0 hover:opacity-100 active:bg-secondary-dark-10  group-hover:opacity-100 group-active:bg-secondary-dark-10"
+        className="relative bottom-3 left-2.5 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5  text-center text-xs text-zinc-900 opacity-0 hover:opacity-100 active:bg-secondary-dark-10  group-hover:opacity-100 group-active:bg-secondary-dark-10"
       >
         &times;
       </div>
 
       <div
         className={cn(
-          'flex cursor-pointer items-center gap-x-1.5 rounded-sm border-1.5 border-secondary-dark-20 bg-white py-1 px-2'
+          'flex cursor-pointer items-center gap-x-1.5 rounded-full border-1.5 border-secondary-dark-20 bg-white py-1 px-2.5 group-active:bg-secondary'
         )}
         onClick={() => onClick(index)}
       >

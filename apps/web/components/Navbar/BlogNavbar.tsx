@@ -15,11 +15,12 @@ const BlogNavbar: React.FC = () => {
   const router = useRouter();
 
   useEffect(() => {
+    setMinimized(false);
     if (router.query.slug) {
-      setPostTitle(
-        (router as any).components['/blog/[slug]'].props.pageProps.data.post
-          .title
-      );
+      const slugComponent = (router as any).components['/blog/[slug]'];
+      if (slugComponent) {
+        setPostTitle(slugComponent.props.pageProps.data.post.title);
+      }
     } else {
       setPostTitle(null);
     }
@@ -35,7 +36,7 @@ const BlogNavbar: React.FC = () => {
         }
       } else {
         const navContainer = document.getElementById('navbar-container');
-        if (navContainer) {
+        if (navContainer && window.pageYOffset !== 0) {
           navContainer.style.top = '-88px';
           setMinimized(true);
         }

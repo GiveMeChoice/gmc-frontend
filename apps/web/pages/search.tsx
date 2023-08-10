@@ -61,7 +61,7 @@ export default function Search({ props }) {
   }, [router.isReady, router.query, router.pathname]);
 
   const handleRemoveCompareMode = () => {
-    window.scroll(0, 0);
+    document.getElementById('search-product-container').scrollTop = 0;
     setCompareProductIndex(0);
     setCompareModeOn(false);
     router.replace(
@@ -72,6 +72,7 @@ export default function Search({ props }) {
   };
 
   const handleProductSelect = (index: number) => {
+    document.getElementById('search-product-container').scrollTop = 0;
     setCompareProductIndex(index);
     setCompareModeOn(true);
     router.replace(

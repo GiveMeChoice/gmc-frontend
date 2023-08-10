@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'react-responsive-modal/styles.css';
 import BlogNavbar from './Navbar/BlogNavbar';
 import GiveMeBarNav from './Navbar/GiveMeBarNav';
@@ -13,19 +13,28 @@ import { useUser } from './UserProvider';
 const Navbar: React.FC = () => {
   const { user } = useUser();
   const router = useRouter();
+  useEffect(() => {
+    const navContainer = document.getElementById('navbar-container');
+    if (navContainer) {
+      navContainer.style.top = '0px';
+    }
+  }, [router.asPath]);
   return (
     <nav
       id="navbar-container"
       className={cn(
-        'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white transition-all duration-500',
-        {}
+        'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white duration-500',
+        {
+          'transition-all': router.pathname.includes('/blog'),
+          'transition-none': !router.pathname.includes('/blog'),
+        }
       )}
     >
       <div
         id="navbar-content"
         className="flex h-22 w-full items-center justify-between px-16"
       >
-        <div className="flex w-1/2 items-center">
+        <div className="flex w-full items-center pr-32">
           {router.route === '/' || (
             <div className="flex w-full items-center gap-x-5">
               {/* <HomeButton /> */}

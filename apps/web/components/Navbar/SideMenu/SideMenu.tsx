@@ -25,10 +25,10 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
   };
   const handleLinkClick = () => {
     close();
-    const navContainer = document.getElementById('navbar-container');
-    if (navContainer) {
-      navContainer.style.top = '0';
-    }
+    // const navContainer = document.getElementById('navbar-container');
+    // if (navContainer) {
+    //   navContainer.style.top = '0';
+    // }
   };
 
   useEffect(() => {

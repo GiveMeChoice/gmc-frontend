@@ -74,7 +74,7 @@ const ComparableProductLabels: React.FC<Props> = ({
         {labels.map((sl, i) => (
           <div
             className={cn(
-              'group ml-10 flex w-fit items-center gap-x-2 whitespace-pre-wrap rounded-sm transition-none duration-300',
+              'group ml-10 flex w-fit items-center gap-x-2 whitespace-pre-wrap rounded-full transition-none duration-300',
               {
                 'cursor-pointer': spotlight !== i,
                 'border-1.5 border-secondary-dark-20 py-1 px-2 pr-3.5':
