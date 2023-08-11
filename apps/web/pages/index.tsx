@@ -37,13 +37,25 @@ export default function Home() {
           />
         </div>
       </section>
-      <section className="flex w-full flex-col items-center justify-center">
-        {/* {arrowDown()} */}
 
-        <div className="via-gmc-sunset-light flex w-10/12 flex-wrap border-x-2 border-zinc-800 bg-secondary from-gmc-heart-light-50 via-gmc-ocean-light-50 to-gmc-surf-light-50 px-8 py-16 pb-24">
+      {/* <section className="flex justify-center">
+        <div className="my-16 flex w-1/2 items-center justify-center rounded-sm border-2 border-zinc-800 bg-secondary from-gmc-surf-light-50  to-gmc-heart-light-50 py-12">
+          <div className="background-animate flex w-fit items-center justify-start space-x-6 rounded-full border border-zinc-800 bg-gradient-to-br from-gmc-surf-light-20 via-gmc-sunset-light-40 to-gmc-ocean-light-50 p-5 pr-12 text-zinc-900 shadow-none shadow-secondary-dark-50 drop-shadow-none">
+            <div className="boder flex items-center justify-center rounded-full border-zinc-400 shadow-sm shadow-zinc-800">
+            </div>
+            <p className="text-3xl text-zinc-900">
+              Planet conscious discovery, <br />
+              enabled by trustful curation.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section className="flex w-full flex-col items-center justify-center">
+
+        <div className="via-gmc-sunset-light bg-gradient-t-l flex w-full flex-wrap border-x-2 border-secondary-dark-10 from-gmc-heart-light-50 via-gmc-ocean-light-50 to-gmc-surf-light-50 px-8 py-16 pb-24">
           <div className="flex w-1/3 items-center justify-center">
             <a
-              className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-3xl bg-gmc-soil-light-50 shadow-lg shadow-gmc-soil-dark-10"
+              className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-md bg-gmc-soil-light-50 shadow-lg shadow-gmc-soil-dark-10"
               href="/search"
             >
               <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
@@ -82,7 +94,7 @@ export default function Home() {
 
           <div className="flex w-1/3 items-center justify-center">
             <a
-              className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-3xl border-secondary-dark-20 bg-gmc-surf-light-40 shadow-lg shadow-gmc-surf-dark-40"
+              className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-md border-secondary-dark-20 bg-gmc-surf-light-40 shadow-lg shadow-gmc-surf-dark-40"
               href="/discover"
             >
               <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
@@ -120,7 +132,7 @@ export default function Home() {
           </div>
           <div className="flex w-1/3 items-center justify-center">
             <a
-              className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-3xl border-zinc-800 bg-gmc-forest-light-40 shadow-lg shadow-gmc-forest-dark-20"
+              className="flex aspect-3/4 w-4/5 cursor-pointer flex-col rounded-md border-zinc-800 bg-gmc-forest-light-40 shadow-lg shadow-gmc-forest-dark-20"
               href="/"
             >
               <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
@@ -157,9 +169,9 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section className="relative flex h-screen w-full items-center justify-center">
+      <section className="relative my-24 flex h-screen w-full items-center justify-center">
         {/* <div className="absolute top-0 left-0 flex h-full w-full justify-center">
           <div className="h-screen w-10/12 rounded-md border-2 border-zinc-800 bg-gradient-to-bl from-gmc-surf-light-50 via-primary to-gmc-sunset" />
         </div> */}
@@ -198,30 +210,8 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="flex justify-center">
-        {/* <div className="mb-16 flex w-10/12 justify-center rounded-b-full border-2 border-t-0 border-zinc-800 bg-secondary py-10">
-          <div className="h-10 w-1/2" />
-        </div> */}
 
-        <div className="mt-8 flex w-10/12 items-center justify-center rounded-t-md border-2 border-b-0 border-zinc-800 bg-secondary from-gmc-surf-light-50  to-gmc-heart-light-50 pt-20 pb-10">
-          <div className="background-animate flex w-fit items-center justify-start space-x-6 rounded-full border border-zinc-800 bg-gradient-to-br from-gmc-surf-light-20 via-gmc-sunset-light-40 to-gmc-ocean-light-50 p-5 pr-12 text-zinc-900 shadow-none shadow-secondary-dark-50 drop-shadow-none">
-            <div className="boder flex items-center justify-center rounded-full border-zinc-400 shadow-sm shadow-zinc-800">
-              <Image
-                src="/img/G_LOGO_GREEN.svg"
-                alt="GMC Logo"
-                height="80"
-                width="80"
-              />
-            </div>
-            <p className="text-3xl text-zinc-900">
-              Planet conscious discovery, <br />
-              enabled by trustful curation.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <footer className="flex h-64 w-full items-end justify-between bg-secondary px-28 pb-20">
+      {/* <footer className="flex h-64 w-full items-end justify-between bg-secondary px-28 pb-20">
         <div className="flex flex-col-reverse items-center justify-between md:flex-row md:items-center">
           <div>
             <a
@@ -238,7 +228,6 @@ export default function Home() {
             </a>
           </div>
         </div>
-        {/* List Container */}
         <div className="flex flex-col items-center space-y-3  md:flex-row md:space-y-0 md:space-x-6">
           <a
             href="mailto:hello@givemechoice.com?subject=Hello"
@@ -255,7 +244,6 @@ export default function Home() {
             Blog
           </a>
         </div>
-        {/* LOGO + COPYRIGHT md+ */}
         <div className="flex flex-col items-center space-y-3">
           <div>
             <Image
@@ -269,7 +257,7 @@ export default function Home() {
             Copyright &copy; 2023, All Rights Reserved
           </div>
         </div>
-      </footer>
+      </footer> */}
     </>
   );
 }

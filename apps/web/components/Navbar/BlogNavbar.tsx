@@ -55,7 +55,7 @@ const BlogNavbar: React.FC = () => {
         <Link href="/blog">
           <div
             className={cn(
-              'flex h-full cursor-pointer items-center justify-center bg-secondary transition-width duration-500',
+              'flex h-full cursor-pointer items-center justify-center bg-white transition-width duration-500',
               {
                 'w-0': !minmized,
                 'w-[200px]': minmized,
@@ -64,15 +64,15 @@ const BlogNavbar: React.FC = () => {
           >
             {minmized && (
               <div className="flex items-center">
-                <div className="aspect-square h-[36px] rounded-full border border-secondary-dark-20">
+                <div className="borer aspect-square h-[40px] rounded-full border-zinc-800">
                   <Image
                     src="/img/G_LOGO_GREEN.svg"
                     className={cn('transition-none', {
                       'w-0': !minmized,
                     })}
                     alt="GMC Logo"
-                    height="36"
-                    width="36"
+                    height="40"
+                    width="40"
                   />
                 </div>
                 <span
@@ -91,7 +91,7 @@ const BlogNavbar: React.FC = () => {
         </Link>
         <div
           className={cn(
-            'group float-left flex w-32 flex-col overflow-hidden transition-width duration-500 hover:bg-zinc-800 hover:text-white',
+            'group float-left flex w-32 flex-col overflow-hidden bg-secondary transition-width duration-500 hover:bg-zinc-800 hover:text-white',
             {}
           )}
         >
@@ -111,12 +111,12 @@ const BlogNavbar: React.FC = () => {
         </div>
         <div
           className={cn(
-            'group float-left flex w-32 flex-col overflow-hidden transition-width duration-500 hover:bg-zinc-800 hover:text-white',
+            'group float-left flex w-32 flex-col overflow-hidden bg-secondary transition-width duration-500 hover:bg-zinc-800 hover:text-white',
             {}
           )}
         >
           <Link className="h-full w-full" href="/blog/posts">
-            <div className="flex h-full w-full cursor-pointer items-center justify-center">
+            <div className="flex h-full w-full cursor-pointer items-center justify-center ">
               All Posts
             </div>
           </Link>
@@ -131,7 +131,7 @@ const BlogNavbar: React.FC = () => {
         </div>
         <div
           className={cn(
-            'group float-left flex w-32 flex-col overflow-hidden transition-width duration-500 hover:bg-zinc-800 hover:text-white',
+            'group float-left flex w-32 flex-col overflow-hidden bg-secondary transition-width duration-500 hover:bg-zinc-800 hover:text-white',
             {}
           )}
         >

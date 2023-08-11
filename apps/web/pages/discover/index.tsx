@@ -8,14 +8,13 @@ export default function Home() {
         <title>Home | Give Me Choice</title>
       </Head>
 
-      <div className="fixed h-full w-full">
-        <div
-          id="search-result-container"
-          className="flex h-full w-full flex-col px-3 pt-1 dark:border-white md:flex-row md:border-x-0 md:px-0"
-        >
-          DISCOVERY SECTION
+      <div
+        id="discover-container"
+        className="flex h-screen w-full flex-col justify-between"
+      >
+        <div className="flex h-full w-full items-center justify-center">
+          <span className="text-6xl">DISCOVER PAGE</span>
         </div>
-        <DiscoverFooter />
       </div>
     </>
   );
