@@ -123,7 +123,7 @@ export default function Search({ props }) {
 
       <div
         id="search-page"
-        className="fixed flex h-full w-full divide-x-1.5 divide-secondary-dark-10 pb-24"
+        className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10"
       >
         <div
           id="choice-bar-container"
@@ -186,12 +186,10 @@ export default function Search({ props }) {
                     ))}
                 </>
               )}
-              <div className="flex h-[200px] w-full items-center border-t-1.5 bg-secondary"></div>
-              <div className="w-full pt-4">
-                <SearchMarquee />
-              </div>
             </>
           )}
+          <div className="flex h-[100px] w-full items-center  bg-secondary"></div>
+          <SearchMarquee />
         </div>
       </div>
     </>

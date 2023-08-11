@@ -15,7 +15,7 @@ const Layout = ({ preview = false, children }) => {
       <main className={cn('', { 'mt-22': router.pathname !== '/' })}>
         {children}
       </main>
-      {router.pathname !== '/search' && router.pathname !== '/access' && (
+      {router.pathname !== '/smearch' && router.pathname !== '/access' && (
         <Footer />
       )}
     </div>
