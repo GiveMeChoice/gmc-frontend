@@ -47,7 +47,7 @@ const ListProduct: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'group relative z-0 flex max-h-[400px] w-1/2 cursor-pointer flex-col divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-b-1.5 border-secondary-dark-10 bg-white',
+        'group relative z-0 flex h-[340px] w-1/2 cursor-pointer flex-col divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-b-1.5 border-secondary-dark-10 bg-white',
         {
           'cursor-default select-none': blur,
         }

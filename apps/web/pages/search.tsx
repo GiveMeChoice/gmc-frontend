@@ -14,6 +14,7 @@ import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
 import SearchMarquee from '../components/SearchPage/SearchMarquee';
 import { useUser } from '../components/UserProvider';
 import { functions } from '../lib/firebase';
+import ListPagingHeader from '../components/SearchPage/ListPagingHeader';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -35,13 +36,12 @@ export default function Search({ props }) {
   });
 
   useEffect(() => {
-    console.log(router);
-    console.log(JSON.stringify(router.query));
     if (router.isReady) {
       if (router.query.q && router.query.q !== searchResponse.query) {
         // setCompareModeOn(!!router.query.choice);
         const req: SearchFunctionRequestDto = {
           query: router.query.q as string,
+          sort: router.query.sort as string,
           filters: activeFilters,
         };
         handleSearch(
@@ -61,7 +61,6 @@ export default function Search({ props }) {
   }, [router.isReady, router.query, router.pathname]);
 
   const handleRemoveCompareMode = () => {
-    document.getElementById('search-product-container').scrollTop = 0;
     setCompareProductIndex(0);
     setCompareModeOn(false);
     router.replace(
@@ -72,35 +71,52 @@ export default function Search({ props }) {
   };
 
   const handleProductSelect = (index: number) => {
-    document.getElementById('search-product-container').scrollTop = 0;
     setCompareProductIndex(index);
     setCompareModeOn(true);
     router.replace(
       `/search?q=${encodeURIComponent(
         (router.query.q as string).trim()
-      ).replace(/[%20]+/g, '+')}&choice=${index + 1}`
+      ).replace(/[%20]+/g, '+')}${
+        searchResponse.sort === 'price' ? '&sort=price' : ''
+      }&choice=${index + 1}`
     );
+  };
+
+  const handleChangePage = (page: number) => {
+    handleSearch({
+      query: searchResponse.query,
+      sort: searchResponse.sort,
+      page,
+      pageSize: searchResponse.pageSize,
+      filters: activeFilters,
+    });
   };
 
   const handleSearch = async (
     request: SearchFunctionRequestDto,
-    index?: number
+    indexViaPath?: number
   ): Promise<SearchFunctionResponseDto> => {
     console.log('searching...');
     try {
       setLoading(true);
       let result = await executeCallable({
         ...request,
-        pageSize: 12,
+        page: indexViaPath ? Math.floor(indexViaPath / 10) : request.page,
+        pageSize: 10,
       });
-      // setCompareProductIndex(index && index < result.data.hits - 1 ? index : 0);
       setSearchResponse(result.data);
       router.replace(
         `/search?q=${encodeURIComponent(
           (router.query.q as string).trim()
         ).replace(/[%20]+/g, '+')}${
-          index || compareModeOn
-            ? `&choice=${index && index <= result.data.hits ? index + 1 : 1}`
+          request.sort === 'price' ? '&sort=price' : ''
+        }${
+          indexViaPath || compareModeOn
+            ? `&choice=${
+                indexViaPath && indexViaPath <= result.data.hits
+                  ? indexViaPath + 1
+                  : 1
+              }`
             : ''
         }`
       );
@@ -123,11 +139,11 @@ export default function Search({ props }) {
 
       <div
         id="search-page"
-        className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10"
+        className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10 border-t-1.5 border-secondary-dark-10"
       >
         <div
           id="choice-bar-container"
-          className="h-full w-1/3 overflow-y-auto xl:w-1/4"
+          className="max-h-full w-1/3 overflow-y-auto xl:w-1/4"
         >
           <SearchChoiceBar
             loading={loading || executing}
@@ -139,12 +155,13 @@ export default function Search({ props }) {
             onSearch={handleSearch}
           />
         </div>
+
         <div
           id="search-product-container"
-          className="flex min-h-full w-2/3 flex-wrap overflow-y-auto bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
+          className="flex min-h-screen w-2/3 flex-col justify-between bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
         >
           {loading || executing ? (
-            <div className="background-animate boder-1.5 flex aspect-video h-full w-full flex-col items-center justify-evenly rounded-sm border-zinc-800 bg-gradient-to-r from-gmc-surf via-primary to-gmc-sunset">
+            <div className="background-animate boder-1.5 flex aspect-video h-screen w-full flex-col items-center justify-evenly rounded-sm border-zinc-800 bg-gradient-to-r from-gmc-surf via-primary to-gmc-sunset">
               <LoadingMarquee />
               <div className="rounded-full border-1.5 border-black p-6">
                 <img
@@ -155,14 +172,22 @@ export default function Search({ props }) {
               <LoadingMarquee />
             </div>
           ) : (
-            // </div>
-            <>
+            <div
+              id="search-products"
+              className="flex max-h-full w-full flex-wrap items-start justify-start overflow-y-auto overflow-x-hidden"
+            >
               {compareModeOn ? (
                 <ComparableProduct
-                  product={searchResponse.data[compareProductIndex]}
+                  product={
+                    searchResponse.data[
+                      compareProductIndex % searchResponse.pageSize
+                    ]
+                  }
                   index={compareProductIndex}
+                  isFirst={compareProductIndex % searchResponse.pageSize === 0}
                   isLast={
-                    compareProductIndex + 1 === searchResponse.data.length
+                    (compareProductIndex % searchResponse.pageSize) + 1 ===
+                    searchResponse.data.length
                   }
                   nextProduct={() =>
                     handleProductSelect(compareProductIndex + 1)
@@ -172,23 +197,37 @@ export default function Search({ props }) {
                   }
                 />
               ) : (
-                <>
-                  {searchResponse.data &&
-                    searchResponse.data.map((product, i) => (
+                searchResponse.data && (
+                  <>
+                    <ListPagingHeader
+                      searchResponse={searchResponse}
+                      nextPage={() => handleChangePage(searchResponse.page + 1)}
+                      prevPage={() => handleChangePage(searchResponse.page - 1)}
+                    />
+                    {searchResponse.data.map((product, i) => (
                       <ListProduct
                         key={i}
-                        index={i}
+                        index={
+                          i + searchResponse.page * searchResponse.pageSize
+                        }
                         product={product}
-                        blur={!user.user && i > 9}
-                        isLast={i === searchResponse.data.length - 1}
-                        selectProduct={() => handleProductSelect(i)}
+                        selectProduct={() =>
+                          handleProductSelect(
+                            i + searchResponse.page * searchResponse.pageSize
+                          )
+                        }
                       />
                     ))}
-                </>
+                    <ListPagingHeader
+                      searchResponse={searchResponse}
+                      nextPage={() => handleChangePage(searchResponse.page + 1)}
+                      prevPage={() => handleChangePage(searchResponse.page - 1)}
+                    />
+                  </>
+                )
               )}
-            </>
+            </div>
           )}
-          <div className="flex h-[100px] w-full items-center  bg-secondary"></div>
           <SearchMarquee />
         </div>
       </div>

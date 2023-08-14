@@ -14,7 +14,8 @@ const Footer: React.FC = () => {
               width="140"
             />
             <span className="text-center text-lg">
-              Sustainable shopping for everyone.
+              Sustainable shopping
+              <br /> simplified.
             </span>
           </div>
           <div className="flex w-3/5 flex-col">

@@ -10,7 +10,7 @@ export default function Home() {
         <title>404 | Give Me Choice</title>
       </Head>
 
-      <div className="container mx-auto flex min-h-screen flex-col items-center justify-center ">
+      <div className="container mx-auto flex flex-col items-center justify-center ">
         <div className="mb-20 flex w-full justify-center">Page Not Found</div>
         <DiscoverFooter />
       </div>

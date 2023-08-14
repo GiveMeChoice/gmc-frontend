@@ -7,7 +7,7 @@ interface Props {
 
 const BuyBoxCategory: React.FC<Props> = ({ category }) => {
   return (
-    <div className="flex items-center gap-x-2.5 pt-1 text-[15px] text-zinc-600 underline-offset-2">
+    <div className="flex items-center gap-x-3 pt-1 text-[14px] text-secondary-dark-50 underline-offset-2">
       {CategoryLink(
         category.gmcCategory.name,
         encodeURI(category.gmcCategory.name)

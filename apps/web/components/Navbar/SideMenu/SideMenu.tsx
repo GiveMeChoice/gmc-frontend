@@ -25,10 +25,6 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
   };
   const handleLinkClick = () => {
     close();
-    // const navContainer = document.getElementById('navbar-container');
-    // if (navContainer) {
-    //   navContainer.style.top = '0';
-    // }
   };
 
   useEffect(() => {
@@ -64,7 +60,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
         )}
       >
         <div className="flex flex-col">
-          <div className="flex w-full items-start justify-between pb-12">
+          <div className="flex w-full items-start justify-between pb-14">
             <a
               href="/"
               className="flex w-fit justify-start"
@@ -93,14 +89,14 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
               <div className="w-7 translate-x-[0px] -translate-y-[2px] -rotate-45 border-b-1.5 border-black" />
             </button>
           </div>
-          <div className="flex w-full flex-col gap-y-3">
+          <div className="flex w-full flex-col gap-y-3.5">
             <Link href="/">
               <div
                 className="group flex cursor-pointer items-center gap-x-6"
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/home.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div className="text-5xl decoration-3 underline-offset-4 group-hover:underline">
                   Home
                 </div>
               </div>
@@ -111,7 +107,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/search.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div className="text-5xl decoration-3 underline-offset-4 group-hover:underline">
                   Search
                 </div>
               </div>
@@ -122,7 +118,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/tree.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div className="text-5xl decoration-3 underline-offset-4 group-hover:underline">
                   Discover
                 </div>
               </div>
@@ -133,7 +129,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/bananas.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div className="text-5xl decoration-3 underline-offset-4 group-hover:underline">
                   Blog
                 </div>
               </div>

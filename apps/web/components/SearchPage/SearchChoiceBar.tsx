@@ -4,7 +4,7 @@ import {
   SearchFunctionRequestDto,
   SearchFunctionResponseDto,
 } from 'gmc-types';
-import React, { useState } from 'react';
+import React from 'react';
 import SearchChoiceBarFacetList from './SearchChoiceBar/SearchChoiceBarFacetList';
 import SearchChoiceBarFilterBox from './SearchChoiceBar/SearchChoiceBarFilterBox';
 import SearchChoiceBarSummary from './SearchChoiceBar/SearchChoiceBarSummary';
@@ -40,7 +40,7 @@ const SearchChoiceBar: React.FC<Props> = ({
     onSearch({
       query: searchResponse.query,
       sort: searchResponse.sort,
-      page: searchResponse.page,
+      page: 0,
       pageSize: searchResponse.pageSize,
       filters: updatedFilters,
     });
@@ -51,14 +51,16 @@ const SearchChoiceBar: React.FC<Props> = ({
     onSearch({
       query: searchResponse.query,
       sort: updatedSort,
-      page: searchResponse.page,
+      page: 0,
       pageSize: searchResponse.pageSize,
       filters: activeFilters,
     });
   };
 
   return (
-    <div className={`flex h-full w-full flex-col divide-secondary-dark-10`}>
+    <div
+      className={`flex h-full w-full flex-col divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10`}
+    >
       <SearchChoiceBarSummary
         loading={loading}
         searchResponse={searchResponse}

@@ -1,15 +1,16 @@
 import { MerchantLabelDocument, ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
-import ComparableProductBuyBox from './ComparableProduct/ComparableProductBuyBox';
 import ComparableProductDescription from './ComparableProduct/ComarableProductDescription';
 import ComparableProductLabels from './ComparableProduct/ComarableProductLabels';
-import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductLabels/ComparableProductLabelSpotlight';
-import ComparableProductImages from './ComparableProduct/ComparableProductImages';
+import ComparableProductBuyBox from './ComparableProduct/ComparableProductBuyBox';
 import ComparableProductHeading from './ComparableProduct/ComparableProductHeading';
+import ComparableProductImages from './ComparableProduct/ComparableProductImages';
+import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductLabels/ComparableProductLabelSpotlight';
 
 interface Props {
   index: number;
   product: ProductDocument;
+  isFirst: boolean;
   isLast: boolean;
   nextProduct: () => void;
   prevProduct: () => void;
@@ -53,9 +54,7 @@ const ComparableProduct: React.FC<Props> = (props) => {
     <>
       {props.product && (
         <div className="flex h-fit w-full flex-col divide-y-1.5 divide-secondary-dark-10 bg-white">
-          {/*  */}
           <ComparableProductHeading {...props} />
-          {/*  */}
           <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
             <div className="w-5/12">
               <ComparableProductImages product={props.product} />
@@ -64,7 +63,6 @@ const ComparableProduct: React.FC<Props> = (props) => {
               <ComparableProductBuyBox product={props.product} />
             </div>
           </div>
-          {/*  */}
           <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
             <div className="w-5/12">
               <ComparableProductDescription

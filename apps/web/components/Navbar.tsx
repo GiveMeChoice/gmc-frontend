@@ -34,16 +34,11 @@ const Navbar: React.FC = () => {
         id="navbar-content"
         className="flex h-22 w-full items-center justify-between px-16"
       >
-        <div className="flex w-full items-center pr-32">
-          {router.route === '/' || (
-            <div className="flex w-full items-center gap-x-5">
-              {/* <HomeButton /> */}
-              <GiveMeBarNav />
-            </div>
-          )}
+        <div className="flex w-full max-w-[850px] items-center pr-12">
+          <GiveMeBarNav />
         </div>
         <div className="flex items-center gap-x-6">
-          <LinkChips />
+          {/* <LinkChips /> */}
           {user ? <ProfileButton /> : <LoginButton />}
           <SideMenuButton />
         </div>

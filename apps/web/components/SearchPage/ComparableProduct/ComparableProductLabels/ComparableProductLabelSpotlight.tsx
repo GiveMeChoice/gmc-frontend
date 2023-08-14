@@ -12,11 +12,11 @@ const ComparableProductLabelSpotlight: React.FC<Props> = ({ label }) => {
     <>
       {label && (
         <div className="flex h-[400px] w-full flex-col divide-y-1.5 divide-secondary-dark-10 overflow-y-auto">
-          <div className="flex flex-col items-center gap-y-4 px-8 py-6">
-            <div className="flex items-center gap-x-2.5 rounded-full py-1.5 px-3">
+          <div className="flex min-h-[200px] flex-col items-center gap-y-4 px-8 py-6">
+            <div className="flex items-center gap-x-2.5 rounded-full border-2 border-secondary-dark-10 py-1 pl-2.5 pr-4">
               <div
                 className={cn(
-                  `h-[17px] w-[17px] rounded-full border border-zinc-800 bg-${getLabelColor(
+                  `borer h-[14px] w-[14px] rounded-full border-zinc-800 bg-${getLabelColor(
                     label.type
                   )}`,
                   {}
