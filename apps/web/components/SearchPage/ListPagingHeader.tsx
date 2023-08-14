@@ -61,7 +61,9 @@ const ListPagingHeader: React.FC<Props> = ({
           />
         </div>
         <div className="flex h-full items-center bg-white px-6 text-[17px] text-secondary-dark-50">
-          <span className="font-bold text-zinc-700">{searchResponse.page}</span>
+          <span className="font-bold text-zinc-700">
+            {searchResponse.page + 1}
+          </span>
           &nbsp;&nbsp;{'...'}&nbsp;&nbsp;
           {Math.ceil(searchResponse.hits / searchResponse.pageSize)}
         </div>
