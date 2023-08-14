@@ -50,43 +50,43 @@ const BlogNavbar: React.FC = () => {
   }, [router.asPath]);
 
   return (
-    <div className="flex h-[51px] w-full justify-between border-t-1.5 border-secondary-dark-10 text-sm">
+    <div className="flex h-[52px] w-full justify-between border-t-1.5 border-secondary-dark-10 text-sm">
       <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
         <Link href="/blog">
           <div
             className={cn(
-              'flex h-full cursor-pointer items-center justify-center bg-white transition-width duration-500',
+              'flex h-full w-[220px] cursor-pointer items-center justify-center bg-white transition-width duration-500 hover:bg-secondary',
               {
-                'w-0': !minmized,
-                'w-[200px]': minmized,
+                // 'w-0': !minmized,
+                // 'w-[200px]': minmized,
               }
             )}
           >
-            {minmized && (
-              <div className="flex items-center">
-                <div className="borer aspect-square h-[40px] rounded-full border-zinc-800">
-                  <Image
-                    src="/img/G_LOGO_GREEN.svg"
-                    className={cn('transition-none', {
-                      'w-0': !minmized,
-                    })}
-                    alt="GMC Logo"
-                    height="40"
-                    width="40"
-                  />
-                </div>
-                <span
-                  className={cn(
-                    'pb-1 pl-0.5 text-[23px] underline underline-offset-2',
-                    {
-                      hidden: !minmized,
-                    }
-                  )}
-                >
-                  Blog
-                </span>
+            {/* {minmized && ( */}
+            <div className="flex items-center gap-x-0.5">
+              <div className="flex aspect-square h-[40px] items-center justify-center rounded-full bg-black p-[7px]">
+                <Image
+                  src="/img/GMC_G_white.svg"
+                  className={cn('transition-none', {
+                    // 'w-0': !minmized,
+                  })}
+                  alt="GMC Logo"
+                  height="34"
+                  width="34"
+                />
               </div>
-            )}
+              <span
+                className={cn(
+                  'pb-1 pl-0.5 text-[24px] underline underline-offset-2',
+                  {
+                    // hidden: !minmized,
+                  }
+                )}
+              >
+                Blog
+              </span>
+            </div>
+            {/* )} */}
           </div>
         </Link>
         <div

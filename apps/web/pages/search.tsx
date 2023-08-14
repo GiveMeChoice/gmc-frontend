@@ -9,12 +9,14 @@ import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
 import ComparableProduct from '../components/SearchPage/ComparableProduct';
 import ListProduct from '../components/SearchPage/ListProduct';
-import LoadingMarquee from '../components/SearchPage/LoadingMarquee';
+import LoadingMarquee from '../components/SearchPage/LoadingScreen/LoadingMarquee';
 import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
 import SearchMarquee from '../components/SearchPage/SearchMarquee';
 import { useUser } from '../components/UserProvider';
 import { functions } from '../lib/firebase';
 import ListPagingHeader from '../components/SearchPage/ListPagingHeader';
+import Image from 'next/image';
+import SearchLoadingScreen from '../components/SearchPage/SearchLoadingScreen';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -158,19 +160,10 @@ export default function Search({ props }) {
 
         <div
           id="search-product-container"
-          className="flex min-h-screen w-2/3 flex-col justify-between bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
+          className="flex min-h-screen w-2/3 flex-col justify-between border-b-1.5 border-secondary-dark-10 bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
         >
           {loading || executing ? (
-            <div className="background-animate boder-1.5 flex aspect-video h-screen w-full flex-col items-center justify-evenly rounded-sm border-zinc-800 bg-gradient-to-r from-gmc-surf via-primary to-gmc-sunset">
-              <LoadingMarquee />
-              <div className="rounded-full border-1.5 border-black p-6">
-                <img
-                  className="h-28 w-28 rounded-full"
-                  src="/img/GMC_G_black.svg"
-                />
-              </div>
-              <LoadingMarquee />
-            </div>
+            <SearchLoadingScreen />
           ) : (
             <div
               id="search-products"
@@ -203,6 +196,14 @@ export default function Search({ props }) {
                       searchResponse={searchResponse}
                       nextPage={() => handleChangePage(searchResponse.page + 1)}
                       prevPage={() => handleChangePage(searchResponse.page - 1)}
+                      firstPage={() => handleChangePage(0)}
+                      lastPage={() =>
+                        handleChangePage(
+                          Math.ceil(
+                            searchResponse.hits / searchResponse.pageSize
+                          ) - 1
+                        )
+                      }
                     />
                     {searchResponse.data.map((product, i) => (
                       <ListProduct
@@ -222,13 +223,21 @@ export default function Search({ props }) {
                       searchResponse={searchResponse}
                       nextPage={() => handleChangePage(searchResponse.page + 1)}
                       prevPage={() => handleChangePage(searchResponse.page - 1)}
+                      firstPage={() => handleChangePage(0)}
+                      lastPage={() =>
+                        handleChangePage(
+                          Math.ceil(
+                            searchResponse.hits / searchResponse.pageSize
+                          ) - 1
+                        )
+                      }
                     />
                   </>
                 )
               )}
             </div>
           )}
-          <SearchMarquee />
+          {!loading && !executing && <SearchMarquee />}
         </div>
       </div>
     </>

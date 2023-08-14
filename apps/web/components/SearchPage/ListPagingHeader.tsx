@@ -6,12 +6,16 @@ interface Props {
   searchResponse: SearchFunctionResponseDto;
   nextPage: () => void;
   prevPage: () => void;
+  firstPage: () => void;
+  lastPage: () => void;
 }
 
 const ListPagingHeader: React.FC<Props> = ({
   searchResponse,
   nextPage,
   prevPage,
+  firstPage,
+  lastPage,
 }) => {
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
@@ -40,6 +44,26 @@ const ListPagingHeader: React.FC<Props> = ({
         </div>
       </div>
       <div className="flex justify-evenly divide-x-1.5 divide-secondary-dark-10">
+        <div
+          onClick={firstPage}
+          className={cn(
+            `flex aspect-3/4 h-full select-none items-center justify-center bg-secondary dark:border-white`,
+            {
+              'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
+                from > 1,
+              'pointer-events-none': from === 1,
+            }
+          )}
+        >
+          <img
+            draggable={false}
+            src="/img/double-left-arrow.svg"
+            alt="Double left arrow"
+            className={cn('h-2/5', {
+              hidden: from === 1,
+            })}
+          />
+        </div>
         <div
           onClick={prevPage}
           className={cn(
@@ -83,6 +107,26 @@ const ListPagingHeader: React.FC<Props> = ({
             src="/img/right-arrow.svg"
             alt="Right arrow"
             className={cn('h-1/2', {
+              hidden: to === searchResponse.hits,
+            })}
+          />
+        </div>
+        <div
+          onClick={lastPage}
+          className={cn(
+            `flex aspect-3/4 h-full select-none items-center justify-center bg-secondary`,
+            {
+              'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
+                to < searchResponse.hits,
+              'pointer-events-none': to === searchResponse.hits,
+            }
+          )}
+        >
+          <img
+            draggable={false}
+            src="/img/double-right-arrow.svg"
+            alt="Double right arrow"
+            className={cn('h-2/5', {
               hidden: to === searchResponse.hits,
             })}
           />
