@@ -40,7 +40,7 @@ const GiveMeBarNav: React.FC = () => {
   const handleSearch = (q?: string) => {
     if (q) {
       router.push(
-        `/search?q=${encodeURIComponent(q.trim()).replace(/[%20]+/g, '+')}`
+        `/search?q=${encodeURIComponent(q.trim()).replace(/[ ]+/g, '+')}`
       );
     } else if (query) {
       router.push(
@@ -60,6 +60,18 @@ const GiveMeBarNav: React.FC = () => {
   const handleSelectSuggestion = (index: number) => {
     const suggestion = handleAdoptSuggestion(index);
     handleSearch(suggestion);
+  };
+
+  const updateSuggestions = (q: string) => {
+    setSuggestions([
+      q + 'a',
+      q + 'abc',
+      q + ' sustainable',
+      q + 'abcde',
+      'organic ' + q,
+      q + q,
+      q + 'abcdefg',
+    ]);
   };
 
   return (
@@ -110,6 +122,7 @@ const GiveMeBarNav: React.FC = () => {
               setSuggestionIndex(null);
               setLastTypedQuery(e.target.value);
               setQuery(e.target.value);
+              updateSuggestions(e.target.value);
             }}
             onFocus={() => {
               setSuggestionIndex(null);

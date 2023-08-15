@@ -4,11 +4,11 @@ import React, { useEffect } from 'react';
 import 'react-responsive-modal/styles.css';
 import BlogNavbar from './Navbar/BlogNavbar';
 import GiveMeBarNav from './Navbar/GiveMeBarNav';
-import LinkChips from './Navbar/LinkChips/LinkChips';
 import LoginButton from './Navbar/LoginButton';
 import ProfileButton from './Navbar/ProfileButton';
 import SideMenuButton from './Navbar/SideMenuButton';
 import { useUser } from './UserProvider';
+import LinkChips from './Navbar/LinkChips/LinkChips';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -20,31 +20,33 @@ const Navbar: React.FC = () => {
     }
   }, [router.asPath]);
   return (
-    <nav
-      id="navbar-container"
-      className={cn(
-        'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white duration-500',
-        {
-          'transition-all': router.pathname.includes('/blog'),
-          'transition-none': !router.pathname.includes('/blog'),
-        }
-      )}
-    >
-      <div
-        id="navbar-content"
-        className="flex h-22 w-full items-center justify-between px-16"
+    <>
+      <nav
+        id="navbar-container"
+        className={cn(
+          'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white duration-500',
+          {
+            'transition-all': router.pathname.includes('/blog'),
+            'transition-none': !router.pathname.includes('/blog'),
+          }
+        )}
       >
-        <div className="flex w-full max-w-[850px] items-center pr-12">
-          <GiveMeBarNav />
+        <div
+          id="navbar-content"
+          className="flex h-22 w-full items-center justify-between px-16"
+        >
+          <div className="flex w-full max-w-[850px] items-center pr-12">
+            <GiveMeBarNav />
+          </div>
+          <div className="flex items-center gap-x-6">
+            {/* <LinkChips /> */}
+            {user ? <ProfileButton /> : <LoginButton />}
+            <SideMenuButton />
+          </div>
         </div>
-        <div className="flex items-center gap-x-6">
-          {/* <LinkChips /> */}
-          {user ? <ProfileButton /> : <LoginButton />}
-          <SideMenuButton />
-        </div>
-      </div>
-      {router.route.includes('/blog') && <BlogNavbar />}
-    </nav>
+        {router.route.includes('/blog') && <BlogNavbar />}
+      </nav>
+    </>
   );
 };
 
