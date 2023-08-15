@@ -8,15 +8,13 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
 import ComparableProduct from '../components/SearchPage/ComparableProduct';
+import ListPagingHeader from '../components/SearchPage/ListPagingHeader';
 import ListProduct from '../components/SearchPage/ListProduct';
-import LoadingMarquee from '../components/SearchPage/LoadingScreen/LoadingMarquee';
 import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
+import SearchLoadingScreen from '../components/SearchPage/SearchLoadingScreen';
 import SearchMarquee from '../components/SearchPage/SearchMarquee';
 import { useUser } from '../components/UserProvider';
 import { functions } from '../lib/firebase';
-import ListPagingHeader from '../components/SearchPage/ListPagingHeader';
-import Image from 'next/image';
-import SearchLoadingScreen from '../components/SearchPage/SearchLoadingScreen';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -40,7 +38,6 @@ export default function Search({ props }) {
   useEffect(() => {
     if (router.isReady) {
       if (router.query.q && router.query.q !== searchResponse.query) {
-        // setCompareModeOn(!!router.query.choice);
         const req: SearchFunctionRequestDto = {
           query: router.query.q as string,
           sort: router.query.sort as string,
