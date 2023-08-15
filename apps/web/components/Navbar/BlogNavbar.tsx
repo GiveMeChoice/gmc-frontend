@@ -55,7 +55,9 @@ const BlogNavbar: React.FC = () => {
       document.getElementById('scroll-progress-bar').style.width =
         scrolled + '%';
     };
-    window.addEventListener('scroll', handleScrollProgress);
+    if (router.query.slug) {
+      window.addEventListener('scroll', handleScrollProgress);
+    }
 
     return () => {
       window.removeEventListener('scroll', handleScrollUp);
