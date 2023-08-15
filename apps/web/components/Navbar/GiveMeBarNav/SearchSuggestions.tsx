@@ -18,7 +18,7 @@ const SearchSuggestions: React.FC<Props> = ({
     <>
       {suggestions.map((text, i) => (
         <div
-          className={cn('flex h-[46px] cursor-pointer items-center p-2', {
+          className={cn('z-30 flex h-[46px] cursor-pointer items-center p-2', {
             'text-zinc-900 underline': i === activeIndex,
           })}
           onMouseEnter={() => onHover(i)}

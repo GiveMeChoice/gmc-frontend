@@ -192,10 +192,10 @@ const BlogNavbar: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="relative z-10 w-full">
+      <div className="relative z-0 w-full">
         <div
           id="scroll-progress-bar"
-          className="absolute top-[1.5px] z-10 h-[8px] bg-gmc-sunset"
+          className="absolute top-[1.5px] h-[8px] bg-gmc-sunset"
         ></div>
       </div>
     </>

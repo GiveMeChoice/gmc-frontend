@@ -78,7 +78,7 @@ const GiveMeBarNav: React.FC = () => {
     <div
       id="give-me-bar"
       className={cn(
-        'z-0 flex h-[46px] w-full flex-wrap items-end justify-start gap-y-2.5 md:flex-nowrap'
+        'z-20 flex h-[46px] w-full flex-wrap items-end justify-start gap-y-2.5 md:flex-nowrap'
       )}
     >
       <button
