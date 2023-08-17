@@ -21,6 +21,7 @@ export * from './components/more-stories';
 export * from './components/post-body';
 export * from './components/post-header';
 export * from './components/post-preview';
+export * from './components/post-suggestions';
 export * from './components/post-title';
 export * from './components/section-separator';
 // pages

@@ -9,18 +9,15 @@ interface Props {
 export const PostTitle: React.FC<Props> = ({ title, subtitle }) => (
   <>
     <h1
-      className={cn(
-        'mt-12 text-center text-5xl font-bold tracking-normal sm:text-6xl md:text-left md:text-7xl md:leading-none md:tracking-normal lg:text-7xl',
-        {
-          'mb-12': !subtitle,
-          'mb-4': subtitle,
-        }
-      )}
+      className={cn('mt-10 mb-8 text-left text-7xl font-bold tracking-normal', {
+        // 'mb-12': !subtitle,
+        // 'mb-4': subtitle,
+      })}
     >
       {title}
     </h1>
     {subtitle && (
-      <h4 className="mb-10 ml-2 text-center text-lg text-gray-600 sm:text-xl md:text-left md:text-2xl">
+      <h4 className="mb-10 ml-2 pr-48 text-center text-lg text-gray-600 sm:text-xl md:text-left md:text-2xl">
         {subtitle}
       </h4>
     )}

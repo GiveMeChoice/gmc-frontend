@@ -21,7 +21,7 @@ const DropdownItemButton: React.FC<Props> = ({
   return (
     <button
       onClick={handleClick}
-      className="flex h-14 w-full cursor-pointer items-center justify-between gap-4 rounded-2xl px-4 text-sm transition-colors duration-150 ease-in-out hover:bg-secondary  active:bg-secondary-dark-10"
+      className="flex h-14 w-full cursor-pointer items-center justify-between gap-4 rounded-md px-4 text-sm transition-colors duration-150 ease-in-out hover:bg-secondary  active:bg-secondary-dark-10"
     >
       <div className="flex items-center gap-3">
         <span

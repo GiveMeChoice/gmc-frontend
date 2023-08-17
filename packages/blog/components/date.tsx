@@ -5,7 +5,7 @@ interface Props {
   dateString: string;
 }
 
-export const Date: React.FC<Props> = ({ dateString }) => {
+export const PostDate: React.FC<Props> = ({ dateString }) => {
   if (!dateString) return null;
 
   const date = parseISO(dateString);

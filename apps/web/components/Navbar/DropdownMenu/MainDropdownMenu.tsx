@@ -69,7 +69,7 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu, close }) => {
         </DropdownItemButton>
       </div>
 
-      <hr className="mb-2 border-black dark:border-white" />
+      <hr className="mb-2 border-b border-secondary-dark-10 dark:border-white" />
       <div className="px-2">
         <DropdownItemButton handleClick={handleSignOut} centered>
           <div className="flex items-center gap-1">

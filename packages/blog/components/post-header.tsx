@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar } from '../components/avatar';
-import { Date } from '../components/date';
+import { PostDate } from './date';
 import { CoverImage } from '../components/cover-image';
 import { PostTitle } from '../components/post-title';
 import PostSocialShare from './post-social-share';
@@ -35,7 +35,7 @@ export const PostHeader: React.FC<Props> = ({
       <div className="hidden flex-col items-end space-y-6 md:flex">
         <PostSocialShare title={title} />
         <div className="flex flex-row items-center justify-between space-x-6 text-lg">
-          <Date dateString={date} />
+          <PostDate dateString={date} />
           <span>{readingTime.text}</span>
         </div>
       </div>
@@ -46,7 +46,7 @@ export const PostHeader: React.FC<Props> = ({
     <div className="flex flex-col items-start space-y-6 md:hidden">
       <PostSocialShare title={title} />
       <div className="flex flex-row items-center justify-between space-x-6 text-lg">
-        <Date dateString={date} />
+        <PostDate dateString={date} />
         <span>{readingTime.text}</span>
       </div>
     </div>

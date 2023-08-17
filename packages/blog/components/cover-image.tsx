@@ -23,11 +23,12 @@ export const CoverImage: React.FC<Props> = ({
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
-        'hover:shadow-medium transition-shadow duration-200': slug,
+        'hover:shadow-medium cursor-pointer transition-shadow duration-200':
+          slug,
       })}
     >
       <Image
-        className={cn('h-auto w-full', {
+        className={cn('w-full', {
           'rounded-t-sm': framed,
           'rounded-sm': !framed,
         })}
@@ -49,7 +50,7 @@ export const CoverImage: React.FC<Props> = ({
   return (
     <div className="sm:mx-0">
       {slug ? (
-        <Link href={`/blog/${slug}`} aria-label={title}>
+        <Link href={`/blog/${slug}`} aria-label={title} prefetch={false}>
           {image}
         </Link>
       ) : (

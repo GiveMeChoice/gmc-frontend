@@ -12,19 +12,16 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
   const router = useRouter();
 
   return (
-    <div
-      className={`m-2.5 mx-3 flex flex-col gap-y-2 rounded-sm border border-zinc-800 bg-secondary p-3 px-8`}
-    >
-      <div className="flex w-full items-start justify-between">
-        <div>
-          <div className="flex text-2xl">
-            {profile && profile.displayName
-              ? profile.displayName
-              : 'Beautiful Stranger'}
-          </div>
-          <div className="w-full pl-0.5 text-sm">{user.email}</div>
+    <div className="flex divide-x-1.5 divide-secondary-dark-10 border-b-1.5  border-secondary-dark-10">
+      <div className="flex flex-col">
+        <div className="flex text-2xl">
+          {profile && profile.displayName
+            ? profile.displayName
+            : 'Beautiful Stranger'}
         </div>
-
+        <div className="w-full pl-0.5 text-sm">{user.email}</div>
+      </div>
+      <div className="flex flex-col">
         <div
           className={`flex aspect-square h-12 w-12 cursor-pointer items-center justify-center rounded-full border border-zinc-800 bg-${
             getUserTheme(profile).base
@@ -44,8 +41,6 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
             </span>
           )}
         </div>
-      </div>
-      <div className="flex w-full justify-center">
         <button
           className={`rounded-sm border border-zinc-800 text-zinc-800 bg-${
             getUserTheme(profile).base

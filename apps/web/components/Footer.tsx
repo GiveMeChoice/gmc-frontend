@@ -81,7 +81,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-2/5 flex-col justify-between bg-zinc-900 px-16 pb-10 pt-16 text-white">
+        <div className="flex w-2/5 flex-col justify-between bg-black px-16 pb-10 pt-16 text-white">
           <div className="flex flex-col gap-y-10">
             <span className="text-3xl">
               Subscribe to get more choice every month.

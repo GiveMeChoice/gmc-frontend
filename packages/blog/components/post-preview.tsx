@@ -1,6 +1,6 @@
 import React from 'react';
 import { Avatar } from '../components/avatar';
-import { Date } from '../components/date';
+import { PostDate } from './date';
 import { CoverImage } from './cover-image';
 import Link from 'next/link';
 import PostCategories from './post-categories';
@@ -25,7 +25,7 @@ export const PostPreview: React.FC<Props> = ({
   categories,
   slug,
 }) => (
-  <div className="border rounded-sm border-secondary-dark-20 shadow-sm">
+  <div className="rounded-sm border border-secondary-dark-20 shadow-sm">
     <div className="mb-1.5 cursor-pointer">
       <CoverImage framed slug={slug} title={title} image={coverImage} />
     </div>
@@ -40,7 +40,7 @@ export const PostPreview: React.FC<Props> = ({
             'mt-2': categories,
           })}
         >
-          <Date dateString={date} />
+          <PostDate dateString={date} />
         </div>
         <p className="mb-4 text-lg leading-relaxed text-zinc-700">{excerpt}</p>
       </div>
