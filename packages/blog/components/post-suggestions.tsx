@@ -1,10 +1,7 @@
+import Link from 'next/link';
 import React from 'react';
 import { Avatar } from './avatar';
-import { PostDate } from './date';
 import { CoverImage } from './cover-image';
-import Link from 'next/link';
-import PostCategories from './post-categories';
-import cn from 'classnames';
 
 interface Props {
   title?: boolean;

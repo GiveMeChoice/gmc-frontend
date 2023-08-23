@@ -37,10 +37,12 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
             />
           )}
           <div className="my-0 w-full border-y-1.5 border-secondary-dark-10">
-            <h3 className="p-12 pb-8 text-3xl font-bold">LATEST POSTS</h3>
+            <h3 className="pt-8 pl-12 pb-7 text-[34px] font-bold">
+              LATEST POSTS
+            </h3>
           </div>
           <div className="flex w-full">
-            <div className="w-3/4 divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-secondary-dark-10">
+            <div className="w-3/4 divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-secondary-dark-10 bg-white">
               {morePosts.slice(0, 10).map((post: any) => (
                 <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
                   <div className="w-3/5 cursor-pointer">
@@ -73,9 +75,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
                 </div>
               ))}
             </div>
-            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 bg-secondary">
-              Ad Space
-            </div>
+            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 "></div>
             {/* {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
           </div>
         </Container>

@@ -13,7 +13,7 @@ const SideMenuButton: React.FC = () => {
   return (
     <>
       <button
-        className="flex h-10 w-10 flex-col items-center justify-center gap-y-1 rounded-full border border-black p-1 hover:scale-[1.03] hover:bg-secondary active:bg-primary"
+        className="flex h-10 w-10 flex-col items-center justify-center gap-y-1 rounded-full border border-black bg-white p-1 hover:scale-[1.03] active:bg-primary"
         onClick={handleSideMenuToggle}
       >
         <div className="w-5 border-b-2 border-black" />

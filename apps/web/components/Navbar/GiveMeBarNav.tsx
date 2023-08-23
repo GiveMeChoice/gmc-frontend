@@ -71,6 +71,9 @@ const GiveMeBarNav: React.FC = () => {
       'organic ' + q,
       q + q,
       q + 'abcdefg',
+      q + 'abcdefg',
+      q + 'abcdefg',
+      q + 'abcdefg',
     ]);
   };
 
@@ -142,13 +145,13 @@ const GiveMeBarNav: React.FC = () => {
                   setQuery(lastTypedQuery);
                 }
               } else if (e.key === 'ArrowDown') {
-                if (query) {
-                  if (suggestionIndex === null) {
-                    handleAdoptSuggestion(0);
-                  } else if (suggestionIndex < suggestions.length - 1) {
-                    handleAdoptSuggestion(suggestionIndex + 1);
-                  }
+                // if (query) {
+                if (suggestionIndex === null) {
+                  handleAdoptSuggestion(0);
+                } else if (suggestionIndex < suggestions.length - 1) {
+                  handleAdoptSuggestion(suggestionIndex + 1);
                 }
+                // }
               } else if (e.key === 'Escape') {
                 document.getElementById('gmc-search-bar').blur();
               }
@@ -173,10 +176,11 @@ const GiveMeBarNav: React.FC = () => {
           <div
             id="suggestions-box"
             className={cn(
-              'z-10 w-full -translate-y-5 flex-col rounded-sm border border-secondary-dark-10 bg-white bg-opacity-[.95] pr-5 pb-1.5 text-[31px] text-lg text-secondary-dark-50',
+              'shadow- z-10 hidden w-[103%] -translate-x-[8px] -translate-y-3.5 flex-col rounded-2xl border-1.5 border-secondary-dark-10 bg-white bg-opacity-[1] pr-5 pb-3.5 pt-1.5 text-secondary-dark-50 shadow-sm peer-focus:flex',
               {
-                'hidden peer-focus:flex': query,
-                hidden: !query,
+                // 'hidden peer-focus:flex': query,
+                // // 'peer-focus:flex': query,
+                // hidden: !query,
               }
             )}
           >

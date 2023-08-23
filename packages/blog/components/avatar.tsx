@@ -14,7 +14,7 @@ export const Avatar: React.FC<Props> = ({ big, name, picture }) => {
   return (
     <div className="flex items-center gap-x-2">
       <div
-        className={cn('relative h-8 w-8', {
+        className={cn('relative h-9 w-9', {
           'h-10 w-10': big,
         })}
       >

@@ -1,20 +1,16 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import readingTime from 'reading-time';
+import { Avatar } from '../components/avatar';
+import { CoverImage } from '../components/cover-image';
 import { Layout } from '../components/layout';
-import { MoreStories } from '../components/more-stories';
 import { PostBody } from '../components/post-body';
-import { PostHeader } from '../components/post-header';
+import PostSocialShare from '../components/post-social-share';
+import { PostSuggestions } from '../components/post-suggestions';
 import { PostTitle } from '../components/post-title';
-import { SectionSeparator } from '../components/section-separator';
 import { postQuery, postSlugsQuery } from '../lib/queries';
 import { urlForImage, usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
-import { CoverImage } from '../components/cover-image';
-import { Avatar } from '../components/avatar';
-import SocialShareButton from 'next-share/dist/components/SocialShareButton';
-import PostSocialShare from '../components/post-social-share';
-import { PostSuggestions } from '../components/post-suggestions';
 
 export function PostPage({ data, preview }: any) {
   const router = useRouter();
@@ -31,7 +27,7 @@ export function PostPage({ data, preview }: any) {
   return (
     <Layout preview={preview}>
       <div className="flex w-full flex-col items-center">
-        <div className="w-[1300px] p-10">
+        <div className="mb-10 max-w-[1300px] p-10">
           <div className="mt-12 flex flex-col">
             <div className="ml-1 mb-2 w-fit cursor-pointer bg-black p-1.5 px-2 text-sm text-white hover:bg-gmc-sunset hover:text-black">
               {post.categories[0].title.toUpperCase()}
@@ -63,7 +59,7 @@ export function PostPage({ data, preview }: any) {
                     {post.excerpt.substring(0, 140)}
                   </h4>
                 </div>
-                <div className="mt-8 mb-4 flex w-3/4 flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-10 px-1.5">
+                <div className="mt-8 mb-4 flex w-3/4 flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-10 pr-1.5">
                   <div className="flex w-full items-end justify-between px-1.5 pb-2">
                     {post.author && (
                       <Avatar
@@ -109,7 +105,7 @@ export function PostPage({ data, preview }: any) {
         </div>
         {morePosts.length > 0 && (
           <>
-            <div className="w-full border-t-1.5 border-secondary-dark-10 bg-black pt-5 pb-10 pl-14 text-4xl font-bold text-secondary">
+            <div className="w-full border-t-1.5 border-secondary-dark-10 bg-black pt-6 pb-10 pl-14 text-5xl font-bold text-secondary">
               <span className="w-fit text-end">
                 DISCOVER <br /> MORE
               </span>

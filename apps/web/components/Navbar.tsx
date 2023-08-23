@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
       <nav
         id="navbar-container"
         className={cn(
-          'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white duration-300',
+          'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white duration-500',
           {
             'transition-all': router.pathname.includes('/blog'),
             'transition-none': !router.pathname.includes('/blog'),
@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
           <div className="flex w-full max-w-[850px] items-center pr-12">
             <GiveMeBarNav />
           </div>
-          <div className="flex items-center gap-x-6">
+          <div className="flex items-center gap-x-5">
             <LinkChips />
             {user ? <ProfileButton /> : <LoginButton />}
             <SideMenuButton />

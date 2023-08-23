@@ -45,6 +45,9 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
       closeMenu();
     }
   };
+  const handleScroll = (e) => {
+    closeMenu();
+  };
 
   useEffect(() => {
     setMenuHeight(open ? dropdownRef.current?.firstChild.offsetHeight : 0);
@@ -52,9 +55,11 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
       const body = document.getElementsByTagName('body')[0];
       body.addEventListener('click', handleClickaway);
       document.addEventListener('keydown', handleEscapeKey);
+      document.addEventListener('scroll', handleScroll);
       return () => {
         body.removeEventListener('click', handleClickaway);
         document.removeEventListener('keydown', handleEscapeKey);
+        document.removeEventListener('scroll', handleScroll);
       };
     } else {
       setActiveMenu(DropdownMenuName.MAIN);

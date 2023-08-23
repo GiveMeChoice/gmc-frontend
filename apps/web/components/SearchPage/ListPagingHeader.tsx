@@ -34,20 +34,20 @@ const ListPagingHeader: React.FC<Props> = ({
   }, [searchResponse.page]);
 
   return (
-    <div className="flex h-[52px] w-full justify-between divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-r-1.5 border-secondary-dark-10">
+    <div className="flex h-[54px] w-full justify-between divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-r-1.5 border-secondary-dark-10">
       <div className="flex flex-grow items-center justify-between bg-white px-8">
         <div className="flex h-fit w-full items-end justify-center gap-x-2 text-zinc-800">
           <span className="text-[17px] text-zinc-800">
             {from === 1 ? `Top ${to} Choices` : `Choices ${from} - ${to}`}
           </span>
-          <span className="text-[16px] text-zinc-700">{`(of ${searchResponse.hits})`}</span>
+          {/* <span className="text-[16px] text-zinc-700">{`(of ${searchResponse.hits})`}</span> */}
         </div>
       </div>
       <div className="flex justify-evenly divide-x-1.5 divide-secondary-dark-10">
         <div
           onClick={firstPage}
           className={cn(
-            `flex aspect-3/4 h-full select-none items-center justify-center bg-secondary dark:border-white`,
+            `flex aspect-square h-full select-none items-center justify-center bg-secondary dark:border-white`,
             {
               'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
                 from > 1,
@@ -114,7 +114,7 @@ const ListPagingHeader: React.FC<Props> = ({
         <div
           onClick={lastPage}
           className={cn(
-            `flex aspect-3/4 h-full select-none items-center justify-center bg-secondary`,
+            `flex aspect-square h-full select-none items-center justify-center bg-secondary`,
             {
               'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
                 to < searchResponse.hits,
@@ -132,6 +132,7 @@ const ListPagingHeader: React.FC<Props> = ({
           />
         </div>
       </div>
+      {/* <div className="w- bg-white" /> */}
     </div>
   );
 };

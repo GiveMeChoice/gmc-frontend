@@ -23,9 +23,9 @@ export const HeroPost: React.FC<Props> = ({
   slug,
 }) => {
   return (
-    <section id="hero-post" className="mt-[55px]">
+    <section id="hero-post" className="mt-[50px]">
       <div className="flex w-full">
-        <div className="relative w-7/12">
+        <div className="w-7/12">
           <CoverImage slug={slug} title={title} image={coverImage} priority />
         </div>
         <div className="flex w-5/12 flex-col justify-center bg-black px-10 py-3 text-secondary">

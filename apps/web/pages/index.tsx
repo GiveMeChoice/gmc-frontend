@@ -17,7 +17,7 @@ export default function Home() {
         <title>Home | Give Me Choice</title>
       </Head>
       <section className="max-w-screen container mx-auto flex h-screen flex-col items-center justify-between">
-        <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-6 bg-white px-16 pb-1">
+        <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-5 bg-white px-16 pb-1">
           <LinkChips />
           {user ? <ProfileButton /> : <LoginButton />}
           <SideMenuButton />

@@ -28,10 +28,7 @@ export const CoverImage: React.FC<Props> = ({
       })}
     >
       <Image
-        className={cn('w-full', {
-          'rounded-t-sm': framed,
-          'rounded-sm': !framed,
-        })}
+        className={cn('w-full', {})}
         layout="responsive"
         width={2000}
         height={1000}

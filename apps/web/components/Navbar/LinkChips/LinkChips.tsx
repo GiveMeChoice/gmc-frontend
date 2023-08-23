@@ -8,17 +8,17 @@ interface Props {}
 const LinkChips: React.FC<Props> = () => {
   const router = useRouter();
   return (
-    <div className="hidden items-center gap-x-4 text-[14px] xl:flex">
+    <div className="hidden items-center gap-x-4 pr-4 text-[14px] xl:flex">
       <a
         href="/search"
         className={cn(
-          'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
+          'flex h-9 w-[90px] cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
           {}
         )}
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-beach-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-beach',
+            'z-20 flex h-9 w-[90px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-beach-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-beach',
             {
               'border-secondary-dark-40 bg-gmc-beach':
                 router.pathname.includes('/search'),
@@ -26,7 +26,7 @@ const LinkChips: React.FC<Props> = () => {
             }
           )}
         >
-          <div
+          {/* <div
             className={cn(
               'flex h-6 w-6 items-center justify-center rounded-full border border-zinc-600 bg-secondary'
             )}
@@ -39,20 +39,20 @@ const LinkChips: React.FC<Props> = () => {
               width="17"
               height="17"
             />
-          </div>
+          </div> */}
           <span className="px-2">Search</span>
         </div>
       </a>
       <a
         href="/discover"
         className={cn(
-          'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
+          'flex h-9 w-[90px] cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
           {}
         )}
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-surf-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-surf',
+            'z-20 flex h-9 w-[90px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-surf-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-surf',
             {
               'border-secondary-dark-40 bg-gmc-surf':
                 router.pathname.includes('/discover'),
@@ -60,7 +60,7 @@ const LinkChips: React.FC<Props> = () => {
             }
           )}
         >
-          <div
+          {/* <div
             className={cn(
               'flex h-6 w-6 items-center justify-center rounded-full border border-zinc-600 bg-secondary'
             )}
@@ -73,7 +73,7 @@ const LinkChips: React.FC<Props> = () => {
               width="17"
               height="17"
             />
-          </div>
+          </div> */}
           <span className="px-2">Discover</span>
         </div>
       </a>
@@ -81,13 +81,13 @@ const LinkChips: React.FC<Props> = () => {
       <a
         href="/blog"
         className={cn(
-          'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
+          'flex h-9 w-[90px] cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
           {}
         )}
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-sunset-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-sunset',
+            'z-20 flex h-9 w-[90px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-sunset-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-sunset',
             {
               'border-secondary-dark-40 bg-gmc-sunset':
                 router.pathname.includes('/blog'),
@@ -95,7 +95,7 @@ const LinkChips: React.FC<Props> = () => {
             }
           )}
         >
-          <div
+          {/* <div
             className={cn(
               'flex h-6 w-6 items-center justify-center rounded-full border border-zinc-600 bg-secondary'
             )}
@@ -108,7 +108,7 @@ const LinkChips: React.FC<Props> = () => {
               width="17"
               height="17"
             />
-          </div>
+          </div> */}
           <span className="px-4">Blog</span>
         </div>
       </a>

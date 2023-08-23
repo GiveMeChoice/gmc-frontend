@@ -98,6 +98,7 @@ export default function Search({ props }) {
     console.log('searching...');
     try {
       setLoading(true);
+      window.scrollTo(0, 0);
       let result = await executeCallable({
         ...request,
         page: indexViaPath ? Math.floor(indexViaPath / 10) : request.page,
