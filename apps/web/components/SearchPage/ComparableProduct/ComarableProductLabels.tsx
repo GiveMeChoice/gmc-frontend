@@ -31,7 +31,7 @@ const ComparableProductLabels: React.FC<Props> = ({
       <div className="flex w-full justify-center divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10">
         <button
           className={cn(
-            'flex aspect-video w-1/2 select-none items-center justify-center py-2',
+            'flex aspect-[9/4] w-1/2 select-none items-center justify-center py-2',
             {
               'hover:bg-primary': spotlight !== 0,
               'bg-secondary': spotlight === 0,
@@ -44,14 +44,14 @@ const ComparableProductLabels: React.FC<Props> = ({
             draggable={false}
             src="/img/up-arrow.svg"
             alt="Left arrow"
-            className={cn('w-1/4', {
+            className={cn('w-1/5', {
               hidden: spotlight === 0,
             })}
           />
         </button>
         <button
           className={cn(
-            'flex aspect-video w-1/2 select-none items-center justify-center py-2',
+            'flex aspect-[9/4] w-1/2 select-none items-center justify-center py-2',
             {
               'hover:bg-primary': spotlight < labels.length - 1,
               'bg-secondary': spotlight === labels.length - 1,
@@ -64,7 +64,7 @@ const ComparableProductLabels: React.FC<Props> = ({
             draggable={false}
             src="/img/down-arrow.svg"
             alt="Right arrow"
-            className={cn('w-1/4', {
+            className={cn('w-1/5', {
               hidden: spotlight === labels.length - 1,
             })}
           />
@@ -74,10 +74,10 @@ const ComparableProductLabels: React.FC<Props> = ({
         {labels.map((sl, i) => (
           <div
             className={cn(
-              'group ml-10 flex w-fit items-center gap-x-2 whitespace-pre-wrap rounded-full transition-none duration-300',
+              'group ml-10 flex w-fit items-center gap-x-2 whitespace-pre-wrap rounded-none transition-none duration-300',
               {
                 'cursor-pointer': spotlight !== i,
-                'border-1.5 border-secondary-dark-20 py-1 px-2 pr-3.5':
+                'border border-secondary-dark-50 py-1.5 px-2.5':
                   spotlight === i,
               }
             )}

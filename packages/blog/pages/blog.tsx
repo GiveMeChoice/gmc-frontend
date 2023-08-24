@@ -54,7 +54,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
                     />
                   </div>
                   <div className="flex w-2/5 flex-grow flex-col justify-center p-6">
-                    <div className="mb-2.5 w-fit cursor-pointer bg-black p-1.5 px-2 text-xs text-white hover:bg-primary hover:text-black">
+                    <div className="ml-0.5 mb-3 w-fit cursor-pointer border-1.5 border-black p-1 px-1.5 text-[11px] text-black hover:bg-primary hover:text-black">
                       {post.categories[0].title.toUpperCase()}
                     </div>
                     <h4 className="cursor-pointer pb-3 text-2xl font-bold hover:text-secondary-dark-50">

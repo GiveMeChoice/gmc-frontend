@@ -18,7 +18,7 @@ const LinkChips: React.FC<Props> = () => {
       >
         <div
           className={cn(
-            'z-20 flex h-9 w-[90px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-beach-light-20 active:translate-y-0 active:border-zinc-700 active:bg-gmc-beach',
+            'z-20 flex h-9 w-[90px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1.5 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-beach active:translate-y-0 active:border-zinc-700 active:bg-gmc-beach',
             {
               'border-secondary-dark-40 bg-gmc-beach':
                 router.pathname.includes('/search'),

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
 import cn from 'classnames';
-import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
 
 interface Props {
   open: boolean;
@@ -10,8 +9,6 @@ interface Props {
 }
 
 const SideMenu: React.FC<Props> = ({ open, close }) => {
-  const router = useRouter();
-
   const handleClickaway = (e: PointerEvent) => {
     const menuContainer = (e.target as any).closest('#side-menu');
     if (!menuContainer) {
@@ -43,7 +40,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
     <div
       id="side-menu"
       className={cn(
-        'fixed right-0 top-0 z-50 h-full bg-primary transition-width duration-500',
+        'fixed left-0 top-0 z-50 h-full bg-primary transition-width duration-500',
         {
           'w-0': !open,
           'w-96': open,
@@ -52,7 +49,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
     >
       <div
         className={cn(
-          'float-left flex h-screen w-full flex-col justify-between overflow-hidden p-12 transition-all duration-500',
+          'float-right flex h-screen w-full flex-col justify-between overflow-hidden p-12 transition-all duration-500',
           {
             'w-0': !open,
             'w-96': open,
@@ -63,7 +60,12 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
           <div className="flex w-full items-start justify-between pb-16">
             <a
               href="/"
-              className="flex w-fit justify-start"
+              className={cn(
+                'flex w-fit justify-start transition-all duration-500',
+                {
+                  '-translate-x-44': !open,
+                }
+              )}
               onClick={handleLinkClick}
             >
               <svg
@@ -76,7 +78,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             </a>
             <button
               className={cn(
-                'h-10 w-10 flex-col items-center justify-center rounded-full border border-black pt-0.5 hover:scale-[1.03] hover:bg-primary',
+                'aspect-square h-9 flex-col items-center justify-center rounded-full border border-black pt-0.5 hover:scale-[1.03] hover:bg-primary',
                 {
                   flex: open,
                   hidden: !open,
@@ -85,11 +87,17 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
               onClick={close}
             >
               <div className="w-7 -translate-x-[0px] rotate-45 border-b-1.5 border-black" />
-              {/* <div className="my-0.5 w-[19px] border-b-1.5 border-black" /> */}
               <div className="w-7 translate-x-[0px] -translate-y-[2px] -rotate-45 border-b-1.5 border-black" />
             </button>
           </div>
-          <div className="flex w-full flex-col gap-y-4">
+          <div
+            className={cn(
+              'flex w-full flex-col gap-y-4 transition-all duration-500',
+              {
+                '-translate-x-44': !open,
+              }
+            )}
+          >
             <Link href="/">
               <div
                 className="group flex cursor-pointer items-center gap-x-6"

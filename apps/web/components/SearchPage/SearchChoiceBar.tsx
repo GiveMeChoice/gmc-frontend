@@ -59,7 +59,7 @@ const SearchChoiceBar: React.FC<Props> = ({
 
   return (
     <div
-      className={`flex h-full w-full flex-col divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10`}
+      className={`border--1.5 flex h-full w-full flex-col divide-secondary-dark-10 border-secondary-dark-10`}
     >
       <SearchChoiceBarSummary
         loading={loading}

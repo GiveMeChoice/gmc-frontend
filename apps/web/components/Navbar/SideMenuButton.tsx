@@ -13,12 +13,12 @@ const SideMenuButton: React.FC = () => {
   return (
     <>
       <button
-        className="flex h-10 w-10 flex-col items-center justify-center gap-y-1 rounded-full border border-black bg-white p-1 hover:scale-[1.03] active:bg-primary"
+        className="flex aspect-square h-9 flex-col items-center justify-center gap-y-1 rounded-full border border-zinc-900 bg-white p-1 hover:scale-[1.03] active:bg-primary"
         onClick={handleSideMenuToggle}
       >
-        <div className="w-5 border-b-2 border-black" />
-        <div className="my-[1px] w-[19px] border-b-2 border-black" />
-        <div className="w-5 border-b-2 border-black" />
+        <div className="w-4 border-b-2 border-zinc-900" />
+        <div className="my-[1px] w-[19px] border-b-2 border-zinc-900" />
+        <div className="w-4 border-b-2 border-zinc-900" />
       </button>
       <SideMenu open={sideMenuOpen} close={handleSideMenuToggle} />
     </>

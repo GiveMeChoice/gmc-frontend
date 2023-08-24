@@ -35,13 +35,13 @@ const Navbar: React.FC = () => {
           id="navbar-content"
           className="flex h-22 w-full items-center justify-between px-16"
         >
-          <div className="flex w-full max-w-[850px] items-center pr-12">
+          <div className="flex w-full max-w-[850px] items-center gap-x-8 pr-12">
+            <SideMenuButton />
             <GiveMeBarNav />
           </div>
           <div className="flex items-center gap-x-5">
             <LinkChips />
             {user ? <ProfileButton /> : <LoginButton />}
-            <SideMenuButton />
           </div>
         </div>
         {router.route.includes('/blog') && <BlogNavbar />}

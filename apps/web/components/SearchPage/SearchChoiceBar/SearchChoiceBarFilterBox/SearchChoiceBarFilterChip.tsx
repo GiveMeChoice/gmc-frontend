@@ -28,7 +28,7 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
         onClick={() => onClick(name)}
         title={name}
         className={cn(
-          'cursor-pointer rounded-sm border-1.5 border-zinc-900 px-2 py-1 shadow-sm',
+          'cursor-pointer rounded-none border-1.5 border-zinc-900 px-2 py-1 shadow-sm',
           {
             'bg-zinc-900 text-white': true,
             // 'bg-white text-black': invert,

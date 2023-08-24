@@ -20,7 +20,7 @@ export default function Home() {
         <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-5 bg-white px-16 pb-1">
           <LinkChips />
           {user ? <ProfileButton /> : <LoginButton />}
-          <SideMenuButton />
+          {/* <SideMenuButton /> */}
         </div>
         <div className="flex h-3/5 w-2/3 items-center justify-center pt-10">
           <GiveMeBarHome />

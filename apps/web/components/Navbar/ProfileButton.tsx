@@ -23,7 +23,7 @@ const ProfileButton: React.FC = () => {
       <button
         title="Menu"
         className={cn(
-          `group flex h-10 w-10 items-center justify-center rounded-full border border-black bg-gmc-surf shadow-sm transition-transform duration-150 active:border-1.5 dark:border-white`,
+          `group flex aspect-square h-[38px] items-center justify-center rounded-full border border-black bg-secondary shadow-sm transition-transform duration-150 active:border-1.5 dark:border-white`,
           {
             'bg-primary hover:scale-105 hover:opacity-90': !menuOpen,
             'scale-105': menuOpen,
