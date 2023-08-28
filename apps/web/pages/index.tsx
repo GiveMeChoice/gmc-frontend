@@ -22,7 +22,7 @@ export default function Home() {
           {user ? <ProfileButton /> : <LoginButton />}
           {/* <SideMenuButton /> */}
         </div>
-        <div className="flex h-3/5 w-2/3 items-center justify-center pt-10">
+        <div className="flex h-3/5 w-2/3 items-center justify-center pt-4">
           <GiveMeBarHome />
         </div>
         <DiscoverFooter />

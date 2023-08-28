@@ -111,7 +111,9 @@ const ThemeDropdownMenu: React.FC<Props> = ({ setActiveMenu }) => {
       <div className="my-2.5 flex justify-center py-1 text-sm">
         Selected Theme:&nbsp;
         <span className="font-bold italic">
-          {profile.theme.toString().split('_')[1]}
+          {profile && profile.theme
+            ? profile.theme.toString().split('_')[1]
+            : ''}
         </span>
       </div>
     </div>

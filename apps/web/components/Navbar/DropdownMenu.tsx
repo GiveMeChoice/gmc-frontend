@@ -71,7 +71,7 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     <div
       id="dropdown-menu"
       className={cn(
-        `dropdown-menu absolute -right-1.5 z-50 max-h-fit w-[360px] -translate-y-[30px] overflow-hidden rounded-2xl border border-secondary-dark-50 bg-secondary-light-10 shadow-md duration-300 ease-in-out`,
+        `dropdown-menu absolute -right-2 z-50 w-[365px] -translate-y-[30px] overflow-hidden rounded-2xl border border-secondary-dark-50 bg-secondary-light-10 shadow-md duration-300 ease-in-out`,
         {
           'pointer-events-none -z-10 h-0 opacity-0': !open,
         }
