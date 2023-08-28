@@ -21,7 +21,7 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu, close }) => {
   };
 
   return (
-    <div className="bg-white pb-2.5">
+    <div className="">
       <ProfileDropdownSection close={close} />
       <div className="my-2 flex flex-col px-2">
         <DropdownItemButton
@@ -69,7 +69,7 @@ const MainDropdownMenu: React.FC<Props> = ({ setActiveMenu, close }) => {
         </DropdownItemButton>
       </div>
 
-      <hr className="mb-2 border-b border-secondary-dark-10 dark:border-white" />
+      <hr className="border-b border-secondary-dark-10" />
       <div className="px-2">
         <DropdownItemButton handleClick={handleSignOut} centered>
           <div className="flex items-center gap-1">

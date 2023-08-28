@@ -2,7 +2,6 @@
 import cn from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { getUserTheme } from '../../lib/theme';
 import { useUser } from '../UserProvider';
 import DropdownMenu from './DropdownMenu';
 
@@ -19,7 +18,7 @@ const ProfileButton: React.FC = () => {
   }, [router.pathname]);
 
   return (
-    <>
+    <div className="relative">
       <button
         title="Menu"
         className={cn(
@@ -59,7 +58,7 @@ const ProfileButton: React.FC = () => {
         )}
       </button>
       <DropdownMenu open={menuOpen} closeMenu={closeMenu} />
-    </>
+    </div>
   );
 };
 

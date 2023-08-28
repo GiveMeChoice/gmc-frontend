@@ -1,12 +1,11 @@
 import cn from 'classnames';
+import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
-import { getUserTheme } from '../../lib/theme';
 import { useUser } from '../UserProvider';
 import DropdownMenuTransition from './DropdownMenu/DropdownMenuTransition';
 import FavoritesDropdownMenu from './DropdownMenu/FavoritesDropdownMenu';
 import MainDropdownMenu from './DropdownMenu/MainDropdownMenu';
 import ThemeDropdownMenu from './DropdownMenu/ThemeDropdownMenu';
-import { useRouter } from 'next/router';
 
 interface Props {
   closeMenu: () => void;
@@ -46,7 +45,9 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     }
   };
   const handleScroll = (e) => {
-    closeMenu();
+    if (router.pathname.includes('/blog')) {
+      closeMenu();
+    }
   };
 
   useEffect(() => {
@@ -70,12 +71,8 @@ const DropdownMenu: React.FC<Props> = ({ closeMenu, open }) => {
     <div
       id="dropdown-menu"
       className={cn(
-        `transition-height absolute z-50 max-h-fit w-96 max-w-full overflow-hidden rounded-sm border border-secondary-dark-20 bg-secondary shadow-md shadow-zinc-700 duration-300 ease-in-out bg-${
-          getUserTheme(profile).base
-        }`,
+        `dropdown-menu absolute -right-1.5 z-50 max-h-fit w-[360px] -translate-y-[30px] overflow-hidden rounded-2xl border border-secondary-dark-50 bg-secondary-light-10 shadow-md duration-300 ease-in-out`,
         {
-          'dropdown-menu-home': router.route === '/',
-          'dropdown-menu': router.route !== '/',
           'pointer-events-none -z-10 h-0 opacity-0': !open,
         }
       )}
