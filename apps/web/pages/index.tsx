@@ -7,15 +7,18 @@ import { useUser } from '../components/UserProvider';
 import LoginButton from '../components/Navbar/LoginButton';
 import DiscoverFooter from '../components/DiscoverFooter';
 import SideMenuButton from '../components/Navbar/SideMenuButton';
+import SEO from '../components/Shared/SEO';
 
 export default function Home() {
   const { user } = useUser();
 
   return (
     <>
-      <Head>
-        <title>Home | Give Me Choice</title>
-      </Head>
+    <SEO 
+       title="Home | Give Me Choice" 
+       description="Sustainable shopping simplified | Give Me Choice"
+       ogUrl='/'
+     />
       <section className="max-w-screen container mx-auto flex h-screen flex-col items-center justify-between">
         <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-5 bg-white px-16 pb-1">
           <LinkChips />
