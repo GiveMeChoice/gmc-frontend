@@ -15,24 +15,13 @@ export default function Home() {
   // bg[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))from-gmc-sunset to-gmc-surf
   return (
     <>
-<<<<<<< HEAD
-    <SEO 
-       title="Home | Give Me Choice" 
-       description="Sustainable shopping simplified | Give Me Choice"
-       ogUrl='/'
-     />
+      <SEO
+        title="Home | Give Me Choice"
+        description="Sustainable shopping simplified | Give Me Choice"
+        ogUrl="/"
+      />
       <section className="max-w-screen container mx-auto flex h-screen flex-col items-center justify-between">
         <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-5 bg-white px-16 pb-1">
-=======
-      <Head>
-        <title>Home | Give Me Choice</title>
-      </Head>
-      <section
-        className="max-w-screen background-animate-slow container mx-auto flex h-screen flex-col items-center justify-between 
-      "
-      >
-        <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-5 px-16 pb-1">
->>>>>>> 9582264 (Blog navbar dropdown post previews)
           <LinkChips />
           {user ? <ProfileButton /> : <LoginButton />}
           {/* <SideMenuButton /> */}

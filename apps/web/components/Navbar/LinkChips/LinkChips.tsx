@@ -9,7 +9,7 @@ const LinkChips: React.FC<Props> = () => {
   const router = useRouter();
   return (
     <div className="hidden items-center gap-x-4 pr-4 text-[14px] xl:flex">
-      <a
+      {/* <a
         href="/search"
         className={cn(
           'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
@@ -42,7 +42,7 @@ const LinkChips: React.FC<Props> = () => {
           </div>
           <span className="px-2">Search</span>
         </div>
-      </a>
+      </a> */}
       <a
         href="/discover"
         className={cn(
