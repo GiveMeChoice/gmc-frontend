@@ -75,7 +75,7 @@ const BlogNavbar: React.FC = () => {
     setNavigating(true);
     setTimeout(() => {
       setNavigating(false);
-    }, 100);
+    }, 200);
   };
 
   return (
@@ -95,7 +95,6 @@ const BlogNavbar: React.FC = () => {
               className={cn(
                 'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300  hover:bg-white',
                 {
-                  // 'pr-5': minmized,
                   '-translate-x-44': !minmized,
                 }
               )}
