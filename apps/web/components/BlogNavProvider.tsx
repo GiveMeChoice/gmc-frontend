@@ -8,6 +8,7 @@ import {
 
 export interface IBlogNavContext {
   loading?: boolean;
+  latestPosts?: any[];
   wellnessPosts?: any[];
   indoorPosts?: any[];
   outdoorPosts?: any[];

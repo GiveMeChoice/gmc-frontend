@@ -1,5 +1,5 @@
 // api/blog-nav
-import { categoryPostsQuery, getClient, overlayDrafts } from 'blog';
+import { categoryPostsQuery, getClient, indexQuery, overlayDrafts } from 'blog';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IBlogNavContext } from '../../components/BlogNavProvider';
 
@@ -19,6 +19,7 @@ export default async function handler(
     res.status(405).send('Method Not Allowed');
   }
   Promise.all([
+    client.fetch(indexQuery(false)),
     client.fetch(categoryPostsQuery(WELLNESS_ID, false, 5)),
     client.fetch(categoryPostsQuery(INDOOR_ID, false, 5)),
     client.fetch(categoryPostsQuery(OUTDOOR_ID, false, 5)),
@@ -26,6 +27,7 @@ export default async function handler(
     client.fetch(categoryPostsQuery(COMMUNITY_ID, false, 5)),
   ]).then(
     ([
+      latestPostsRaw,
       wellnessPostsRaw,
       indoorPostsRaw,
       outdoorPostsRaw,
@@ -33,6 +35,7 @@ export default async function handler(
       communityPostsRaw,
     ]) => {
       const data: IBlogNavContext = {
+        latestPosts: overlayDrafts(latestPostsRaw),
         wellnessPosts: overlayDrafts(wellnessPostsRaw),
         indoorPosts: overlayDrafts(indoorPostsRaw),
         outdoorPosts: overlayDrafts(outdoorPostsRaw),

@@ -8,6 +8,7 @@ import { Layout } from '../components/layout';
 import { indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts } from '../lib/sanity.server';
+import { Intro } from '../components/intro';
 
 export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
   const { data: allPosts } = usePreviewSubscription(indexQuery(preview), {

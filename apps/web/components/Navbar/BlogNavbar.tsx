@@ -2,12 +2,12 @@ import cn from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { useBlogNav } from '../BlogNavProvider';
 import { useUser } from '../UserProvider';
 import BlogNavbarDropdown from './BlogNavbar/BlogNavbarDropdown';
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
 import SideMenu from './SideMenu/SideMenu';
-import { useBlogNav } from '../BlogNavProvider';
 
 const BlogNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
@@ -75,7 +75,7 @@ const BlogNavbar: React.FC = () => {
     setNavigating(true);
     setTimeout(() => {
       setNavigating(false);
-    }, 200);
+    }, 1000);
   };
 
   return (
@@ -111,12 +111,43 @@ const BlogNavbar: React.FC = () => {
           </div>
           <div
             className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white ',
               {}
             )}
           >
             <Link className="h-full w-full" href="/blog">
-              <div className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide">
+              <div
+                className="flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] tracking-wide active:text-primary"
+                onClick={cycleNavigate}
+              >
+                <span>LATEST</span>
+              </div>
+            </Link>
+            <div
+              className={cn(
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                {
+                  'group-hover:block': !navigating,
+                }
+              )}
+            >
+              <BlogNavbarDropdown
+                onNavigate={cycleNavigate}
+                posts={blogNav ? blogNav.latestPosts : []}
+              />
+            </div>
+          </div>
+          <div
+            className={cn(
+              'group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white ',
+              {}
+            )}
+          >
+            <Link className="h-full w-full" href="/blog">
+              <div
+                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
+                onClick={cycleNavigate}
+              >
                 WELLNESS
               </div>
             </Link>
@@ -136,12 +167,15 @@ const BlogNavbar: React.FC = () => {
           </div>
           <div
             className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white',
               {}
             )}
           >
             <Link className="h-full w-full" href="/blog/posts">
-              <div className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide">
+              <div
+                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
+                onClick={cycleNavigate}
+              >
                 INDOOR
               </div>
             </Link>
@@ -161,12 +195,15 @@ const BlogNavbar: React.FC = () => {
           </div>
           <div
             className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white ',
               {}
             )}
           >
             <Link className="h-full w-full" href="/blog/tags">
-              <div className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide">
+              <div
+                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
+                onClick={cycleNavigate}
+              >
                 OUTDOOR
               </div>
             </Link>
@@ -186,12 +223,15 @@ const BlogNavbar: React.FC = () => {
           </div>
           <div
             className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white',
               {}
             )}
           >
             <Link className="h-full w-full" href="/blog/tags">
-              <div className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide">
+              <div
+                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
+                onClick={cycleNavigate}
+              >
                 JOY
               </div>
             </Link>
@@ -211,12 +251,15 @@ const BlogNavbar: React.FC = () => {
           </div>
           <div
             className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white',
               {}
             )}
           >
             <Link className="h-full w-full" href="/blog/tags">
-              <div className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide">
+              <div
+                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
+                onClick={cycleNavigate}
+              >
                 COMMUNITY
               </div>
             </Link>
