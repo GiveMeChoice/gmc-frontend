@@ -3,11 +3,11 @@ import { categoryPostsQuery, getClient, overlayDrafts } from 'blog';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IBlogNavContext } from '../../components/BlogNavProvider';
 
-const WELLNESS_ID = '5bfb673d-4e5e-4df8-9ca6-d0898a1c3ea7';
-const INDOOR_ID = '7bde7029-929a-4fdd-8e9a-9bcbe93179bd';
+const WELLNESS_ID = '43f74e8d-8039-4c7e-a137-753fe05ec448';
+const INDOOR_ID = 'e7b61ef8-f646-45fb-9a35-2fa659d34f4d';
 const OUTDOOR_ID = '08eaa787-8dcc-43b7-9142-228afb58a3e5';
 const JOY_ID = '85073659-53d3-4e5c-ad2f-d3109c063583';
-const COMMUNITY_ID = '5bfb673d-4e5e-4df8-9ca6-d0898a1c3ea7';
+const COMMUNITY_ID = 'c66a4460-c5ac-4cfa-989f-6aaea702efda';
 
 export default async function handler(
   req: NextApiRequest,

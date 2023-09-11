@@ -20,15 +20,21 @@ const BlogNavbarDropdown: React.FC<Props> = ({ posts, onNavigate }) => {
             <BlogNavbarDropdownPost onNavigate={onNavigate} post={posts[0]} />
           </div>
           <div className="h-full w-1/4 text-black">
-            <BlogNavbarDropdownPost onNavigate={onNavigate} post={posts[1]} />
-          </div>
-          <div className="h-full w-1/4 text-black">
-            <BlogNavbarDropdownPost onNavigate={onNavigate} post={posts[2]} />
+            <BlogNavbarDropdownPost
+              onNavigate={onNavigate}
+              post={posts.length > 1 ? posts[1] : posts[0]}
+            />
           </div>
           <div className="h-full w-1/4 text-black">
             <BlogNavbarDropdownPost
               onNavigate={onNavigate}
-              post={posts[3] ? posts[3] : posts[2]}
+              post={posts.length > 2 ? posts[2] : posts[0]}
+            />
+          </div>
+          <div className="h-full w-1/4 text-black">
+            <BlogNavbarDropdownPost
+              onNavigate={onNavigate}
+              post={posts.length > 3 ? posts[3] : posts[0]}
             />
           </div>
         </>

@@ -62,7 +62,7 @@ const LinkChips: React.FC<Props> = () => {
         >
           <div
             className={cn(
-              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-600 bg-secondary'
+              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-600 bg-white'
             )}
           >
             <Image
@@ -97,7 +97,7 @@ const LinkChips: React.FC<Props> = () => {
         >
           <div
             className={cn(
-              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-600 bg-secondary'
+              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-600 bg-white'
             )}
           >
             <Image

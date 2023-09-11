@@ -16,6 +16,7 @@ const BlogNavbarDropdownPost: React.FC<Props> = ({ post, onNavigate }) => {
           slug={post.slug}
           title={post.title}
           image={post.coverImage}
+          onClick={onNavigate}
         />
       </div>
       <div className="flex h-[320px] w-full flex-grow flex-col justify-between bg-black p-7 text-white xl:h-[300px]">

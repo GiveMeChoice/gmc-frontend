@@ -10,6 +10,7 @@ interface Props {
   slug?: string;
   image?: any;
   priority?: boolean;
+  onClick?: (slug: string) => void;
 }
 
 export const CoverImage: React.FC<Props> = ({
@@ -18,6 +19,7 @@ export const CoverImage: React.FC<Props> = ({
   slug,
   image: source,
   priority,
+  onClick,
 }) => {
   const url = urlForImage(source).height(1000).width(2000).url();
   const image = source?.asset?._ref ? (
@@ -48,7 +50,12 @@ export const CoverImage: React.FC<Props> = ({
     <div className="sm:mx-0">
       {slug ? (
         <Link href={`/blog/${slug}`} aria-label={title}>
-          <a href={`/blog/${slug}`}>{image}</a>
+          <a
+            href={`/blog/${slug}`}
+            onClick={() => (onClick ? onClick(slug) : null)}
+          >
+            {image}
+          </a>
         </Link>
       ) : (
         image
