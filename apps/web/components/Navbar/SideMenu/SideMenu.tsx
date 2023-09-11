@@ -57,7 +57,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
         )}
       >
         <div className="flex flex-col">
-          <div className="flex w-full items-start justify-between pb-16">
+          <div className="flex w-full items-start justify-between pb-[70px]">
             <a
               href="/"
               className={cn(
