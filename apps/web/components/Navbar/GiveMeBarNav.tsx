@@ -176,7 +176,7 @@ const GiveMeBarNav: React.FC = () => {
           <div
             id="suggestions-box"
             className={cn(
-              'shadow- z-10 hidden w-[103%] -translate-x-[8px] -translate-y-3.5 flex-col rounded-2xl border-1.5 border-secondary-dark-10 bg-white bg-opacity-[1] pr-5 pb-3.5 pt-1.5 text-secondary-dark-50 shadow-sm peer-focus:flex',
+              'shadow- z-10 hidden w-[102%] -translate-x-[8px] -translate-y-3.5 flex-col rounded-2xl border-1.5 border-secondary-dark-20 bg-white bg-opacity-[1] pr-5 pb-3.5 pt-1.5 text-zinc-600 shadow-sm peer-focus:flex',
               {
                 // 'hidden peer-focus:flex': query,
                 // // 'peer-focus:flex': query,

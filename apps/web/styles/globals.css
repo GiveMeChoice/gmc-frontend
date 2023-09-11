@@ -72,6 +72,24 @@ body {
   animation: AnimationName 9s ease infinite;
 }
 
+.background-animate-slow {
+  background-size: 400%;
+
+  -webkit-animation: Animation2Name 30s ease infinite;
+  -moz-animation: Animation2Name 30s ease infinite;
+  animation: Animation2Name 30s ease infinite;
+}
+
+@keyframes Animation2Name {
+  0%,
+  100% {
+    background-position: 0% 300%;
+  }
+  50% {
+    background-position: 200% 0%;
+  }
+}
+
 @keyframes AnimationName {
   0%,
   100% {

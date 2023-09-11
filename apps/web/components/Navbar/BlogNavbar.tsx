@@ -3,15 +3,19 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../UserProvider';
+import BlogNavbarDropdown from './BlogNavbar/BlogNavbarDropdown';
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
-import SideMenuButton from './SideMenuButton';
+import SideMenu from './SideMenu/SideMenu';
+import { useBlogNav } from '../BlogNavProvider';
 
 const BlogNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
   const [postTitle, setPostTitle] = useState(null);
   const user = useUser();
   const router = useRouter();
+  const [sideMenuOpen, setSideMenuOpen] = useState(false);
+  const blogNav = useBlogNav();
 
   useEffect(() => {
     setMinimized(false);
@@ -67,7 +71,7 @@ const BlogNavbar: React.FC = () => {
 
   return (
     <>
-      <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 text-[13px]">
+      <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 bg-secondary text-[13px]">
         <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
           <div
             className={cn(
@@ -79,17 +83,27 @@ const BlogNavbar: React.FC = () => {
             )}
           >
             <div
-              className={cn('transition-all duration-300', {
-                // 'pr-5': minmized,
-                '-translate-x-44': !minmized,
-              })}
+              className={cn(
+                'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300  hover:bg-white',
+                {
+                  // 'pr-5': minmized,
+                  '-translate-x-44': !minmized,
+                }
+              )}
+              onClick={() => setSideMenuOpen(!sideMenuOpen)}
             >
-              <SideMenuButton />
+              <div className="w-5 border-b-2 border-black" />
+              <div className="my-[1px] w-[23px] border-b-2 border-black" />
+              <div className="w-5 border-b-2 border-black" />
             </div>
+            <SideMenu
+              open={sideMenuOpen}
+              close={() => setSideMenuOpen(!sideMenuOpen)}
+            />
           </div>
           <div
             className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden bg-white transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
               {}
             )}
           >
@@ -98,18 +112,15 @@ const BlogNavbar: React.FC = () => {
                 WELLNESS
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[45px] group-hover:block">
-              <div className="pointer-events-auto flex h-1/2 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-                <div className="h-full w-1/4 text-black">LATEST POST 1</div>
-                <div className="h-full w-1/4 text-black">LATEST POST 2</div>
-                <div className="h-full w-1/4 text-black">LATEST POST 3</div>
-                <div className="h-full w-1/4 text-black">LATEST POST 4</div>
-              </div>
+            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+              <BlogNavbarDropdown
+                posts={blogNav ? blogNav.wellnessPosts : []}
+              />
             </div>
           </div>
           <div
             className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden bg-white transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
               {}
             )}
           >
@@ -118,18 +129,13 @@ const BlogNavbar: React.FC = () => {
                 INDOOR
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[45px] group-hover:block">
-              <div className="pointer-events-auto flex h-1/2 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-                <div className="h-full w-1/4 text-black">POST 1</div>
-                <div className="h-full w-1/4 text-black">POST 2</div>
-                <div className="h-full w-1/4 text-black">POST 3</div>
-                <div className="h-full w-1/4 text-black">POST 4</div>
-              </div>
+            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+              <BlogNavbarDropdown posts={blogNav ? blogNav.indoorPosts : []} />
             </div>
           </div>
           <div
             className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden bg-white transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
               {}
             )}
           >
@@ -138,18 +144,13 @@ const BlogNavbar: React.FC = () => {
                 OUTDOOR
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[45px] group-hover:block">
-              <div className="pointer-events-auto flex h-1/2 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-                <div className="h-full w-1/4 text-black">TAG 1</div>
-                <div className="h-full w-1/4 text-black">TAG 2</div>
-                <div className="h-full w-1/4 text-black">TAG 3</div>
-                <div className="h-full w-1/4 text-black">TAG 4</div>
-              </div>
+            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+              <BlogNavbarDropdown posts={blogNav ? blogNav.outdoorPosts : []} />
             </div>
           </div>
           <div
             className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden bg-white transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
               {}
             )}
           >
@@ -158,18 +159,13 @@ const BlogNavbar: React.FC = () => {
                 JOY
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[45px] group-hover:block">
-              <div className="pointer-events-auto flex h-1/2 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-                <div className="h-full w-1/4 text-black">TAG 1</div>
-                <div className="h-full w-1/4 text-black">TAG 2</div>
-                <div className="h-full w-1/4 text-black">TAG 3</div>
-                <div className="h-full w-1/4 text-black">TAG 4</div>
-              </div>
+            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+              <BlogNavbarDropdown posts={blogNav ? blogNav.joyPosts : []} />
             </div>
           </div>
           <div
             className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden bg-white transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
+              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white active:text-primary',
               {}
             )}
           >
@@ -178,13 +174,10 @@ const BlogNavbar: React.FC = () => {
                 COMMUNITY
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-screen w-screen translate-y-[45px] group-hover:block">
-              <div className="pointer-events-auto flex h-1/2 w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
-                <div className="h-full w-1/4 text-black">TAG 1</div>
-                <div className="h-full w-1/4 text-black">TAG 2</div>
-                <div className="h-full w-1/4 text-black">TAG 3</div>
-                <div className="h-full w-1/4 text-black">TAG 4</div>
-              </div>
+            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+              <BlogNavbarDropdown
+                posts={blogNav ? blogNav.communityPosts : []}
+              />
             </div>
           </div>
           <div className="flex h-full flex-grow items-center justify-center">

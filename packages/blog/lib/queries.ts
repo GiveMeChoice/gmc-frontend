@@ -39,10 +39,16 @@ export const allPostsQuery = (preview: boolean) =>
     preview ? '' : draftFilter
   }] | order(date desc, _updatedAt desc) [0...10] {${postFields}}`;
 
-export const categoryPostsQuery = (categoryId: string, preview: boolean) =>
+export const categoryPostsQuery = (
+  categoryId: string,
+  preview: boolean,
+  count?: number
+) =>
   `*[_type == "post"${
     preview ? '' : draftFilter
-  } && '${categoryId}' in categories[]._ref] | order(date desc, _updatedAt desc) [0...10] {${postFields}}`;
+  } && '${categoryId}' in categories[]._ref] | order(date desc, _updatedAt desc) [0...${
+    count ? count - 1 : 10
+  }] {${postFields}}`;
 
 export const postQuery = (preview: boolean) => `
 {

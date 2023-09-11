@@ -105,7 +105,7 @@ export function PostPage({ data, preview }: any) {
         </div>
         {morePosts.length > 0 && (
           <>
-            <div className="w-full border-t-1.5 border-secondary-dark-10 bg-black pt-6 pb-10 pl-14 text-5xl font-bold text-secondary">
+            <div className="w-full border-t-1.5 border-secondary-dark-10 bg-gmc-sunset pt-5 pb-7 pl-14 text-5xl font-bold text-black">
               <span className="w-fit text-end">
                 DISCOVER <br /> MORE
               </span>

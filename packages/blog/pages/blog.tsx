@@ -4,7 +4,6 @@ import { Avatar } from '../components/avatar';
 import { Container } from '../components/container';
 import { CoverImage } from '../components/cover-image';
 import { HeroPost } from '../components/hero-post';
-import { Intro } from '../components/intro';
 import { Layout } from '../components/layout';
 import { indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
@@ -36,8 +35,8 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
               excerpt={heroPost.excerpt}
             />
           )}
-          <div className="my-0 w-full border-y-1.5 border-secondary-dark-10">
-            <h3 className="pt-8 pl-12 pb-7 text-[34px] font-bold">
+          <div className="my-0 w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black">
+            <h3 className="pt-9 pl-12 pb-4 text-[40px] font-extrabold">
               LATEST POSTS
             </h3>
           </div>
@@ -53,16 +52,16 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
                       image={post.coverImage}
                     />
                   </div>
-                  <div className="flex w-2/5 flex-grow flex-col justify-center p-6">
-                    <div className="ml-0.5 mb-3 w-fit cursor-pointer border-1.5 border-black p-1 px-1.5 text-[11px] text-black hover:bg-primary hover:text-black">
+                  <div className="flex w-2/5 flex-grow flex-col justify-center bg-white p-6 text-black">
+                    <div className="ml-0.5 mb-3 w-fit cursor-pointer border-1.5 border-black bg-black p-1 px-1.5 text-[11px] text-white hover:bg-primary hover:text-black">
                       {post.categories[0].title.toUpperCase()}
                     </div>
-                    <h4 className="cursor-pointer pb-3 text-2xl font-bold hover:text-secondary-dark-50">
+                    <h4 className="cursor-pointer pb-3 text-2xl font-bold hover:text-primary">
                       <Link href={`/blog/${post.slug}`} prefetch={false}>
                         {post.title}
                       </Link>
                     </h4>
-                    <p className="mb-4 text-sm leading-relaxed text-zinc-700">
+                    <p className="mb-4 ml-1 text-sm leading-relaxed text-black">
                       {post.excerpt.substring(0, 80)}
                     </p>
                     {post.author && (
@@ -75,7 +74,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
                 </div>
               ))}
             </div>
-            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 "></div>
+            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 bg-white"></div>
             {/* {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
           </div>
         </Container>
