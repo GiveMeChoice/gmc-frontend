@@ -47,8 +47,8 @@ export const CoverImage: React.FC<Props> = ({
   return (
     <div className="sm:mx-0">
       {slug ? (
-        <Link href={`/blog/${slug}`} aria-label={title} prefetch={false}>
-          {image}
+        <Link href={`/blog/${slug}`} aria-label={title}>
+          <a href={`/blog/${slug}`}>{image}</a>
         </Link>
       ) : (
         image

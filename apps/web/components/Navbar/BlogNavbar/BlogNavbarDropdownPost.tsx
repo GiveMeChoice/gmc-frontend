@@ -4,9 +4,10 @@ import React from 'react';
 
 interface Props {
   post: any;
+  onNavigate: () => void;
 }
 
-const BlogNavbarDropdownPost: React.FC<Props> = ({ post }) => {
+const BlogNavbarDropdownPost: React.FC<Props> = ({ post, onNavigate }) => {
   return (
     <div className="flex h-full w-full flex-col divide-y-1.5 divide-secondary-dark-10">
       <div className="w-full cursor-pointer">
@@ -17,10 +18,12 @@ const BlogNavbarDropdownPost: React.FC<Props> = ({ post }) => {
           image={post.coverImage}
         />
       </div>
-      <div className="flex h-[266px] w-full flex-grow flex-col justify-between bg-black p-7 text-white">
+      <div className="flex h-[320px] w-full flex-grow flex-col justify-between bg-black p-7 text-white xl:h-[300px]">
         <h4 className="cursor-pointer pb-3 text-[22px] font-bold hover:text-primary">
-          <Link href={`/blog/${post.slug}`} prefetch={false}>
-            {post.title}
+          <Link href={`/blog/${post.slug}`}>
+            <a href={`/blog/${post.slug}`} onClick={onNavigate}>
+              {post.title}
+            </a>
           </Link>
         </h4>
         <p className="mb-4 ml-1 text-sm leading-relaxed">

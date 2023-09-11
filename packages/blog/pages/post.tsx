@@ -138,7 +138,7 @@ export async function getStaticPropsPost({ params, preview = false }: any) {
       },
     },
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
-    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
+    // revalidate: process.en v.SANITY_REVALIDATE_SECRET ? undefined : 60,
   };
 }
 
@@ -146,7 +146,7 @@ export async function getStaticPathsPost() {
   const paths = await sanityClient.fetch(postSlugsQuery(false));
   return {
     paths: paths.map((slug: string) => ({ params: { slug } })),
-    fallback: 'blocking',
+    fallback: false,
   };
 }
 

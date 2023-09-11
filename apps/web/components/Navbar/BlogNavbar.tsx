@@ -16,8 +16,10 @@ const BlogNavbar: React.FC = () => {
   const router = useRouter();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
   const blogNav = useBlogNav();
+  const [navigating, setNavigating] = useState(false);
 
   useEffect(() => {
+    // setNavigating(false);
     setMinimized(false);
     if (router.query.slug) {
       const slugComponent = (router as any).components['/blog/[slug]'];
@@ -69,6 +71,13 @@ const BlogNavbar: React.FC = () => {
     };
   }, [router.asPath]);
 
+  const cycleNavigate = () => {
+    setNavigating(true);
+    setTimeout(() => {
+      setNavigating(false);
+    }, 100);
+  };
+
   return (
     <>
       <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 bg-secondary text-[13px]">
@@ -112,8 +121,16 @@ const BlogNavbar: React.FC = () => {
                 WELLNESS
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+            <div
+              className={cn(
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                {
+                  'group-hover:block': !navigating,
+                }
+              )}
+            >
               <BlogNavbarDropdown
+                onNavigate={cycleNavigate}
                 posts={blogNav ? blogNav.wellnessPosts : []}
               />
             </div>
@@ -129,8 +146,18 @@ const BlogNavbar: React.FC = () => {
                 INDOOR
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
-              <BlogNavbarDropdown posts={blogNav ? blogNav.indoorPosts : []} />
+            <div
+              className={cn(
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                {
+                  'group-hover:block': !navigating,
+                }
+              )}
+            >
+              <BlogNavbarDropdown
+                onNavigate={cycleNavigate}
+                posts={blogNav ? blogNav.indoorPosts : []}
+              />
             </div>
           </div>
           <div
@@ -144,8 +171,18 @@ const BlogNavbar: React.FC = () => {
                 OUTDOOR
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
-              <BlogNavbarDropdown posts={blogNav ? blogNav.outdoorPosts : []} />
+            <div
+              className={cn(
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                {
+                  'group-hover:block': !navigating,
+                }
+              )}
+            >
+              <BlogNavbarDropdown
+                onNavigate={cycleNavigate}
+                posts={blogNav ? blogNav.outdoorPosts : []}
+              />
             </div>
           </div>
           <div
@@ -159,8 +196,18 @@ const BlogNavbar: React.FC = () => {
                 JOY
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
-              <BlogNavbarDropdown posts={blogNav ? blogNav.joyPosts : []} />
+            <div
+              className={cn(
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                {
+                  'group-hover:block': !navigating,
+                }
+              )}
+            >
+              <BlogNavbarDropdown
+                onNavigate={cycleNavigate}
+                posts={blogNav ? blogNav.joyPosts : []}
+              />
             </div>
           </div>
           <div
@@ -174,8 +221,16 @@ const BlogNavbar: React.FC = () => {
                 COMMUNITY
               </div>
             </Link>
-            <div className="pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px] group-hover:block">
+            <div
+              className={cn(
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                {
+                  'group-hover:block': !navigating,
+                }
+              )}
+            >
               <BlogNavbarDropdown
+                onNavigate={cycleNavigate}
                 posts={blogNav ? blogNav.communityPosts : []}
               />
             </div>
