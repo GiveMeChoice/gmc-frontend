@@ -71,15 +71,25 @@ export function PostPage({ data, preview }: any) {
                     <PostSocialShare title={post.title} />
                   </div>
                 </div>
-                <div className="divide--1.5 flex w-full divide-secondary-dark-10">
+                <div className="flex w-full">
                   <div className="flex w-3/4 flex-col">
                     <CoverImage
                       title={post.title}
                       image={post.coverImage}
                       priority
                     />
-                    <div className="border--1.5 border-secondary-dark-10 pl-2 pr-8 pt-8">
+                    <div className="gap-y-4 pl-2 pr-8 pt-8">
                       <PostBody content={post.content} />
+                      {post.contentImage && (
+                        <div className="w-11/12 pl-2">
+                          <CoverImage
+                            title={post.title}
+                            image={post.contentImage}
+                            priority
+                          />
+                        </div>
+                      )}
+                      {post.content2 && <PostBody content={post.content2} />}
                     </div>
                   </div>
                   <div className="divide--1.5 flex w-1/4 flex-col items-center gap-y-4 divide-secondary-dark-10 pl-8 pt-10">

@@ -56,12 +56,16 @@ export const postQuery = (preview: boolean) => `
     preview ? '' : draftFilter
   } && slug.current == $slug] | order(_updatedAt desc) [0] {
     content,
+    contentImage,
+    content2,
     ${postFields}
   },
   "morePosts": *[_type == "post"${
     preview ? '' : draftFilter
   } && slug.current != $slug] | order(date desc, _updatedAt desc) [0...6] {
     content,
+    contentImage,
+    content2,
     ${postFields}
   }
 }`;
