@@ -53,12 +53,7 @@ export function PostPage({ data, preview }: any) {
                     />
                   )}
                 </Head>
-                <PostTitle title={post.title} subtitle="" />
-                <div className="mb-8 w-4/5">
-                  <h4 className="ml-2text-center mb-8 text-lg text-gray-600 sm:text-xl md:text-left md:text-2xl">
-                    {post.excerpt.substring(0, 140)}
-                  </h4>
-                </div>
+                <PostTitle title={post.title} subtitle={post.subtitle} />
                 <div className="mt-8 mb-4 flex w-3/4 flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-10 pr-1.5">
                   <div className="flex w-full items-end justify-between px-1.5 pb-2">
                     {post.author && (

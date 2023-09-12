@@ -125,7 +125,7 @@ const BlogNavbar: React.FC = () => {
             </Link>
             <div
               className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
                 {
                   'group-hover:block': !navigating,
                 }
@@ -153,7 +153,7 @@ const BlogNavbar: React.FC = () => {
             </Link>
             <div
               className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
                 {
                   'group-hover:block': !navigating,
                 }
@@ -181,7 +181,7 @@ const BlogNavbar: React.FC = () => {
             </Link>
             <div
               className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
                 {
                   'group-hover:block': !navigating,
                 }
@@ -209,7 +209,7 @@ const BlogNavbar: React.FC = () => {
             </Link>
             <div
               className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
                 {
                   'group-hover:block': !navigating,
                 }
@@ -237,7 +237,7 @@ const BlogNavbar: React.FC = () => {
             </Link>
             <div
               className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
                 {
                   'group-hover:block': !navigating,
                 }
@@ -265,7 +265,7 @@ const BlogNavbar: React.FC = () => {
             </Link>
             <div
               className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
+                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
                 {
                   'group-hover:block': !navigating,
                 }
@@ -302,7 +302,7 @@ const BlogNavbar: React.FC = () => {
       <div className="relative z-0 w-full">
         <div
           id="scroll-progress-bar"
-          className={cn('absolute top-[1.5px] h-[8px] bg-primary', {
+          className={cn('absolute top-[1.5px] h-[7px] bg-primary', {
             block: postTitle,
             hidden: !postTitle,
           })}

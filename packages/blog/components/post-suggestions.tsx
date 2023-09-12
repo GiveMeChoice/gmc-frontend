@@ -17,7 +17,7 @@ export const PostSuggestions: React.FC<Props> = ({ title, posts }) => (
             <CoverImage framed slug={slug} title={title} image={coverImage} />
           </div>
           <div className="flex w-full flex-col justify-center bg-black p-10 text-secondary">
-            <div className="mb-4 w-fit cursor-pointer border-1.5 border-white bg-black p-1 px-1.5 text-xs text-white hover:bg-gmc-sunset hover:text-black">
+            <div className="mb-4 ml-0.5 w-fit cursor-pointer border-1.5 border-white bg-black p-1 px-1.5 text-xs text-white hover:bg-gmc-sunset hover:text-black">
               {categories[0].title.toUpperCase()}
             </div>
             <h3 className="mb-5 cursor-pointer pr-10 text-2xl font-bold hover:text-primary active:text-secondary-dark-50">
@@ -25,9 +25,7 @@ export const PostSuggestions: React.FC<Props> = ({ title, posts }) => (
                 {title}
               </Link>
             </h3>
-            <p className="mb-4 text-sm leading-relaxed">
-              {excerpt.substring(0, 140)}
-            </p>
+            <p className="mb-5 ml-0.5 text-sm leading-relaxed">{excerpt}</p>
             {author && <Avatar name={author.name} picture={author.picture} />}
           </div>
         </div>

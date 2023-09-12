@@ -62,8 +62,8 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
                         {post.title}
                       </Link>
                     </h4>
-                    <p className="mb-4 ml-1 text-sm leading-relaxed text-black">
-                      {post.excerpt.substring(0, 80)}
+                    <p className="mb-4 ml-0.5 text-sm leading-relaxed text-black">
+                      {post.excerpt}
                     </p>
                     {post.author && (
                       <Avatar

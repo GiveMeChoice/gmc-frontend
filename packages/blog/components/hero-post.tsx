@@ -37,9 +37,7 @@ export const HeroPost: React.FC<Props> = ({
               {title}
             </Link>
           </h3>
-          <p className="mx-1 mb-5 leading-relaxed">
-            {excerpt.substring(0, 140)}
-          </p>
+          <p className="mx-1 mb-5 leading-relaxed">{excerpt}</p>
           <div className="ml-1">
             {author && <Avatar name={author.name} picture={author.picture} />}
           </div>
