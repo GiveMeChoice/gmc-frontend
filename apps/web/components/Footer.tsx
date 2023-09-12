@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full">
+    <footer className="w-full overflow-x-hidden">
       <div className="flex h-[420px] w-full justify-between bg-secondary">
         <div className="flex h-full w-3/5 justify-evenly p-10">
           <div className="flex w-2/5 flex-col items-center gap-y-8 border-r-1.5 border-secondary-dark-10 px-12 pt-10">

@@ -57,7 +57,7 @@ const BlogNavbar: React.FC = () => {
       const height =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = (winScroll / (height * 0.78)) * 100;
       document.getElementById('scroll-progress-bar').style.width =
         scrolled + '%';
     };

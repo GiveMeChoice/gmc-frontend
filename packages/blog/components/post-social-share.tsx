@@ -18,9 +18,14 @@ interface Props {
 const PostSocialShare: React.FC<Props> = ({ title }) => {
   const route = `https://givemechoice.com${useRouter().asPath}`;
   return (
-    <div className="space-x-1">
+    <div className="space-x-1.5">
       <FacebookShareButton url={route} quote={title} hashtag={'#GiveMeChoice'}>
-        <FacebookIcon size={32} round />
+        <FacebookIcon
+          size={32}
+          round
+          iconFillColor="white"
+          bgStyle={{ backgroundColor: 'white' }}
+        />
       </FacebookShareButton>
       <TwitterShareButton url={route} title={title} hashtags={['GiveMeChoice']}>
         <TwitterIcon size={32} round />
@@ -28,7 +33,12 @@ const PostSocialShare: React.FC<Props> = ({ title }) => {
       <WhatsappShareButton url={route} title={title} separator=": ">
         <WhatsappIcon size={32} round />
       </WhatsappShareButton>
-      <EmailShareButton url={route} subject={title} body="Give Me Choice Blog">
+      <EmailShareButton
+        url={route}
+        subject={title}
+        body="Give Me Choice Blog"
+        blankTarget={true}
+      >
         <EmailIcon size={32} round />
       </EmailShareButton>
     </div>

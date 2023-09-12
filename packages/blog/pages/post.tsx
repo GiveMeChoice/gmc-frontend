@@ -29,7 +29,7 @@ export function PostPage({ data, preview }: any) {
       <div className="flex w-full flex-col items-center">
         <div className="mb-10 max-w-[1300px] p-10">
           <div className="mt-12 flex flex-col">
-            <div className="ml-1 mb-2 w-fit cursor-pointer bg-black p-1.5 px-2 text-sm text-white hover:bg-gmc-sunset hover:text-black">
+            <div className="ml-0.5 mb-2 w-fit cursor-pointer bg-black p-1.5 px-2 text-sm text-white hover:bg-gmc-sunset hover:text-black">
               {post.categories[0].title.toUpperCase()}
             </div>
             <hr className="border-accent-2 mt-1 h-0.5 w-full border-black bg-black" />
@@ -83,11 +83,11 @@ export function PostPage({ data, preview }: any) {
                       image={post.coverImage}
                       priority
                     />
-                    <div className="border--1.5 border-secondary-dark-10 pl-4 pr-10">
+                    <div className="border--1.5 border-secondary-dark-10 pl-2 pr-8 pt-8">
                       <PostBody content={post.content} />
                     </div>
                   </div>
-                  <div className="divide--1.5 flex w-1/4 flex-col items-center gap-y-4 divide-secondary-dark-10 pl-8 pt-20">
+                  <div className="divide--1.5 flex w-1/4 flex-col items-center gap-y-4 divide-secondary-dark-10 pl-8 pt-10">
                     <h3 className="w-full text-center text-4xl font-bold text-zinc-900">
                       RELATED
                     </h3>
@@ -137,6 +137,7 @@ export async function getStaticPropsPost({ params, preview = false }: any) {
         morePosts: overlayDrafts(morePosts).slice(0, 6),
       },
     },
+    revalidate: process.env.SANITY_REVALIDATE_SECRET ? undefined : 60,
     // If webhooks isn't setup then attempt to re-generate in 1 minute intervals
     // revalidate: process.en v.SANITY_REVALIDATE_SECRET ? undefined : 60,
   };
