@@ -43,7 +43,7 @@ export function CategoryPage({
           <Menu />
           <CategoryPageIntro category={category} />
           {heroPost && (
-            <div className="mb-10 border-y-1.5 border-secondary-dark-10">
+            <div className="mb-11 border-y-1.5 border-secondary-dark-10">
               <HeroPost
                 title={heroPost.title}
                 coverImage={heroPost.coverImage}
@@ -62,7 +62,7 @@ export function CategoryPage({
                 style={{ backgroundColor: category.color }}
                 className="w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black"
               >
-                <h3 className="pt-7 pl-12 pb-4 text-[38px] font-extrabold">
+                <h3 className="pt-6 pl-12 pb-4 text-[36px] font-bold">
                   DISCOVER {category.title.toUpperCase()}
                 </h3>
               </div>
