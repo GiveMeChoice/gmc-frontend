@@ -110,53 +110,60 @@ const BlogNavbar: React.FC = () => {
               close={() => setSideMenuOpen(!sideMenuOpen)}
             />
           </div>
-          <BlogNavbarItem
-            title="Latest"
-            color="black"
-            posts={blogNav ? blogNav.latestPosts : []}
-            navigating={navigating}
-            onNavigate={cycleNavigate}
-          />
-          <BlogNavbarItem
-            title="Wellness"
-            color="gmc-berry"
-            path="/tags/wellness"
-            posts={blogNav ? blogNav.wellnessPosts : []}
-            navigating={navigating}
-            onNavigate={cycleNavigate}
-          />
-          <BlogNavbarItem
-            title="indoor"
-            color="gmc-dune"
-            path="/tags/indoor"
-            posts={blogNav ? blogNav.indoorPosts : []}
-            navigating={navigating}
-            onNavigate={cycleNavigate}
-          />
-          <BlogNavbarItem
-            title="outdoor"
-            color="gmc-forest"
-            path="/tags/outdoor"
-            posts={blogNav ? blogNav.outdoorPosts : []}
-            navigating={navigating}
-            onNavigate={cycleNavigate}
-          />
-          <BlogNavbarItem
-            title="joy"
-            color="gmc-beach"
-            path="/tags/joy"
-            posts={blogNav ? blogNav.joyPosts : []}
-            navigating={navigating}
-            onNavigate={cycleNavigate}
-          />
-          <BlogNavbarItem
-            title="community"
-            color="gmc-surf"
-            path="/tags/community"
-            posts={blogNav ? blogNav.communityPosts : []}
-            navigating={navigating}
-            onNavigate={cycleNavigate}
-          />
+          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white">
+            <BlogNavbarItem
+              title="Latest"
+              posts={blogNav ? blogNav.latestPosts : []}
+              navigating={navigating}
+              onNavigate={cycleNavigate}
+            />
+          </div>
+          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-berry">
+            <BlogNavbarItem
+              title="Wellness"
+              path="/tags/wellness"
+              posts={blogNav ? blogNav.wellnessPosts : []}
+              navigating={navigating}
+              onNavigate={cycleNavigate}
+            />
+          </div>
+          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-dune">
+            <BlogNavbarItem
+              title="indoor"
+              path="/tags/indoor"
+              posts={blogNav ? blogNav.indoorPosts : []}
+              navigating={navigating}
+              onNavigate={cycleNavigate}
+            />
+          </div>
+          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-forest">
+            <BlogNavbarItem
+              title="outdoor"
+              path="/tags/outdoor"
+              posts={blogNav ? blogNav.outdoorPosts : []}
+              navigating={navigating}
+              onNavigate={cycleNavigate}
+            />
+          </div>
+          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-beach">
+            <BlogNavbarItem
+              title="joy"
+              path="/tags/joy"
+              posts={blogNav ? blogNav.joyPosts : []}
+              navigating={navigating}
+              onNavigate={cycleNavigate}
+            />
+          </div>
+
+          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-surf">
+            <BlogNavbarItem
+              title="community"
+              path="/tags/community"
+              posts={blogNav ? blogNav.communityPosts : []}
+              navigating={navigating}
+              onNavigate={cycleNavigate}
+            />
+          </div>
 
           <div className="flex h-full flex-grow items-center justify-center">
             <span className="w-4/5 overflow-hidden text-ellipsis whitespace-nowrap text-center text-[16px]">
