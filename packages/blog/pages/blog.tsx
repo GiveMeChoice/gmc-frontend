@@ -3,11 +3,12 @@ import Link from 'next/link';
 import { Avatar } from '../components/avatar';
 import { PageContainer } from '../components/PageContainer';
 import { CoverImage } from '../components/cover-image';
-import { HeroPost } from '../components/hero-post';
+import { HeroPost } from '../components/HeroPost';
 import { Layout } from '../components/layout';
 import { indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts } from '../lib/sanity.server';
+import PostList from '../components/PostList';
 
 export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
   const { data: allPosts } = usePreviewSubscription(indexQuery(preview), {
@@ -25,56 +26,28 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
         <PageContainer>
           {/* <Intro /> */}
           {heroPost && (
-            <HeroPost
-              title={heroPost.title}
-              coverImage={heroPost.coverImage}
-              date={heroPost.date}
-              author={heroPost.author}
-              categories={heroPost.categories}
-              slug={heroPost.slug}
-              excerpt={heroPost.excerpt}
-            />
+            <div className="mt-[49px]">
+              <HeroPost
+                title={heroPost.title}
+                coverImage={heroPost.coverImage}
+                date={heroPost.date}
+                author={heroPost.author}
+                categories={heroPost.categories}
+                slug={heroPost.slug}
+                excerpt={heroPost.excerpt}
+              />
+            </div>
           )}
           <div className="my-0 w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black">
-            <h3 className="pt-9 pl-12 pb-4 text-[40px] font-extrabold">
+            <h3 className="pt-8 pl-12 pb-4 text-[40px] font-extrabold">
               LATEST POSTS
             </h3>
           </div>
           <div className="flex w-full">
-            <div className="w-3/4 divide-y-1.5 divide-secondary-dark-10 border-r-1.5 border-secondary-dark-10 bg-white">
-              {morePosts.slice(0, 10).map((post: any) => (
-                <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
-                  <div className="w-3/5 cursor-pointer">
-                    <CoverImage
-                      framed
-                      slug={post.slug}
-                      title={post.title}
-                      image={post.coverImage}
-                    />
-                  </div>
-                  <div className="flex w-2/5 flex-grow flex-col justify-center bg-white p-6 text-black">
-                    <div className="ml-0.5 mb-3 w-fit cursor-pointer border-1.5 border-black bg-black p-1 px-1.5 text-[11px] text-white hover:bg-primary hover:text-black">
-                      {post.categories[0].title.toUpperCase()}
-                    </div>
-                    <h4 className="cursor-pointer pb-3 text-2xl font-bold hover:text-primary">
-                      <Link href={`/blog/${post.slug}`} prefetch={false}>
-                        {post.title}
-                      </Link>
-                    </h4>
-                    <p className="mb-4 ml-0.5 text-sm leading-relaxed text-black">
-                      {post.excerpt}
-                    </p>
-                    {post.author && (
-                      <Avatar
-                        name={post.author.name}
-                        picture={post.author.picture}
-                      />
-                    )}
-                  </div>
-                </div>
-              ))}
+            <div className="w-2/3 border-r-1.5 border-secondary-dark-10">
+              {morePosts.length > 0 && <PostList posts={morePosts} />}
             </div>
-            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 bg-white"></div>
+            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 bg-secondary"></div>
             {/* {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
           </div>
         </PageContainer>

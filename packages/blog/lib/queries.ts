@@ -62,7 +62,7 @@ export const postQuery = (preview: boolean) => `
   },
   "morePosts": *[_type == "post"${
     preview ? '' : draftFilter
-  } && slug.current != $slug] | order(date desc, _updatedAt desc) [0...6] {
+  } && slug.current != $slug] | order(date desc, _updatedAt desc) [0...12] {
     content,
     contentImage,
     content2,

@@ -1,14 +1,13 @@
 import cn from 'classnames';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useBlogNav } from '../BlogNavProvider';
 import { useUser } from '../UserProvider';
-import BlogNavbarDropdown from './BlogNavbar/BlogNavbarDropdown';
+import BlogNavbarItem from './BlogNavbar/BlogNavbarItem';
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
 import SideMenu from './SideMenu/SideMenu';
-import BlogNavbarItem from './BlogNavbar/BlogNavbarItem';
+import BlogNavbarPostTitle from './BlogNavbar/BlogNavbarPostTitle';
 
 const BlogNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
@@ -22,13 +21,12 @@ const BlogNavbar: React.FC = () => {
   useEffect(() => {
     // setNavigating(false);
     setMinimized(false);
-    if (router.query.slug) {
+    setPostTitle(null);
+    if (router.query.slug && !router.pathname.includes('/tags/')) {
       const slugComponent = (router as any).components['/blog/[slug]'];
       if (slugComponent) {
         setPostTitle(slugComponent.props.pageProps.data.post.title);
       }
-    } else {
-      setPostTitle(null);
     }
     document.getElementById('scroll-progress-bar').style.width = '0';
 
@@ -164,12 +162,7 @@ const BlogNavbar: React.FC = () => {
               onNavigate={cycleNavigate}
             />
           </div>
-
-          <div className="flex h-full flex-grow items-center justify-center">
-            <span className="w-4/5 overflow-hidden text-ellipsis whitespace-nowrap text-center text-[16px]">
-              {postTitle}
-            </span>
-          </div>
+          <BlogNavbarPostTitle title={postTitle} />
         </div>
         <div
           className={cn('flex items-center transition-width duration-300', {
@@ -180,7 +173,6 @@ const BlogNavbar: React.FC = () => {
           <div
             className={cn('transition-all duration-300', {
               'translate-x-44': !minmized,
-              // block: minmized,
             })}
           >
             {user.user ? <ProfileButton /> : <LoginButton />}

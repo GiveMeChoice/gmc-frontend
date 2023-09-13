@@ -1,3 +1,5 @@
+import { ReadTimeResults } from 'reading-time';
+
 export interface BlogPost {
   _id: string;
   title: string;
@@ -11,6 +13,7 @@ export interface BlogPost {
   categories: BlogCategory[];
   slug: string;
   author: BlogAuthor;
+  readingTime: ReadTimeResults;
 }
 
 export interface BlogCategory {

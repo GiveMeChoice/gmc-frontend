@@ -6,7 +6,6 @@ import BlogNavbarDropdown from './BlogNavbarDropdown';
 
 interface Props {
   title: string;
-  color: string;
   path?: string;
   posts: BlogPost[];
   navigating: boolean;
@@ -15,22 +14,16 @@ interface Props {
 
 const BlogNavbarItem: React.FC<Props> = ({
   title,
-  color,
   path,
   posts,
   navigating,
   onNavigate,
 }) => {
   return (
-    // <div
-    //   className={`group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-berry hover:text-${
-    //     color == 'black' ? 'white' : 'black'
-    //   }`}
-    // >
     <>
       <Link className="h-full w-full" href={`/blog${path ? path : ''}`}>
         <div
-          className="flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] tracking-wide active:text-zinc-500"
+          className="flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] tracking-wide active:text-zinc-600"
           onClick={onNavigate}
         >
           <span>{title.toUpperCase()}</span>
@@ -47,7 +40,6 @@ const BlogNavbarItem: React.FC<Props> = ({
         <BlogNavbarDropdown onNavigate={onNavigate} posts={posts} />
       </div>
     </>
-    // </div>
   );
 };
 

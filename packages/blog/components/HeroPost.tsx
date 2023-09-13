@@ -6,7 +6,7 @@ import { CoverImage } from './cover-image';
 interface Props {
   title: string;
   coverImage: any;
-  date: string;
+  date: Date;
   excerpt: string;
   author: any;
   categories: any;
@@ -23,8 +23,8 @@ export const HeroPost: React.FC<Props> = ({
   slug,
 }) => {
   return (
-    <section id="hero-post" className="mt-[49px]">
-      <div className="flex w-full">
+    <section id="hero-post">
+      <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
         <div className="w-7/12">
           <CoverImage slug={slug} title={title} image={coverImage} priority />
         </div>
@@ -32,7 +32,7 @@ export const HeroPost: React.FC<Props> = ({
           {/* <div className="mb-4 ml-1.5 w-fit cursor-pointer border-1.5 border-white bg-black py-1 px-1.5 text-xs text-secondary hover:bg-primary hover:text-black">
             {categories[0].title.toUpperCase()}
           </div> */}
-          <h3 className="font-bld mb-6 cursor-pointer pr-10 text-4xl hover:text-primary  xl:text-5xl">
+          <h3 className="font-bld mb-6 cursor-pointer pr-10 text-4xl hover:text-zinc-300 active:text-primary  xl:text-5xl">
             <Link prefetch={false} href={`/blog/${slug}`}>
               {title}
             </Link>

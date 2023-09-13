@@ -12,9 +12,9 @@ interface Props {
 export const Avatar: React.FC<Props> = ({ big, name, picture }) => {
   const url = urlForImage(picture).height(86).width(86).fit('crop').url();
   return (
-    <div className="flex items-center gap-x-2">
+    <div className="flex items-center gap-x-[8px]">
       <div
-        className={cn('relative h-9 w-9', {
+        className={cn('relative h-8 w-8', {
           'h-10 w-10': big,
         })}
       >
@@ -29,9 +29,9 @@ export const Avatar: React.FC<Props> = ({ big, name, picture }) => {
         />
       </div>
       <div
-        className={cn('font-bold', {
+        className={cn('', {
           'text-lg': !big,
-          'text-xl': big,
+          'text-xl font-bold': big,
         })}
       >
         {name}

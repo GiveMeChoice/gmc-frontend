@@ -3,7 +3,7 @@ import { PageContainer } from '../components/PageContainer';
 import { Intro } from '../components/intro';
 import { Layout } from '../components/layout';
 import Menu from '../components/menu';
-import { MoreStories } from '../components/more-stories';
+import { MoreStories } from '../components/MoreStories';
 import { allPostsQuery, indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts } from '../lib/sanity.server';

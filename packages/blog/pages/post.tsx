@@ -1,38 +1,54 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import readingTime from 'reading-time';
+import { PageContainer } from '../components/PageContainer';
+import { PostSuggestions } from '../components/PostSuggestions';
 import { Avatar } from '../components/avatar';
 import { CoverImage } from '../components/cover-image';
 import { Layout } from '../components/layout';
 import { PostBody } from '../components/post-body';
 import PostSocialShare from '../components/post-social-share';
-import { PostSuggestions } from '../components/post-suggestions';
 import { PostTitle } from '../components/post-title';
 import { postQuery, postSlugsQuery } from '../lib/queries';
-import { urlForImage, usePreviewSubscription } from '../lib/sanity';
+import { urlForImage } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
-import { PageContainer } from '../components/PageContainer';
+import { BlogPost } from '../types';
+import Link from 'next/link';
 
-export function PostPage({ data, preview }: any) {
+interface PostPageProps {
+  preview: any;
+  data: {
+    post: BlogPost;
+    morePosts: BlogPost[];
+  };
+}
+
+export function PostPage({ data, preview }: PostPageProps) {
   const router = useRouter();
 
   const slug = data ? data.post.slug : '';
-  const {
-    data: { post, morePosts },
-  } = usePreviewSubscription<any>(postQuery(preview), {
-    params: { slug },
-    initialData: data,
-    enabled: preview && slug,
-  });
+  // const {
+  //   data: { post, morePosts },
+  // } = usePreviewSubscription<any>(postQuery(preview), {
+  //   params: { slug },
+  //   initialData: data,
+  //   enabled: preview && slug,
+  // });
+  const { post, morePosts } = data;
 
   return (
     <Layout preview={preview}>
       <PageContainer>
         <div className="mb-10 max-w-[1300px] p-10">
           <div className="mt-12 flex flex-col">
-            <div className="ml-0.5 mb-2 w-fit cursor-pointer bg-black p-1.5 px-2 text-sm text-white hover:bg-gmc-sunset hover:text-black">
-              {post.categories[0].title.toUpperCase()}
-            </div>
+            <Link href={`/blog/tags/${post.categories[0].slug}`}>
+              <div
+                style={{ backgroundColor: post.categories[0].color }}
+                className={`ml-0.5 mb-2 w-fit min-w-[50px] cursor-pointer p-2 px-2.5 text-center text-sm text-black hover:text-zinc-500 active:text-primary`}
+              >
+                {post.categories[0].title.toUpperCase()}
+              </div>
+            </Link>
             <hr className="border-accent-2 mt-1 h-0.5 w-full border-black bg-black" />
           </div>
           {router.isFallback ? (

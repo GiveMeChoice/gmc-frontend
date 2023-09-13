@@ -2,9 +2,10 @@ import React from 'react';
 import { LoadingSpinner } from 'ui';
 import { useBlogNav } from '../../BlogNavProvider';
 import BlogNavbarDropdownPost from './BlogNavbarDropdownPost';
+import { BlogPost } from 'blog';
 
 interface Props {
-  posts: any[];
+  posts: BlogPost[];
   onNavigate: () => void;
 }
 

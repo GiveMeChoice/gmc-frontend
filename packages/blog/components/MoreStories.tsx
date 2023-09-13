@@ -1,5 +1,5 @@
 import React from 'react';
-import { PostPreview } from '../components/post-preview';
+import { PostPreview } from './post-preview';
 
 interface Props {
   title?: boolean;
