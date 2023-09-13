@@ -1,14 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { Avatar } from '../components/avatar';
-import { Container } from '../components/container';
+import { PageContainer } from '../components/PageContainer';
 import { CoverImage } from '../components/cover-image';
 import { HeroPost } from '../components/hero-post';
 import { Layout } from '../components/layout';
 import { indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts } from '../lib/sanity.server';
-import { Intro } from '../components/intro';
 
 export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
   const { data: allPosts } = usePreviewSubscription(indexQuery(preview), {
@@ -23,7 +22,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
-        <Container>
+        <PageContainer>
           {/* <Intro /> */}
           {heroPost && (
             <HeroPost
@@ -78,7 +77,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
             <div className="w-1/3 border-r-1.5 border-secondary-dark-10 bg-white"></div>
             {/* {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
           </div>
-        </Container>
+        </PageContainer>
       </Layout>
     </>
   );

@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Container } from '../components/container';
+import { PageContainer } from '../components/PageContainer';
 import { HeroPost } from '../components/hero-post';
 import { Intro } from '../components/intro';
 import { Layout } from '../components/layout';
@@ -13,8 +13,20 @@ import {
 } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
+import { BlogCategory, BlogPost } from '../types';
+import CategoryPageIntro from '../components/CategoryPage/CategoryPageIntro';
 
-export function CategoryPostsPage({ category, categoryPosts, preview }: any) {
+interface CategoryPostPageProps {
+  category: BlogCategory;
+  categoryPosts: BlogPost[];
+  preview: boolean;
+}
+
+export function CategoryPage({
+  category,
+  categoryPosts,
+  preview,
+}: CategoryPostPageProps) {
   const { data: posts } = usePreviewSubscription(indexQuery(preview), {
     initialData: categoryPosts,
     enabled: preview,
@@ -25,14 +37,15 @@ export function CategoryPostsPage({ category, categoryPosts, preview }: any) {
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
-        <Container>
+        <PageContainer>
           <Menu />
-          <Intro
+          <CategoryPageIntro category={category} />
+          {/* <Intro
             title={`Tag: "${category.title}"`}
             subtitle={category.description}
-          />
+          /> */}
           {posts.length > 0 && <MoreStories posts={posts} />}
-        </Container>
+        </PageContainer>
       </Layout>
     </>
   );

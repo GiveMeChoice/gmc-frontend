@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import CategoryList from '../components/categoryList';
-import { Container } from '../components/container';
+import { PageContainer } from '../components/PageContainer';
 import { Intro } from '../components/intro';
 import { Layout } from '../components/layout';
 import Menu from '../components/menu';
@@ -19,13 +19,13 @@ export function CategoriesPage({ categories, preview }: any) {
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
-        <Container>
+        <PageContainer>
           <Menu />
           <Intro title="Tags" />
           {allCategories.length > 0 && (
             <CategoryList categories={allCategories} />
           )}
-        </Container>
+        </PageContainer>
       </Layout>
     </>
   );

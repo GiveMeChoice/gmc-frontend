@@ -11,6 +11,7 @@ import { PostTitle } from '../components/post-title';
 import { postQuery, postSlugsQuery } from '../lib/queries';
 import { urlForImage, usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
+import { PageContainer } from '../components/PageContainer';
 
 export function PostPage({ data, preview }: any) {
   const router = useRouter();
@@ -26,7 +27,7 @@ export function PostPage({ data, preview }: any) {
 
   return (
     <Layout preview={preview}>
-      <div className="flex w-full flex-col items-center">
+      <PageContainer>
         <div className="mb-10 max-w-[1300px] p-10">
           <div className="mt-12 flex flex-col">
             <div className="ml-0.5 mb-2 w-fit cursor-pointer bg-black p-1.5 px-2 text-sm text-white hover:bg-gmc-sunset hover:text-black">
@@ -118,7 +119,7 @@ export function PostPage({ data, preview }: any) {
             <PostSuggestions posts={morePosts} />
           </>
         )}
-      </div>
+      </PageContainer>
     </Layout>
   );
 }

@@ -6,7 +6,7 @@ const postFields = `
   date,
   excerpt,
   coverImage,
-  "categories": categories[]->{color, title, description, "slug": slug.current},
+  "categories": categories[]->{"color": color.value, title, description, "slug": slug.current},
   "slug": slug.current,
   "author": author->{name, picture},
   `;

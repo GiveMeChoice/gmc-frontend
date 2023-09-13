@@ -9,7 +9,7 @@ export * from './lib/api-revalidate';
 //components
 export * from './components/preview-alert';
 export * from './components/avatar';
-export * from './components/container';
+export * from './components/PageContainer';
 export * from './components/cover-image';
 export * from './components/date';
 export * from './components/header';
@@ -29,4 +29,6 @@ export * from './pages/blog';
 export * from './pages/post';
 export * from './pages/categories';
 export * from './pages/all-posts';
-export * from './pages/category-posts';
+export * from './pages/category';
+// types
+export * from './types';

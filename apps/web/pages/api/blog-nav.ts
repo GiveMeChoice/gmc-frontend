@@ -1,30 +1,40 @@
 // api/blog-nav
-import { categoryPostsQuery, getClient, indexQuery, overlayDrafts } from 'blog';
+import {
+  BlogCategory,
+  allCategoriesQuery,
+  allPostsQuery,
+  categoryPostsQuery,
+  getClient,
+  overlayDrafts,
+} from 'blog';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { IBlogNavContext } from '../../components/BlogNavProvider';
-
-const WELLNESS_ID = '43f74e8d-8039-4c7e-a137-753fe05ec448';
-const INDOOR_ID = 'e7b61ef8-f646-45fb-9a35-2fa659d34f4d';
-const OUTDOOR_ID = '08eaa787-8dcc-43b7-9142-228afb58a3e5';
-const JOY_ID = '85073659-53d3-4e5c-ad2f-d3109c063583';
-const COMMUNITY_ID = 'c66a4460-c5ac-4cfa-989f-6aaea702efda';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const client = getClient(false);
-  console.log('!!!!!!!! FETCHING BLOG NAV !!!!!!!!!!! ' + new Date());
   if (req.method !== 'GET') {
     res.status(405).send('Method Not Allowed');
   }
+  const categoriesResponse: BlogCategory[] = await client.fetch(
+    allCategoriesQuery(false)
+  );
+  const wellnessCategory = categoriesResponse.find((c) => c.slug == 'wellness');
+  const indoorCategory = categoriesResponse.find((c) => c.slug == 'indoor');
+  const outdoorCategory = categoriesResponse.find((c) => c.slug == 'outdoor');
+  const joyCategory = categoriesResponse.find((c) => c.slug == 'joy');
+  const communityCategory = categoriesResponse.find(
+    (c) => c.slug == 'community'
+  );
   Promise.all([
-    client.fetch(indexQuery(false)),
-    client.fetch(categoryPostsQuery(WELLNESS_ID, false, 5)),
-    client.fetch(categoryPostsQuery(INDOOR_ID, false, 5)),
-    client.fetch(categoryPostsQuery(OUTDOOR_ID, false, 5)),
-    client.fetch(categoryPostsQuery(JOY_ID, false, 5)),
-    client.fetch(categoryPostsQuery(COMMUNITY_ID, false, 5)),
+    client.fetch(allPostsQuery(false)),
+    client.fetch(categoryPostsQuery(wellnessCategory._id, false, 5)),
+    client.fetch(categoryPostsQuery(indoorCategory._id, false, 5)),
+    client.fetch(categoryPostsQuery(outdoorCategory._id, false, 5)),
+    client.fetch(categoryPostsQuery(joyCategory._id, false, 5)),
+    client.fetch(categoryPostsQuery(communityCategory._id, false, 5)),
   ]).then(
     ([
       latestPostsRaw,
@@ -36,10 +46,15 @@ export default async function handler(
     ]) => {
       const data: IBlogNavContext = {
         latestPosts: overlayDrafts(latestPostsRaw),
+        wellnessCategory,
         wellnessPosts: overlayDrafts(wellnessPostsRaw),
+        indoorCategory,
         indoorPosts: overlayDrafts(indoorPostsRaw),
+        outdoorCategory,
         outdoorPosts: overlayDrafts(outdoorPostsRaw),
+        joyCategory,
         joyPosts: overlayDrafts(joyPostsRaw),
+        communityCategory,
         communityPosts: overlayDrafts(communityPostsRaw),
       };
       res.send(data);

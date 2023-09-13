@@ -8,6 +8,7 @@ import BlogNavbarDropdown from './BlogNavbar/BlogNavbarDropdown';
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
 import SideMenu from './SideMenu/SideMenu';
+import BlogNavbarItem from './BlogNavbar/BlogNavbarItem';
 
 const BlogNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
@@ -109,174 +110,54 @@ const BlogNavbar: React.FC = () => {
               close={() => setSideMenuOpen(!sideMenuOpen)}
             />
           </div>
-          <div
-            className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white ',
-              {}
-            )}
-          >
-            <Link className="h-full w-full" href="/blog">
-              <div
-                className="flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] tracking-wide active:text-primary"
-                onClick={cycleNavigate}
-              >
-                <span>LATEST</span>
-              </div>
-            </Link>
-            <div
-              className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
-                {
-                  'group-hover:block': !navigating,
-                }
-              )}
-            >
-              <BlogNavbarDropdown
-                onNavigate={cycleNavigate}
-                posts={blogNav ? blogNav.latestPosts : []}
-              />
-            </div>
-          </div>
-          <div
-            className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white ',
-              {}
-            )}
-          >
-            <Link className="h-full w-full" href="/blog">
-              <div
-                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
-                onClick={cycleNavigate}
-              >
-                WELLNESS
-              </div>
-            </Link>
-            <div
-              className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
-                {
-                  'group-hover:block': !navigating,
-                }
-              )}
-            >
-              <BlogNavbarDropdown
-                onNavigate={cycleNavigate}
-                posts={blogNav ? blogNav.wellnessPosts : []}
-              />
-            </div>
-          </div>
-          <div
-            className={cn(
-              'group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white',
-              {}
-            )}
-          >
-            <Link className="h-full w-full" href="/blog/posts">
-              <div
-                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
-                onClick={cycleNavigate}
-              >
-                INDOOR
-              </div>
-            </Link>
-            <div
-              className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
-                {
-                  'group-hover:block': !navigating,
-                }
-              )}
-            >
-              <BlogNavbarDropdown
-                onNavigate={cycleNavigate}
-                posts={blogNav ? blogNav.indoorPosts : []}
-              />
-            </div>
-          </div>
-          <div
-            className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white ',
-              {}
-            )}
-          >
-            <Link className="h-full w-full" href="/blog/tags">
-              <div
-                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
-                onClick={cycleNavigate}
-              >
-                OUTDOOR
-              </div>
-            </Link>
-            <div
-              className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
-                {
-                  'group-hover:block': !navigating,
-                }
-              )}
-            >
-              <BlogNavbarDropdown
-                onNavigate={cycleNavigate}
-                posts={blogNav ? blogNav.outdoorPosts : []}
-              />
-            </div>
-          </div>
-          <div
-            className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white',
-              {}
-            )}
-          >
-            <Link className="h-full w-full" href="/blog/tags">
-              <div
-                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
-                onClick={cycleNavigate}
-              >
-                JOY
-              </div>
-            </Link>
-            <div
-              className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
-                {
-                  'group-hover:block': !navigating,
-                }
-              )}
-            >
-              <BlogNavbarDropdown
-                onNavigate={cycleNavigate}
-                posts={blogNav ? blogNav.joyPosts : []}
-              />
-            </div>
-          </div>
-          <div
-            className={cn(
-              'bg- group float-left flex w-[110px] flex-col overflow-hidden  transition-width duration-300 hover:bg-black hover:text-white',
-              {}
-            )}
-          >
-            <Link className="h-full w-full" href="/blog/tags">
-              <div
-                className="flex h-full w-full cursor-pointer items-center justify-center text-[13px] tracking-wide active:text-primary"
-                onClick={cycleNavigate}
-              >
-                COMMUNITY
-              </div>
-            </Link>
-            <div
-              className={cn(
-                'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
-                {
-                  'group-hover:block': !navigating,
-                }
-              )}
-            >
-              <BlogNavbarDropdown
-                onNavigate={cycleNavigate}
-                posts={blogNav ? blogNav.communityPosts : []}
-              />
-            </div>
-          </div>
+          <BlogNavbarItem
+            title="Latest"
+            color="black"
+            posts={blogNav ? blogNav.latestPosts : []}
+            navigating={navigating}
+            onNavigate={cycleNavigate}
+          />
+          <BlogNavbarItem
+            title="Wellness"
+            color="gmc-berry"
+            path="/tags/wellness"
+            posts={blogNav ? blogNav.wellnessPosts : []}
+            navigating={navigating}
+            onNavigate={cycleNavigate}
+          />
+          <BlogNavbarItem
+            title="indoor"
+            color="gmc-dune"
+            path="/tags/indoor"
+            posts={blogNav ? blogNav.indoorPosts : []}
+            navigating={navigating}
+            onNavigate={cycleNavigate}
+          />
+          <BlogNavbarItem
+            title="outdoor"
+            color="gmc-forest"
+            path="/tags/outdoor"
+            posts={blogNav ? blogNav.outdoorPosts : []}
+            navigating={navigating}
+            onNavigate={cycleNavigate}
+          />
+          <BlogNavbarItem
+            title="joy"
+            color="gmc-beach"
+            path="/tags/joy"
+            posts={blogNav ? blogNav.joyPosts : []}
+            navigating={navigating}
+            onNavigate={cycleNavigate}
+          />
+          <BlogNavbarItem
+            title="community"
+            color="gmc-surf"
+            path="/tags/community"
+            posts={blogNav ? blogNav.communityPosts : []}
+            navigating={navigating}
+            onNavigate={cycleNavigate}
+          />
+
           <div className="flex h-full flex-grow items-center justify-center">
             <span className="w-4/5 overflow-hidden text-ellipsis whitespace-nowrap text-center text-[16px]">
               {postTitle}

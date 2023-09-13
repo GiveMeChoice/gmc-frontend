@@ -1,3 +1,4 @@
+import { BlogCategory, BlogPost } from 'blog';
 import {
   ReactNode,
   createContext,
@@ -8,12 +9,17 @@ import {
 
 export interface IBlogNavContext {
   loading?: boolean;
-  latestPosts?: any[];
-  wellnessPosts?: any[];
-  indoorPosts?: any[];
-  outdoorPosts?: any[];
-  joyPosts?: any[];
-  communityPosts?: any[];
+  latestPosts?: BlogPost[];
+  wellnessCategory?: BlogCategory;
+  wellnessPosts?: BlogPost[];
+  indoorCategory?: BlogCategory;
+  indoorPosts?: BlogPost[];
+  outdoorCategory?: BlogCategory;
+  outdoorPosts?: BlogPost[];
+  joyCategory?: BlogCategory;
+  joyPosts?: BlogPost[];
+  communityCategory?: BlogCategory;
+  communityPosts?: BlogPost[];
 }
 
 const BlogNavContext = createContext<IBlogNavContext>({

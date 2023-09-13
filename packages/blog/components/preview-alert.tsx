@@ -1,10 +1,10 @@
 import React from 'react';
-import { Container } from './container';
+import { PageContainer } from './PageContainer';
 
 export const PreviewAlert: React.FC = () => {
   return (
     <div className="bg-accent-7 border-accent-7 border-b bg-black text-primary">
-      <Container>
+      <PageContainer>
         <div className="py-2 text-center text-sm">
           <>
             This page is a preview.{' '}
@@ -17,7 +17,7 @@ export const PreviewAlert: React.FC = () => {
             to exit preview mode.
           </>
         </div>
-      </Container>
+      </PageContainer>
     </div>
   );
 };

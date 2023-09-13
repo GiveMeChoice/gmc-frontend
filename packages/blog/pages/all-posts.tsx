@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Container } from '../components/container';
+import { PageContainer } from '../components/PageContainer';
 import { Intro } from '../components/intro';
 import { Layout } from '../components/layout';
 import Menu from '../components/menu';
@@ -19,11 +19,11 @@ export function AllPostsPage({ allPosts: initialAllPosts, preview }: any) {
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
-        <Container>
+        <PageContainer>
           <Menu />
           <Intro title="All Posts" />
           {allPosts.length > 0 && <MoreStories posts={allPosts} />}
-        </Container>
+        </PageContainer>
       </Layout>
     </>
   );
