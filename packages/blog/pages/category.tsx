@@ -62,8 +62,12 @@ export function CategoryPage({
                 style={{ backgroundColor: category.color }}
                 className="w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black"
               >
-                <h3 className="pt-6 pl-12 pb-4 text-[36px] font-bold">
-                  DISCOVER {category.title.toUpperCase()}
+                <h3
+                  style={{ lineHeight: 1.2 }}
+                  className="pt-8 pl-12 pb-5 text-[36px] font-bold"
+                >
+                  DISCOVER MORE <br />
+                  {category.title.toUpperCase()}
                 </h3>
               </div>
               {morePosts.length > 0 && <PostList posts={morePosts} />}

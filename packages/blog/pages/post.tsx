@@ -89,7 +89,7 @@ export function PostPage({ data, preview }: PostPageProps) {
                   </div>
                 </div>
                 <div className="flex w-full">
-                  <div className="flex w-3/4 flex-col">
+                  <div className="flex max-w-[750px] flex-col">
                     <CoverImage
                       title={post.title}
                       image={post.coverImage}
