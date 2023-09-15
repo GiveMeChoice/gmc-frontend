@@ -6,6 +6,24 @@ import { PortableText } from '@portabletext/react';
 import { urlForImage } from '../lib/sanity';
 
 const ImageComponent = ({ value, isInline }: any) => {
+  // const pattern = /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/;
+
+  // const decodeAssetId = (id: any) => {
+  //   const array = pattern.exec(id);
+  //   console.log('heres yoru damn array: ' + array);
+  //   const [width, height] = dimensions
+  //     .split('x')
+  //     .map((v: any) => parseInt(v, 10));
+
+  //   return {
+  //     assetId,
+  //     dimensions: { width, height },
+  //     format,
+  //   };
+  // };
+
+  // const dims = decodeAssetId(value);
+
   const url = urlForImage(value).height(1000).width(2000).url();
   return (
     <div className="w-full max-w-[800px] p-2">
