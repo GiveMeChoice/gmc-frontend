@@ -1,42 +1,48 @@
 import Image from 'next/image';
 import React from 'react';
 const markdownStyles = require('./markdown-styles.module.css');
+import cn from 'classnames';
 
 import { PortableText } from '@portabletext/react';
 import { urlForImage } from '../lib/sanity';
 
 const ImageComponent = ({ value, isInline }: any) => {
-  // const pattern = /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/;
+  const pattern = /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/;
 
-  // const decodeAssetId = (id: any) => {
-  //   const array = pattern.exec(id);
-  //   console.log('heres yoru damn array: ' + array);
-  //   const [width, height] = dimensions
-  //     .split('x')
-  //     .map((v: any) => parseInt(v, 10));
+  const decodeAssetId = (id: any) => {
+    console.log(JSON.stringify(id));
+    const array = pattern.exec(id);
+    console.log('heres yoru damn array: ' + array);
+    const [width, height] =
+      array && array.length > 2
+        ? array[2].split('x').map((v: any) => parseInt(v, 10))
+        : [2000, 1000];
+    return { gif: array?.pop()?.endsWith('gif'), dims: { width, height } };
+  };
+  const decoded = decodeAssetId(value.asset._ref);
 
-  //   return {
-  //     assetId,
-  //     dimensions: { width, height },
-  //     format,
-  //   };
-  // };
-
-  // const dims = decodeAssetId(value);
-
-  const url = urlForImage(value).height(1000).width(2000).url();
+  const url = urlForImage(value)
+    .height(decoded.dims.height)
+    .width(decoded.dims.width)
+    .url();
   return (
-    <div className="w-full max-w-[800px] p-2">
-      <Image
-        className="w-full"
-        layout="responsive"
-        alt="Blog Image"
-        width={2000}
-        height={1000}
-        unoptimized
-        loader={() => url}
-        src={url}
-      />
+    <div className="flex w-full justify-center">
+      <div
+        className={cn(`w-full p-2`, {
+          'w-1/2 min-w-[300px]': decoded.gif,
+        })}
+      >
+        <Image
+          className=""
+          layout="responsive"
+          alt="Blog Image"
+          width={decoded.dims.width}
+          height={decoded.dims.height}
+          unoptimized
+          loader={() => url}
+          src={url}
+        />
+      </div>
     </div>
   );
 };
