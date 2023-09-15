@@ -1,10 +1,13 @@
 import Head from 'next/head';
-import { PageContainer } from '../components/PageContainer';
+import Link from 'next/link';
 import { HeroPost } from '../components/HeroPost';
-import { Intro } from '../components/intro';
+import { PageContainer } from '../components/PageContainer';
 import { Layout } from '../components/layout';
 import Menu from '../components/menu';
-import { MoreStories } from '../components/MoreStories';
+
+import CategoryPageIntro from '../components/CategoryPage/CategoryPageIntro';
+import PostList from '../components/PostList';
+import { CoverImage } from '../components/cover-image';
 import {
   allCategoriesQuery,
   categoryBySlugQuery,
@@ -14,8 +17,8 @@ import {
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
 import { BlogCategory, BlogPost } from '../types';
-import CategoryPageIntro from '../components/CategoryPage/CategoryPageIntro';
-import PostList from '../components/PostList';
+import { Avatar } from '../components/avatar';
+import { SquareImage } from '../components/square-image';
 
 interface CategoryPostPageProps {
   category: BlogCategory;
@@ -43,7 +46,11 @@ export function CategoryPage({
           <Menu />
           <CategoryPageIntro category={category} />
           {heroPost && (
-            <div className="mb-11 border-y-1.5 border-secondary-dark-10">
+            <div
+              className="
+            mb-11
+            divide-y-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10"
+            >
               <HeroPost
                 title={heroPost.title}
                 coverImage={heroPost.coverImage}
@@ -53,6 +60,58 @@ export function CategoryPage({
                 slug={heroPost.slug}
                 excerpt={heroPost.excerpt}
               />
+              <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
+                <div className="group relative w-[60%] cursor-pointer ">
+                  <Link
+                    href={`/blog/${posts[1].slug}`}
+                    aria-label={posts[1].title}
+                  >
+                    <a href={`/blog/${posts[1].slug}`}>
+                      <SquareImage
+                        slug={posts[1].slug}
+                        title={posts[1].title}
+                        image={posts[1].coverImage}
+                        priority
+                      />
+                      <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center">
+                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-secondary bg-opacity-[.85] p-12  py-[56px] text-center text-[28px] font-bold leading-tight text-zinc-800 transition-all duration-150 group-hover:text-zinc-500 group-active:text-primary">
+                          <span>{posts[1].title.toUpperCase()}</span>
+
+                          {/* <span className="text-base text-black">
+                            {posts[1].excerpt}
+                          </span> */}
+                          <div className="text-black">
+                            <Avatar {...posts[2].author} />
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                </div>
+                <div className="group relative w-full cursor-pointer">
+                  <Link
+                    href={`/blog/${posts[1].slug}`}
+                    aria-label={posts[1].title}
+                  >
+                    <a href={`/blog/${posts[1].slug}`}>
+                      <CoverImage
+                        slug={posts[2].slug}
+                        title={posts[2].title}
+                        image={posts[2].coverImage}
+                        priority
+                      />
+                      <div className="absolute top-0 left-0 flex h-full w-full items-end justify-center">
+                        <div className="flex w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-40 px-12 pt-5 pb-7 text-center text-[34px] font-bold leading-tight text-white transition-all duration-100 group-hover:text-zinc-300 group-active:text-primary">
+                          <span>{posts[2].title.toUpperCase()}</span>
+                          <div className="text-white">
+                            <Avatar {...posts[2].author} />
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </Link>
+                </div>
+              </div>
             </div>
           )}
 
@@ -64,13 +123,13 @@ export function CategoryPage({
               >
                 <h3
                   style={{ lineHeight: 1.2 }}
-                  className="pt-8 pl-12 pb-5 text-[36px] font-bold"
+                  className="pt-8 pl-12 pb-6 text-[36px] font-bold"
                 >
                   DISCOVER MORE <br />
                   {category.title.toUpperCase()}
                 </h3>
               </div>
-              {morePosts.length > 0 && <PostList posts={morePosts} />}
+              {morePosts.length > 0 && <PostList posts={morePosts.slice(2)} />}
             </div>
             <div className="w-1/3 border-r-1.5 border-t-1.5 border-secondary-dark-10 bg-secondary"></div>
           </div>

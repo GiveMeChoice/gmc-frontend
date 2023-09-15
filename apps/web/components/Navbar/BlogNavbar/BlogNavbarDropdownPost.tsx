@@ -36,7 +36,7 @@ const BlogNavbarDropdownPost: React.FC<Props> = ({ post, onNavigate }) => {
             </a>
           </Link>
         </h4>
-        <p className="ml-1 text-sm leading-relaxed">{post.excerpt}</p>
+        <p className="ml-0.5 text-sm leading-relaxed">{post.excerpt}</p>
         {/* {post.author && (
           <Avatar name={post.author.name} picture={post.author.picture} />
         )} */}

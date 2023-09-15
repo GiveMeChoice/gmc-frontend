@@ -21,11 +21,11 @@ const PostList: React.FC<Props> = ({ posts }) => {
               image={post.coverImage}
             />
           </div>
-          <div className="flex w-2/5 flex-grow flex-col gap-y-[15px] bg-black p-6 text-white">
+          <div className="flex w-2/5 flex-grow flex-col bg-black py-6 px-8 text-white">
             <Link href={`/blog/tags/${post.categories[0].slug}`}>
               <div
                 style={{ backgroundColor: post.categories[0].color }}
-                className="ml-0.5 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-500 active:text-secondary"
+                className="mb-3 ml-0.5 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-500 active:text-secondary"
               >
                 {post.categories[0].title.toUpperCase()}
               </div>
@@ -35,10 +35,12 @@ const PostList: React.FC<Props> = ({ posts }) => {
                 {post.title}
               </Link>
             </h4>
-            <p className="leading-relaxe ml-0.5 text-sm">{post.excerpt}</p>
-            {/* {post.author && (
+            <p className="my-2 ml-0.5 text-sm leading-relaxed text-zinc-200">
+              {post.excerpt}
+            </p>
+            <div className="mt-2">
               <Avatar name={post.author.name} picture={post.author.picture} />
-            )} */}
+            </div>
           </div>
         </div>
       ))}
