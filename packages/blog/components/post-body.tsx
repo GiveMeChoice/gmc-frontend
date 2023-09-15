@@ -14,9 +14,9 @@ const ImageComponent = ({ value, isInline }: any) => {
     const array = pattern.exec(id);
     console.log('heres yoru damn array: ' + array);
     const [width, height] =
-      array && array.length > 2
+      array && array.length > 2 && array?.pop()?.endsWith('gif')
         ? array[2].split('x').map((v: any) => parseInt(v, 10))
-        : [2000, 1000];
+        : [1200, 630];
     return { gif: array?.pop()?.endsWith('gif'), dims: { width, height } };
   };
   const decoded = decodeAssetId(value.asset._ref);
