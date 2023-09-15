@@ -114,7 +114,7 @@ export function PostPage({ data, preview }: PostPageProps) {
                           )}
                         </div>
                       </div>
-                      <div className="flex w-full justify-center px-12 pt-10">
+                      <div className="flex justify-center px-12 pt-10">
                         <div className="flex max-w-[300px] flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-10">
                           <h3 className="mb-1 w-full text-center text-4xl font-bold text-zinc-900">
                             RELATED

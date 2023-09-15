@@ -10,8 +10,8 @@ interface Props {
 
 const PostSidebarRelatedPost: React.FC<Props> = ({ post }) => {
   return (
-    <div className="flex w-full px-1 pt-4">
-      <div className="flex w-[60%] flex-col gap-y-4">
+    <div className="flex w-full pt-4">
+      <div className="flex w-[60%] flex-col gap-y-3">
         <Link href={`/blog/tags/${post.categories[0].slug}`}>
           <div
             style={{ backgroundColor: post.categories[0].color }}
@@ -32,7 +32,7 @@ const PostSidebarRelatedPost: React.FC<Props> = ({ post }) => {
         </Link>
         <Avatar {...post.author} />
       </div>
-      <div className="w-[40%] pl-3">
+      <div className="w-[40%] pl-3.5">
         <SquareImage
           image={post.coverImage}
           title={post.title}

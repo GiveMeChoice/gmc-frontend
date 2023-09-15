@@ -9,6 +9,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Aeonik';
+  src: url('/fonts/Aeonik-Bold.woff2');
+  font-weight: bold;
+  font-style: bold;
+}
+
 html,
 body {
   min-height: 100%;

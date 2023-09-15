@@ -10,9 +10,7 @@ const ImageComponent = ({ value, isInline }: any) => {
   const pattern = /^image-([a-f\d]+)-(\d+x\d+)-(\w+)$/;
 
   const decodeAssetId = (id: any) => {
-    console.log(JSON.stringify(id));
     const array = pattern.exec(id);
-    console.log('heres yoru damn array: ' + array);
     const [width, height] =
       array && array.length > 2 && array?.pop()?.endsWith('gif')
         ? array[2].split('x').map((v: any) => parseInt(v, 10))

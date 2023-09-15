@@ -74,7 +74,7 @@ export function CategoryPage({
                         priority
                       />
                       <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center">
-                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-secondary bg-opacity-[.85] p-12  py-[56px] text-center text-[28px] font-bold leading-tight text-zinc-800 transition-all duration-150 group-hover:text-zinc-500 group-active:text-primary">
+                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-secondary bg-opacity-[.85] p-12  py-[56px] text-center text-[28px] font-bold leading-tight text-zinc-800 transition-all duration-150 group-hover:text-zinc-600 group-active:text-primary">
                           <span>{posts[1].title.toUpperCase()}</span>
 
                           {/* <span className="text-base text-black">
@@ -101,7 +101,7 @@ export function CategoryPage({
                         priority
                       />
                       <div className="absolute top-0 left-0 flex h-full w-full items-end justify-center">
-                        <div className="flex w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-40 px-12 pt-5 pb-7 text-center text-[34px] font-bold leading-tight text-white transition-all duration-100 group-hover:text-zinc-300 group-active:text-primary">
+                        <div className="flex h-1/2 w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-60 px-12 pt-6 pb-7 text-center text-[30px] font-bold leading-tight text-white transition-all duration-100 group-hover:text-zinc-200 group-active:text-primary">
                           <span>{posts[2].title.toUpperCase()}</span>
                           <div className="text-white">
                             <Avatar {...posts[2].author} />
@@ -116,7 +116,7 @@ export function CategoryPage({
           )}
 
           <div className="flex w-full">
-            <div className="w-2/3 border-r-1.5 border-secondary-dark-10">
+            <div className="w-4/5 border-r-1.5 border-secondary-dark-10">
               <div
                 style={{ backgroundColor: category.color }}
                 className="w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black"
@@ -125,13 +125,12 @@ export function CategoryPage({
                   style={{ lineHeight: 1.2 }}
                   className="pt-8 pl-12 pb-6 text-[36px] font-bold"
                 >
-                  DISCOVER MORE <br />
-                  {category.title.toUpperCase()}
+                  DISCOVER <br /> MORE {category.title.toUpperCase()}
                 </h3>
               </div>
               {morePosts.length > 0 && <PostList posts={morePosts.slice(2)} />}
             </div>
-            <div className="w-1/3 border-r-1.5 border-t-1.5 border-secondary-dark-10 bg-secondary"></div>
+            <div className="w-1/5 border-r-1.5 border-t-1.5 border-secondary-dark-10 bg-secondary"></div>
           </div>
         </PageContainer>
       </Layout>

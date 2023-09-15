@@ -33,7 +33,7 @@ export const HeroPost: React.FC<Props> = ({
           {/* <div className="mb-4 ml-1.5 w-fit cursor-pointer border-1.5 border-white bg-black py-1 px-1.5 text-xs text-secondary hover:bg-primary hover:text-black">
             {categories[0].title.toUpperCase()}
           </div> */}
-          <h3 className="font-bld mb-7 cursor-pointer pr-10 text-4xl hover:text-zinc-300 active:text-primary  xl:text-5xl">
+          <h3 className="mb-7 cursor-pointer pr-10 text-4xl font-bold hover:text-zinc-300 active:text-primary  xl:text-5xl">
             <Link prefetch={false} href={`/blog/${slug}`}>
               {title}
             </Link>
