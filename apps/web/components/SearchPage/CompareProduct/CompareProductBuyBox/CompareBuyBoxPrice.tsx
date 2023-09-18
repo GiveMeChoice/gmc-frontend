@@ -6,10 +6,14 @@ interface Props {
   currency: string;
 }
 
-const BuyBoxPrice: React.FC<Props> = ({ price, shippingPrice, currency }) => {
+const CompareBuyBoxPrice: React.FC<Props> = ({
+  price,
+  shippingPrice,
+  currency,
+}) => {
   return (
     <div className="flex flex-col items-center whitespace-nowrap">
-      <span className="text-[34px] text-zinc-800">
+      <span className="text-[32px] text-zinc-800">
         <span className="text-[28px]">{currency === 'GBP' ? '£' : '$'}</span>{' '}
         {price}
       </span>
@@ -20,4 +24,4 @@ const BuyBoxPrice: React.FC<Props> = ({ price, shippingPrice, currency }) => {
   );
 };
 
-export default BuyBoxPrice;
+export default CompareBuyBoxPrice;

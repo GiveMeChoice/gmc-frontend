@@ -3,9 +3,8 @@ import React from 'react';
 import BuyBoxBrand from './ComparableProductBuyBox/BuyBoxBrand';
 import BuyBoxBuyNowButton from './ComparableProductBuyBox/BuyBoxBuyNowButton';
 import BuyBoxHeart from './ComparableProductBuyBox/BuyBoxHeart';
-import BuyBoxPrice from './ComparableProductBuyBox/BuyBoxPrice';
-import BuyBoxShare from './ComparableProductBuyBox/BuyBoxShare';
 import BuyBoxLink from './ComparableProductBuyBox/BuyBoxLink';
+import BuyBoxPrice from './ComparableProductBuyBox/BuyBoxPrice';
 
 interface Props {
   product: ProductDocument;

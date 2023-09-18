@@ -47,7 +47,7 @@ export const categoryPostsQuery = (
   `*[_type == "post"${
     preview ? '' : draftFilter
   } && '${categoryId}' in categories[]._ref] | order(date desc, _updatedAt desc) [0...${
-    count ? count - 1 : 10
+    count ? count - 1 : 50
   }] {${postFields}}`;
 
 export const postQuery = (preview: boolean) => `

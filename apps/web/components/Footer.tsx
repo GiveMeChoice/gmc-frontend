@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
               <div className="flex w-3/5 justify-center">
                 <div className="flex flex-col justify-start gap-y-3 pb-6 text-3xl">
                   <span className="cursor-pointer underline-offset-2 hover:underline">
-                    Search
+                    Shop
                   </span>
                   <span className="cursor-pointer underline-offset-2 hover:underline">
                     Discover

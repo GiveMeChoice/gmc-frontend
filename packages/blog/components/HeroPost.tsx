@@ -34,7 +34,7 @@ export const HeroPost: React.FC<Props> = ({
             {categories[0].title.toUpperCase()}
           </div> */}
           <h3
-            style={{ letterSpacing: 1.1, lineHeight: 1.22 }}
+            style={{ lineHeight: 1.2 }}
             className="normal mb-6 cursor-pointer pr-10 text-[44px] font-bold hover:text-zinc-300 active:text-primary"
           >
             <Link prefetch={false} href={`/blog/${slug}`}>

@@ -24,7 +24,7 @@ const BlogNavbarItem: React.FC<Props> = ({
       <Link className="h-full w-full" href={`/blog${path ? path : ''}`}>
         <div
           className={cn(
-            'font-bld flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] tracking-wide  active:text-zinc-600',
+            'flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] font-bold tracking-wider   active:text-zinc-600',
             {}
           )}
           onClick={onNavigate}

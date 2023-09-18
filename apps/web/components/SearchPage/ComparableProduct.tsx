@@ -6,6 +6,7 @@ import ComparableProductBuyBox from './ComparableProduct/ComparableProductBuyBox
 import ComparableProductHeading from './ComparableProduct/ComparableProductHeading';
 import ComparableProductImages from './ComparableProduct/ComparableProductImages';
 import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductLabels/ComparableProductLabelSpotlight';
+import { FlatLabel, flattenLabels } from '../../lib/labels';
 
 interface Props {
   index: number;
@@ -16,14 +17,6 @@ interface Props {
   prevProduct: () => void;
 }
 
-export type FlatLabel = {
-  index: number;
-  merchantLabel: MerchantLabelDocument;
-  type: string;
-  name: string;
-  description: string;
-};
-
 const ComparableProduct: React.FC<Props> = (props) => {
   const [flatLabels, setFlatLabels] = useState<FlatLabel[]>([]);
   const [labelSpotlight, setLabelSpotlight] = useState(0);
@@ -31,22 +24,7 @@ const ComparableProduct: React.FC<Props> = (props) => {
   useEffect(() => {
     setLabelSpotlight(0);
     if (props.product && props.product.labels) {
-      const flattened = props.product.labels.map((label, index) => ({
-        index,
-        merchantLabel: label.merchantLabel,
-        type: label.gmcLabel.name,
-        name: !label.gmcLabel.sublabel
-          ? label.gmcLabel.name
-          : !label.gmcLabel.sublabel.sublabel
-          ? label.gmcLabel.sublabel.name
-          : label.gmcLabel.sublabel.sublabel.name,
-        description: !label.gmcLabel.sublabel
-          ? label.gmcLabel.description
-          : !label.gmcLabel.sublabel.sublabel
-          ? label.gmcLabel.sublabel.description
-          : label.gmcLabel.sublabel.sublabel.description,
-      }));
-      setFlatLabels(flattened);
+      setFlatLabels(flattenLabels(props.product.labels));
     }
   }, [props.product]);
 

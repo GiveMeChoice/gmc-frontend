@@ -10,6 +10,7 @@ import SideMenuButton from './Navbar/SideMenuButton';
 import { useUser } from './UserProvider';
 import LinkChips from './Navbar/LinkChips/LinkChips';
 import { BlogNavProvider } from './BlogNavProvider';
+import ShopNavbar from './Navbar/ShopNavbar';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -26,10 +27,10 @@ const Navbar: React.FC = () => {
         <nav
           id="navbar-container"
           className={cn(
-            'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white duration-500',
+            'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white transition-all duration-500',
             {
-              'transition-all': router.pathname.includes('/blog'),
-              'transition-none': !router.pathname.includes('/blog'),
+              // 'transition-all': router.pathname.includes('/blog'),
+              // 'transition-none': !router.pathname.includes('/blog'),
             }
           )}
         >
@@ -47,6 +48,7 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           {router.route.includes('/blog') && <BlogNavbar />}
+          {router.route.includes('/shop') && <ShopNavbar />}
         </nav>
       </BlogNavProvider>
     </>

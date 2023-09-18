@@ -45,7 +45,10 @@
         "NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID",
         "NEXT_PUBLIC_FIREBASE_APP_ID",
         "NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID",
-        "ACCESS_TOKEN"
+        "ACCESS_TOKEN",
+        "ELASTIC_ENDPOINT",
+        "ELASTIC_USERNAME",
+        "ELASTIC_PASSWORD"
       ]
     },
     "dashboard#build": {

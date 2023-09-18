@@ -74,7 +74,7 @@ export function CategoryPage({
                         priority
                       />
                       <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center">
-                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-white bg-opacity-[.75] py-12 px-10 text-center text-[32px] font-bold text-zinc-600 transition-all duration-150 group-hover:text-zinc-800 group-active:text-primary">
+                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-white bg-opacity-[.75] py-12 px-10 text-center text-[28px] font-bold text-zinc-600 transition-all duration-150 group-hover:text-zinc-800 group-active:text-primary">
                           <h3 style={{ lineHeight: 1.35 }}>{posts[1].title}</h3>
                           <div className="text-black">
                             <Avatar {...posts[2].author} />
@@ -97,8 +97,8 @@ export function CategoryPage({
                         priority
                       />
                       <div className="absolute top-0 left-0 flex h-full w-full items-end justify-center">
-                        <div className="flex h-1/2 w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-60 px-12 pt-6 pb-7 text-center text-[32px] font-bold text-white transition-all duration-100 group-hover:text-zinc-300 group-active:text-primary">
-                          <h3 style={{ letterSpacing: 1, lineHeight: 1.35 }}>
+                        <div className="flex h-1/2 w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-60 px-14 text-center text-[30px] font-bold text-white transition-all duration-100 group-hover:text-zinc-300 group-active:text-primary">
+                          <h3 style={{ letterSpacing: 1, lineHeight: 1.4 }}>
                             {posts[2].title}
                           </h3>
                           <div className="text-white">

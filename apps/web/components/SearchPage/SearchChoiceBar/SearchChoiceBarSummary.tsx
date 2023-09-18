@@ -1,8 +1,8 @@
-import cn from 'classnames';
 import { SearchFunctionResponseDto } from 'gmc-types';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { LoadingSpinner } from 'ui';
+import ChoiceBarSummarySortSwitch from './SearchChoiceBarSummary/ChoiceBarSummarySortSwitch';
 
 interface Props {
   loading: boolean;
@@ -21,72 +21,39 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
 }) => {
   const router = useRouter();
   return (
-    <div className="flex min-h-[180px] w-full flex-col  border-secondary-dark-10 bg-white p-7">
+    <div className="flex min-h-[200px] w-full flex-col  border-secondary-dark-10 bg-white px-8 pt-6">
       {loading ? (
-        <div className="flex w-full flex-col items-center justify-center space-y-6">
-          <span className="text-2xl">Searching...</span>
-          <LoadingSpinner style="h-12 fill-primary text-black" />
-        </div>
+        // <div className="flex h-full w-full flex-col items-center justify-center gap-y-6">
+        //   <LoadingSpinner style="h-14 fill-primary text-black" />
+        //   <span className="text-2xl">Searching...</span>
+        // </div>
+        <span className="pl-1.5 pb-8 text-4xl">Searching...</span>
       ) : (
         <>
           {searchResponse.hits ? (
-            <div className="flex h-full w-full flex-col space-y-8">
-              <div className="flex h-2/3 w-full items-start justify-between">
-                <div className="flex flex-col gap-y-8">
-                  <span className="pl-1.5 text-4xl">
-                    {searchResponse.hits} Results
-                  </span>
+            <div className="flex h-full w-full flex-col gap-y-4">
+              <span className="pl-1.5 pb-8 text-4xl">
+                {searchResponse.hits} Results
+              </span>
+              {/* <ChoiceBarSummaryBackButton compareModeOn={compareModeOn} removeCompareMode={removeCompareMode} /> */}
+              {/* <div className="">
+                <ChoiceBarSummaryViewSwitch
+                  compareModeOn={compareModeOn}
+                  toggleCompareMode={removeCompareMode}
+                />
+              </div> */}
+              <div className="">
+                <div className="m-1">
+                  {/* <span className="text-sm">Sort By:</span> */}
                 </div>
-                <button
-                  className={cn(
-                    'mt-1 flex h-9 min-w-fit items-center justify-center gap-x-2 rounded-sm border border-black px-2.5 text-sm text-black hover:bg-primary active:bg-primary-dark-10',
-                    {
-                      hidden: !compareModeOn,
-                    }
-                  )}
-                  onClick={() => removeCompareMode()}
-                >
-                  <img
-                    draggable={false}
-                    src="/img/left-arrow.svg"
-                    alt="Left arrow"
-                    className={cn('h-4 max-h-full w-auto')}
-                  />
-                  <span>BACK</span>
-                </button>
-              </div>
-
-              <div className="flex h-14 w-full border-1.5 border-black text-sm">
-                <button
-                  className={cn('w-1/2 text-center', {
-                    'bg-zinc-900 text-white': !searchResponse.sort,
-                    'text-black hover:bg-primary active:bg-primary-light-10':
-                      searchResponse.sort,
-                  })}
-                  onClick={() => {
-                    onSortChange(null);
-                  }}
-                  disabled={!searchResponse.sort}
-                >
-                  BEST MATCH
-                </button>
-                <button
-                  className={cn('w-1/2 text-center', {
-                    'bg-zinc-900 text-white': searchResponse.sort === 'price',
-                    'text-black hover:bg-primary active:bg-primary-light-10':
-                      searchResponse.sort !== 'price',
-                  })}
-                  onClick={() => {
-                    onSortChange('price');
-                  }}
-                  disabled={searchResponse.sort === 'price'}
-                >
-                  LOWEST PRICE
-                </button>
+                <ChoiceBarSummarySortSwitch
+                  searchResponse={searchResponse}
+                  onSortChange={onSortChange}
+                />
               </div>
             </div>
           ) : (
-            <div className="flex h-[160px] items-center justify-center">
+            <div className="flex h-[200px] items-center justify-center">
               {router.query.q && (
                 <span className="text-2xl">No Choices Found</span>
               )}

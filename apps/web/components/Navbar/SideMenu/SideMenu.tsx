@@ -57,7 +57,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
         )}
       >
         <div className="flex flex-col">
-          <div className="flex w-full items-start justify-between pb-[70px]">
+          <div className="flex w-full items-start justify-between pb-[100px]">
             <a
               href="/"
               className={cn(
@@ -91,32 +91,33 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             </button>
           </div>
           <div
-            className={cn(
-              'flex w-full flex-col gap-y-4 transition-all duration-500',
-              {
-                '-translate-x-44': !open,
-              }
-            )}
+            className={cn('flex w-full flex-col transition-all duration-500', {
+              '-translate-x-44': !open,
+            })}
           >
-            <Link href="/">
+            {/* <Link href="/">
               <div
                 className="group flex cursor-pointer items-center gap-x-6"
                 onClick={handleLinkClick}
               >
-                {/* <Image src="/img/home.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div 
+                style={{lineHeight: 1.3}}
+                className="text-[54px] decoration-4 underline-offset-4 group-hover:underline">
                   Home
                 </div>
               </div>
-            </Link>
-            <Link href="/search">
+            </Link> */}
+            <Link href="/shop">
               <div
                 className="group flex cursor-pointer items-center gap-x-6"
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/search.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
-                  Search
+                <div
+                  style={{ lineHeight: 1.3 }}
+                  className="text-[54px] decoration-4 underline-offset-4 group-hover:underline"
+                >
+                  Shop
                 </div>
               </div>
             </Link>
@@ -126,7 +127,10 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/tree.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div
+                  style={{ lineHeight: 1.3 }}
+                  className="text-[54px] decoration-4 underline-offset-4 group-hover:underline"
+                >
                   Discover
                 </div>
               </div>
@@ -137,7 +141,10 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
                 onClick={handleLinkClick}
               >
                 {/* <Image src="/img/bananas.svg" alt="Home" height="34" width="34" /> */}
-                <div className="text-5xl decoration-4 underline-offset-4 group-hover:underline">
+                <div
+                  style={{ lineHeight: 1.3 }}
+                  className="text-[54px] decoration-4 underline-offset-4 group-hover:underline"
+                >
                   Blog
                 </div>
               </div>

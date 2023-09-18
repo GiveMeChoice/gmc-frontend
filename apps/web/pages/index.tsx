@@ -1,13 +1,11 @@
-import Head from 'next/head';
 import Image from 'next/image';
+import DiscoverFooter from '../components/DiscoverFooter';
 import GiveMeBarHome from '../components/GiveMeBarHome';
 import LinkChips from '../components/Navbar/LinkChips/LinkChips';
-import ProfileButton from '../components/Navbar/ProfileButton';
-import { useUser } from '../components/UserProvider';
 import LoginButton from '../components/Navbar/LoginButton';
-import DiscoverFooter from '../components/DiscoverFooter';
-import SideMenuButton from '../components/Navbar/SideMenuButton';
+import ProfileButton from '../components/Navbar/ProfileButton';
 import SEO from '../components/Shared/SEO';
+import { useUser } from '../components/UserProvider';
 
 export default function Home() {
   const { user } = useUser();

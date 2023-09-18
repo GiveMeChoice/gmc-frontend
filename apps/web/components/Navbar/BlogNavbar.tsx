@@ -79,7 +79,7 @@ const BlogNavbar: React.FC = () => {
 
   return (
     <>
-      <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 bg-secondary text-[13px]">
+      <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 bg-secondary text-[13px] text-zinc-800">
         <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
           <div
             className={cn(

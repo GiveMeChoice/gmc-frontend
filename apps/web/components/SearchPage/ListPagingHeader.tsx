@@ -47,7 +47,7 @@ const ListPagingHeader: React.FC<Props> = ({
       <div className="flex flex-grow items-center justify-between bg-white px-8">
         <div className="flex h-fit w-full items-end justify-center gap-x-2 text-zinc-800">
           <span className="text-[17px] text-zinc-800">
-            {from === 1 ? `Top ${to} Choices` : `Choices ${from} - ${to}`}
+            {/* {from === 1 ? `Top ${to} Choices` : `Choices ${from} - ${to}`} */}
           </span>
           {/* <span className="text-[16px] text-zinc-700">{`(of ${searchResponse.hits})`}</span> */}
         </div>

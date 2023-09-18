@@ -6,16 +6,11 @@ import EntryModal from '../../../Navbar/EntryModal';
 
 interface Props {
   product: ProductDocument;
-  modalOpen: boolean;
-  setModalOpen: (open: boolean) => void;
 }
 
-const InfoBoxHeart: React.FC<Props> = ({
-  product,
-  modalOpen,
-  setModalOpen,
-}) => {
+const CompareBuyBoxHeart: React.FC<Props> = ({ product }) => {
   const [favorited, setFavorited] = useState(false);
+  const [signupModalOpen, setSignupModalOpen] = useState(false);
   const user = useUser();
 
   useEffect(() => {
@@ -24,14 +19,11 @@ const InfoBoxHeart: React.FC<Props> = ({
 
   const handleClick = (e) => {
     e.stopPropagation();
-    e.preventDefault();
     if (user.user) {
       setFavorited(!favorited);
     } else {
-      setModalOpen(true);
+      setSignupModalOpen(true);
     }
-    e.stopPropagation();
-    e.preventDefault();
   };
 
   return (
@@ -39,23 +31,19 @@ const InfoBoxHeart: React.FC<Props> = ({
       <div
         id="buybox-heart"
         className={cn(
-          'list-heart h-11 w-11 cursor-pointer select-none fill-white stroke-zinc-800 transition-all duration-150 active:scale-[1.1]',
+          'select-nonetransition-all h-[48px] w-[48px] cursor-pointer duration-150 active:scale-[1.07]',
           {
+            'fill-white stroke-zinc-800': !user.user,
             'fill-gmc-heart stroke-gmc-heart-dark-10 active:fill-gmc-heart-light-10':
               favorited && user.user,
-            'hover:scale-[1.02] active:fill-gmc-heart-light-10 active:stroke-gmc-heart':
+            'fill-white stroke-zinc-800  hover:scale-[1.03] active:fill-gmc-heart-light-10 active:stroke-gmc-heart':
               !favorited && user.user,
           }
         )}
         onClick={handleClick}
       >
-        <svg
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="list-heart"
-        >
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path
-            className="list-heart"
             d="M4.3314 12.0474L12 20L19.6686 12.0474C20.5211 11.1633 21 9.96429 21 8.71405C21 6.11055 18.9648 4 16.4543 4C15.2487 4 14.0925 4.49666 13.24 5.38071L12 6.66667L10.76 5.38071C9.90749 4.49666 8.75128 4 7.54569 4C5.03517 4 3 6.11055 3 8.71405C3 9.96429 3.47892 11.1633 4.3314 12.0474Z"
             stroke-width="1"
             stroke-linecap="round"
@@ -64,12 +52,12 @@ const InfoBoxHeart: React.FC<Props> = ({
         </svg>
       </div>
       <EntryModal
-        open={modalOpen}
+        open={signupModalOpen}
         signUp={true}
-        onClose={() => setModalOpen(false)}
+        onClose={() => setSignupModalOpen(false)}
       />
     </>
   );
 };
 
-export default InfoBoxHeart;
+export default CompareBuyBoxHeart;

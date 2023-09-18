@@ -7,14 +7,14 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useHttpsCallable } from 'react-firebase-hooks/functions';
-import ComparableProduct from '../components/SearchPage/ComparableProduct';
-import ListPagingHeader from '../components/SearchPage/ListPagingHeader';
-import ListProduct from '../components/SearchPage/ListProduct';
-import SearchChoiceBar from '../components/SearchPage/SearchChoiceBar';
-import SearchLoadingScreen from '../components/SearchPage/SearchLoadingScreen';
-import SearchMarquee from '../components/SearchPage/SearchMarquee';
-import { useUser } from '../components/UserProvider';
-import { functions } from '../lib/firebase';
+import CompareProduct from '../../components/SearchPage/CompareProduct';
+import ListPagingHeader from '../../components/SearchPage/ListPagingHeader';
+import ListProduct from '../../components/SearchPage/ListProduct';
+import SearchChoiceBar from '../../components/SearchPage/SearchChoiceBar';
+import SearchLoadingScreen from '../../components/SearchPage/SearchLoadingScreen';
+import SearchMarquee from '../../components/SearchPage/SearchMarquee';
+import { useUser } from '../../components/UserProvider';
+import { functions } from '../../lib/firebase';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -63,7 +63,7 @@ export default function Search({ props }) {
     setCompareProductIndex(0);
     setCompareModeOn(false);
     router.replace(
-      `/search?q=${encodeURIComponent(
+      `/shop/search?q=${encodeURIComponent(
         (router.query.q as string).trim()
       ).replace(/[%20]+/g, '+')}`
     );
@@ -73,7 +73,7 @@ export default function Search({ props }) {
     setCompareProductIndex(index);
     setCompareModeOn(true);
     router.replace(
-      `/search?q=${encodeURIComponent(
+      `/shop/search?q=${encodeURIComponent(
         (router.query.q as string).trim()
       ).replace(/[%20]+/g, '+')}${
         searchResponse.sort === 'price' ? '&sort=price' : ''
@@ -106,7 +106,7 @@ export default function Search({ props }) {
       });
       setSearchResponse(result.data);
       router.replace(
-        `/search?q=${encodeURIComponent(
+        `/shop/search?q=${encodeURIComponent(
           (router.query.q as string).trim()
         ).replace(/[%20]+/g, '+')}${
           request.sort === 'price' ? '&sort=price' : ''
@@ -136,7 +136,7 @@ export default function Search({ props }) {
       <Head>
         <title>Search | Give Me Choice</title>
       </Head>
-      <div className="flex h-full w-full flex-col">
+      <div className="mt-[48px] flex h-full w-full flex-col">
         <div className="flex h-full w-full flex-col px-8 xl:px-0">
           <div
             id="search-page"
@@ -169,7 +169,7 @@ export default function Search({ props }) {
                   className="flex max-h-full w-full flex-wrap items-start justify-start overflow-y-auto overflow-x-hidden"
                 >
                   {compareModeOn ? (
-                    <ComparableProduct
+                    <CompareProduct
                       product={
                         searchResponse.data[
                           compareProductIndex % searchResponse.pageSize
@@ -189,6 +189,7 @@ export default function Search({ props }) {
                       prevProduct={() =>
                         handleProductSelect(compareProductIndex - 1)
                       }
+                      closeCompareMode={handleRemoveCompareMode}
                     />
                   ) : (
                     searchResponse.data && (

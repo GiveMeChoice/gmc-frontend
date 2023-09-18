@@ -1,10 +1,10 @@
-import { ProductDocument } from 'gmc-types';
-import React, { useEffect, useState } from 'react';
-import ListProductInfoBox from './ListProduct/ListProductInfoBox';
-import ListProductHeading from './ListProduct/ListProductHeading';
 import cn from 'classnames';
-import EntryModal from '../Navbar/EntryModal';
+import { ProductDocument } from 'gmc-types';
 import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import EntryModal from '../Navbar/EntryModal';
+import ListProductHeading from './ListProduct/ListProductHeading';
+import ListProductInfoBox from './ListProduct/ListProductInfoBox';
 
 interface Props {
   index: number;
@@ -24,6 +24,7 @@ const ListProduct: React.FC<Props> = ({
   const [imgSrc, setImgSrc] = useState<string>('');
   const [signupModalOpen, setSignupModalOpen] = useState(false);
   const [loginModalOpen, setLoginModalOpen] = useState(false);
+
   useEffect(() => {
     let images = product.images.filter((img) => img.type === 'LIST');
     if (images.length === 0) {
@@ -47,14 +48,13 @@ const ListProduct: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'group relative z-0 flex h-[340px] w-1/2 cursor-pointer flex-col divide-y-1.5  divide-secondary-dark-10 border-secondary-dark-10 bg-white',
+        'group relative z-0 flex h-[371px] w-full flex-col divide-y-1.5 divide-secondary-dark-10  border-secondary-dark-10 bg-white xl:w-1/2',
         {
           'border-r-1.5': index % 2 == 0,
           'border-b-1.5': !isLast,
           'cursor-default select-none': blur,
         }
       )}
-      onClick={(e) => handleProductClick(e, index)}
     >
       {blur && (
         <div
@@ -124,20 +124,29 @@ const ListProduct: React.FC<Props> = ({
           )}
         </div>
       )}
-      <ListProductHeading index={index} title={product.title} blur={blur} />
+      <div
+        className="h-full w-full"
+        onClick={(e) => handleProductClick(e, index)}
+      >
+        <ListProductHeading index={index} title={product.title} blur={blur} />
+      </div>
       <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
-        <div className="w-3/5">
-          <ListProductInfoBox product={product} />
+        <div className="w-1/2">
+          <ListProductInfoBox
+            product={product}
+            onSelectProduct={(e) => handleProductClick(e, index)}
+          />
         </div>
         <div
-          className={`group relative flex max-h-full w-2/5  flex-col items-start justify-center bg-white`}
+          className={`relative flex max-h-full w-1/2 cursor-pointer flex-col items-start justify-center bg-white`}
+          onClick={(e) => handleProductClick(e, index)}
         >
           <div className="flex h-full w-full items-center justify-center">
             <div className="p-2 py-4">
               <img
                 src={imgSrc.startsWith('http') ? imgSrc : `http://${imgSrc}`}
                 className={cn('', {
-                  'transition-transform duration-300 group-hover:scale-[1.035]':
+                  'transition-transform duration-150 group-hover:scale-[1.035]':
                     !blur,
                 })}
               />

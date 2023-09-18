@@ -22,7 +22,7 @@ const GiveMeBarNav: React.FC = () => {
     if (router.isReady) {
       setQuery(router.query.q ? (router.query.q as string) : '');
     }
-    if (router.pathname === '/search' && !router.query.q) {
+    if (router.pathname === '/shop/search' && !router.query.q) {
       document.getElementById('gmc-search-bar').focus();
     } else {
       document.getElementById('gmc-search-bar').blur();
@@ -40,11 +40,14 @@ const GiveMeBarNav: React.FC = () => {
   const handleSearch = (q?: string) => {
     if (q) {
       router.push(
-        `/search?q=${encodeURIComponent(q.trim()).replace(/[ ]+/g, '+')}`
+        `/shop/search?q=${encodeURIComponent(q.trim()).replace(/[ ]+/g, '+')}`
       );
     } else if (query) {
       router.push(
-        `/search?q=${encodeURIComponent(query.trim()).replace(/[%20]+/g, '+')}`
+        `/shop/search?q=${encodeURIComponent(query.trim()).replace(
+          /[%20]+/g,
+          '+'
+        )}`
       );
     } else {
       document.getElementById('gmc-search-bar').focus();
@@ -92,7 +95,7 @@ const GiveMeBarNav: React.FC = () => {
       >
         <span
           className={cn(
-            'z-20 flex h-11 w-44 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[5px]  active:translate-y-0 active:border-zinc-700'
+            'z-20 flex h-11 w-44 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[5px] hover:translate-x-0.5 active:translate-y-0 active:translate-x-0 active:border-zinc-700'
           )}
         >
           <Image
