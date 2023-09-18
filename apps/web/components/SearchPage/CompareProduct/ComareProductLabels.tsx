@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import React from 'react';
-import { FlatLabel } from '../ComparableProduct';
-import { getLabelColor } from '../../../lib/labels';
+import { FlatLabel, getLabelColor } from '../../../lib/labels';
 
 interface Props {
   labels: FlatLabel[];
