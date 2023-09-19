@@ -79,8 +79,8 @@ const BlogNavbar: React.FC = () => {
 
   return (
     <>
-      <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 bg-secondary text-[13px] text-zinc-800">
-        <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
+      <div className="bg-seondary flex h-[48px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[13px] text-zinc-800">
+        <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
           <div
             className={cn(
               'flex items-center justify-center transition-width duration-300',
@@ -108,44 +108,44 @@ const BlogNavbar: React.FC = () => {
               close={() => setSideMenuOpen(!sideMenuOpen)}
             />
           </div>
-          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-black hover:text-white">
+          <div className="group flex bg-secondary hover:bg-black hover:text-white">
             <BlogNavbarItem
-              title="Latest"
+              title="the LATEST"
               posts={blogNav ? blogNav.latestPosts : []}
               navigating={navigating}
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-berry">
+          <div className="group flex bg-secondary hover:bg-gmc-berry">
             <BlogNavbarItem
-              title="Wellness"
+              title="WELLNESS"
               path="/tags/wellness"
               posts={blogNav ? blogNav.wellnessPosts : []}
               navigating={navigating}
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-dune">
+          <div className="group flex bg-secondary hover:bg-gmc-dune">
             <BlogNavbarItem
-              title="indoor"
+              title="INDOOR"
               path="/tags/indoor"
               posts={blogNav ? blogNav.indoorPosts : []}
               navigating={navigating}
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-forest">
+          <div className="group flex bg-secondary hover:bg-gmc-forest">
             <BlogNavbarItem
-              title="outdoor"
+              title="OUTDOOR"
               path="/tags/outdoor"
               posts={blogNav ? blogNav.outdoorPosts : []}
               navigating={navigating}
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-beach">
+          <div className="group flex bg-secondary hover:bg-gmc-beach">
             <BlogNavbarItem
-              title="joy"
+              title="JOY"
               path="/tags/joy"
               posts={blogNav ? blogNav.joyPosts : []}
               navigating={navigating}
@@ -153,9 +153,9 @@ const BlogNavbar: React.FC = () => {
             />
           </div>
 
-          <div className="group float-left flex w-[110px] flex-col overflow-hidden transition-width duration-300 hover:bg-gmc-surf">
+          <div className="group flex bg-secondary hover:bg-gmc-surf">
             <BlogNavbarItem
-              title="community"
+              title="COMMUNITY"
               path="/tags/community"
               posts={blogNav ? blogNav.communityPosts : []}
               navigating={navigating}
@@ -182,7 +182,7 @@ const BlogNavbar: React.FC = () => {
       <div className="relative z-0 w-full">
         <div
           id="scroll-progress-bar"
-          className={cn('absolute top-[1.5px] h-[7px] bg-primary', {
+          className={cn('absolute h-[9px] bg-primary', {
             block: postTitle,
             hidden: !postTitle,
           })}

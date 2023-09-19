@@ -48,7 +48,7 @@ const ListProduct: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'group relative z-0 flex h-[371px] w-full flex-col divide-y-1.5 divide-secondary-dark-10  border-secondary-dark-10 bg-white xl:w-1/2',
+        'group relative z-0 flex max-h-[371px] w-full flex-col divide-y-1.5 divide-zinc-700  border-zinc-700 bg-white xl:w-1/2',
         {
           'border-r-1.5': index % 2 == 0,
           'border-b-1.5': !isLast,
@@ -130,7 +130,7 @@ const ListProduct: React.FC<Props> = ({
       >
         <ListProductHeading index={index} title={product.title} blur={blur} />
       </div>
-      <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
+      <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div className="w-1/2">
           <ListProductInfoBox
             product={product}

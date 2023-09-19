@@ -10,12 +10,9 @@ interface Props {
 const ListProductHeading: React.FC<Props> = ({ index, title, blur }) => {
   return (
     <div
-      className={cn(
-        'flex cursor-pointer divide-x-1.5 divide-secondary-dark-10',
-        {
-          'pointer-events-none': blur,
-        }
-      )}
+      className={cn('flex cursor-pointer divide-x-1.5 divide-zinc-700', {
+        'pointer-events-none': blur,
+      })}
     >
       <div
         className={cn(

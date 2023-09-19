@@ -26,7 +26,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
         <PageContainer>
           {/* <Intro /> */}
           {heroPost && (
-            <div className="mt-[49px]">
+            <div className="mt-[44px]">
               <HeroPost
                 title={heroPost.title}
                 coverImage={heroPost.coverImage}
@@ -38,16 +38,16 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
               />
             </div>
           )}
-          <div className="my-0 w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black">
+          <div className="my-0 w-full border-y-1.5 border-zinc-700 bg-white text-black">
             <h3 className="pt-8 pl-12 pb-4 text-[40px] font-extrabold">
               LATEST POSTS
             </h3>
           </div>
           <div className="flex w-full">
-            <div className="w-2/3 border-r-1.5 border-secondary-dark-10">
+            <div className="w-2/3 border-r-1.5 border-zinc-700">
               {morePosts.length > 0 && <PostList posts={morePosts} />}
             </div>
-            <div className="w-1/3 border-r-1.5 border-secondary-dark-10 bg-secondary"></div>
+            <div className="w-1/3 border-r-1.5 border-zinc-700 bg-secondary"></div>
             {/* {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
           </div>
         </PageContainer>

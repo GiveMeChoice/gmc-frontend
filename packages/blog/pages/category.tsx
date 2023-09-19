@@ -49,7 +49,7 @@ export function CategoryPage({
             <div
               className="
             mb-11
-            divide-y-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10"
+            divide-y-1.5 divide-zinc-700 border-b-1.5 border-zinc-700"
             >
               <HeroPost
                 title={heroPost.title}
@@ -60,7 +60,7 @@ export function CategoryPage({
                 slug={heroPost.slug}
                 excerpt={heroPost.excerpt}
               />
-              <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
+              <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
                 <div className="group relative w-[60%] cursor-pointer ">
                   <Link
                     href={`/blog/${posts[1].slug}`}
@@ -114,10 +114,10 @@ export function CategoryPage({
           )}
 
           <div className="flex w-full">
-            <div className="w-4/5 border-r-1.5 border-secondary-dark-10">
+            <div className="w-4/5 border-r-1.5 border-zinc-700">
               <div
                 style={{ backgroundColor: category.color }}
-                className="w-full border-y-1.5 border-secondary-dark-10 bg-secondary text-black"
+                className="w-full border-y-1.5 border-zinc-700 bg-secondary text-black"
               >
                 <h3
                   style={{ lineHeight: 1.2 }}
@@ -128,7 +128,7 @@ export function CategoryPage({
               </div>
               {morePosts.length > 0 && <PostList posts={morePosts.slice(2)} />}
             </div>
-            <div className="w-1/5 border-r-1.5 border-t-1.5 border-secondary-dark-10 bg-secondary"></div>
+            <div className="w-1/5 border-r-1.5 border-t-1.5 border-zinc-700 bg-secondary"></div>
           </div>
         </PageContainer>
       </Layout>

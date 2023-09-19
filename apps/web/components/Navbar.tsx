@@ -2,15 +2,14 @@ import cn from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import 'react-responsive-modal/styles.css';
+import { BlogNavProvider } from './BlogNavProvider';
 import BlogNavbar from './Navbar/BlogNavbar';
 import GiveMeBarNav from './Navbar/GiveMeBarNav';
+import LinkChips from './Navbar/LinkChips/LinkChips';
 import LoginButton from './Navbar/LoginButton';
 import ProfileButton from './Navbar/ProfileButton';
-import SideMenuButton from './Navbar/SideMenuButton';
-import { useUser } from './UserProvider';
-import LinkChips from './Navbar/LinkChips/LinkChips';
-import { BlogNavProvider } from './BlogNavProvider';
 import ShopNavbar from './Navbar/ShopNavbar';
+import { useUser } from './UserProvider';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -27,7 +26,7 @@ const Navbar: React.FC = () => {
         <nav
           id="navbar-container"
           className={cn(
-            'fixed top-0 z-10 flex w-screen flex-col border-b-1.5 border-secondary-dark-10 bg-white transition-all duration-500',
+            'fixed top-0 z-10 flex w-screen flex-col bg-white transition-all duration-500',
             {
               // 'transition-all': router.pathname.includes('/blog'),
               // 'transition-none': !router.pathname.includes('/blog'),
@@ -36,15 +35,15 @@ const Navbar: React.FC = () => {
         >
           <div
             id="navbar-content"
-            className="flex h-22 w-full items-center justify-between px-[75px]"
+            className="flex h-22 w-full items-center justify-between px-[70px]"
           >
             <div className="flex w-full max-w-[850px] items-center gap-x-8 pr-12">
-              <SideMenuButton />
               <GiveMeBarNav />
             </div>
             <div className="flex items-center gap-x-5">
               <LinkChips />
               {user ? <ProfileButton /> : <LoginButton />}
+              {/* <SideMenuButton /> */}
             </div>
           </div>
           {router.route.includes('/blog') && <BlogNavbar />}

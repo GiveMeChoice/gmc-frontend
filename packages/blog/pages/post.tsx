@@ -43,7 +43,7 @@ export function PostPage({ data, preview }: PostPageProps) {
         {post && (
           <>
             <div className="mb-10 max-w-[1300px] p-10">
-              <div className="mt-12 flex flex-col">
+              <div className="mt-10 flex flex-col">
                 <Link href={`/blog/tags/${post.categories[0].slug}`}>
                   <div
                     style={{ backgroundColor: post.categories[0].color }}
@@ -74,7 +74,7 @@ export function PostPage({ data, preview }: PostPageProps) {
                       )}
                     </Head>
                     <PostTitle title={post.title} subtitle={post.subtitle} />
-                    <div className="mt-8 mb-4 flex w-3/4 flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-10 pr-1.5">
+                    <div className="mt-8 mb-4 flex w-3/4 flex-col gap-y-4 divide-y-1.5 divide-zinc-700 pr-1.5">
                       <div className="flex w-full items-end justify-between px-1.5 pb-2">
                         {post.author && (
                           <Avatar
@@ -115,7 +115,7 @@ export function PostPage({ data, preview }: PostPageProps) {
                         </div>
                       </div>
                       <div className="flex justify-center px-12 pt-10">
-                        <div className="flex max-w-[300px] flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-10">
+                        <div className="flex max-w-[300px] flex-col gap-y-4 divide-y-1.5 divide-secondary-dark-20">
                           <h3 className="mb-1 w-full text-center text-4xl font-bold text-zinc-900">
                             RELATED
                           </h3>
@@ -133,7 +133,7 @@ export function PostPage({ data, preview }: PostPageProps) {
             </div>
             {morePosts.length > 0 && (
               <>
-                <div className="w-full border-t-1.5 border-secondary-dark-10 bg-secondary pt-5 pb-7 pl-14 text-5xl font-bold text-black">
+                <div className="w-full border-t-1.5 border-zinc-700 bg-secondary pt-5 pb-7 pl-14 text-5xl font-bold text-black">
                   <span className="w-fit text-end">
                     DISCOVER <br /> MORE
                   </span>

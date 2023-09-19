@@ -60,8 +60,8 @@ const ShopNavbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-seondary flex h-[48px] w-full justify-between border-t-1.5 border-secondary-dark-10 bg-secondary text-[13px] font-bold text-black">
-      <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
+    <div className="bg-seondary flex h-[48px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[13px] font-bold tracking-wider text-zinc-700">
+      <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div
           className={cn(
             'flex items-center justify-center transition-width duration-300',
@@ -89,17 +89,23 @@ const ShopNavbar: React.FC = () => {
             close={() => setSideMenuOpen(!sideMenuOpen)}
           />
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden px-8 transition-width duration-300 hover:bg-black hover:text-white">
+        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
           APPAREL
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden px-8 transition-width duration-300 hover:bg-black hover:text-white">
+        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
           HOME & KITCHEN
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden px-8 transition-width duration-300 hover:bg-black hover:text-white">
-          PERSONAL CARE & BEAUTY
+        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
+          BATH & BEAUTY
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden px-8 transition-width duration-300 hover:bg-black hover:text-white">
-          LABELS
+        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
+          BABY
+        </div>
+        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
+          PETS
+        </div>
+        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
+          by LABEL
         </div>
         <div className=""></div>
       </div>

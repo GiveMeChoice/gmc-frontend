@@ -24,17 +24,17 @@ const BlogNavbarItem: React.FC<Props> = ({
       <Link className="h-full w-full" href={`/blog${path ? path : ''}`}>
         <div
           className={cn(
-            'flex h-full w-full cursor-pointer items-center justify-center space-x-2 text-[13px] font-bold tracking-wider   active:text-zinc-600',
+            'flex h-full w-full min-w-[110px] cursor-pointer items-center justify-center space-x-2 px-6 text-[13px] font-bold tracking-wider   active:text-zinc-600',
             {}
           )}
           onClick={onNavigate}
         >
-          <span>{title.toUpperCase()}</span>
+          <span className="whitespace-nowrap">{title}</span>
         </div>
       </Link>
       <div
         className={cn(
-          'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[47px]',
+          'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[500px] w-screen translate-y-[45px]',
           {
             'group-hover:block': !navigating,
           }

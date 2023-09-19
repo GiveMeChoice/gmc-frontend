@@ -139,7 +139,7 @@ export default function Home() {
             >
               <div className="flex h-3/5 flex-col items-center justify-evenly p-3 px-8">
                 <div className="flex items-center justify-center rounded-full border border-zinc-800 bg-gmc-forest py-1 pl-1.5 pr-3 shadow-md">
-                  <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-600 bg-secondary lg:w-12">
+                  <div className="flex aspect-square w-10 items-center justify-center rounded-full border border-zinc-700 bg-secondary lg:w-12">
                     <Image
                       className="select-none rounded-full"
                       draggable={false}

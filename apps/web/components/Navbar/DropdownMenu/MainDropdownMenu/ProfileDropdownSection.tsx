@@ -17,8 +17,8 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
         className="absolute top-3 right-3 flex aspect-square h-10 flex-col items-center justify-center rounded-full pt-0.5 hover:scale-[1.03] hover:bg-secondary-dark-10 active:bg-secondary-dark-20"
         onClick={close}
       >
-        <div className="w-4 -translate-x-[0px] rotate-45 border-b-2 border-zinc-600" />
-        <div className="w-4 translate-x-[0px] -translate-y-[2px] -rotate-45 border-b-2 border-zinc-600" />
+        <div className="w-4 -translate-x-[0px] rotate-45 border-b-2 border-zinc-700" />
+        <div className="w-4 translate-x-[0px] -translate-y-[2px] -rotate-45 border-b-2 border-zinc-700" />
       </button>
       <div className="w-full px-3 text-center text-xl">
         {profile && profile.displayName

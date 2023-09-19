@@ -35,13 +35,13 @@ const CompareProductLabelSpotlight: React.FC<Props> = ({ label }) => {
               Label Provenance
             </div>
             <div
-              className="flex h-9 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-600 bg-secondary pl-1 pr-2 shadow-sm"
+              className="flex h-9 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-700 bg-secondary pl-1 pr-2 shadow-sm"
               title={label.merchantLabel.description}
             >
               <img
                 src={label.merchantLabel.logo}
                 title="Merchant Logo"
-                className="h-7 w-7 rounded-full border border-zinc-600 bg-secondary"
+                className="h-7 w-7 rounded-full border border-zinc-700 bg-secondary"
                 alt="LOGO"
               />
               <span className="text-ellipsis whitespace-nowrap px-0.5 text-sm">

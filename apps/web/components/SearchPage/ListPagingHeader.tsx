@@ -38,7 +38,7 @@ const ListPagingHeader: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'flex h-[52px] w-full max-w-full justify-between divide-x-1.5 divide-secondary-dark-10   border-b-1.5 border-secondary-dark-10',
+        'flex h-[52px] w-full max-w-full justify-between divide-x-1.5 divide-zinc-700   border-b-1.5 border-zinc-700',
         {
           'border-t-1.5': bottom,
         }

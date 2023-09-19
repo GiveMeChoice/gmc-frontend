@@ -55,10 +55,10 @@ const CompareProduct: React.FC<Props> = (props) => {
   return (
     <>
       {props.product && (
-        <div className="flex h-fit w-full flex-col divide-y-1.5 divide-secondary-dark-10 bg-white">
+        <div className="flex h-fit w-full flex-col divide-y-1.5 divide-zinc-700 bg-white">
           <CompareProductHeading {...props} />
-          <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
-            <div className="flex w-[50%] flex-col divide-y-1.5 divide-secondary-dark-10">
+          <div className="flex w-full divide-x-1.5 divide-zinc-700">
+            <div className="flex w-[50%] flex-col divide-y-1.5 divide-zinc-700">
               {/* <CompareProductBuyBox product={props.product} /> */}
               <div className="p-2 px-8">
                 <CompareBuyBoxCategory category={props.product.category} />
@@ -69,12 +69,12 @@ const CompareProduct: React.FC<Props> = (props) => {
                 description={props.product.description}
               />
             </div>
-            <div className="flex w-[50%] flex-col divide-y-1.5 divide-secondary-dark-10">
-              <div className="flex h-full w-full flex-col divide-y-1.5 divide-secondary-dark-10">
-                <div className="bg-secondry border--1.5 text-cnter w-full border-secondary-dark-10 bg-white px-7 py-2.5 text-[14px] font-bold tracking-wide text-zinc-800">
+            <div className="flex w-[50%] flex-col divide-y-1.5 divide-zinc-700">
+              <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-700">
+                <div className="bg-secondry border--1.5 text-cnter w-full border-zinc-700 bg-white px-7 py-2.5 text-[14px] font-bold tracking-wide text-zinc-800">
                   Product Labels
                 </div>
-                <div className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10">
+                <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
                   <div className="h-full w-[45%]">
                     <CompareProductLabels
                       labels={flatLabels}

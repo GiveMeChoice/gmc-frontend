@@ -12,7 +12,7 @@ interface Props {
 const BlogNavbarDropdown: React.FC<Props> = ({ posts, onNavigate }) => {
   const blogNav = useBlogNav();
   return (
-    <div className="pointer-events-auto flex h-full min-h-[320px] w-full divide-x-1.5 divide-secondary-dark-10 border-y-1.5 border-secondary-dark-10 bg-white">
+    <div className="pointer-events-auto flex h-full min-h-[320px] w-full divide-x-1.5 divide-zinc-700 border-y-1.5 border-zinc-700 bg-white">
       {!blogNav || blogNav.loading ? (
         <div className="flex h-full min-h-[320px] w-full items-center justify-center bg-secondary">
           <LoadingSpinner style="h-16 fill-primary text-black" />

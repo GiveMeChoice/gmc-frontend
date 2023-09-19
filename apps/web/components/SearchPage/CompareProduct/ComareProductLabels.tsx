@@ -27,7 +27,7 @@ const ComparableProductLabels: React.FC<Props> = ({
 
   return (
     <div className="flex w-full flex-col items-start">
-      <div className="flex w-full justify-center divide-x-1.5 divide-secondary-dark-10 border-b-1.5 border-secondary-dark-10">
+      <div className="flex w-full justify-center divide-x-1.5 divide-zinc-700 border-b-1.5 border-zinc-700">
         <button
           className={cn(
             'flex aspect-[8/5] w-1/2 select-none items-center justify-center py-2',

@@ -10,9 +10,9 @@ interface Props {
 
 const PostList: React.FC<Props> = ({ posts }) => {
   return (
-    <div className="divide-y-1.5 divide-secondary-dark-10 bg-secondary">
+    <div className="divide-y-1.5 divide-zinc-700 bg-secondary">
       {posts.slice(0, 10).map((post) => (
-        <div className="flex w-full divide-x-1.5 divide-secondary-dark-10">
+        <div className="flex w-full divide-x-1.5 divide-zinc-700">
           <div className="w-3/5 cursor-pointer">
             <CoverImage
               framed
@@ -21,21 +21,21 @@ const PostList: React.FC<Props> = ({ posts }) => {
               image={post.coverImage}
             />
           </div>
-          <div className="flex w-2/5 flex-grow flex-col bg-black py-6 px-8 text-white">
+          <div className="flex w-2/5 flex-grow flex-col bg-white py-6 px-8 text-black">
             <Link href={`/blog/tags/${post.categories[0].slug}`}>
               <div
                 style={{ backgroundColor: post.categories[0].color }}
-                className="mb-3 ml-0.5 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-500 active:text-secondary"
+                className="mb-3 ml-0.5 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-600 active:text-secondary"
               >
                 {post.categories[0].title.toUpperCase()}
               </div>
             </Link>
-            <h4 className="cursor-pointer text-2xl font-bold hover:text-zinc-300 active:text-primary">
+            <h4 className="cursor-pointer text-2xl font-bold hover:text-zinc-500 active:text-primary">
               <Link href={`/blog/${post.slug}`} prefetch={false}>
                 {post.title}
               </Link>
             </h4>
-            <p className="my-2 ml-0.5 text-sm leading-relaxed text-zinc-200">
+            <p className="my-2 ml-0.5 text-sm leading-relaxed text-zinc-700">
               {post.excerpt}
             </p>
             <div className="mt-2">

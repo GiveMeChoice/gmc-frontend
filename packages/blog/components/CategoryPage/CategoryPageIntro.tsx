@@ -7,14 +7,14 @@ interface Props {
 
 const CategoryPageIntro: React.FC<Props> = ({ category }) => {
   return (
-    <div className="mb-4 mt-6 flex w-full max-w-[1100px] flex-col items-center px-10 pt-8 pb-[18px] xl:px-0">
+    <div className="mb-4 mt-6 flex w-full max-w-[1100px] flex-col items-center px-10 pt-5 pb-[18px] xl:px-0">
       <div
         style={{ backgroundColor: category.color }}
-        className={`text- bordr-1.5 w-fit min-w-[60px] border-black bg-zinc-900 py-[12px] px-[27px] text-center text-[18px] font-bold text-zinc-900`}
+        className={`text- w-fit min-w-[60px] border-1.5 border-zinc-700 bg-zinc-900 py-[12px] px-[27px] text-center text-[18px] font-bold text-zinc-900`}
       >
         {category.title.toUpperCase()}
       </div>
-      <span className="mb-2 w-3/5 px-6 pt-6 pb-5 text-center text-[20px] font-bold text-gray-500">
+      <span className="w-3/5 px-6 pt-6 pb-5 text-center text-[20px] font-bold text-gray-500">
         {category.description}
       </span>
       <hr

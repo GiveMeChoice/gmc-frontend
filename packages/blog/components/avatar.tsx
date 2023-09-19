@@ -15,7 +15,7 @@ export const Avatar: React.FC<Props> = ({ big, name, picture }) => {
     <div className="flex items-center gap-x-[7px]">
       <div
         className={cn('relative h-7 w-7 rounded-full border border-secondary', {
-          'h-10 w-10': big,
+          'h-9 w-9 border-zinc-700': big,
         })}
       >
         <Image
@@ -31,7 +31,7 @@ export const Avatar: React.FC<Props> = ({ big, name, picture }) => {
       <div
         className={cn('', {
           'text-[15px]': !big,
-          'pl-[2px] text-xl font-bold': big,
+          'pl-[2px] text-[19px]': big,
         })}
       >
         {name}

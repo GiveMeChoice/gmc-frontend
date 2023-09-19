@@ -23,9 +23,9 @@ const CompareProductHeading: React.FC<Props> = ({
   closeCompareMode,
 }) => {
   return (
-    <div className="flex w-full justify-between divide-x-1.5 divide-secondary-dark-10">
-      <div className="flex w-full flex-col divide-y-1.5 divide-secondary-dark-10">
-        <div className="flex h-24 w-full divide-x-1.5 divide-secondary-dark-10">
+    <div className="flex w-full justify-between divide-x-1.5 divide-zinc-700">
+      <div className="flex w-full flex-col divide-y-1.5 divide-zinc-700">
+        <div className="flex h-24 w-full divide-x-1.5 divide-zinc-700">
           <div className="flex aspect-4/3 h-full items-center justify-center p-8">
             <span className="text-4xl">{index + 1}</span>
           </div>
@@ -37,7 +37,7 @@ const CompareProductHeading: React.FC<Props> = ({
             </Link>
           </div>
           {!(isFirst && isLast) && (
-            <div className="flex h-full justify-evenly divide-x-1.5 divide-secondary-dark-10">
+            <div className="flex h-full justify-evenly divide-x-1.5 divide-zinc-700">
               <div
                 onClick={() => {
                   if (!isFirst) prevProduct();

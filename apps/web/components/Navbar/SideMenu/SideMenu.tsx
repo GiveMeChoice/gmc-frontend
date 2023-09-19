@@ -40,7 +40,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
     <div
       id="side-menu"
       className={cn(
-        'fixed left-0 top-0 z-50 h-full bg-primary transition-width duration-500',
+        'fixed left-0 top-0 z-50 h-full border-r-1.5 border-zinc-700 bg-white font-normal tracking-wide text-black transition-width duration-500',
         {
           'w-0': !open,
           'w-96': open,

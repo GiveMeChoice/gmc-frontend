@@ -7,7 +7,7 @@ interface Props {
 
 const CompareBuyBoxCategory: React.FC<Props> = ({ category }) => {
   return (
-    <div className="flex items-center gap-x-3 pt-1 text-[14px] text-secondary-dark-50 underline-offset-2">
+    <div className="flex items-center gap-x-3 pt-1 text-[14px] text-zinc-500 underline-offset-2">
       {CategoryLink(
         category.gmcCategory.name,
         encodeURI(category.gmcCategory.name)

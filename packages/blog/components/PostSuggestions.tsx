@@ -10,14 +10,14 @@ interface Props {
 }
 
 export const PostSuggestions: React.FC<Props> = ({ title, posts }) => (
-  <div className="flex w-full flex-wrap divide-x-1.5 divide-secondary-dark-10 border-t-1.5 border-secondary-dark-10 bg-black">
+  <div className="flex w-full flex-wrap divide-x-1.5 divide-zinc-700 border-t-1.5 border-zinc-700">
     {posts.map(
       ({ title, coverImage, date, excerpt, author, categories, slug }) => (
-        <div className="min-h-full w-1/3 border-b-1.5 border-secondary-dark-10">
+        <div className="min-h-full w-1/3 divide-y-1.5 divide-zinc-700 border-b-1.5 border-zinc-700">
           <div className="cursor-pointer">
             <CoverImage framed slug={slug} title={title} image={coverImage} />
           </div>
-          <div className="flex w-full flex-col justify-center bg-black p-10 text-secondary">
+          <div className="flex w-full flex-col justify-center bg-white p-10 text-black">
             <Link href={`/blog/tags/${categories[0].slug}`}>
               <div
                 style={{ backgroundColor: categories[0].color }}

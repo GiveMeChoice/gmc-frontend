@@ -136,11 +136,11 @@ export default function Search({ props }) {
       <Head>
         <title>Search | Give Me Choice</title>
       </Head>
-      <div className="mt-[48px] flex h-full w-full flex-col">
+      <div className="mt-[46px] flex h-full w-full flex-col">
         <div className="flex h-full w-full flex-col px-8 xl:px-0">
           <div
             id="search-page"
-            className="flex h-full w-full divide-x-1.5 divide-secondary-dark-10 overflow-x-hidden border-x-1.5 border-t-1.5 border-secondary-dark-10"
+            className="flex h-full w-full divide-x-1.5 divide-zinc-500 overflow-x-hidden border-x-1.5 border-t-1.5 border-zinc-500"
           >
             <div
               id="choice-bar-container"
@@ -159,7 +159,7 @@ export default function Search({ props }) {
 
             <div
               id="search-product-container"
-              className="flex min-h-screen w-2/3 flex-grow flex-col justify-between border-secondary-dark-10 bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
+              className="flex min-h-screen w-2/3 flex-grow flex-col justify-between border-zinc-500 bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
             >
               {loading || executing ? (
                 <SearchLoadingScreen />
@@ -194,7 +194,7 @@ export default function Search({ props }) {
                   ) : (
                     searchResponse.data && (
                       <>
-                        <ListPagingHeader
+                        {/* <ListPagingHeader
                           searchResponse={searchResponse}
                           nextPage={() =>
                             handleChangePage(searchResponse.page + 1)
@@ -210,7 +210,7 @@ export default function Search({ props }) {
                               ) - 1
                             )
                           }
-                        />
+                        /> */}
                         {searchResponse.data.map((product, i) => (
                           <ListProduct
                             key={i}
