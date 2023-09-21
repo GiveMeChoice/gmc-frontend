@@ -15,6 +15,7 @@ import SearchLoadingScreen from '../../components/SearchPage/SearchLoadingScreen
 import SearchMarquee from '../../components/SearchPage/SearchMarquee';
 import { useUser } from '../../components/UserProvider';
 import { functions } from '../../lib/firebase';
+import ShopLayout from '../../components/ShopLayout';
 
 export default function Search({ props }) {
   const router = useRouter();
@@ -136,125 +137,117 @@ export default function Search({ props }) {
       <Head>
         <title>Search | Give Me Choice</title>
       </Head>
-      <div className="mt-[46px] flex h-full w-full flex-col">
-        <div className="flex h-full w-full flex-col px-8 xl:px-0">
+      {/* <div className="mt-[46px] flex h-full w-full flex-col items-center">
+        <div className="flex h-full w-full max-w-[1550px] flex-col">
           <div
             id="search-page"
-            className="flex h-full w-full divide-x-1.5 divide-zinc-500 overflow-x-hidden border-x-1.5 border-t-1.5 border-zinc-500"
-          >
-            <div
-              id="choice-bar-container"
-              className="max-h-full w-1/3 overflow-y-auto xl:w-1/4"
-            >
-              <SearchChoiceBar
-                loading={loading || executing}
-                searchResponse={searchResponse}
-                compareModeOn={compareModeOn}
-                removeCompareMode={handleRemoveCompareMode}
-                activeFilters={activeFilters}
-                setActiveFilters={setActiveFilters}
-                onSearch={handleSearch}
-              />
-            </div>
+            className="flex h-full w-full divide-x-1.5 divide-zinc-700 overflow-x-hidden border-x-1.5 border-t-1.5 border-zinc-700"
+          > */}
+      <ShopLayout>
+        <div
+          id="choice-bar-container"
+          className="max-h-full w-1/3 overflow-y-auto xl:w-1/4"
+        >
+          <SearchChoiceBar
+            loading={loading || executing}
+            searchResponse={searchResponse}
+            compareModeOn={compareModeOn}
+            removeCompareMode={handleRemoveCompareMode}
+            activeFilters={activeFilters}
+            setActiveFilters={setActiveFilters}
+            onSearch={handleSearch}
+          />
+        </div>
 
+        <div
+          id="search-product-container"
+          className="flex min-h-screen w-2/3 flex-grow flex-col justify-between border-zinc-700 bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
+        >
+          {loading || executing ? (
+            <SearchLoadingScreen />
+          ) : (
             <div
-              id="search-product-container"
-              className="flex min-h-screen w-2/3 flex-grow flex-col justify-between border-zinc-500 bg-secondary from-gmc-ocean-light-50 via-primary-light-50 to-gmc-surf-light-50 xl:w-3/4"
+              id="search-products"
+              className="mb-3 flex max-h-full w-full flex-wrap items-start justify-start overflow-y-auto overflow-x-hidden"
             >
-              {loading || executing ? (
-                <SearchLoadingScreen />
+              {compareModeOn ? (
+                <CompareProduct
+                  product={
+                    searchResponse.data[
+                      compareProductIndex % searchResponse.pageSize
+                    ]
+                  }
+                  index={compareProductIndex}
+                  isFirst={compareProductIndex % searchResponse.pageSize === 0}
+                  isLast={
+                    (compareProductIndex % searchResponse.pageSize) + 1 ===
+                    searchResponse.data.length
+                  }
+                  nextProduct={() =>
+                    handleProductSelect(compareProductIndex + 1)
+                  }
+                  prevProduct={() =>
+                    handleProductSelect(compareProductIndex - 1)
+                  }
+                  closeCompareMode={handleRemoveCompareMode}
+                />
               ) : (
-                <div
-                  id="search-products"
-                  className="flex max-h-full w-full flex-wrap items-start justify-start overflow-y-auto overflow-x-hidden"
-                >
-                  {compareModeOn ? (
-                    <CompareProduct
-                      product={
-                        searchResponse.data[
-                          compareProductIndex % searchResponse.pageSize
-                        ]
+                searchResponse.data && (
+                  <>
+                    <ListPagingHeader
+                      searchResponse={searchResponse}
+                      nextPage={() => handleChangePage(searchResponse.page + 1)}
+                      prevPage={() => handleChangePage(searchResponse.page - 1)}
+                      firstPage={() => handleChangePage(0)}
+                      lastPage={() =>
+                        handleChangePage(
+                          Math.ceil(
+                            searchResponse.hits / searchResponse.pageSize
+                          ) - 1
+                        )
                       }
-                      index={compareProductIndex}
-                      isFirst={
-                        compareProductIndex % searchResponse.pageSize === 0
-                      }
-                      isLast={
-                        (compareProductIndex % searchResponse.pageSize) + 1 ===
-                        searchResponse.data.length
-                      }
-                      nextProduct={() =>
-                        handleProductSelect(compareProductIndex + 1)
-                      }
-                      prevProduct={() =>
-                        handleProductSelect(compareProductIndex - 1)
-                      }
-                      closeCompareMode={handleRemoveCompareMode}
                     />
-                  ) : (
-                    searchResponse.data && (
-                      <>
-                        {/* <ListPagingHeader
-                          searchResponse={searchResponse}
-                          nextPage={() =>
-                            handleChangePage(searchResponse.page + 1)
-                          }
-                          prevPage={() =>
-                            handleChangePage(searchResponse.page - 1)
-                          }
-                          firstPage={() => handleChangePage(0)}
-                          lastPage={() =>
-                            handleChangePage(
-                              Math.ceil(
-                                searchResponse.hits / searchResponse.pageSize
-                              ) - 1
-                            )
-                          }
-                        /> */}
-                        {searchResponse.data.map((product, i) => (
-                          <ListProduct
-                            key={i}
-                            index={
-                              i + searchResponse.page * searchResponse.pageSize
-                            }
-                            product={product}
-                            selectProduct={() =>
-                              handleProductSelect(
-                                i +
-                                  searchResponse.page * searchResponse.pageSize
-                              )
-                            }
-                            isLast={i >= searchResponse.data.length - 2}
-                          />
-                        ))}
-                        <ListPagingHeader
-                          searchResponse={searchResponse}
-                          bottom
-                          nextPage={() =>
-                            handleChangePage(searchResponse.page + 1)
-                          }
-                          prevPage={() =>
-                            handleChangePage(searchResponse.page - 1)
-                          }
-                          firstPage={() => handleChangePage(0)}
-                          lastPage={() =>
-                            handleChangePage(
-                              Math.ceil(
-                                searchResponse.hits / searchResponse.pageSize
-                              ) - 1
-                            )
-                          }
-                        />
-                      </>
-                    )
-                  )}
-                </div>
+                    {searchResponse.data.map((product, i) => (
+                      <ListProduct
+                        key={i}
+                        index={
+                          i + searchResponse.page * searchResponse.pageSize
+                        }
+                        product={product}
+                        selectProduct={() =>
+                          handleProductSelect(
+                            i + searchResponse.page * searchResponse.pageSize
+                          )
+                        }
+                        isLast={i >= searchResponse.data.length - 2}
+                      />
+                    ))}
+                    <ListPagingHeader
+                      searchResponse={searchResponse}
+                      bottom
+                      nextPage={() => handleChangePage(searchResponse.page + 1)}
+                      prevPage={() => handleChangePage(searchResponse.page - 1)}
+                      firstPage={() => handleChangePage(0)}
+                      lastPage={() =>
+                        handleChangePage(
+                          Math.ceil(
+                            searchResponse.hits / searchResponse.pageSize
+                          ) - 1
+                        )
+                      }
+                    />
+                  </>
+                )
               )}
             </div>
+          )}
+          {/* </div>
           </div>
+          </div>
+        */}
         </div>
-        {!loading && !executing && <SearchMarquee />}
-      </div>
+      </ShopLayout>
+      {!loading && !executing && <SearchMarquee />}
     </>
   );
 }

@@ -18,7 +18,10 @@ const GiveMeBarHome: React.FC<Props> = () => {
   const handleSearch = () => {
     if (query) {
       router.push(
-        `/search?q=${encodeURIComponent(query.trim()).replace(/[%20]+/g, '+')}`
+        `/shop/search?q=${encodeURIComponent(query.trim()).replace(
+          /[%20]+/g,
+          '+'
+        )}`
       );
     } else {
       document.getElementById('gmc-search-bar-home').focus();
@@ -43,7 +46,7 @@ const GiveMeBarHome: React.FC<Props> = () => {
       >
         <span
           className={cn(
-            'z-20 flex h-16 w-64 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200  ease-in-out hover:-translate-y-1.5 active:translate-y-0 active:border-zinc-700',
+            'flex h-16 w-64 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200  ease-in-out hover:-translate-y-1.5 hover:translate-x-1 active:translate-x-0 active:translate-y-0 active:border-zinc-700',
             {}
           )}
         >
@@ -67,7 +70,6 @@ const GiveMeBarHome: React.FC<Props> = () => {
         value={query}
         defaultValue=""
         autoComplete="off"
-        placeholder={router.route !== '/' ? 'Choice' : null}
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {

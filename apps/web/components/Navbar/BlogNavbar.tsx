@@ -8,6 +8,8 @@ import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
 import SideMenu from './SideMenu/SideMenu';
 import BlogNavbarPostTitle from './BlogNavbar/BlogNavbarPostTitle';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const BlogNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
@@ -19,7 +21,7 @@ const BlogNavbar: React.FC = () => {
   const [navigating, setNavigating] = useState(false);
 
   useEffect(() => {
-    // setNavigating(false);
+    setNavigating(true);
     setMinimized(false);
     setPostTitle(null);
     if (router.query.slug && !router.pathname.includes('/tags/')) {
@@ -72,9 +74,9 @@ const BlogNavbar: React.FC = () => {
 
   const cycleNavigate = () => {
     setNavigating(true);
-    setTimeout(() => {
-      setNavigating(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setNavigating(false);
+    // }, 500);
   };
 
   return (
@@ -108,15 +110,38 @@ const BlogNavbar: React.FC = () => {
               close={() => setSideMenuOpen(!sideMenuOpen)}
             />
           </div>
-          <div className="group flex bg-secondary hover:bg-black hover:text-white">
+          <div
+            className="group h-full w-fit"
+            onMouseEnter={() => setNavigating(false)}
+          >
+            <Link href="/blog" onClick={cycleNavigate}>
+              <div className="flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary hover:bg-gmc-sunset hover:text-black">
+                <Image
+                  className="select-none rounded-full"
+                  draggable={false}
+                  src="/img/home.svg"
+                  alt="give me"
+                  width="24"
+                  height="24"
+                />
+              </div>
+            </Link>
+          </div>
+          {/* <div
+            className="group flex bg-secondary hover:bg-black hover:text-white"
+            onMouseEnter={() => setNavigating(false)}
+          >
             <BlogNavbarItem
               title="the LATEST"
               posts={blogNav ? blogNav.latestPosts : []}
               navigating={navigating}
               onNavigate={cycleNavigate}
             />
-          </div>
-          <div className="group flex bg-secondary hover:bg-gmc-berry">
+          </div> */}
+          <div
+            className="group flex bg-secondary hover:bg-gmc-berry"
+            onMouseEnter={() => setNavigating(false)}
+          >
             <BlogNavbarItem
               title="WELLNESS"
               path="/tags/wellness"
@@ -125,7 +150,10 @@ const BlogNavbar: React.FC = () => {
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group flex bg-secondary hover:bg-gmc-dune">
+          <div
+            className="group flex bg-secondary hover:bg-gmc-dune"
+            onMouseEnter={() => setNavigating(false)}
+          >
             <BlogNavbarItem
               title="INDOOR"
               path="/tags/indoor"
@@ -134,7 +162,10 @@ const BlogNavbar: React.FC = () => {
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group flex bg-secondary hover:bg-gmc-forest">
+          <div
+            className="group flex bg-secondary hover:bg-gmc-forest"
+            onMouseEnter={() => setNavigating(false)}
+          >
             <BlogNavbarItem
               title="OUTDOOR"
               path="/tags/outdoor"
@@ -143,7 +174,10 @@ const BlogNavbar: React.FC = () => {
               onNavigate={cycleNavigate}
             />
           </div>
-          <div className="group flex bg-secondary hover:bg-gmc-beach">
+          <div
+            className="group flex bg-secondary hover:bg-gmc-beach"
+            onMouseEnter={() => setNavigating(false)}
+          >
             <BlogNavbarItem
               title="JOY"
               path="/tags/joy"
@@ -153,13 +187,44 @@ const BlogNavbar: React.FC = () => {
             />
           </div>
 
-          <div className="group flex bg-secondary hover:bg-gmc-surf">
+          <div
+            className="group flex bg-secondary hover:bg-gmc-surf"
+            onMouseEnter={() => setNavigating(false)}
+          >
             <BlogNavbarItem
               title="COMMUNITY"
               path="/tags/community"
               posts={blogNav ? blogNav.communityPosts : []}
               navigating={navigating}
               onNavigate={cycleNavigate}
+            />
+          </div>
+          <div
+            className={cn(
+              'flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
+              {
+                'hover:bg-gmc-sunset': !navigating,
+              }
+            )}
+            onClick={() => {
+              setNavigating(true);
+              document.getElementById('gmc-search-bar').focus();
+              const navContainer = document.getElementById('navbar-container');
+              if (navContainer) {
+                navContainer.style.top = '0';
+                setMinimized(false);
+              }
+              // window.scrollTo(0, 0);
+            }}
+            onMouseEnter={() => setNavigating(false)}
+          >
+            <Image
+              className="select-none rounded-full"
+              draggable={false}
+              src="/img/search.svg"
+              alt="give me"
+              width="22"
+              height="22"
             />
           </div>
           <BlogNavbarPostTitle title={postTitle} />
@@ -182,7 +247,7 @@ const BlogNavbar: React.FC = () => {
       <div className="relative z-0 w-full">
         <div
           id="scroll-progress-bar"
-          className={cn('absolute h-[9px] bg-primary', {
+          className={cn('absolute h-[10px] bg-primary', {
             block: postTitle,
             hidden: !postTitle,
           })}

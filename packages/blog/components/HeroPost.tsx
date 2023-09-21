@@ -31,19 +31,21 @@ export const HeroPost: React.FC<Props> = ({
           <HeroImage slug={slug} title={title} image={coverImage} priority />
         </div>
         <div className="flex w-1/2 flex-col justify-center bg-secondary p-12 pr-16 text-black">
-          {!router.asPath.includes('/tags/') && (
-            <Link href={`/blog/tags/${categories[0].slug}`}>
+          {/* {!router.asPath.includes('/tags/') && ( */}
+          <Link href={`/blog/tags/${categories[0].slug}`}>
+            <div className="h-fit w-fit bg-zinc-900">
               <div
                 style={{ backgroundColor: categories[0].color }}
-                className="ml-0.5 mb-4 w-fit cursor-pointer border-black bg-black py-[7px] px-[10px] text-[11px] font-bold text-black hover:text-zinc-500 active:text-secondary"
+                className="w-fit translate-x-[1px] -translate-y-[1px] cursor-pointer border border-zinc-800 bg-black py-[7px] px-[10px] text-[11px] font-bold text-black transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]"
               >
                 {categories[0].title.toUpperCase()}
               </div>
-            </Link>
-          )}
+            </div>
+          </Link>
+          {/* )} */}
           <h3
             style={{ lineHeight: 1.2 }}
-            className="normal mb-6 cursor-pointer pr-10 text-[44px] font-bold hover:text-zinc-500 active:text-primary"
+            className="normal mb-6 mt-3 cursor-pointer pr-10 text-[44px] font-bold hover:text-zinc-500 active:text-primary"
           >
             <Link prefetch={false} href={`/blog/${slug}`}>
               {title}

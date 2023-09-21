@@ -18,9 +18,9 @@ const LinkChips: React.FC<Props> = () => {
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-dune active:translate-y-0 active:border-zinc-700 active:bg-gmc-dune',
+            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border-1.5 border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-dune active:translate-y-0 active:border-zinc-900 active:bg-gmc-dune',
             {
-              'border-secondary-dark-40 bg-gmc-dune':
+              'border-zinc-900 bg-gmc-dune':
                 router.pathname.includes('/search'),
               'bg-white': !router.pathname.includes('/search'),
             }
@@ -28,7 +28,7 @@ const LinkChips: React.FC<Props> = () => {
         >
           <div
             className={cn(
-              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-700 bg-secondary'
+              'flex aspect-square h-7 items-center justify-center rounded-full border-1.5 border-zinc-900 bg-secondary'
             )}
           >
             <Image
@@ -52,17 +52,16 @@ const LinkChips: React.FC<Props> = () => {
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:translate-x-0.5 hover:bg-gmc-surf active:translate-x-0 active:translate-y-0 active:border-zinc-700 active:bg-gmc-surf',
+            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border-1.5 border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:translate-x-0.5 hover:bg-gmc-surf active:translate-x-0 active:translate-y-0 active:border-zinc-900 active:bg-gmc-surf',
             {
-              'border-secondary-dark-40 bg-gmc-surf':
-                router.pathname.includes('/shop'),
+              'border-zinc-900 bg-gmc-surf': router.pathname.includes('/shop'),
               'bg-white': !router.pathname.includes('/shop'),
             }
           )}
         >
           <div
             className={cn(
-              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-700 bg-white'
+              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-900 bg-white'
             )}
           >
             <Image
@@ -74,7 +73,7 @@ const LinkChips: React.FC<Props> = () => {
               height="17"
             />
           </div>
-          <span className="px-3.5">Shop</span>
+          <span className="px-3.5 pr-4">Shop</span>
         </div>
       </a>
 
@@ -87,9 +86,9 @@ const LinkChips: React.FC<Props> = () => {
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-700 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:translate-x-0.5 hover:-translate-y-1 hover:bg-gmc-sunset active:translate-x-0 active:translate-y-0 active:border-zinc-700 active:bg-gmc-sunset',
+            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border-1.5 border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:translate-x-0.5 hover:-translate-y-1 hover:bg-gmc-sunset active:translate-x-0 active:translate-y-0 active:border-zinc-900 active:bg-gmc-sunset',
             {
-              'border-secondary-dark-40 bg-gmc-sunset':
+              'border-zinc-900 bg-gmc-sunset':
                 router.pathname.includes('/blog'),
               'bg-white': !router.pathname.includes('/blog'),
             }
@@ -97,7 +96,7 @@ const LinkChips: React.FC<Props> = () => {
         >
           <div
             className={cn(
-              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-700 bg-white'
+              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-900 bg-white'
             )}
           >
             <Image
@@ -109,7 +108,7 @@ const LinkChips: React.FC<Props> = () => {
               height="17"
             />
           </div>
-          <span className="px-4">Blog</span>
+          <span className="pl-3.5 pr-4">Blog</span>
         </div>
       </a>
     </div>

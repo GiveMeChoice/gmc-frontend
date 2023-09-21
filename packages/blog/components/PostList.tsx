@@ -23,14 +23,16 @@ const PostList: React.FC<Props> = ({ posts }) => {
           </div>
           <div className="flex w-2/5 flex-grow flex-col bg-white py-6 px-8 text-black">
             <Link href={`/blog/tags/${post.categories[0].slug}`}>
-              <div
-                style={{ backgroundColor: post.categories[0].color }}
-                className="mb-3 ml-0.5 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-600 active:text-secondary"
-              >
-                {post.categories[0].title.toUpperCase()}
+              <div className="h-fit w-fit bg-zinc-900">
+                <div
+                  style={{ backgroundColor: post.categories[0].color }}
+                  className="w-fit translate-x-[1px] -translate-y-[1px] cursor-pointer border border-zinc-800 bg-black py-[6px] px-[9px] text-[11px] font-bold text-black transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]"
+                >
+                  {post.categories[0].title.toUpperCase()}
+                </div>
               </div>
             </Link>
-            <h4 className="cursor-pointer text-2xl font-bold hover:text-zinc-500 active:text-primary">
+            <h4 className="mt-3 cursor-pointer text-2xl font-bold hover:text-zinc-500 active:text-primary">
               <Link href={`/blog/${post.slug}`} prefetch={false}>
                 {post.title}
               </Link>

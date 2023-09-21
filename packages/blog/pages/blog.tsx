@@ -26,7 +26,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
         <PageContainer>
           {/* <Intro /> */}
           {heroPost && (
-            <div className="mt-[44px]">
+            <div className="mt-[46px]">
               <HeroPost
                 title={heroPost.title}
                 coverImage={heroPost.coverImage}

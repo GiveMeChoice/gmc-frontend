@@ -19,7 +19,7 @@ const CompareProductLabelSpotlight: React.FC<Props> = ({ label }) => {
               <Link href={`/shop/labels/${label.name}`}>
                 <div className="h-full w-full bg-black">
                   <div
-                    className={`bordr-1.5 text-zinc-00 w-fit min-w-[60px] cursor-pointer border-black py-[12px] px-[24px] text-center text-[15px] font-bold text-zinc-800 transition-all duration-200 hover:-translate-y-1 hover:translate-x-[3px] active:translate-x-0 active:translate-y-0 bg-${getLabelColor(
+                    className={`text-zinc-00 w-fit min-w-[60px] translate-x-[1px] -translate-y-[1px] cursor-pointer border border-black py-[12px] px-[24px] text-center text-[15px] font-bold text-zinc-800 transition-all duration-200 hover:-translate-y-1 hover:translate-x-[4px] active:translate-x-[1px] active:-translate-y-[1px] bg-${getLabelColor(
                       label.type
                     )}`}
                   >

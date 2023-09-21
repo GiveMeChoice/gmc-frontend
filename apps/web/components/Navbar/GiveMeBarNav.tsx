@@ -114,9 +114,9 @@ const GiveMeBarNav: React.FC = () => {
           <input
             id="gmc-search-bar"
             className={cn(
-              'peer min-h-[46px] border-b-3 border-black bg-inherit pl-2 text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:text-[31px] focus:placeholder-transparent md:text-left',
+              'peer min-h-[46px] border-b-3 border-black bg-inherit pl-2 text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:pl-2.5 focus:text-[31px] focus:placeholder-transparent md:text-left',
               {
-                'w-full pr-6 text-[31px]': query,
+                'w-full pr-6 pl-2.5 text-[31px]': query,
                 'w-32 text-4xl focus:text-[31px]': !query,
               }
             )}
@@ -179,7 +179,7 @@ const GiveMeBarNav: React.FC = () => {
           <div
             id="suggestions-box"
             className={cn(
-              'shadow- z-10 hidden w-[102%] -translate-x-[8px] -translate-y-3.5 flex-col rounded-2xl border-1.5 border-secondary-dark-20 bg-white bg-opacity-[1] pr-5 pb-3.5 pt-1.5 text-zinc-600 shadow-sm peer-focus:flex',
+              'z-10 hidden w-[102%] -translate-x-[8px] -translate-y-3.5 flex-col rounded-2xl border-1.5 border-zinc-700 bg-white bg-opacity-[1] pr-5 pb-3.5 pt-1.5 text-zinc-600 shadow-sm peer-focus:flex',
               {
                 // 'hidden peer-focus:flex': query,
                 // // 'peer-focus:flex': query,

@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
         >
           <div
             id="navbar-content"
-            className="flex h-22 w-full items-center justify-between px-[70px]"
+            className="flex h-[88px] w-full items-center justify-between px-[70px]"
           >
             <div className="flex w-full max-w-[850px] items-center gap-x-8 pr-12">
               <GiveMeBarNav />

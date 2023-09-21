@@ -19,6 +19,8 @@
 html,
 body {
   min-height: 100%;
+  overscroll-behavior: none;
+  scroll-behavior: smooth;
 }
 
 :root {

@@ -19,14 +19,16 @@ export const PostSuggestions: React.FC<Props> = ({ title, posts }) => (
           </div>
           <div className="flex w-full flex-col justify-center bg-white p-10 text-black">
             <Link href={`/blog/tags/${categories[0].slug}`}>
-              <div
-                style={{ backgroundColor: categories[0].color }}
-                className="ml-0.5 mb-4 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-500 active:text-secondary"
-              >
-                {categories[0].title.toUpperCase()}
+              <div className="h-fit w-fit bg-zinc-900">
+                <div
+                  style={{ backgroundColor: categories[0].color }}
+                  className="w-fit translate-x-[1px] -translate-y-[1px] cursor-pointer border border-zinc-800 bg-black py-[6px] px-[9px] text-[11px] font-bold text-black transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]"
+                >
+                  {categories[0].title.toUpperCase()}
+                </div>
               </div>
             </Link>
-            <h3 className="mb-5 cursor-pointer pr-10 text-2xl font-bold hover:text-zinc-500 active:text-primary">
+            <h3 className="mb-5 mt-3 cursor-pointer pr-10 text-2xl font-bold hover:text-zinc-500 active:text-primary">
               <Link prefetch={false} href={`/blog/${slug}`}>
                 {title}
               </Link>

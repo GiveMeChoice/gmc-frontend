@@ -55,7 +55,7 @@ const CompareProduct: React.FC<Props> = (props) => {
   return (
     <>
       {props.product && (
-        <div className="flex h-fit w-full flex-col divide-y-1.5 divide-zinc-700 bg-white">
+        <div className="mb-3 flex h-fit w-full flex-col divide-y-1.5 divide-zinc-700 bg-white">
           <CompareProductHeading {...props} />
           <div className="flex w-full divide-x-1.5 divide-zinc-700">
             <div className="flex w-[50%] flex-col divide-y-1.5 divide-zinc-700">

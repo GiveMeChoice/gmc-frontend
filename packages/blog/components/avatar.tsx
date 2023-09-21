@@ -14,9 +14,12 @@ export const Avatar: React.FC<Props> = ({ big, name, picture }) => {
   return (
     <div className="flex items-center gap-x-[7px]">
       <div
-        className={cn('relative h-7 w-7 rounded-full border border-secondary', {
-          'h-9 w-9 border-zinc-700': big,
-        })}
+        className={cn(
+          'relative h-7 w-7 rounded-full border-1.5 border-zinc-700',
+          {
+            'h-9 w-9 ': big,
+          }
+        )}
       >
         <Image
           loader={() => url}

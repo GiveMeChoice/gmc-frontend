@@ -78,7 +78,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             </a>
             <button
               className={cn(
-                'aspect-square h-9 flex-col items-center justify-center rounded-full border border-black pt-0.5 hover:scale-[1.03] hover:bg-primary',
+                'aspect-square h-9 flex-col items-center justify-center rounded-full border-1.5 border-black pt-0.5 hover:scale-[1.03] hover:bg-primary',
                 {
                   flex: open,
                   hidden: !open,

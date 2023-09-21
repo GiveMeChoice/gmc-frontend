@@ -45,14 +45,16 @@ export function PostPage({ data, preview }: PostPageProps) {
             <div className="mb-10 max-w-[1300px] p-10">
               <div className="mt-10 flex flex-col">
                 <Link href={`/blog/tags/${post.categories[0].slug}`}>
-                  <div
-                    style={{ backgroundColor: post.categories[0].color }}
-                    className={`ml-0.5 mb-2 w-fit min-w-[50px] cursor-pointer p-2 px-2.5 text-center text-sm text-black hover:text-zinc-500 active:text-primary`}
-                  >
-                    {post.categories[0].title.toUpperCase()}
+                  <div className="h-fit w-fit bg-zinc-900">
+                    <div
+                      style={{ backgroundColor: post.categories[0].color }}
+                      className="w-fit translate-x-[1px] -translate-y-[1px] cursor-pointer border border-zinc-800 bg-black py-[8px] px-[11px] text-[14px] font-bold text-black transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]"
+                    >
+                      {post.categories[0].title.toUpperCase()}
+                    </div>
                   </div>
                 </Link>
-                <hr className="border-accent-2 mt-1 h-0.5 w-full border-black bg-black" />
+                <hr className="border-accent-2 mt-2 h-0.5 w-full border-black bg-black" />
               </div>
               {router.isFallback ? (
                 <PostTitle title={'Loading...'} subtitle={''} />

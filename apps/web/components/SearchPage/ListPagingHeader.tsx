@@ -38,18 +38,18 @@ const ListPagingHeader: React.FC<Props> = ({
   return (
     <div
       className={cn(
-        'flex h-[52px] w-full max-w-full justify-between divide-x-1.5 divide-zinc-700   border-b-1.5 border-zinc-700',
+        'flex h-[52px] w-full max-w-full justify-between divide-x-1.5 divide-zinc-700 border-b-1.5 border-zinc-700',
         {
           'border-t-1.5': bottom,
         }
       )}
     >
       <div className="flex flex-grow items-center justify-between bg-white px-8">
-        <div className="flex h-fit w-full items-end justify-center gap-x-2 text-zinc-800">
-          <span className="text-[17px] text-zinc-800">
-            {/* {from === 1 ? `Top ${to} Choices` : `Choices ${from} - ${to}`} */}
+        <div className="flex h-fit w-full items-center justify-center gap-x-2 text-zinc-800">
+          <span className="text-[17px]">
+            {from === 1 ? `Top ${to} Choices` : `Choices ${from} - ${to}`}
           </span>
-          {/* <span className="text-[16px] text-zinc-700">{`(of ${searchResponse.hits})`}</span> */}
+          <span className="text-[16px] text-zinc-700">{`(of ${searchResponse.hits})`}</span>
         </div>
       </div>
       <div

@@ -12,7 +12,7 @@ const ProfileDropdownSection: React.FC<Props> = ({ close }) => {
   const router = useRouter();
 
   return (
-    <div className="relative flex flex-col items-center gap-y-3.5 border-b-1.5 border-secondary-dark-10 pt-4 pb-5">
+    <div className="relative flex flex-col items-center gap-y-3.5 border-b-1.5 border-zinc-600 pt-4 pb-5">
       <button
         className="absolute top-3 right-3 flex aspect-square h-10 flex-col items-center justify-center rounded-full pt-0.5 hover:scale-[1.03] hover:bg-secondary-dark-10 active:bg-secondary-dark-20"
         onClick={close}

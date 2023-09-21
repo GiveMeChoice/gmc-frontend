@@ -13,11 +13,13 @@ const PostSidebarRelatedPost: React.FC<Props> = ({ post }) => {
     <div className="flex w-full pt-4">
       <div className="flex w-[60%] flex-col gap-y-3">
         <Link href={`/blog/tags/${post.categories[0].slug}`}>
-          <div
-            style={{ backgroundColor: post.categories[0].color }}
-            className="w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-500 active:text-secondary"
-          >
-            {post.categories[0].title.toUpperCase()}
+          <div className="h-fit w-fit bg-zinc-900">
+            <div
+              style={{ backgroundColor: post.categories[0].color }}
+              className="w-fit translate-x-[1px] -translate-y-[1px] cursor-pointer border border-zinc-800 bg-black py-[6px] px-[9px] text-[11px] font-bold text-black transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]"
+            >
+              {post.categories[0].title.toUpperCase()}
+            </div>
           </div>
         </Link>
         <Link href={`/blog/${post.slug}`}>

@@ -9,7 +9,7 @@ interface Props {
 
 const BlogNavbarDropdownPost: React.FC<Props> = ({ post, onNavigate }) => {
   return (
-    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-700">
+    <div className="flex h-[520px] w-full flex-col divide-y-1.5 divide-zinc-700">
       <div className="w-full cursor-pointer">
         <CoverImage
           framed
@@ -19,14 +19,16 @@ const BlogNavbarDropdownPost: React.FC<Props> = ({ post, onNavigate }) => {
           onClick={onNavigate}
         />
       </div>
-      <div className="flex h-[320px] w-full flex-grow flex-col gap-y-[15px] overflow-y-hidden bg-white p-6 text-black xl:h-[300px]">
+      <div className="flex h-[320px] w-full flex-grow flex-col justify-between gap-y-[8px] overflow-y-hidden bg-white p-6 py-7 text-black xl:h-[300px]">
         <Link href={`/blog/tags/${post.categories[0].slug}`}>
-          <div
-            style={{ backgroundColor: post.categories[0].color }}
-            className="ml-0.5 w-fit cursor-pointer border-black bg-black py-[6px] px-[9px] text-[11px] text-black hover:text-zinc-600 active:text-secondary"
-            onClick={onNavigate}
-          >
-            {post.categories[0].title.toUpperCase()}
+          <div className="h-fit w-fit bg-zinc-900">
+            <div
+              style={{ backgroundColor: post.categories[0].color }}
+              className="w-fit translate-x-[1px] -translate-y-[1px] cursor-pointer border border-zinc-800 bg-black py-[6px] px-[9px] text-[11px] font-bold text-black transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]"
+              onClick={onNavigate}
+            >
+              {post.categories[0].title.toUpperCase()}
+            </div>
           </div>
         </Link>
         <h4 className="cursor-pointer text-[22px] font-bold hover:text-zinc-500 active:text-primary">
@@ -36,10 +38,10 @@ const BlogNavbarDropdownPost: React.FC<Props> = ({ post, onNavigate }) => {
             </a>
           </Link>
         </h4>
-        <p className="ml-0.5 text-sm leading-relaxed">{post.excerpt}</p>
-        {/* {post.author && (
+        <p className="ml-0.5 mb-1 text-sm leading-relaxed">{post.excerpt}</p>
+        {post.author && (
           <Avatar name={post.author.name} picture={post.author.picture} />
-        )} */}
+        )}
       </div>
     </div>
   );

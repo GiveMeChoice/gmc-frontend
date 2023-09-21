@@ -7,6 +7,8 @@ import BlogNavbarItem from './BlogNavbar/BlogNavbarItem';
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
 import SideMenu from './SideMenu/SideMenu';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const ShopNavbar: React.FC = () => {
   const [minmized, setMinimized] = useState(false);
@@ -14,11 +16,11 @@ const ShopNavbar: React.FC = () => {
   const user = useUser();
   const router = useRouter();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
-  const blogNav = useBlogNav();
   const [navigating, setNavigating] = useState(false);
 
   useEffect(() => {
-    // setNavigating(false);
+    setNavigating(true);
+    // cycleNavigate();
     setMinimized(false);
     setPostTitle(null);
     if (router.query.slug && !router.pathname.includes('/tags/')) {
@@ -60,7 +62,7 @@ const ShopNavbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-seondary flex h-[48px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[13px] font-bold tracking-wider text-zinc-700">
+    <div className="bg-seondary flex h-[48px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[13px] tracking-wider text-zinc-700">
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div
           className={cn(
@@ -89,28 +91,150 @@ const ShopNavbar: React.FC = () => {
             close={() => setSideMenuOpen(!sideMenuOpen)}
           />
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
-          APPAREL
+        <div
+          className="group h-full w-fit"
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Link href="/shop" onClick={cycleNavigate}>
+            <div className="flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary hover:bg-gmc-surf hover:text-black">
+              <Image
+                className="select-none rounded-full"
+                draggable={false}
+                src="/img/home.svg"
+                alt="give me"
+                width="24"
+                height="24"
+              />
+            </div>
+          </Link>
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
-          HOME & KITCHEN
+        <div className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-black hover:text-white">
+          LABELS
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
-          BATH & BEAUTY
+        <div
+          className="group h-full w-fit"
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Link href="/shop/category/apparel" onClick={cycleNavigate}>
+            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-ocean-light-40 hover:text-black">
+              APPAREL
+            </div>
+          </Link>
+          <div
+            className={cn(
+              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
+              {
+                'group-hover:block': !navigating,
+              }
+            )}
+          ></div>
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
-          BABY
+        <div
+          className="group h-full w-fit"
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Link href="/shop/category/home & kitchen" onClick={cycleNavigate}>
+            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-berry hover:text-black">
+              HOME & KITCHEN
+            </div>
+          </Link>
+          <div
+            className={cn(
+              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
+              {
+                'group-hover:block': !navigating,
+              }
+            )}
+          >
+            <div className="pointer-events-auto h-full w-full">h+k</div>
+          </div>
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
-          PETS
+        <div
+          className="group h-full w-fit"
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Link href="/shop/category/bath & beauty" onClick={cycleNavigate}>
+            <div className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-jungle hover:text-black">
+              BATH & BEAUTY
+            </div>
+          </Link>
+          <div
+            className={cn(
+              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
+              {
+                'group-hover:block': !navigating,
+              }
+            )}
+          ></div>
         </div>
-        <div className="group float-left flex min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 transition-width duration-300 hover:bg-black hover:text-white">
-          by LABEL
+        <div
+          className="group h-full w-fit"
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Link href="/shop/category/baby" onClick={cycleNavigate}>
+            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-dune hover:text-black">
+              BABY
+            </div>
+          </Link>
+          <div
+            className={cn(
+              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
+              {
+                'group-hover:block': !navigating,
+              }
+            )}
+          ></div>
+        </div>
+        <div
+          className="group h-full w-fit"
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Link href="/shop/category/pets" onClick={cycleNavigate}>
+            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-beach hover:text-black">
+              PETS
+            </div>
+          </Link>
+          <div
+            className={cn(
+              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
+              {
+                'group-hover:block': !navigating,
+              }
+            )}
+          ></div>
+        </div>
+        <div
+          className={cn(
+            'flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
+            {
+              'hover:bg-gmc-surf': !navigating,
+            }
+          )}
+          onClick={() => {
+            setNavigating(true);
+            document.getElementById('gmc-search-bar').focus();
+            const navContainer = document.getElementById('navbar-container');
+            if (navContainer) {
+              navContainer.style.top = '0';
+              setMinimized(false);
+            }
+            // window.scrollTo(0, 0);
+          }}
+          onMouseEnter={() => setNavigating(false)}
+        >
+          <Image
+            className="select-none rounded-full"
+            draggable={false}
+            src="/img/search.svg"
+            alt="give me"
+            width="22"
+            height="22"
+          />
         </div>
         <div className=""></div>
       </div>
       <div
-        className={cn('flex items-center transition-width duration-300', {
+        className={cn('flex items-center', {
           'w-0': !minmized,
           'w-28': minmized,
         })}

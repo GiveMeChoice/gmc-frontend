@@ -1,6 +1,7 @@
 import { ProductDocument } from 'gmc-types';
 import { GetStaticProps } from 'next';
 import ComparableProduct from '../../../components/SearchPage/ComparableProduct';
+import ShopLayout from '../../../components/ShopLayout';
 
 interface ProductPageProps {
   product: ProductDocument;
@@ -9,14 +10,19 @@ interface ProductPageProps {
 export default function ProductPage({ product }: ProductPageProps) {
   return (
     <section className="mt-[44px]">
-      <ComparableProduct
-        index={0}
-        product={product}
-        nextProduct={null}
-        prevProduct={null}
-        isFirst={true}
-        isLast={true}
-      />
+      <ShopLayout>
+        <div className="w-1/3 xl:w-1/4"></div>
+        <div className="w-2/3 xl:w-3/4">
+          <ComparableProduct
+            index={0}
+            product={product}
+            nextProduct={null}
+            prevProduct={null}
+            isFirst={true}
+            isLast={true}
+          />
+        </div>
+      </ShopLayout>
     </section>
   );
 }

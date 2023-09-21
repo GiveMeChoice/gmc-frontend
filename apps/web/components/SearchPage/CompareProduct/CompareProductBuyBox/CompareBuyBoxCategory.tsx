@@ -38,9 +38,12 @@ const CompareBuyBoxCategory: React.FC<Props> = ({ category }) => {
   );
 };
 
-function CategoryLink(name: string, link): ReactFragment {
+function CategoryLink(name: string, link: string): ReactFragment {
   return (
-    <a className="hover:underline" href={`/discover/category/${link}`}>
+    <a
+      className="hover:underline"
+      href={`/shop/category/${link.toLowerCase()}`}
+    >
       {name.toLocaleUpperCase()}
     </a>
   );

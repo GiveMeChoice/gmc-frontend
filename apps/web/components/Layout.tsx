@@ -10,7 +10,7 @@ const Layout = ({ preview = false, children }) => {
   return (
     <div
       id="screen"
-      className={`z-0 flex min-h-screen w-screen flex-col justify-between overflow-x-hidden`}
+      className={`z-0 flex min-h-screen w-full flex-col justify-between overflow-x-hidden`}
     >
       {preview && <PreviewAlert />}
       {router.pathname !== '/' && router.pathname !== '/access' && <Navbar />}
