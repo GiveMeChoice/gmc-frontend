@@ -79,7 +79,7 @@ const ShopCategoryContent: React.FC<Props> = ({
           className="mb-3 flex max-h-full w-full flex-wrap items-start justify-start overflow-y-auto overflow-x-hidden"
         >
           <ListPagingHeader
-            searchResponse={data as SearchFunctionResponseDto}
+            searchResponse={data as any}
             bottom
             nextPage={() => null}
             prevPage={() => null}
@@ -90,13 +90,13 @@ const ShopCategoryContent: React.FC<Props> = ({
             <ListProduct
               key={i}
               index={i + data.page * data.pageSize}
-              product={product as ProductDocument}
+              product={product as any}
               selectProduct={() => null}
               isLast={false}
             />
           ))}
           <ListPagingHeader
-            searchResponse={data as SearchFunctionResponseDto}
+            searchResponse={data as any}
             bottom
             nextPage={() => null}
             prevPage={() => null}
