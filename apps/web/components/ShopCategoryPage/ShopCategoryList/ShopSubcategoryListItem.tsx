@@ -22,7 +22,7 @@ const ShopSubcategoryListItem: React.FC<Props> = ({
       <Link href={`/shop/category/${category}/${title}`}>
         <div
           className={cn(
-            'group flex w-full cursor-pointer items-center gap-x-2 text-[16px]',
+            'group flex w-full cursor-pointer items-center gap-x-2 text-[15px]',
             {
               'cursor-default font-bold':
                 router.query.subcategory1 &&
@@ -34,7 +34,7 @@ const ShopSubcategoryListItem: React.FC<Props> = ({
           <div
             style={{ backgroundColor: color }}
             className={cn('h-0 w-0 rounded-full transition-all duration-150', {
-              'group-hover:h-2 group-hover:w-2':
+              'group-hover:h-2.5 group-hover:w-2.5':
                 !router.query.subcategory1 ||
                 (router.query.subcategory1 as string).toLowerCase() !==
                   title.toLowerCase(),

@@ -11,16 +11,17 @@ export default function ProductPage({ product }: ProductPageProps) {
   return (
     <section className="mt-[44px]">
       <ShopLayout>
-        <div className="w-1/3 xl:w-1/4"></div>
-        <div className="w-2/3 xl:w-3/4">
-          <ComparableProduct
-            index={0}
-            product={product}
-            nextProduct={null}
-            prevProduct={null}
-            isFirst={true}
-            isLast={true}
-          />
+        <div className="flex w-full justify-center">
+          <div className="max-w-[1300px] border-x-1.5 border-zinc-700">
+            <ComparableProduct
+              index={0}
+              product={product}
+              nextProduct={null}
+              prevProduct={null}
+              isFirst={true}
+              isLast={true}
+            />
+          </div>
         </div>
       </ShopLayout>
     </section>

@@ -21,7 +21,7 @@ const ShopCategoryListItem: React.FC<Props> = ({
       <Link href={`/shop/category/${title.toLowerCase()}`}>
         <div
           className={cn(
-            'group flex w-full cursor-pointer items-center gap-x-2 text-[22px]',
+            'group flex w-full cursor-pointer items-center gap-x-2 text-[20px]',
             {
               'cursor-default pt-0.5 font-bold':
                 (router.query.category as string).toLowerCase() ===
@@ -50,7 +50,7 @@ const ShopCategoryListItem: React.FC<Props> = ({
       </Link>
       {(router.query.category as string).toLowerCase() ===
         title.toLowerCase() && (
-        <div className="flex flex-col gap-y-1 pl-5 pb-2">
+        <div className="flex flex-col gap-y-0.5 pl-5 pb-1.5">
           {subcategories.map((subcat) => (
             <ShopSubcategoryListItem
               category={title}

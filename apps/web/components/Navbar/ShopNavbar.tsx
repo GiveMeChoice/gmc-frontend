@@ -95,7 +95,7 @@ const ShopNavbar: React.FC = () => {
           className="group h-full w-fit"
           onMouseEnter={() => setNavigating(false)}
         >
-          <Link href="/shop" onClick={cycleNavigate}>
+          <Link href="/shop">
             <div className="flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary hover:bg-gmc-surf hover:text-black">
               <Image
                 className="select-none rounded-full"
@@ -108,15 +108,21 @@ const ShopNavbar: React.FC = () => {
             </div>
           </Link>
         </div>
-        <div className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-black hover:text-white">
+        <div
+          onClick={() => setNavigating(true)}
+          className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-black hover:text-white"
+        >
           LABELS
         </div>
         <div
           className="group h-full w-fit"
           onMouseEnter={() => setNavigating(false)}
         >
-          <Link href="/shop/category/apparel" onClick={cycleNavigate}>
-            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-ocean-light-40 hover:text-black">
+          <Link href="/shop/category/apparel">
+            <div
+              onClick={() => setNavigating(true)}
+              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-ocean-light-40 hover:text-black"
+            >
               APPAREL
             </div>
           </Link>
@@ -133,8 +139,11 @@ const ShopNavbar: React.FC = () => {
           className="group h-full w-fit"
           onMouseEnter={() => setNavigating(false)}
         >
-          <Link href="/shop/category/home & kitchen" onClick={cycleNavigate}>
-            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-berry hover:text-black">
+          <Link href="/shop/category/home & kitchen">
+            <div
+              onClick={() => setNavigating(true)}
+              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-berry hover:text-black"
+            >
               HOME & KITCHEN
             </div>
           </Link>
@@ -153,8 +162,11 @@ const ShopNavbar: React.FC = () => {
           className="group h-full w-fit"
           onMouseEnter={() => setNavigating(false)}
         >
-          <Link href="/shop/category/bath & beauty" onClick={cycleNavigate}>
-            <div className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-jungle hover:text-black">
+          <Link href="/shop/category/bath & beauty">
+            <div
+              onClick={() => setNavigating(true)}
+              className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-jungle hover:text-black"
+            >
               BATH & BEAUTY
             </div>
           </Link>
@@ -171,8 +183,11 @@ const ShopNavbar: React.FC = () => {
           className="group h-full w-fit"
           onMouseEnter={() => setNavigating(false)}
         >
-          <Link href="/shop/category/baby" onClick={cycleNavigate}>
-            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-dune hover:text-black">
+          <Link href="/shop/category/baby">
+            <div
+              onClick={() => setNavigating(true)}
+              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-dune hover:text-black"
+            >
               BABY
             </div>
           </Link>
@@ -189,8 +204,11 @@ const ShopNavbar: React.FC = () => {
           className="group h-full w-fit"
           onMouseEnter={() => setNavigating(false)}
         >
-          <Link href="/shop/category/pets" onClick={cycleNavigate}>
-            <div className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-beach hover:text-black">
+          <Link href="/shop/category/pets">
+            <div
+              onClick={() => setNavigating(true)}
+              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-beach hover:text-black"
+            >
               PETS
             </div>
           </Link>

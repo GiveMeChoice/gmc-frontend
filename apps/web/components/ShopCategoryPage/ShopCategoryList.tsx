@@ -5,7 +5,7 @@ interface Props {}
 
 const ShopCategoryList: React.FC<Props> = () => {
   return (
-    <div className="m-7 flex w-full flex-col gap-y-[4px] pl-2 text-zinc-900">
+    <div className="m-7 flex w-full flex-col gap-y-[3px] pl-2 text-zinc-900">
       <ShopCategoryListItem
         title="APPAREL"
         color="#6e79aa"

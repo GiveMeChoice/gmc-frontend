@@ -9,6 +9,7 @@ import ListProduct from '../SearchPage/ListProduct';
 import ListPagingHeader from '../SearchPage/ListPagingHeader';
 import { HeroImage } from 'blog/components/hero-image';
 import { ShopCategoryIntroImage } from './ShopCategoryIntro/ShopCategoryIntroImage';
+import ShopProduct from '../ShopPage/ShopProduct';
 
 interface Props {
   category: string;
@@ -73,28 +74,23 @@ const ShopCategoryContent: React.FC<Props> = ({
           </div>
           <div className="hidden w-8 xl:block"></div>
         </div>
-        <div className="h-10 w-full border-t-1.5 border-zinc-700 bg-white"></div>
+        <div className="h-8 w-full border-t-1.5 border-zinc-700 bg-white"></div>
         <div
           id="search-products"
-          className="mb-3 flex max-h-full w-full flex-wrap items-start justify-start overflow-y-auto overflow-x-hidden"
+          className="mb-4 overflow-y-auto overflow-x-hidden"
         >
           <ListPagingHeader
             searchResponse={data as any}
-            bottom
             nextPage={() => null}
             prevPage={() => null}
             firstPage={() => null}
             lastPage={() => null}
           />
-          {data.data.map((product, i) => (
-            <ListProduct
-              key={i}
-              index={i + data.page * data.pageSize}
-              product={product as any}
-              selectProduct={() => null}
-              isLast={false}
-            />
-          ))}
+          <div className="flex flex-wrap items-start justify-start">
+            {data.data.map((product, i) => (
+              <ShopProduct product={product as any} />
+            ))}
+          </div>
           <ListPagingHeader
             searchResponse={data as any}
             bottom
