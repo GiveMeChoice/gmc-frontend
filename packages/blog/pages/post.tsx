@@ -27,6 +27,10 @@ interface PostPageProps {
 export function PostPage({ data, preview }: PostPageProps) {
   const router = useRouter();
 
+  if (router.isFallback) {
+    return <PostTitle title={'Loading...'} subtitle={''} />;
+  }
+
   const slug = data && data.post ? data.post.slug : '';
   // const {
   //   data: { post, morePosts },
