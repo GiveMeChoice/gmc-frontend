@@ -7,26 +7,25 @@ import axios from 'axios';
 import { PageRequest } from './shared/page-request.interface';
 import { IScreenControl } from './shared/screen-control.interface';
 
-export interface IGmcLabel {
+export interface IGmcBrand {
   id: string;
   name: string;
   description: string;
-  children: IGmcLabel[];
 }
 
-const getOne = async (id: string): Promise<IGmcLabel> => {
-  const res = await axios.get<IGmcLabel>(`/gmc-labels/${id}`);
+const getOne = async (id: string): Promise<IGmcBrand> => {
+  const res = await axios.get<IGmcBrand>(`/gmc-brands/${id}`);
   return res.data;
 };
 
-const getAll = async (): Promise<IGmcLabel> => {
-  const res = await axios.get<IGmcLabel>('/gmc-labels?tree=true');
+const getAll = async (): Promise<IGmcBrand> => {
+  const res = await axios.get<IGmcBrand>('/gmc-brands');
   return res.data;
 };
 
-const gmcLabelsScreenControl: IScreenControl = {
-  pathname: '/config/labels',
-  title: 'Labels',
+const gmcBrandsScreenControl: IScreenControl = {
+  pathname: '/config/brands',
+  title: 'Brands',
   readScreenMeta(data) {
     return data.providersMeta;
   },
@@ -65,8 +64,8 @@ const gmcLabelsScreenControl: IScreenControl = {
   },
 };
 
-export const gmcLabelsService = {
+export const gmcBrandsService = {
   getOne,
   getAll,
-  gmcLabelsScreenControl,
+  gmcBrandsScreenControl,
 };

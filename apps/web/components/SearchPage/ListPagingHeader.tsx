@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 interface Props {
   searchResponse: SearchFunctionResponseDto;
   bottom?: boolean;
+  noTop?: boolean;
   nextPage: () => void;
   prevPage: () => void;
   firstPage: () => void;
@@ -14,6 +15,7 @@ interface Props {
 const ListPagingHeader: React.FC<Props> = ({
   searchResponse,
   bottom,
+  noTop,
   nextPage,
   prevPage,
   firstPage,
@@ -41,6 +43,7 @@ const ListPagingHeader: React.FC<Props> = ({
         'flex h-[52px] w-full max-w-full justify-between divide-x-1.5 divide-zinc-700 border-t-1.5 border-zinc-700',
         {
           'border-b-1.5': bottom,
+          'border-t-0': noTop,
         }
       )}
     >

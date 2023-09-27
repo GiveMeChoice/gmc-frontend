@@ -21,7 +21,7 @@ const ShopCategoryListItem: React.FC<Props> = ({
       <Link href={`/shop/category/${title.toLowerCase()}`}>
         <div
           className={cn(
-            'group flex w-full cursor-pointer items-center gap-x-2 text-[20px]',
+            'group flex w-full cursor-pointer items-center gap-x-2 text-[22px]',
             {
               'cursor-default pt-0.5 font-bold':
                 (router.query.category as string).toLowerCase() ===

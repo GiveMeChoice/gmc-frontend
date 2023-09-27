@@ -32,20 +32,22 @@ const CompareProductImage: React.FC<Props> = ({ product }) => {
   };
 
   return (
-    <div className="flex h-[320px] w-full flex-col items-center justify-center space-y-2">
-      <div className="h-full w-full p-2.5">
+    <div className="bgsecondary flex h-[327px] w-full flex-col items-center justify-center">
+      <div className="h-full w-full">
         <div
           className={cn(
-            'flex w-full items-center justify-center dark:border-white',
+            '-z-10 flex h-full w-full items-center justify-center dark:border-white',
             {
-              'h-[280px]': images.length === 1,
-              'h-64': images.length > 1,
+              'h-[327px]': images.length === 1,
+              'h-[273px]': images.length > 1,
             }
           )}
         >
           <img
             src={images.length ? images[imageIndex].url : ''}
-            className={cn('max-h-full rounded-sm', {
+            className={cn('border--1.5 border-zinc-700', {
+              'h-[327px]': images.length === 1,
+              'h-[273px]': images.length > 1,
               hidden: !loaded,
             })}
             onLoad={() => setLoaded(true)}
@@ -53,13 +55,13 @@ const CompareProductImage: React.FC<Props> = ({ product }) => {
         </div>
       </div>
       {images.length > 1 && (
-        <div className="flex h-10 w-full items-center justify-center space-x-12 pb-4">
+        <div className="flex h-[64px] w-full items-center justify-center space-x-12 border-t border-secondary bg-white pt-1 pb-1.5">
           <button
             className={cn(
-              'rounded- flex h-9 w-14 items-center justify-center px-2',
+              'flex aspect-square h-full items-center justify-center rounded-full border-zinc-700',
               {
-                'border- hover:bg-primary': imageIndex !== 0,
-                'bg-white': imageIndex === 0,
+                ' hover:bg-secondary active:bg-primary': imageIndex !== 0,
+                '': imageIndex === 0,
               }
             )}
             disabled={imageIndex === 0}
@@ -67,7 +69,7 @@ const CompareProductImage: React.FC<Props> = ({ product }) => {
           >
             <img
               draggable={false}
-              src="/img/left-arrow.svg"
+              src="/img/angle-left.svg"
               alt="Left arrow"
               className={cn('w-7', {
                 hidden: imageIndex === 0,
@@ -77,18 +79,22 @@ const CompareProductImage: React.FC<Props> = ({ product }) => {
           <div className="flex items-center justify-center space-x-1.5">
             {Array.from(Array(images.length).keys()).map((i) => (
               <span
-                className={cn(' h-4 w-4 rounded-full border border-zinc-800', {
-                  'bg-white': imageIndex !== i,
-                  'bg-zinc-800': imageIndex === i,
-                })}
+                className={cn(
+                  'h-[15px] w-[15px] rounded-full border border-zinc-800',
+                  {
+                    'bg-white': imageIndex !== i,
+                    'bg-zinc-800': imageIndex === i,
+                  }
+                )}
               />
             ))}
           </div>
           <button
             className={cn(
-              'rounded- flex h-9 w-14 items-center justify-center px-2',
+              'flex aspect-square h-full items-center justify-center rounded-full border-zinc-700',
               {
-                'hover:bg-primary': imageIndex < images.length - 1,
+                'hover:bg-secondary active:bg-primary':
+                  imageIndex < images.length - 1,
                 'bg-white': imageIndex === images.length - 1,
               }
             )}
@@ -97,7 +103,7 @@ const CompareProductImage: React.FC<Props> = ({ product }) => {
           >
             <img
               draggable={false}
-              src="/img/right-arrow.svg"
+              src="/img/angle-right.svg"
               alt="Right arrow"
               className={cn('w-7', {
                 hidden: imageIndex === images.length - 1,

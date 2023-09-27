@@ -24,7 +24,7 @@ const ChoiceBarSummarySortSwitch: React.FC<Props> = ({
         }}
         disabled={!searchResponse.sort}
       >
-        BEST MATCH
+        TOP CHOICE
       </button>
       <button
         className={cn('w-1/2 text-center', {

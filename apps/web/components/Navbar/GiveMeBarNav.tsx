@@ -89,13 +89,13 @@ const GiveMeBarNav: React.FC = () => {
     >
       <button
         className={cn(
-          'flex h-11 w-44 cursor-pointer items-end rounded-full duration-200 hover:bg-zinc-900 hover:shadow-md active:bg-transparent active:shadow-sm'
+          'flex h-[45px] w-[178px] cursor-pointer items-end rounded-full duration-200 hover:bg-zinc-900 hover:shadow-md active:bg-transparent active:shadow-sm'
         )}
         onClick={() => handleSearch()}
       >
         <span
           className={cn(
-            'z-20 flex h-11 w-44 cursor-pointer select-none items-center justify-center rounded-full border-zinc-700 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[5px] hover:translate-x-0.5 active:translate-y-0 active:translate-x-0 active:border-zinc-700'
+            'border1.5 z-20 flex h-[45px] w-[178px] cursor-pointer select-none items-center justify-center rounded-full border-zinc-900 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[5px] hover:translate-x-0.5 active:translate-y-0 active:translate-x-0 active:border-zinc-900'
           )}
         >
           <Image
@@ -103,7 +103,7 @@ const GiveMeBarNav: React.FC = () => {
             draggable={false}
             src="/img/GIVE_ME.svg"
             alt="give me"
-            width="152"
+            width="158"
             height="40"
           />
         </span>
@@ -114,10 +114,11 @@ const GiveMeBarNav: React.FC = () => {
           <input
             id="gmc-search-bar"
             className={cn(
-              'peer min-h-[46px] border-b-3 border-black bg-inherit pl-2 text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-4xl placeholder:text-zinc-900 focus:w-full focus:pl-2.5 focus:text-[31px] focus:placeholder-transparent md:text-left',
+              'peer min-h-[46px] border-b-[3px] border-black bg-inherit text-center outline-none transition-width duration-700 ease-in-out placeholder:pb-0 placeholder:text-[38px] placeholder:text-zinc-900 focus:w-full focus:pl-2.5 focus:text-[31px] focus:placeholder-transparent md:text-left',
               {
                 'w-full pr-6 pl-2.5 text-[31px]': query,
-                'w-32 text-4xl focus:text-[31px]': !query,
+                'w-[132px] pl-[6px] text-4xl focus:pl-2.5 focus:text-[31px]':
+                  !query,
               }
             )}
             value={query}

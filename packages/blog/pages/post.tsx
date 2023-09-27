@@ -27,7 +27,7 @@ interface PostPageProps {
 export function PostPage({ data, preview }: PostPageProps) {
   const router = useRouter();
 
-  const slug = data ? data.post.slug : '';
+  const slug = data && data.post ? data.post.slug : '';
   // const {
   //   data: { post, morePosts },
   // } = usePreviewSubscription<any>(postQuery(preview), {
@@ -179,7 +179,7 @@ export async function getStaticPathsPost() {
   const paths = await sanityClient.fetch(postSlugsQuery(false));
   return {
     paths: paths.map((slug: string) => ({ params: { slug } })),
-    fallback: false,
+    fallback: true,
   };
 }
 

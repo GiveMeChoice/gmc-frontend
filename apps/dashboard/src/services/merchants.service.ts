@@ -64,7 +64,7 @@ const extractMerchantFilters = (filters: IFilters) => ({
 });
 
 const merchantsScreenControl: IScreenControl = {
-  pathname: '/merchants',
+  pathname: '/integration/merchants',
   title: 'Merchants',
   readScreenMeta(data) {
     return data.providersMeta;

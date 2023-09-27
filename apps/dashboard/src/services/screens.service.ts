@@ -16,6 +16,9 @@ import { PageRequest } from './shared/page-request.interface';
 import { PageMeta } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
 import merchantsService from './merchants.service';
+import { gmcCategoriesService } from './gmc-categories.service';
+import { gmcLabelsService } from './gmc-labels.service';
+import { gmcBrandsService } from './gmc-brands.service';
 
 /* 
   Contains array of screen-controls, which are used to dispatch
@@ -79,6 +82,9 @@ const screensService = new ScreensService([
   productsService.productsScreenControl,
   // productsService.mappingAssistantScreenControl,
   // productsService.searchScreenControl,
+  gmcCategoriesService.gmcCategoriesScreenControl,
+  gmcLabelsService.gmcLabelsScreenControl,
+  gmcBrandsService.gmcBrandsScreenControl,
   merchantsService.merchantsScreenControl,
   merchantLabelsService.labelsScreenControl,
   merchantCategoriesService.categoriesScreenControl,

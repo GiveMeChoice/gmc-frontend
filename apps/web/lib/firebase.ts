@@ -19,6 +19,7 @@ const firebaseConfig = {
 };
 
 function createFirebaseApp(config) {
+  console.log('initializing firebase');
   try {
     return getApp();
   } catch {
@@ -26,7 +27,7 @@ function createFirebaseApp(config) {
   }
 }
 
-const firebaseApp = createFirebaseApp(firebaseConfig);
+export const firebaseApp = createFirebaseApp(firebaseConfig);
 
 // Auth exports
 export const auth = getAuth(firebaseApp);

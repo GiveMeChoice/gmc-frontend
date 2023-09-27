@@ -32,6 +32,12 @@ import providersService from './services/providers.service';
 import runsService from './services/runs.service';
 import screensService from './services/screens.service';
 import './styles.css';
+import { gmcCategoriesService } from './services/gmc-categories.service';
+import { gmcLabelsService } from './services/gmc-labels.service';
+import { gmcBrandsService } from './services/gmc-brands.service';
+import GmcCategoriesScreen from './components/screens/gmc-categories-screen';
+import GmcLabelsScreen from './components/screens/gmc-labels-screen';
+import GmcBrandsScreen from './components/screens/gmc-brands-screen';
 
 function App() {
   axios.defaults.baseURL = process.env.PI_API_URL;
@@ -82,16 +88,12 @@ function App() {
           <Route
             index
             element={
-              <Navigate to={productsService.productsScreenControl.pathname} />
+              <Navigate to={merchantsService.merchantsScreenControl.pathname} />
             }
           />
           <Route
             path={runsService.runsScreenControl.pathname}
             element={<RunsScreen />}
-          />
-          <Route
-            path={merchantsService.merchantsScreenControl.pathname}
-            element={<MerchantsScreen />}
           />
           <Route
             path={productsService.productsScreenControl.pathname}
@@ -102,9 +104,13 @@ function App() {
               index
               element={
                 <Navigate
-                  to={providersService.providersScreenControl.pathname}
+                  to={merchantsService.merchantsScreenControl.pathname}
                 />
               }
+            />
+            <Route
+              path={merchantsService.merchantsScreenControl.pathname}
+              element={<MerchantsScreen />}
             />
             <Route
               path={providersService.providersScreenControl.pathname}
@@ -117,6 +123,29 @@ function App() {
             <Route
               path={runsService.runsScreenControl.pathname}
               element={<RunsScreen />}
+            />
+          </Route>
+          <Route path="config">
+            <Route
+              index
+              element={
+                <Navigate
+                  to={gmcCategoriesService.gmcCategoriesScreenControl.pathname}
+                  replace
+                />
+              }
+            />
+            <Route
+              path={gmcCategoriesService.gmcCategoriesScreenControl.pathname}
+              element={<GmcCategoriesScreen />}
+            />
+            <Route
+              path={gmcLabelsService.gmcLabelsScreenControl.pathname}
+              element={<GmcLabelsScreen />}
+            />
+            <Route
+              path={gmcBrandsService.gmcBrandsScreenControl.pathname}
+              element={<GmcBrandsScreen />}
             />
           </Route>
           <Route path="mappings">

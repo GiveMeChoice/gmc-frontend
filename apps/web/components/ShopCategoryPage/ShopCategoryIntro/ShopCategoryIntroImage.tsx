@@ -21,12 +21,12 @@ export const ShopCategoryIntroImage: React.FC<Props> = ({
   priority,
   onClick,
 }) => {
-  const url = urlForImage(source).height(2000).width(2000).url();
+  const url = urlForImage(source).height(1600).width(2000).url();
   const image = source?.asset?._ref ? (
     <Image
       className={cn('', {})}
       layout="responsive"
-      height={2000}
+      height={1600}
       width={2000}
       unoptimized
       loader={() => url}

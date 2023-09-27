@@ -30,7 +30,7 @@ const NavbarSublink: React.FC<Props> = ({ screen, actionType }) => {
 
   return (
     <Link
-      className={cn('flex w-28 justify-center p-3 duration-150', {
+      className={cn('flex w-[120px] justify-center py-3 duration-150', {
         'bolder-text text-primary': screensService.isActive(screen),
         'hover:bolder-text hover:scale-105 hover:text-white':
           !screensService.isActive(screen),

@@ -7,7 +7,11 @@ import ProfileButton from './navbar-top/profile-button';
 const NavbarTop: React.FC = () => {
   const getTitle = (): string => {
     if (screensService.getCurrentScreen().pathname.includes('/mappings/')) {
-      return 'Mappings';
+      return 'Merchant Mappings';
+    } else if (
+      screensService.getCurrentScreen().pathname.includes('/config/')
+    ) {
+      return 'GMC Configuration';
     } else if (
       screensService.getCurrentScreen().pathname.includes('/integration/')
     ) {

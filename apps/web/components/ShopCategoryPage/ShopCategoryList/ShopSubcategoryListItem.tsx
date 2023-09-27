@@ -22,7 +22,7 @@ const ShopSubcategoryListItem: React.FC<Props> = ({
       <Link href={`/shop/category/${category}/${title}`}>
         <div
           className={cn(
-            'group flex w-full cursor-pointer items-center gap-x-2 text-[15px]',
+            'group flex w-full cursor-pointer items-center gap-x-2 text-[16px]',
             {
               'cursor-default font-bold':
                 router.query.subcategory1 &&

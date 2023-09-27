@@ -5,6 +5,9 @@ import screensService from '@root/services/screens.service';
 import cn from 'classnames';
 import React from 'react';
 import NavbarSublink from './navbar-bottom/navbar-sublink';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
+import { gmcLabelsService } from '@root/services/gmc-labels.service';
+import { gmcBrandsService } from '@root/services/gmc-brands.service';
 
 const NavbarBottomMappings: React.FC = () => {
   return (
@@ -15,15 +18,15 @@ const NavbarBottomMappings: React.FC = () => {
       )}
     >
       <NavbarSublink
-        screen={merchantCategoriesService.categoriesScreenControl}
+        screen={gmcCategoriesService.gmcCategoriesScreenControl}
         actionType="SCREEN_REFRESH_MERCHANT_CATEGORIES"
       />
       <NavbarSublink
-        screen={merchantLabelsService.labelsScreenControl}
+        screen={gmcLabelsService.gmcLabelsScreenControl}
         actionType="SCREEN_REFRESH_MERCHANT_LABELS"
       />
       <NavbarSublink
-        screen={merchantBrandsService.brandsScreenControl}
+        screen={gmcBrandsService.gmcBrandsScreenControl}
         actionType="SCREEN_REFRESH_MERCHANT_BRANDS"
       />
       <div
@@ -31,13 +34,13 @@ const NavbarBottomMappings: React.FC = () => {
           'relative top-0 z-0 flex w-28 justify-center duration-300',
           {
             '-left-[355px]': screensService.isActive(
-              merchantCategoriesService.categoriesScreenControl
+              gmcCategoriesService.gmcCategoriesScreenControl
             ),
             '-left-[235px]': screensService.isActive(
-              merchantLabelsService.labelsScreenControl
+              gmcLabelsService.gmcLabelsScreenControl
             ),
             '-left-[115px]': screensService.isActive(
-              merchantBrandsService.brandsScreenControl
+              gmcBrandsService.gmcBrandsScreenControl
             ),
           }
         )}

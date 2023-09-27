@@ -199,6 +199,8 @@ export default function Search({ props }) {
                       nextPage={() => handleChangePage(searchResponse.page + 1)}
                       prevPage={() => handleChangePage(searchResponse.page - 1)}
                       firstPage={() => handleChangePage(0)}
+                      bottom
+                      noTop
                       lastPage={() =>
                         handleChangePage(
                           Math.ceil(

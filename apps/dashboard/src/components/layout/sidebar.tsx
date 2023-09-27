@@ -8,6 +8,7 @@ import providersService from '@root/services/providers.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import ScreenLinkButton from './sidebar/screen-link-button';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
 const GMCLogo = require('../../assets/images/GMC_logo.svg');
 const GMCG = require('../../assets/images/GMC_G.svg');
 const HomeIcon = require('../../assets/images/home-icon.svg');
@@ -92,14 +93,6 @@ const Sidebar: React.FC = () => {
           </ScreenLinkButton>
           <ScreenLinkButton
             screen={merchantsService.merchantsScreenControl}
-            actionType="SCREEN_REFRESH_MERCHANTS"
-            pinExpand={pinExpand}
-            pinShrink={pinShrink}
-          >
-            <img className="h-5" src={CartIcon} alt="tree icon" />
-          </ScreenLinkButton>
-          <ScreenLinkButton
-            screen={providersService.providersScreenControl}
             alternativeTitle="Integration"
             alternativePathMatch="/integration/"
             actionType="SCREEN_REFRESH_PROVIDERS"
@@ -107,6 +100,16 @@ const Sidebar: React.FC = () => {
             pinShrink={pinShrink}
           >
             <img className="h-5" src={TreeIcon} alt="user icon" />
+          </ScreenLinkButton>
+          <ScreenLinkButton
+            screen={gmcCategoriesService.gmcCategoriesScreenControl}
+            alternativeTitle="GMC Config"
+            alternativePathMatch="/config/"
+            actionType="SCREEN_REFRESH_MERCHANTS"
+            pinExpand={pinExpand}
+            pinShrink={pinShrink}
+          >
+            <img className="h-5" src={CartIcon} alt="tree icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
             alternativeTitle="Mappings"

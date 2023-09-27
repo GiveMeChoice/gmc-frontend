@@ -22,17 +22,17 @@ const SearchChoiceBarFacetList: React.FC<Props> = ({
       id="choice-bar-facets"
       className="flex h-full flex-col gap-y-5 bg-white px-7 py-5"
     >
-      {facets.labels.length > 0 && (
-        <SearchChoiceBarLabelFacets
-          activeLabelFilters={activeFilters.labels}
-          labelFacets={facets.labels}
-          onFilterChange={onFilterChange}
-        />
-      )}
       {facets.categories.length > 0 && (
         <SearchChoiceBarCategoryFacets
           categoryFacets={facets.categories}
           activeCategoryFilter={activeFilters.category}
+          onFilterChange={onFilterChange}
+        />
+      )}
+      {facets.labels.length > 0 && (
+        <SearchChoiceBarLabelFacets
+          activeLabelFilters={activeFilters.labels}
+          labelFacets={facets.labels}
           onFilterChange={onFilterChange}
         />
       )}

@@ -16,7 +16,7 @@ const SearchChoiceBarPriceFacets: React.FC<Props> = ({
 }) => {
   return (
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
-      <span className="pl-1.5 text-lg font-bold">Price</span>
+      <span className="pl-1.5 text-lg font-bold">PRICE</span>
       <div className="flex flex-col px-2 pl-3 pt-0.5 text-[17px]">
         {priceFacets.find(
           (pr) => pr.count > 0 && pr.priceRange === 'cheap'

@@ -4,22 +4,21 @@ import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import { useMasterData } from '@root/context-providers/master-data.provider';
 import {
   useScreenData,
   useScreenDataDispatch,
 } from '@root/context-providers/screen-data.provider';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
 import { IMerchant } from '@root/services/merchants.service';
+import productsService from '@root/services/products.service';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import GmcCategorySelect from '../shared/gmc-category-select';
 import CopyIdButton from '../shared/copy-id-button';
 import FramedButton from '../shared/framed-button';
+import GmcCategorySelect from '../shared/gmc-category-select';
 import MerchantChip from './merchants-screen/merchant-chip';
 import ScreenSection from './shared/screen-section';
 import ScreenSectionRow from './shared/screen-section-row';
-import productsService from '@root/services/products.service';
 
 const MerchantCategoriesScreen: React.FC = () => {
   const {
