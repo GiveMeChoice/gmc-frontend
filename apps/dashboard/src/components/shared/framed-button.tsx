@@ -9,7 +9,13 @@ interface Props {
   onClick: () => void;
 }
 
-const FramedButton: React.FC<Props> = ({ title, disabled, count, onClick }) => {
+const FramedButton: React.FC<Props> = ({
+  title,
+  disabled,
+  count,
+  onClick,
+  color,
+}) => {
   if (count === 0) {
     disabled = true;
   }
@@ -21,10 +27,11 @@ const FramedButton: React.FC<Props> = ({ title, disabled, count, onClick }) => {
   const [displayedCount, setDisplayedCount] = useState(0);
   return (
     <div
+      style={{ backgroundColor: color ? color : '' }}
       className={cn('group h-full w-full rounded-md border p-1 text-zinc-900', {
         'rounded-md border-zinc-700 bg-secondary-light-10 hover:bg-primary-light-50 active:bg-primary-light-10':
           !disabled,
-        'rounded-none border-secondary-dark-40 bg-secondary-dark-10': disabled,
+        'rounded-none border-secondary-dark-40 bg-secondary': disabled,
       })}
     >
       <button
@@ -33,7 +40,7 @@ const FramedButton: React.FC<Props> = ({ title, disabled, count, onClick }) => {
           {
             'border border-zinc-700 bg-gmc-glacier-light-50 group-hover:bg-gmc-glacier-light-40 group-active:bg-gmc-glacier-light-30':
               !disabled,
-            'bg-secondary-dark-10 bg-opacity-40 text-zinc-600': disabled,
+            'bg-secondary bg-opacity-40 text-zinc-600': disabled,
           }
         )}
         onClick={onClick}

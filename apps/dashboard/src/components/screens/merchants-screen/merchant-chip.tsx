@@ -38,26 +38,32 @@ const MerchantChip: React.FC<Props> = ({ merchant, clickable }) => {
 
   return (
     <a
-      className={cn(
-        'flex h-8 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-600 bg-white pl-0.5 pr-2',
-        {
-          'cursor-default': !clickable,
-        }
-      )}
       target="_blank"
       rel="noopener noreferrer"
       title={merchant.description}
       onClick={handleMerchantClick}
+      className="group h-9 w-fit rounded-full bg-black"
     >
-      <img
-        src={merchant.logo}
-        title="Merchant Logo"
-        className="h-7 w-7 rounded-full border border-zinc-600 bg-secondary"
-        alt="LOGO"
-      />
-      <span className="text-ellipsis whitespace-nowrap px-0.5 text-xs">
-        {merchant.name}
-      </span>
+      <div
+        className={cn(
+          'flex h-9 w-fit  cursor-pointer items-center gap-x-1 rounded-full border-1.5 border-zinc-600 bg-white pl-1 pr-2 transition-transform duration-150',
+          {
+            'cursor-default': !clickable,
+            'translate-x-[1px] -translate-y-[2px] group-hover:translate-x-[3px] group-hover:-translate-y-[5px] group-active:translate-x-[1px] group-active:-translate-y-[2px]':
+              clickable,
+          }
+        )}
+      >
+        <img
+          src={merchant.logo}
+          title="Merchant Logo"
+          className="h-7 w-7 rounded-full border border-zinc-600 bg-secondary"
+          alt="LOGO"
+        />
+        <span className="text-ellipsis whitespace-nowrap px-0.5 text-xs">
+          {merchant.name}
+        </span>
+      </div>
     </a>
   );
 };

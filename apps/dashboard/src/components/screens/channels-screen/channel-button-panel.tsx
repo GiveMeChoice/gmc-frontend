@@ -58,29 +58,48 @@ const ChannelButtonPanel: React.FC<Props> = ({ channel }) => {
         type: 'SCREEN_UPDATE_CHANNEL',
         value: updated,
       });
+      screenDataDispatch({
+        type: 'SET_TOAST',
+        value: {
+          level: 'INFO',
+          message: 'Run Completed Successfully',
+        },
+      });
     } catch (e) {
-      console.error('integration failed');
-      console.error(formatErrorMessage(e));
+      screenDataDispatch({
+        type: 'SET_TOAST',
+        value: {
+          level: 'ERROR',
+          message: 'Run Failed: ' + formatErrorMessage(e),
+        },
+      });
     }
   };
 
   return (
     <>
-      <FramedButton
-        title="Runs"
-        count={channel.runCount}
-        onClick={handleRunsClick}
-      />
-      <FramedButton
-        title="Products"
-        count={channel.productCount}
-        onClick={handleProductsClick}
-      />
-      <ConfirmableButton
-        title="Execute Run"
-        disabled={!channel.active}
-        onConfirm={() => handleExecuteRun(channel.id)}
-      />
+      <div className="h-1/3 w-full">
+        <FramedButton
+          title="Runs"
+          count={channel.runCount}
+          onClick={handleRunsClick}
+        />
+      </div>
+      <div className="h-1/3 w-full">
+        <FramedButton
+          title="Products"
+          count={channel.productCount}
+          onClick={handleProductsClick}
+        />
+      </div>
+      <div className="flex h-1/3 w-full justify-center">
+        <ConfirmableButton
+          important
+          title="Execute Run"
+          disabled={!channel.active}
+          onConfirm={() => handleExecuteRun(channel.id)}
+        />
+      </div>
     </>
   );
 };

@@ -16,9 +16,15 @@ import {
   FC,
   Reducer,
   useContext,
+  useEffect,
   useReducer,
 } from 'react';
 import { IMerchant } from '@root/services/merchants.service';
+import { IToast } from '@root/services/toast.service';
+import {
+  IGmcCategoryScreenData,
+  gmcCategoriesService,
+} from '@root/services/gmc-categories.service';
 
 export interface IScreenData {
   loading: boolean;
@@ -40,6 +46,8 @@ export interface IScreenData {
   merchantCategoriesMeta: PageMeta;
   merchantBrands: IMerchantBrand[];
   merchantBrandsMeta: PageMeta;
+  gmcCategoryScreenData: IGmcCategoryScreenData;
+  toast?: IToast;
 }
 
 export type ScreenDataAction =
@@ -119,6 +127,22 @@ export type ScreenDataAction =
   | {
       type: 'SCREEN_UPDATE_MERCHANT_BRAND';
       value: IMerchantBrand;
+    }
+  | {
+      type: 'SCREEN_UPDATE_GMC_CATEGORIES';
+      value: IGmcCategoryScreenData;
+    }
+  | {
+      type: 'SET_TOAST';
+      value: IToast;
+    }
+  | {
+      type: 'REMOVE_TOAST';
+      value: IToast;
+    }
+  | {
+      type: 'NO_OP';
+      value: null;
     };
 
 const ScreenDataContext = createContext<IScreenData>(null);
@@ -130,6 +154,18 @@ export const ScreenDataProvider: FC = ({ children }) => {
     dataReducer,
     initialData
   );
+
+  useEffect(() => {
+    gmcCategoriesService.getTop().then((categories) => {
+      dispatch({
+        type: 'SCREEN_UPDATE_GMC_CATEGORIES',
+        value: {
+          ...data.gmcCategoryScreenData,
+          categories: categories.sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      });
+    });
+  }, []);
 
   return (
     <ScreenDataContext.Provider value={data}>
@@ -272,6 +308,25 @@ function dataReducer(data: IScreenData, action: ScreenDataAction): IScreenData {
           c.id === action.value.id ? action.value : c
         ),
       };
+    case 'SCREEN_UPDATE_GMC_CATEGORIES':
+      return {
+        ...data,
+        gmcCategoryScreenData: action.value,
+      };
+    case 'SET_TOAST':
+      return {
+        ...data,
+        toast: action.value,
+      };
+    case 'REMOVE_TOAST':
+      return {
+        ...data,
+        toast: null,
+      };
+    case 'NO_OP':
+      return {
+        ...data,
+      };
     default:
       break;
   }
@@ -298,4 +353,11 @@ export const initialData: IScreenData = {
   merchantBrands: [],
   merchantBrandsMeta: { sort: 'merchantBrandCode', direction: 'ASC' },
   previewProduct: null,
+  gmcCategoryScreenData: {
+    categories: null,
+    subCategories1: null,
+    subCategories2: null,
+    selectedCategoryId: null,
+    selectedSubCategory1Id: null,
+  },
 };

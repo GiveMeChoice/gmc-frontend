@@ -25,10 +25,17 @@ export interface IMasterData {
   providerKeys: KeyType[];
   gmcCategorySelect: ReactFragment[];
   gmcLabelSelect: ReactFragment[];
+  gmcCategoryTitles: EntityTitle[];
+  gmcLabelTitles: EntityTitle[];
   channelStatuses: string[];
   productStatuses: string[];
   jobSchedules: string[];
   merchantRegions: string[];
+}
+
+interface EntityTitle {
+  id: string;
+  name: string;
 }
 
 export type MasterDataContextType = IMasterData & {
@@ -37,6 +44,10 @@ export type MasterDataContextType = IMasterData & {
   readMerchantId: (merchantKey: string) => string;
   readProviderKey: (providerId: string) => string;
   readProviderId: (providerKey: string) => string;
+  readGmcCategoryName: (gmcCategoryId: string) => string;
+  readGmcLabelName: (gmcCategoryId: string) => string;
+  refreshGmcCategories: () => Promise<void>;
+  refreshGmcLabels: () => Promise<void>;
 };
 
 const MasterDataContext = createContext<MasterDataContextType>(null);
@@ -49,6 +60,8 @@ export const MasterDataProvider: React.FC = ({ children }) => {
     providerKeys: [],
     gmcLabelSelect: [],
     gmcCategorySelect: [],
+    gmcCategoryTitles: [],
+    gmcLabelTitles: [],
     merchantRegions: ['UK', 'US', 'NL'],
     channelStatuses: ['READY', 'BUSY', 'DOWN'],
     productStatuses: ['LIVE', 'PENDING', 'EXPIRED'],
@@ -79,8 +92,10 @@ export const MasterDataProvider: React.FC = ({ children }) => {
         gmcLabelsService.getAll(),
         gmcCategoriesService.getAll(),
       ]).then(([merchants, providers, gmcLabels, gmcCategories]) => {
-        const labelSelect: ReactFragment[] = [];
         const categorySelect: ReactFragment[] = [];
+        const categoryTitles: EntityTitle[] = [];
+        const labelSelect: ReactFragment[] = [];
+        const labelTitles: EntityTitle[] = [];
         setMasterData({
           ...masterData,
           merchantKeys: merchants.data.map((m) => ({
@@ -88,12 +103,12 @@ export const MasterDataProvider: React.FC = ({ children }) => {
             key: m.key,
           })),
           providerKeys: providers.data.map((p) => ({ id: p.id, key: p.key })),
-          gmcLabelSelect: prepareTreeOptions(gmcLabels, [], labelSelect),
-          gmcCategorySelect: prepareTreeOptions(
-            gmcCategories,
-            [],
-            categorySelect
+          gmcLabelSelect: traverseTree(gmcLabels, [], labelSelect, labelTitles),
+          gmcLabelTitles: labelTitles,
+          gmcCategorySelect: gmcCategories.map((cat) =>
+            traverseTree(cat, [], categorySelect, categoryTitles)
           ),
+          gmcCategoryTitles: categoryTitles,
         });
         setInitialized(true);
       });
@@ -116,6 +131,41 @@ export const MasterDataProvider: React.FC = ({ children }) => {
     return masterData.providerKeys.find((p) => p.key === providerKey).id;
   };
 
+  const readGmcCategoryName = (gmcCategoryId): string => {
+    return masterData.gmcCategoryTitles.find((t) => t.id === gmcCategoryId)
+      .name;
+  };
+
+  const readGmcLabelName = (gmcLabelId): string => {
+    return masterData.gmcLabelTitles.find((t) => t.id === gmcLabelId).name;
+  };
+
+  const refreshGmcCategories = async () => {
+    gmcCategoriesService.getAll().then((gmcCategories) => {
+      const categorySelect: ReactFragment[] = [];
+      const categoryTitles: EntityTitle[] = [];
+      setMasterData({
+        ...masterData,
+        gmcCategorySelect: gmcCategories.map((cat) =>
+          traverseTree(cat, [], categorySelect, categoryTitles)
+        ),
+        gmcCategoryTitles: categoryTitles,
+      });
+    });
+  };
+
+  const refreshGmcLabels = async () => {
+    gmcLabelsService.getAll().then((gmcLabels) => {
+      const labelSelect: ReactFragment[] = [];
+      const labelTitles: EntityTitle[] = [];
+      setMasterData({
+        ...masterData,
+        gmcLabelSelect: traverseTree(gmcLabels, [], labelSelect, labelTitles),
+        gmcLabelTitles: labelTitles,
+      });
+    });
+  };
+
   return (
     <MasterDataContext.Provider
       value={{
@@ -125,6 +175,10 @@ export const MasterDataProvider: React.FC = ({ children }) => {
         readMerchantKey,
         readProviderId,
         readProviderKey,
+        refreshGmcCategories,
+        refreshGmcLabels,
+        readGmcCategoryName,
+        readGmcLabelName,
       }}
     >
       {children}
@@ -132,14 +186,19 @@ export const MasterDataProvider: React.FC = ({ children }) => {
   );
 };
 
-const prepareTreeOptions = (
+const traverseTree = (
   node: IGmcCategory | IGmcLabel,
   parentNames: string[],
-  options: any[]
+  options: any[],
+  titles: EntityTitle[]
 ) => {
   let levelNames = [];
   if (node.name !== 'Root') {
     levelNames = parentNames.concat([node.name]);
+    titles.push({
+      id: node.id,
+      name: levelNames.join(' > '),
+    });
     options.push(
       <option key={options.length} value={node.id}>
         {levelNames.join(' > ')}
@@ -147,7 +206,7 @@ const prepareTreeOptions = (
     );
   }
   node.children.forEach((cat) => {
-    prepareTreeOptions(cat, levelNames, options);
+    traverseTree(cat, levelNames, options, titles);
   });
   return options;
 };

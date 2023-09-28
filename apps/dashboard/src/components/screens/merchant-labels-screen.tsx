@@ -63,7 +63,7 @@ const MerchantLabelsScreen: React.FC = () => {
 
   return (
     <ScreenSection
-      title={'Labels'}
+      title={'Merchant Labels'}
       sortFields={[
         { name: 'name', title: 'Name' },
         { name: 'createdAt', title: 'Created At' },

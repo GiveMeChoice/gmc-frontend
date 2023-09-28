@@ -88,7 +88,9 @@ function App() {
           <Route
             index
             element={
-              <Navigate to={merchantsService.merchantsScreenControl.pathname} />
+              <Navigate
+                to={merchantCategoriesService.categoriesScreenControl.pathname}
+              />
             }
           />
           <Route

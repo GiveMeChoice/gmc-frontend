@@ -65,16 +65,21 @@ const ProductListRow: React.FC<Props> = ({ product: initialProduct }) => {
                 }
               />
             </div>
-            <div className="flex w-full flex-col items-center justify-center space-y-4">
-              <div className=""></div>
-              <ConfirmableButton
-                title="Refresh Now"
-                onConfirm={handleRefreshProduct}
-              />
-              <ConfirmableButton
-                title="Index Now"
-                onConfirm={handleIndexProduct}
-              />
+            <div className="flex w-full flex-col items-center justify-evenly space-y-3 pt-4">
+              <div className="h-10">
+                <ConfirmableButton
+                  important
+                  title="Refresh Now"
+                  onConfirm={handleRefreshProduct}
+                />
+              </div>
+              <div className="h-10">
+                <ConfirmableButton
+                  important
+                  title="Index Now"
+                  onConfirm={handleIndexProduct}
+                />
+              </div>
             </div>
           </div>
         </div>

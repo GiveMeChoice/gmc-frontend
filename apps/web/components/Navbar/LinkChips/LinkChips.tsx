@@ -9,40 +9,6 @@ const LinkChips: React.FC<Props> = () => {
   const router = useRouter();
   return (
     <div className="hidden items-center gap-x-4 pr-4 text-[14px] xl:flex">
-      {/* <a
-        href="/search"
-        className={cn(
-          'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
-          {}
-        )}
-      >
-        <div
-          className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:bg-gmc-dune active:translate-y-0 active:border-zinc-900 active:bg-gmc-dune',
-            {
-              'border-zinc-900 bg-gmc-dune':
-                router.pathname.includes('/search'),
-              'bg-white': !router.pathname.includes('/search'),
-            }
-          )}
-        >
-          <div
-            className={cn(
-              'flex aspect-square h-7 items-center justify-center rounded-full border border-zinc-900 bg-secondary'
-            )}
-          >
-            <Image
-              className="select-none rounded-full"
-              draggable={false}
-              src="/img/search.svg"
-              alt="give me"
-              width="17"
-              height="17"
-            />
-          </div>
-          <span className="px-2">Search</span>
-        </div>
-      </a> */}
       <a
         href="/shop"
         className={cn(
