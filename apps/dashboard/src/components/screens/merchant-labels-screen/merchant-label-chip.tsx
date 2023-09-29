@@ -11,7 +11,7 @@ const MerchantLabelChip: React.FC<Props> = ({ merchantLabel }) => {
   return (
     <a
       className={cn(
-        'flex h-8 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-600 bg-white pl-0.5 pr-2',
+        'flex h-9 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-600 bg-white pl-1 pr-2.5',
         {
           // 'bg-primary-light-20': merchantLabel.gmcLabelId != null,
           // 'bg-white': merchantLabel.gmcLabelId == null,

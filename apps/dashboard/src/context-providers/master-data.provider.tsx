@@ -103,7 +103,9 @@ export const MasterDataProvider: React.FC = ({ children }) => {
             key: m.key,
           })),
           providerKeys: providers.data.map((p) => ({ id: p.id, key: p.key })),
-          gmcLabelSelect: traverseTree(gmcLabels, [], labelSelect, labelTitles),
+          gmcLabelSelect: gmcLabels.map((lab) =>
+            traverseTree(lab, [], labelSelect, labelTitles)
+          ),
           gmcLabelTitles: labelTitles,
           gmcCategorySelect: gmcCategories.map((cat) =>
             traverseTree(cat, [], categorySelect, categoryTitles)
@@ -187,7 +189,7 @@ export const MasterDataProvider: React.FC = ({ children }) => {
 };
 
 const traverseTree = (
-  node: IGmcCategory | IGmcLabel,
+  node: any,
   parentNames: string[],
   options: any[],
   titles: EntityTitle[]
@@ -205,9 +207,11 @@ const traverseTree = (
       </option>
     );
   }
-  node.children.forEach((cat) => {
-    traverseTree(cat, levelNames, options, titles);
-  });
+  if (node.children && node.children.length) {
+    node.children.forEach((cat) => {
+      traverseTree(cat, levelNames, options, titles);
+    });
+  }
   return options;
 };
 

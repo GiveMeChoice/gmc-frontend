@@ -18,16 +18,14 @@ import { toastService } from '@root/services/toast.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CopyIdButton from '../shared/copy-id-button';
 import FramedButton from '../shared/framed-button';
-import { asyncDelay } from './gmc-categories-screen/gmc-category-column';
 import AssignCategoriesDialog from './merchant-categories-screen/assign-categories-dialog';
 import MerchantChip from './merchants-screen/merchant-chip';
 import ScreenSection from './shared/screen-section';
 import ScreenSectionRow from './shared/screen-section-row';
 const NestArrowIcon = require('../../assets/images/nest-arrow.svg');
 const RightArrowIcon = require('../../assets/images/right-arrow.svg');
-const GMCLogoIcon = require('../../assets/images/GMC_logo.svg');
+const GMCLogoIcon = require('../../assets/images/GMC_G.svg');
 
 const MerchantCategoriesScreen: React.FC = () => {
   const { readGmcCategoryName } = useMasterData();
@@ -48,7 +46,6 @@ const MerchantCategoriesScreen: React.FC = () => {
     merchantCategoryId: string,
     gmcCategoryId: string
   ) => {
-    await asyncDelay(2000);
     try {
       const updated = await merchantCategoriesService.assignGmcCategory(
         merchantCategoryId,
@@ -117,79 +114,88 @@ const MerchantCategoriesScreen: React.FC = () => {
       title={'Merchant Categories'}
       sortFields={[
         { name: 'merchantCategoryCode', title: 'Merchant Category' },
-        { name: 'gmcCategoryId', title: 'GMC Category' },
+        // { name: 'gmcCategoryId', title: 'GMC Category' },
       ]}
       meta={merchantCategoriesMeta}
     >
-      <div className="flex w-full divide-x-2 divide-zinc-900">
+      <div className="flex w-full">
         <div
           className={cn(
-            'flex h-full w-full flex-col divide-y-2 divide-zinc-900',
-            {
-              'w-full': !mappingId,
-              'w-2/3': mappingId,
-            }
+            'flex h-full w-2/3 flex-col divide-y-2 divide-zinc-900 border-r-2 border-zinc-900',
+            {}
           )}
         >
           {merchantCategories.length ? (
             <>
               {merchantCategories.map((merchantCategory, i) => (
                 <ScreenSectionRow key={i}>
-                  <div className="flex w-full divide-x divide-zinc-400">
+                  <div className="flex h-[180px] w-full divide-x divide-zinc-400">
                     <div
                       className={cn(
-                        'flex h-full w-full flex-col justify-center gap-y-4 divide-zinc-400 pl-10 transition-colors duration-500',
+                        'flex h-full w-full flex-col justify-center gap-y-3 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
                         {
-                          'bg-gmc-forest-light-10':
-                            updatedId === merchantCategory.id,
+                          'bg-primary': updatedId === merchantCategory.id,
                         }
                       )}
                     >
                       <div className="flex w-full items-center">
-                        <div className="flex h-full w-[200px] items-center">
+                        <div className="flex h-full w-fit items-center">
                           <MerchantChip
                             merchant={merchantCategory.merchant as IMerchant}
                             clickable={true}
                           />
                         </div>
-                        <span className="pl-0 pr-1 italic">
+                        <div className="w-14">
+                          <hr className="border border-zinc-700" />
+                        </div>
+                        <span className="rounded-sm border border-zinc-700 bg-white py-1.5 px-3 text-center text-[15px] italic">
                           {merchantCategory.name}
                         </span>
-                        <CopyIdButton
-                          id={merchantCategory.merchantCategoryCode}
-                        />
                       </div>
                       {/*  */}
                       <div className="flex items-center">
-                        <div className="mr-4 flex w-[80px] items-center justify-end">
+                        <div className="flex w-[80px] items-center justify-end">
                           <img
                             className="w-1/2"
                             src={NestArrowIcon}
                             alt="curve arrow"
                           />
                         </div>
-                        <div className="mr-7 mt-2 w-[200px]">
-                          <img
-                            className="h-full"
-                            src={GMCLogoIcon}
-                            alt="GMC Logo"
-                          />
-                        </div>
-                        {merchantCategory.gmcCategoryId ? (
-                          <span className="fontbold mt-2 rounded-sm border-2 border-black bg-white px-4 py-1 text-[17px] font-bold text-gmc-berry-dark-20">
-                            {readGmcCategoryName(
-                              merchantCategory.gmcCategoryId
+                        <div className="ml-6 mt-5 flex items-center">
+                          <div
+                            className={cn(
+                              'flex h-[52px] w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
+                              {
+                                'bg-white': !merchantCategory.gmcCategoryId,
+                                'bg-primary': merchantCategory.gmcCategoryId,
+                              }
                             )}
-                          </span>
-                        ) : (
-                          <span className="mt-3 text-lg font-bold italic text-gmc-heart-dark-10">
-                            UNASSIGNED
-                          </span>
-                        )}
+                          >
+                            <img
+                              className="h-[60%]"
+                              src={GMCLogoIcon}
+                              alt="GMC Logo"
+                            />
+                          </div>
+                          <div className="w-14">
+                            <hr className="border border-zinc-700" />
+                          </div>
+                          {merchantCategory.gmcCategoryId ? (
+                            <span className="rounded-lg border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[17px] text-lg font-bold shadow-md shadow-gmc-berry">
+                              {readGmcCategoryName(
+                                merchantCategory.gmcCategoryId
+                              )}
+                            </span>
+                          ) : (
+                            <span className="bgwhite rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[17px] font-bold text-gmc-heart">
+                              UNASSIGNED
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
 
-                    <div className="flex h-full w-[180px] items-center justify-center py-8 px-6">
+                    <div className="flex h-full w-[180px] items-center justify-center py-4 px-4">
                       <FramedButton
                         title={`Products:`}
                         count={merchantCategory.productCount}
@@ -204,7 +210,7 @@ const MerchantCategoriesScreen: React.FC = () => {
                     </div>
                     <button
                       className={cn(
-                        'flex aspect-square h-full items-center justify-center',
+                        'flex aspect-3/4 h-full items-center justify-center',
                         {
                           'cursor-pointer hover:bg-primary active:bg-primary-light-10':
                             !mappingId,
@@ -219,7 +225,7 @@ const MerchantCategoriesScreen: React.FC = () => {
                           : setMappingId(merchantCategory.id)
                       }
                     >
-                      <img className="h-1/2" src={RightArrowIcon} alt="arrow" />
+                      <img className="w-1/2" src={RightArrowIcon} alt="arrow" />
                     </button>
                   </div>
                   <div

@@ -40,7 +40,7 @@ const EditableTextArea: React.FC<Props> = ({
       <span className="w-16 text-xs">{title}</span>
       <textarea
         className={cn(
-          `h-fit ${width} resize-none rounded-sm border p-1.5 pl-2.5 text-sm`,
+          `h-fit ${width} resize-none rounded-sm border p-1 pl-2.5 text-xs`,
           {
             'border-zinc-800 bg-white text-zinc-800': editing,
             'border-zinc-500 bg-secondary-dark-10 bg-opacity-50 text-zinc-500':

@@ -1,31 +1,29 @@
 /* eslint-disable @next/next/no-img-element */
 import LoadingWheel from '@root/components/shared/loading-wheel';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
+import { useMasterData } from '@root/context-providers/master-data.provider';
+import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
+import { formatErrorMessage } from '@root/helpers/format-error-message';
+import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
+import { toastService } from '@root/services/toast.service';
+import cn from 'classnames';
 import React, { useState } from 'react';
 const AddCircleIcon = require('../../../assets/images/add-circle.svg');
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const SaveIcon = require('../../../assets/images/save-icon2.svg');
-import cn from 'classnames';
-import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import { toastService } from '@root/services/toast.service';
-import { formatErrorMessage } from '@root/helpers/format-error-message';
-import { useMasterData } from '@root/context-providers/master-data.provider';
 
 interface Props {
   parentId: string;
-  onCreated: (category: IGmcCategory) => void;
+  onCreated: (label: IGmcLabel) => void;
 }
 
-const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
+const CreateGmcLabelDialog: React.FC<Props> = ({ parentId, onCreated }) => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [description, setDescription] = useState('');
   const [saving, setSaving] = useState(false);
   const dispatch = useScreenDataDispatch();
-  const { refreshGmcCategories } = useMasterData();
+  const { refreshGmcLabels } = useMasterData();
 
   const handleStartEdit = () => {
     setEditing(true);
@@ -35,6 +33,7 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
     setEditing(false);
     setName('');
     setSlug('');
+    setDescription('');
   };
 
   const handleSave = () => {
@@ -48,15 +47,15 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
       alert('SLUG cannot have any spaces....  e.g. "this-is-a-valid-slug"');
     } else {
       setSaving(true);
-      gmcCategoriesService
-        .create(parentId, tmpName, tmpSlug)
+      gmcLabelsService
+        .create(parentId, tmpName, tmpSlug, description)
         .then((created) => {
           onCreated(created);
-          refreshGmcCategories();
+          refreshGmcLabels();
           toastService.setToast(
             {
               level: 'SUCCESS',
-              message: 'Category Created Successfully',
+              message: 'Label Created Successfully',
             },
             dispatch
           );
@@ -76,13 +75,13 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
 
   return editing ? (
     <div
-      className={cn('flex h-32 divide-x-1.5 divide-zinc-400', {
+      className={cn('flex h-48 divide-x-1.5 divide-zinc-400', {
         'bg-secondary-dark-20': saving,
       })}
     >
       <div className="flex h-full w-3/5 flex-col justify-evenly px-4">
         <span className="text-lg font-bold">
-          {!name ? '<New Category>' : name.toUpperCase()}
+          {!name ? '<New Label>' : name.toUpperCase()}
         </span>
         <div className="flex items-center gap-x-2">
           <span className="w-16">NAME</span>
@@ -110,6 +109,19 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
             onChange={(e) => setSlug(e.target.value)}
           />
         </div>
+        <div className="flex items-center gap-x-2">
+          <span className="w-16">DXN</span>
+          <textarea
+            className="h-fit w-full rounded-sm border border-zinc-800 bg-white p-1 pl-2 text-zinc-800"
+            // type="text"
+            title="description"
+            disabled={saving}
+            value={description}
+            // max={999}
+            // min={0}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
       </div>
       <button
         className={cn(
@@ -122,9 +134,9 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
         onClick={handleSave}
       >
         {saving ? (
-          <LoadingWheel size="h-[25%]" />
+          <LoadingWheel size="h-[20%]" />
         ) : (
-          <img className="h-[25%]" src={SaveIcon} alt="save" />
+          <img className="h-[20%]" src={SaveIcon} alt="save" />
         )}
         <span>SAVE</span>
       </button>
@@ -139,7 +151,7 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
         disabled={saving}
         onClick={handleCancel}
       >
-        <img className="h-[23%]" src={CancelIcon} alt="cancel" />
+        <img className="h-[19%]" src={CancelIcon} alt="cancel" />
         <span>CANCEL</span>
       </button>
     </div>
@@ -153,4 +165,4 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
   );
 };
 
-export default CreateGmcCategoryDialog;
+export default CreateGmcLabelDialog;

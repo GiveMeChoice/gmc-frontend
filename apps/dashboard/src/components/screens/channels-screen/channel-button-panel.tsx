@@ -11,6 +11,7 @@ import channelsService, { IChannel } from '@root/services/channels.service';
 import integrationService from '@root/services/integration.service';
 import productsService from '@root/services/products.service';
 import runsService from '@root/services/runs.service';
+import { toastService } from '@root/services/toast.service';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -58,21 +59,21 @@ const ChannelButtonPanel: React.FC<Props> = ({ channel }) => {
         type: 'SCREEN_UPDATE_CHANNEL',
         value: updated,
       });
-      screenDataDispatch({
-        type: 'SET_TOAST',
-        value: {
+      toastService.setToast(
+        {
           level: 'INFO',
           message: 'Run Completed Successfully',
         },
-      });
+        screenDataDispatch
+      );
     } catch (e) {
-      screenDataDispatch({
-        type: 'SET_TOAST',
-        value: {
+      toastService.setToast(
+        {
           level: 'ERROR',
           message: 'Run Failed: ' + formatErrorMessage(e),
         },
-      });
+        screenDataDispatch
+      );
     }
   };
 

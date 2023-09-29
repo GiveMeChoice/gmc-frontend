@@ -25,6 +25,11 @@ import {
   IGmcCategoryScreenData,
   gmcCategoriesService,
 } from '@root/services/gmc-categories.service';
+import {
+  IGmcLabelScreenData,
+  gmcLabelsService,
+} from '@root/services/gmc-labels.service';
+import { IGmcBrand } from '@root/services/gmc-brands.service';
 
 export interface IScreenData {
   loading: boolean;
@@ -46,7 +51,10 @@ export interface IScreenData {
   merchantCategoriesMeta: PageMeta;
   merchantBrands: IMerchantBrand[];
   merchantBrandsMeta: PageMeta;
+  gmcBrands: IGmcBrand[];
+  gmcBrandsMeta: PageMeta;
   gmcCategoryScreenData: IGmcCategoryScreenData;
+  gmcLabelScreenData: IGmcLabelScreenData;
   toast?: IToast;
 }
 
@@ -133,6 +141,26 @@ export type ScreenDataAction =
       value: IGmcCategoryScreenData;
     }
   | {
+      type: 'SCREEN_UPDATE_GMC_LABELS';
+      value: IGmcLabelScreenData;
+    }
+  | {
+      type: 'SCREEN_REFRESH_GMC_BRANDS';
+      value: PageResponse<IGmcBrand>;
+    }
+  | {
+      type: 'SCREEN_UPDATE_GMC_BRAND';
+      value: IGmcBrand;
+    }
+  | {
+      type: 'SCREEN_ADD_GMC_BRAND';
+      value: IGmcBrand;
+    }
+  | {
+      type: 'SCREEN_REMOVE_GMC_BRAND';
+      value: string;
+    }
+  | {
       type: 'SET_TOAST';
       value: IToast;
     }
@@ -162,6 +190,15 @@ export const ScreenDataProvider: FC = ({ children }) => {
         value: {
           ...data.gmcCategoryScreenData,
           categories: categories.sort((a, b) => a.name.localeCompare(b.name)),
+        },
+      });
+    });
+    gmcLabelsService.getTop().then((labels) => {
+      dispatch({
+        type: 'SCREEN_UPDATE_GMC_LABELS',
+        value: {
+          ...data.gmcLabelScreenData,
+          labels: labels.sort((a, b) => a.name.localeCompare(b.name)),
         },
       });
     });
@@ -259,6 +296,12 @@ function dataReducer(data: IScreenData, action: ScreenDataAction): IScreenData {
         merchantBrands: action.value.data,
         merchantBrandsMeta: action.value.meta,
       };
+    case 'SCREEN_REFRESH_GMC_BRANDS':
+      return {
+        ...data,
+        gmcBrands: action.value.data,
+        gmcBrandsMeta: action.value.meta,
+      };
     case 'SCREEN_UPDATE_JOB':
       return {
         ...data,
@@ -308,10 +351,32 @@ function dataReducer(data: IScreenData, action: ScreenDataAction): IScreenData {
           c.id === action.value.id ? action.value : c
         ),
       };
+    case 'SCREEN_UPDATE_GMC_BRAND':
+      return {
+        ...data,
+        gmcBrands: data.gmcBrands.map((b) =>
+          b.id === action.value.id ? action.value : b
+        ),
+      };
+    case 'SCREEN_REMOVE_GMC_BRAND':
+      return {
+        ...data,
+        gmcBrands: data.gmcBrands.filter((b) => b.id !== action.value),
+      };
+    case 'SCREEN_ADD_GMC_BRAND':
+      return {
+        ...data,
+        gmcBrands: [action.value, ...data.gmcBrands],
+      };
     case 'SCREEN_UPDATE_GMC_CATEGORIES':
       return {
         ...data,
         gmcCategoryScreenData: action.value,
+      };
+    case 'SCREEN_UPDATE_GMC_LABELS':
+      return {
+        ...data,
+        gmcLabelScreenData: action.value,
       };
     case 'SET_TOAST':
       return {
@@ -335,6 +400,7 @@ function dataReducer(data: IScreenData, action: ScreenDataAction): IScreenData {
 
 export const initialData: IScreenData = {
   loading: false,
+  previewProduct: null,
   jobs: [],
   providers: [],
   providersMeta: { sort: 'key', direction: 'ASC' },
@@ -352,12 +418,20 @@ export const initialData: IScreenData = {
   merchantCategoriesMeta: { sort: 'merchantCategoryCode', direction: 'ASC' },
   merchantBrands: [],
   merchantBrandsMeta: { sort: 'merchantBrandCode', direction: 'ASC' },
-  previewProduct: null,
+  gmcBrands: [],
+  gmcBrandsMeta: { sort: 'name', direction: 'ASC' },
   gmcCategoryScreenData: {
     categories: null,
     subCategories1: null,
     subCategories2: null,
     selectedCategoryId: null,
     selectedSubCategory1Id: null,
+  },
+  gmcLabelScreenData: {
+    labels: null,
+    subLabels1: null,
+    subLabels2: null,
+    selectedLabelId: null,
+    selectedSubLabel1Id: null,
   },
 };

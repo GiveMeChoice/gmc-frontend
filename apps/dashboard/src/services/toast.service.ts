@@ -12,7 +12,7 @@ const setToast = (
   dispatch({ type: 'SET_TOAST', value: toast });
   setTimeout(() => {
     dispatch({ type: 'REMOVE_TOAST', value: null });
-  }, 5000);
+  }, 4000);
 };
 
 export const toastService = {

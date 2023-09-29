@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+import { useScreenData } from '@root/context-providers/screen-data.provider';
+import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
+import { IMerchantLabel } from '@root/services/merchant-labels.service';
+import React, { useEffect, useState } from 'react';
+import cn from 'classnames';
 import ConfirmableButton from '@root/components/shared/confirmable-button';
 import LoadingWheel from '@root/components/shared/loading-wheel';
-import { useScreenData } from '@root/context-providers/screen-data.provider';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
-import { IMerchantCategory } from '@root/services/merchant-categories.service';
-import cn from 'classnames';
-import React, { useEffect, useState } from 'react';
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const LeftArrowIcon = require('../../../assets/images/left-arrow.svg');
 const RightArrowIcon = require('../../../assets/images/right-arrow.svg');
@@ -16,89 +13,85 @@ const SaveIcon = require('../../../assets/images/save-icon2.svg');
 const CheckIcon = require('../../../assets/images/check-icon.svg');
 
 interface Props {
-  merchantCategory: IMerchantCategory;
+  merchantLabel: IMerchantLabel;
   onCancel: () => void;
-  onAssign: (
-    merchantCategoryId: string,
-    gmcCategoryId: string
-  ) => Promise<void>;
+  onAssign: (merchantLabelId: string, gmcLabelId: string) => Promise<void>;
 }
 
-const AssignCategoriesDialog: React.FC<Props> = ({
-  merchantCategory,
+const AssignLabelsDialog: React.FC<Props> = ({
+  merchantLabel,
   onAssign,
   onCancel,
 }) => {
   const data = useScreenData();
-  const [gmcCategory, setGmcCategory] = useState<IGmcCategory>(null);
-  const [gmcSubCategory, setGmcSubCategory] = useState<IGmcCategory>(null);
-  const [gmcSubCategory2, setGmcSubCategory2] = useState<IGmcCategory>(null);
-  const [categoryList, setCategoryList] = useState<IGmcCategory[]>(null);
+  const [gmcLabel, setGmcLabel] = useState<IGmcLabel>(null);
+  const [gmcSubLabel, setGmcSubLabel] = useState<IGmcLabel>(null);
+  const [gmcSubLabel2, setGmcSubLabel2] = useState<IGmcLabel>(null);
+  const [labelList, setLabelList] = useState<IGmcLabel[]>(null);
 
   useEffect(() => {
-    setCategoryList(data.gmcCategoryScreenData.categories);
+    setLabelList(data.gmcLabelScreenData.labels);
   }, []);
 
   const handleBack = () => {
-    setCategoryList(null);
-    if (gmcSubCategory2) {
-      setGmcSubCategory2(null);
-      gmcCategoriesService.getOne(gmcSubCategory.id).then((cat) => {
-        setCategoryList(cat.children);
+    setLabelList(null);
+    if (gmcSubLabel2) {
+      setGmcSubLabel2(null);
+      gmcLabelsService.getOne(gmcSubLabel.id).then((cat) => {
+        setLabelList(cat.children);
       });
-    } else if (gmcSubCategory) {
-      setGmcSubCategory(null);
-      gmcCategoriesService.getOne(gmcCategory.id).then((cat) => {
-        setCategoryList(cat.children);
+    } else if (gmcSubLabel) {
+      setGmcSubLabel(null);
+      gmcLabelsService.getOne(gmcLabel.id).then((cat) => {
+        setLabelList(cat.children);
       });
     } else {
-      setGmcCategory(null);
-      setCategoryList(data.gmcCategoryScreenData.categories);
+      setGmcLabel(null);
+      setLabelList(data.gmcLabelScreenData.labels);
     }
   };
 
-  const handleSelectCategory = (selectedCategory: IGmcCategory) => {
-    setCategoryList(null);
-    if (gmcSubCategory) {
-      setGmcSubCategory2(selectedCategory);
-    } else if (gmcCategory) {
-      setGmcSubCategory(selectedCategory);
-      gmcCategoriesService.getOne(selectedCategory.id).then((cat) => {
-        setCategoryList(cat.children);
+  const handleSelectLabel = (selectedCategory: IGmcLabel) => {
+    setLabelList(null);
+    if (gmcSubLabel) {
+      setGmcSubLabel2(selectedCategory);
+    } else if (gmcLabel) {
+      setGmcSubLabel(selectedCategory);
+      gmcLabelsService.getOne(selectedCategory.id).then((cat) => {
+        setLabelList(cat.children);
       });
     } else {
-      setGmcCategory(selectedCategory);
-      gmcCategoriesService.getOne(selectedCategory.id).then((cat) => {
-        setCategoryList(cat.children);
+      setGmcLabel(selectedCategory);
+      gmcLabelsService.getOne(selectedCategory.id).then((cat) => {
+        setLabelList(cat.children);
       });
     }
   };
-
   return (
     <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400">
       <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
-        <span className="font-bold">{merchantCategory.merchant.name}</span>
-        <span className="text-sm italic">{merchantCategory.name}</span>
+        <span className="font-bold">{merchantLabel.merchant.name}</span>
+        <span className="text-sm italic">{merchantLabel.name}</span>
       </div>
       <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
         <span className="font-bold">Give Me Choice</span>
         <span className="text-sm italic">
-          {gmcCategory
-            ? gmcSubCategory
-              ? gmcSubCategory2
-                ? `${gmcCategory.name} > ${gmcSubCategory.name} > ${gmcSubCategory2.name}`
-                : `${gmcCategory.name} > ${gmcSubCategory.name} > ...`
-              : `${gmcCategory.name} > ...`
+          {gmcLabel
+            ? gmcSubLabel
+              ? gmcSubLabel2
+                ? `${gmcLabel.name} > ${gmcSubLabel.name} > ${gmcSubLabel2.name}`
+                : `${gmcLabel.name} > ${gmcSubLabel.name} > ...`
+              : `${gmcLabel.name} > ...`
             : '...'}
         </span>
       </div>
       <div className="flex h-16 w-full divide-x-1.5 divide-zinc-400">
         <button
           className={cn(
-            'flex h-full flex-col items-center justify-center space-y-2 hover:bg-gmc-sunset-light-50 active:bg-gmc-sunset-light-20',
+            'flex h-full flex-col items-center justify-center space-y-2 hover:bg-gmc-sunset-light-50 active:bg-gmc-sunset-light-30',
             {
-              'w-full': !gmcCategory,
-              'w-1/2': gmcCategory,
+              'w-full': !gmcLabel,
+              'w-1/2': gmcLabel,
             }
           )}
           onClick={onCancel}
@@ -109,7 +102,7 @@ const AssignCategoriesDialog: React.FC<Props> = ({
           className={cn(
             'flex h-full w-1/2 flex-col items-center justify-center space-y-2 hover:bg-primary active:bg-primary-light-10',
             {
-              hidden: !gmcCategory,
+              hidden: !gmcLabel,
             }
           )}
           onClick={handleBack}
@@ -117,7 +110,7 @@ const AssignCategoriesDialog: React.FC<Props> = ({
           <img className="h-[65%]" src={LeftArrowIcon} alt="cancel" />
         </button>
       </div>
-      {gmcSubCategory2 ? (
+      {gmcSubLabel2 ? (
         <div className="flex h-32 w-full items-center justify-center p-4">
           <ConfirmableButton
             important
@@ -127,11 +120,11 @@ const AssignCategoriesDialog: React.FC<Props> = ({
                 <span className="text-sm">ASSIGN CATEGORY</span>
               </div>
             }
-            onConfirm={() => onAssign(merchantCategory.id, gmcSubCategory2.id)}
+            onConfirm={() => onAssign(merchantLabel.id, gmcSubLabel2.id)}
           />
         </div>
-      ) : categoryList ? (
-        categoryList.map((category) => (
+      ) : labelList ? (
+        labelList.map((category) => (
           <div className="flex h-16 w-full divide-x-1.5 divide-zinc-400">
             <div className="flex w-3/4 items-center justify-center bg-white text-lg">
               {category.name}
@@ -141,9 +134,9 @@ const AssignCategoriesDialog: React.FC<Props> = ({
                 'flex w-1/4 cursor-pointer items-center justify-center hover:bg-primary active:bg-primary-light-10',
                 {}
               )}
-              onClick={() => handleSelectCategory(category)}
+              onClick={() => handleSelectLabel(category)}
             >
-              {gmcSubCategory ? (
+              {gmcSubLabel ? (
                 <img className="h-1/2" src={CheckIcon} alt="check" />
               ) : (
                 <img className="h-1/2" src={RightArrowIcon} alt="arrow" />
@@ -161,4 +154,4 @@ const AssignCategoriesDialog: React.FC<Props> = ({
   );
 };
 
-export default AssignCategoriesDialog;
+export default AssignLabelsDialog;

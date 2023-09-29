@@ -8,6 +8,7 @@ import { PageRequest } from './shared/page-request.interface';
 import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
 import { IMerchant } from './merchants.service';
+import { IGmcBrand } from './gmc-brands.service';
 
 export interface IMerchantBrand {
   id: string;
@@ -18,8 +19,11 @@ export interface IMerchantBrand {
   logo: string;
   url: string;
   createdAt: Date;
+  gmcBrandId?: string;
   // groupId?: string; //TODO
+  gmcBrand?: IGmcBrand;
   merchant?: Partial<IMerchant>;
+  productCount: number;
 }
 
 const getOne = async (id): Promise<IMerchantBrand> => {
@@ -48,6 +52,22 @@ const find = async (
     extractMerchantBrandFilters(filters),
     {
       params: pageRequest,
+    }
+  );
+  return res.data;
+};
+
+const assignGmcBrand = async (
+  merchantBrandId: string,
+  gmcBrandId: string
+): Promise<IMerchantBrand> => {
+  const res = await axios.post<IMerchantBrand>(
+    `/merchant-brands/${merchantBrandId}/assign`,
+    {},
+    {
+      params: {
+        gmcBrandId,
+      },
     }
   );
   return res.data;
@@ -104,6 +124,7 @@ const merchantBrandsService = {
   getOne,
   getAll,
   find,
+  assignGmcBrand,
   brandsScreenControl: merchantBrandsScreenControl,
 };
 export default merchantBrandsService;

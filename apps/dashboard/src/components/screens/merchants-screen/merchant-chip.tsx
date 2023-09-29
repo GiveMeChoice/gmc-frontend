@@ -46,7 +46,7 @@ const MerchantChip: React.FC<Props> = ({ merchant, clickable }) => {
     >
       <div
         className={cn(
-          'flex h-9 w-fit  cursor-pointer items-center gap-x-1 rounded-full border-1.5 border-zinc-600 bg-white pl-1 pr-2 transition-transform duration-150',
+          'flex h-9 w-fit  cursor-pointer items-center gap-x-1 rounded-full border-1.5 border-zinc-600 bg-white pl-1 pr-2.5 transition-transform duration-150',
           {
             'cursor-default': !clickable,
             'translate-x-[1px] -translate-y-[2px] group-hover:translate-x-[3px] group-hover:-translate-y-[5px] group-active:translate-x-[1px] group-active:-translate-y-[2px]':
@@ -60,7 +60,7 @@ const MerchantChip: React.FC<Props> = ({ merchant, clickable }) => {
           className="h-7 w-7 rounded-full border border-zinc-600 bg-secondary"
           alt="LOGO"
         />
-        <span className="text-ellipsis whitespace-nowrap px-0.5 text-xs">
+        <span className="text-ellipsis whitespace-nowrap px-0.5 text-xs font-bold">
           {merchant.name}
         </span>
       </div>

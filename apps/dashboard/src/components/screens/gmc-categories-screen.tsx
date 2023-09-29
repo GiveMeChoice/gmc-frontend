@@ -1,33 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import ScreenSection from './shared/screen-section';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
-import LoadingWheel from '../shared/loading-wheel';
-import GmcCategoryColumn from './gmc-categories-screen/gmc-category-column';
 import {
   useScreenData,
   useScreenDataDispatch,
 } from '@root/context-providers/screen-data.provider';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
+import React, { useEffect } from 'react';
+import LoadingWheel from '../shared/loading-wheel';
+import GmcCategoryColumn from './gmc-categories-screen/gmc-category-column';
+import ScreenSection from './shared/screen-section';
 
 const GmcCategoriesScreen: React.FC = () => {
   const data = useScreenData();
   const dispach = useScreenDataDispatch();
-
-  useEffect(() => {
-    if (!data.gmcCategoryScreenData.categories) {
-      gmcCategoriesService.getTop().then((categories) => {
-        dispach({
-          type: 'SCREEN_UPDATE_GMC_CATEGORIES',
-          value: {
-            ...data.gmcCategoryScreenData,
-            categories: categories.sort((a, b) => a.name.localeCompare(b.name)),
-          },
-        });
-      });
-    }
-  }, [data.gmcCategoryScreenData]);
 
   const handleSelectCategory = (categoryId: string) => {
     dispach({

@@ -25,6 +25,8 @@ export interface IFilters {
   merchantCategoryCode?: string;
   gmcCategoryId?: string;
   categoryUnassigned?: boolean;
+  gmcBrandId?: string;
+  merchantBrandCode?: string;
 }
 
 export type FiltersContextType = {
@@ -77,6 +79,8 @@ export const initialFilters: IFilters = {
   gmcLabelId: '',
   merchantCategoryCode: '',
   gmcCategoryId: '',
+  gmcBrandId: '',
+  merchantBrandCode: '',
 };
 
 const FiltersContext = createContext<FiltersContextType>(null);
