@@ -379,6 +379,9 @@ function dataReducer(data: IScreenData, action: ScreenDataAction): IScreenData {
         gmcLabelScreenData: action.value,
       };
     case 'SET_TOAST':
+      if (data.toast) {
+        clearTimeout(data.toast.timeoutId);
+      }
       return {
         ...data,
         toast: action.value,
@@ -424,14 +427,14 @@ export const initialData: IScreenData = {
     categories: null,
     subCategories1: null,
     subCategories2: null,
-    selectedCategoryId: null,
-    selectedSubCategory1Id: null,
+    selectedCategory: null,
+    selectedSubCategory1: null,
   },
   gmcLabelScreenData: {
     labels: null,
     subLabels1: null,
     subLabels2: null,
-    selectedLabelId: null,
-    selectedSubLabel1Id: null,
+    selectedLabel: null,
+    selectedSubLabel1: null,
   },
 };

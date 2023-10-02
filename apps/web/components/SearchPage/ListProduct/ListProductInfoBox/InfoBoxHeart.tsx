@@ -39,12 +39,11 @@ const InfoBoxHeart: React.FC<Props> = ({
       <div
         id="buybox-heart"
         className={cn(
-          'list-heart h-11 w-11 cursor-pointer select-none fill-white stroke-zinc-800 transition-all duration-150 active:scale-[1.1]',
+          'list-heart h-11 w-11 cursor-pointer select-none fill-white stroke-zinc-800 transition-all duration-100 active:scale-[1.07]',
           {
-            'fill-gmc-heart stroke-gmc-heart-dark-10 active:fill-gmc-heart-light-10':
+            'fill-gmc-heart active:fill-gmc-heart-light-10':
               favorited && user.user,
-            'hover:scale-[1.02] active:fill-gmc-heart-light-10 active:stroke-gmc-heart':
-              !favorited && user.user,
+            ' active:fill-gmc-heart-light-10': !favorited && user.user,
           }
         )}
         onClick={handleClick}

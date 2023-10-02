@@ -18,9 +18,9 @@ const LinkChips: React.FC<Props> = () => {
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:translate-x-0.5 active:translate-x-0 active:translate-y-0 active:border-zinc-900 active:bg-primary',
+            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:translate-x-0.5 hover:bg-gmc-surf active:translate-x-0 active:translate-y-0 active:border-zinc-900',
             {
-              'border-zinc-900 bg-primary': router.pathname.includes('/shop'),
+              'border-zinc-900 bg-gmc-surf': router.pathname.includes('/shop'),
               'bg-white': !router.pathname.includes('/shop'),
             }
           )}
@@ -52,9 +52,10 @@ const LinkChips: React.FC<Props> = () => {
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:translate-x-0.5 hover:-translate-y-1  active:translate-x-0 active:translate-y-0 active:border-zinc-900 active:bg-primary',
+            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:translate-x-0.5 hover:-translate-y-1  hover:bg-gmc-sunset active:translate-x-0 active:translate-y-0 active:border-zinc-900',
             {
-              'border-zinc-900 bg-primary': router.pathname.includes('/blog'),
+              'border-zinc-900 bg-gmc-sunset':
+                router.pathname.includes('/blog'),
               'bg-white': !router.pathname.includes('/blog'),
             }
           )}

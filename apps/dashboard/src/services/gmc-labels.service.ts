@@ -21,8 +21,8 @@ export interface IGmcLabelScreenData {
   labels: IGmcLabel[];
   subLabels1: IGmcLabel[];
   subLabels2: IGmcLabel[];
-  selectedLabelId: string;
-  selectedSubLabel1Id: string;
+  selectedLabel: IGmcLabel;
+  selectedSubLabel1: IGmcLabel;
 }
 
 const getOne = async (id: string): Promise<IGmcLabel> => {

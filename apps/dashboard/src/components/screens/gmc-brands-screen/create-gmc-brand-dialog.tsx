@@ -48,7 +48,7 @@ const CreateGmcBrandDialog: React.FC<Props> = ({ onCreated }) => {
         toastService.setToast(
           {
             level: 'SUCCESS',
-            message: 'Bradn Created Successfully',
+            message: 'Brand Created Successfully',
           },
           dispatch
         );

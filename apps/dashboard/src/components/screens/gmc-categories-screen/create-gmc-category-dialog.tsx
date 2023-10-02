@@ -15,11 +15,16 @@ import { formatErrorMessage } from '@root/helpers/format-error-message';
 import { useMasterData } from '@root/context-providers/master-data.provider';
 
 interface Props {
-  parentId: string;
+  superParent?: IGmcCategory;
+  parent?: IGmcCategory;
   onCreated: (category: IGmcCategory) => void;
 }
 
-const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
+const CreateGmcCategoryDialog: React.FC<Props> = ({
+  superParent,
+  parent,
+  onCreated,
+}) => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
@@ -49,7 +54,7 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
     } else {
       setSaving(true);
       gmcCategoriesService
-        .create(parentId, tmpName, tmpSlug)
+        .create(parent.id, tmpName, tmpSlug)
         .then((created) => {
           onCreated(created);
           refreshGmcCategories();
@@ -76,13 +81,18 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
 
   return editing ? (
     <div
-      className={cn('flex h-32 divide-x-1.5 divide-zinc-400', {
+      className={cn('flex h-48 divide-x-1.5 divide-zinc-400', {
         'bg-secondary-dark-20': saving,
       })}
     >
-      <div className="flex h-full w-3/5 flex-col justify-evenly px-4">
+      <div className="flex h-full w-4/5 flex-col justify-evenly px-4">
         <span className="text-lg font-bold">
           {!name ? '<New Category>' : name.toUpperCase()}
+        </span>
+        <span className="text-sm italic">
+          /shop/category/{superParent ? superParent.slug + '/' : ''}
+          {parent ? parent.slug + '/' : ''}
+          {slug.toLowerCase()}
         </span>
         <div className="flex items-center gap-x-2">
           <span className="w-16">NAME</span>
@@ -111,37 +121,39 @@ const CreateGmcCategoryDialog: React.FC<Props> = ({ parentId, onCreated }) => {
           />
         </div>
       </div>
-      <button
-        className={cn(
-          'flex h-full w-1/5 flex-col items-center justify-center space-y-4',
-          {
-            'hover:bg-primary active:bg-primary-light-10': !saving,
-          }
-        )}
-        disabled={saving}
-        onClick={handleSave}
-      >
-        {saving ? (
-          <LoadingWheel size="h-[25%]" />
-        ) : (
-          <img className="h-[25%]" src={SaveIcon} alt="save" />
-        )}
-        <span>SAVE</span>
-      </button>
-      <button
-        className={cn(
-          'flex h-full w-1/5 flex-col items-center justify-center space-y-4',
-          {
-            'hover:bg-gmc-sunset-light-30 active:bg-gmc-sunset-light-10':
-              !saving,
-          }
-        )}
-        disabled={saving}
-        onClick={handleCancel}
-      >
-        <img className="h-[23%]" src={CancelIcon} alt="cancel" />
-        <span>CANCEL</span>
-      </button>
+      <div className="h-full w-1/5 divide-y-1.5 divide-zinc-500">
+        <button
+          className={cn(
+            'flex h-1/2 w-full flex-col items-center justify-center space-y-4',
+            {
+              'hover:bg-primary active:bg-primary-light-10': !saving,
+            }
+          )}
+          disabled={saving}
+          onClick={handleSave}
+        >
+          {saving ? (
+            <LoadingWheel size="h-[20%]" />
+          ) : (
+            <img className="h-[20%]" src={SaveIcon} alt="save" />
+          )}
+          <span>SAVE</span>
+        </button>
+        <button
+          className={cn(
+            'flex h-1/2 w-full flex-col items-center justify-center space-y-4',
+            {
+              'hover:bg-gmc-sunset-light-30 active:bg-gmc-sunset-light-10':
+                !saving,
+            }
+          )}
+          disabled={saving}
+          onClick={handleCancel}
+        >
+          <img className="h-[19%]" src={CancelIcon} alt="cancel" />
+          <span>CANCEL</span>
+        </button>
+      </div>
     </div>
   ) : (
     <div

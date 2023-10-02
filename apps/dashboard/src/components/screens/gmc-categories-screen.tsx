@@ -2,8 +2,11 @@ import {
   useScreenData,
   useScreenDataDispatch,
 } from '@root/context-providers/screen-data.provider';
-import { gmcCategoriesService } from '@root/services/gmc-categories.service';
-import React, { useEffect } from 'react';
+import {
+  IGmcCategory,
+  gmcCategoriesService,
+} from '@root/services/gmc-categories.service';
+import React from 'react';
 import LoadingWheel from '../shared/loading-wheel';
 import GmcCategoryColumn from './gmc-categories-screen/gmc-category-column';
 import ScreenSection from './shared/screen-section';
@@ -12,24 +15,24 @@ const GmcCategoriesScreen: React.FC = () => {
   const data = useScreenData();
   const dispach = useScreenDataDispatch();
 
-  const handleSelectCategory = (categoryId: string) => {
+  const handleSelectCategory = (category: IGmcCategory) => {
     dispach({
       type: 'SCREEN_UPDATE_GMC_CATEGORIES',
       value: {
         ...data.gmcCategoryScreenData,
-        selectedCategoryId: categoryId,
-        selectedSubCategory1Id: null,
+        selectedCategory: category,
+        selectedSubCategory1: null,
         subCategories1: null,
         subCategories2: null,
       },
     });
-    gmcCategoriesService.getOne(categoryId).then((category) => {
+    gmcCategoriesService.getOne(category.id).then((category) => {
       dispach({
         type: 'SCREEN_UPDATE_GMC_CATEGORIES',
         value: {
           ...data.gmcCategoryScreenData,
-          selectedCategoryId: categoryId,
-          selectedSubCategory1Id: null,
+          selectedCategory: category,
+          selectedSubCategory1: null,
           subCategories1: category.children.sort((a, b) =>
             a.name.localeCompare(b.name)
           ),
@@ -39,21 +42,21 @@ const GmcCategoriesScreen: React.FC = () => {
     });
   };
 
-  const handleSelectSubCategory1 = (subCategoryId: string) => {
+  const handleSelectSubCategory1 = (subCategory) => {
     dispach({
       type: 'SCREEN_UPDATE_GMC_CATEGORIES',
       value: {
         ...data.gmcCategoryScreenData,
-        selectedSubCategory1Id: subCategoryId,
+        selectedSubCategory1: subCategory,
         subCategories2: null,
       },
     });
-    gmcCategoriesService.getOne(subCategoryId).then((category) => {
+    gmcCategoriesService.getOne(subCategory.id).then((category) => {
       dispach({
         type: 'SCREEN_UPDATE_GMC_CATEGORIES',
         value: {
           ...data.gmcCategoryScreenData,
-          selectedSubCategory1Id: subCategoryId,
+          selectedSubCategory1: subCategory,
           subCategories2: category.children.sort((a, b) =>
             a.name.localeCompare(b.name)
           ),
@@ -68,8 +71,8 @@ const GmcCategoriesScreen: React.FC = () => {
         <div className="flex w-1/3 justify-center">
           {data.gmcCategoryScreenData.categories ? (
             <GmcCategoryColumn
+              selected={data.gmcCategoryScreenData.selectedCategory}
               categories={data.gmcCategoryScreenData.categories}
-              selectedId={data.gmcCategoryScreenData.selectedCategoryId}
               onSelectCategory={handleSelectCategory}
             />
           ) : (
@@ -79,12 +82,12 @@ const GmcCategoriesScreen: React.FC = () => {
           )}
         </div>
         <div className="w-1/3">
-          {data.gmcCategoryScreenData.selectedCategoryId &&
+          {data.gmcCategoryScreenData.selectedCategory &&
             (data.gmcCategoryScreenData.subCategories1 ? (
               <GmcCategoryColumn
-                parentId={data.gmcCategoryScreenData.selectedCategoryId}
+                parent={data.gmcCategoryScreenData.selectedCategory}
                 categories={data.gmcCategoryScreenData.subCategories1}
-                selectedId={data.gmcCategoryScreenData.selectedSubCategory1Id}
+                selected={data.gmcCategoryScreenData.selectedSubCategory1}
                 onSelectCategory={handleSelectSubCategory1}
               />
             ) : (
@@ -94,10 +97,11 @@ const GmcCategoriesScreen: React.FC = () => {
             ))}
         </div>
         <div className="w-1/3">
-          {data.gmcCategoryScreenData.selectedSubCategory1Id &&
+          {data.gmcCategoryScreenData.selectedSubCategory1 &&
             (data.gmcCategoryScreenData.subCategories2 ? (
               <GmcCategoryColumn
-                parentId={data.gmcCategoryScreenData.selectedSubCategory1Id}
+                superParent={data.gmcCategoryScreenData.selectedCategory}
+                parent={data.gmcCategoryScreenData.selectedSubCategory1}
                 categories={data.gmcCategoryScreenData.subCategories2}
               />
             ) : (

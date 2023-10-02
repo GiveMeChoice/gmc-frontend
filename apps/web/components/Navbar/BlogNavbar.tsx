@@ -115,7 +115,7 @@ const BlogNavbar: React.FC = () => {
             onMouseEnter={() => setNavigating(false)}
           >
             <Link href="/blog" onClick={cycleNavigate}>
-              <div className="flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary hover:bg-gmc-sunset hover:text-black">
+              <div className="flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary hover:bg-primary hover:text-black">
                 <Image
                   className="select-none rounded-full"
                   draggable={false}
@@ -203,7 +203,7 @@ const BlogNavbar: React.FC = () => {
             className={cn(
               'flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
               {
-                'hover:bg-gmc-sunset': !navigating,
+                'hover:bg-primary': !navigating,
               }
             )}
             onClick={() => {

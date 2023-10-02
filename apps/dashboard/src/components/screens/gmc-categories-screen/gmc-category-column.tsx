@@ -23,29 +23,32 @@ const DeleteIcon = require('../../../assets/images/delete-icon.svg');
 
 interface Props {
   categories: IGmcCategory[];
-  parentId?: string;
-  selectedId?: string;
-  onSelectCategory?: (id: string) => void;
+  superParent?: IGmcCategory;
+  parent?: IGmcCategory;
+  selected?: IGmcCategory;
+  onSelectCategory?: (category: IGmcCategory) => void;
 }
 
 const GmcCategoryColumn: React.FC<Props> = ({
   categories: initialCategories,
-  parentId,
-  selectedId,
+  superParent,
+  parent,
+  selected,
   onSelectCategory,
 }) => {
   useEffect(() => {
     setCategories(initialCategories);
   }, []);
+
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useScreenDataDispatch();
   const filtersDispatch = useFiltersDispatch();
   const navigate = useNavigate();
 
-  const handleSelectSubcategory = (id) => {
-    if (onSelectCategory && id !== selectedId) {
-      onSelectCategory(id);
+  const handleSelectSubcategory = (category) => {
+    if (!selected || selected.id !== category.id) {
+      onSelectCategory(category);
     }
   };
 
@@ -111,9 +114,10 @@ const GmcCategoryColumn: React.FC<Props> = ({
 
   return (
     <div className="flex w-full flex-col divide-y-1.5 divide-zinc-900">
-      {parentId && (
+      {parent && (
         <CreateGmcCategoryDialog
-          parentId={parentId}
+          superParent={superParent}
+          parent={parent}
           onCreated={handleAfterCategoryCreated}
         />
       )}
@@ -121,14 +125,19 @@ const GmcCategoryColumn: React.FC<Props> = ({
         categories.map((cat) => (
           <div
             className={cn('flex w-full divide-x-1.5 divide-zinc-400', {
-              'bg-gmc-berry-light-50': selectedId === cat.id,
-              'h-36': !parentId,
-              'h-44': parentId,
+              'bg-gmc-berry-light-50': selected && selected.id === cat.id,
+              'h-36': !parent,
+              'h-44': parent,
             })}
           >
             <div className="flex w-full flex-col justify-evenly px-5">
               <span className="text-lg font-bold">
                 {cat.name.toUpperCase()}
+              </span>
+              <span className="pb-1 pl-1 text-xs italic text-zinc-700">
+                /shop/category/{superParent ? superParent.slug + '/' : ''}
+                {parent ? parent.slug + '/' : ''}
+                {cat.slug.toLowerCase()}
               </span>
               <div className="flex flex-col pl-4">
                 <EditableField
@@ -136,19 +145,21 @@ const GmcCategoryColumn: React.FC<Props> = ({
                   initialValue={cat.name}
                   fieldType={'text'}
                   width="w-full"
+                  disabled={!parent || !superParent}
                   loading={loading}
                   onSave={(name) => handleUpdateCategory(cat.id, { name })}
                 />
                 <EditableField
                   title="SLUG"
                   initialValue={cat.slug}
+                  disabled={!parent || !superParent}
                   fieldType={'text'}
                   width="w-full"
                   loading={loading}
                   onSave={(slug) => handleUpdateCategory(cat.id, { slug })}
                 />
               </div>
-              {parentId && (
+              {parent && (
                 <div className="flex h-7 w-full justify-start pl-0.5">
                   <ConfirmableButton
                     onConfirm={() => handleDeleteCategory(cat.id)}
@@ -159,7 +170,7 @@ const GmcCategoryColumn: React.FC<Props> = ({
                           src={DeleteIcon}
                           alt="delete"
                         />
-                        <span>Delete</span>
+                        <span className="text-sm">Delete</span>
                       </>
                     }
                   />
@@ -168,18 +179,16 @@ const GmcCategoryColumn: React.FC<Props> = ({
             </div>
             {onSelectCategory ? (
               <div
-                className={cn('flex min-w-[25%] items-center justify-center', {
+                className={cn('flex w-[25%] items-center justify-center', {
                   'cursor-pointer hover:bg-primary active:bg-primary-light-10 ':
-                    selectedId !== cat.id,
+                    !selected || selected.id !== cat.id,
                 })}
-                onClick={() => handleSelectSubcategory(cat.id)}
+                onClick={() => handleSelectSubcategory(cat)}
               >
                 <img className="w-[35%]" src={RightArrowIcon} alt="arrow" />
               </div>
             ) : (
-              <div
-                className={cn('flex min-w-[25%] items-center justify-center')}
-              >
+              <div className={cn('flex w-[25%] items-center justify-center')}>
                 <FramedButton
                   onClick={() => handleMerchantCategoriesClick(cat.id)}
                   title="Merchant Categories"

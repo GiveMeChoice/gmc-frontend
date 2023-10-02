@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import ConfirmableButton from '@root/components/shared/confirmable-button';
 import LoadingWheel from '@root/components/shared/loading-wheel';
+import MerchantLabelChip from './merchant-label-chip';
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const LeftArrowIcon = require('../../../assets/images/left-arrow.svg');
 const RightArrowIcon = require('../../../assets/images/right-arrow.svg');
@@ -51,29 +52,30 @@ const AssignLabelsDialog: React.FC<Props> = ({
     }
   };
 
-  const handleSelectLabel = (selectedCategory: IGmcLabel) => {
+  const handleSelectLabel = (selectedLabel: IGmcLabel) => {
     setLabelList(null);
     if (gmcSubLabel) {
-      setGmcSubLabel2(selectedCategory);
+      setGmcSubLabel2(selectedLabel);
     } else if (gmcLabel) {
-      setGmcSubLabel(selectedCategory);
-      gmcLabelsService.getOne(selectedCategory.id).then((cat) => {
+      setGmcSubLabel(selectedLabel);
+      gmcLabelsService.getOne(selectedLabel.id).then((cat) => {
         setLabelList(cat.children);
       });
     } else {
-      setGmcLabel(selectedCategory);
-      gmcLabelsService.getOne(selectedCategory.id).then((cat) => {
+      setGmcLabel(selectedLabel);
+      gmcLabelsService.getOne(selectedLabel.id).then((cat) => {
         setLabelList(cat.children);
       });
     }
   };
   return (
     <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400">
-      <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
+      <div className="flex h-fit w-full flex-col items-center space-y-2 bg-white py-3">
         <span className="font-bold">{merchantLabel.merchant.name}</span>
-        <span className="text-sm italic">{merchantLabel.name}</span>
+        <MerchantLabelChip merchantLabel={merchantLabel} />
+        <span className="text-sm italic">{merchantLabel.description}</span>
       </div>
-      <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
+      <div className="flex h-fit w-full flex-col items-center space-y-2 bg-white py-3">
         <span className="font-bold">Give Me Choice</span>
         <span className="text-sm italic">
           {gmcLabel
@@ -117,24 +119,24 @@ const AssignLabelsDialog: React.FC<Props> = ({
             title={
               <div className="m-2 flex h-full w-full flex-col items-center justify-center">
                 <img className="h-[40%]" src={SaveIcon} alt="save" />
-                <span className="text-sm">ASSIGN CATEGORY</span>
+                <span className="text-sm">ASSIGN LABEL</span>
               </div>
             }
             onConfirm={() => onAssign(merchantLabel.id, gmcSubLabel2.id)}
           />
         </div>
       ) : labelList ? (
-        labelList.map((category) => (
+        labelList.map((label) => (
           <div className="flex h-16 w-full divide-x-1.5 divide-zinc-400">
             <div className="flex w-3/4 items-center justify-center bg-white text-lg">
-              {category.name}
+              {label.name}
             </div>
             <div
               className={cn(
                 'flex w-1/4 cursor-pointer items-center justify-center hover:bg-primary active:bg-primary-light-10',
                 {}
               )}
-              onClick={() => handleSelectLabel(category)}
+              onClick={() => handleSelectLabel(label)}
             >
               {gmcSubLabel ? (
                 <img className="h-1/2" src={CheckIcon} alt="check" />

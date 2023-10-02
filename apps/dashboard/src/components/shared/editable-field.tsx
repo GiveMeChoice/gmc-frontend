@@ -6,6 +6,7 @@ interface Props {
   title: string;
   initialValue: string | number;
   fieldType: React.HTMLInputTypeAttribute;
+  disabled?: boolean;
   loading: boolean;
   width?: string;
   onSave: (updates) => void;
@@ -16,6 +17,7 @@ const EditableField: React.FC<Props> = ({
   initialValue,
   fieldType,
   loading,
+  disabled,
   width,
   onSave,
 }) => {
@@ -50,18 +52,20 @@ const EditableField: React.FC<Props> = ({
         })}
         type={fieldType}
         title={title}
-        disabled={loading || !editing}
+        disabled={loading || !editing || disabled}
         value={value}
         max={999}
         min={0}
         onChange={(e) => setValue(e.target.value)}
       />
-      <FieldControlButtons
-        active={!loading && editing}
-        onEdit={onEdit}
-        onCancel={onCancel}
-        onSave={saveWrap}
-      />
+      {!disabled && (
+        <FieldControlButtons
+          active={!loading && editing}
+          onEdit={onEdit}
+          onCancel={onCancel}
+          onSave={saveWrap}
+        />
+      )}
     </div>
   );
 };

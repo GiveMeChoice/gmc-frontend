@@ -12,11 +12,16 @@ const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const SaveIcon = require('../../../assets/images/save-icon2.svg');
 
 interface Props {
-  parentId: string;
+  superParent?: IGmcLabel;
+  parent?: IGmcLabel;
   onCreated: (label: IGmcLabel) => void;
 }
 
-const CreateGmcLabelDialog: React.FC<Props> = ({ parentId, onCreated }) => {
+const CreateGmcLabelDialog: React.FC<Props> = ({
+  superParent,
+  parent,
+  onCreated,
+}) => {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
@@ -48,7 +53,7 @@ const CreateGmcLabelDialog: React.FC<Props> = ({ parentId, onCreated }) => {
     } else {
       setSaving(true);
       gmcLabelsService
-        .create(parentId, tmpName, tmpSlug, description)
+        .create(parent.id, tmpName, tmpSlug, description)
         .then((created) => {
           onCreated(created);
           refreshGmcLabels();
@@ -79,9 +84,14 @@ const CreateGmcLabelDialog: React.FC<Props> = ({ parentId, onCreated }) => {
         'bg-secondary-dark-20': saving,
       })}
     >
-      <div className="flex h-full w-3/5 flex-col justify-evenly px-4">
+      <div className="flex h-full w-4/5 flex-col justify-evenly px-4">
         <span className="text-lg font-bold">
           {!name ? '<New Label>' : name.toUpperCase()}
+        </span>
+        <span className="text-sm italic">
+          /shop/label/{superParent ? superParent.slug + '/' : ''}
+          {parent ? parent.slug + '/' : ''}
+          {slug.toLowerCase()}
         </span>
         <div className="flex items-center gap-x-2">
           <span className="w-16">NAME</span>
@@ -123,37 +133,39 @@ const CreateGmcLabelDialog: React.FC<Props> = ({ parentId, onCreated }) => {
           />
         </div>
       </div>
-      <button
-        className={cn(
-          'flex h-full w-1/5 flex-col items-center justify-center space-y-4',
-          {
-            'hover:bg-primary active:bg-primary-light-10': !saving,
-          }
-        )}
-        disabled={saving}
-        onClick={handleSave}
-      >
-        {saving ? (
-          <LoadingWheel size="h-[20%]" />
-        ) : (
-          <img className="h-[20%]" src={SaveIcon} alt="save" />
-        )}
-        <span>SAVE</span>
-      </button>
-      <button
-        className={cn(
-          'flex h-full w-1/5 flex-col items-center justify-center space-y-4',
-          {
-            'hover:bg-gmc-sunset-light-30 active:bg-gmc-sunset-light-10':
-              !saving,
-          }
-        )}
-        disabled={saving}
-        onClick={handleCancel}
-      >
-        <img className="h-[19%]" src={CancelIcon} alt="cancel" />
-        <span>CANCEL</span>
-      </button>
+      <div className="h-full w-1/5 divide-y-1.5 divide-zinc-500">
+        <button
+          className={cn(
+            'flex h-1/2 w-full flex-col items-center justify-center space-y-4',
+            {
+              'hover:bg-primary active:bg-primary-light-10': !saving,
+            }
+          )}
+          disabled={saving}
+          onClick={handleSave}
+        >
+          {saving ? (
+            <LoadingWheel size="h-[20%]" />
+          ) : (
+            <img className="h-[20%]" src={SaveIcon} alt="save" />
+          )}
+          <span>SAVE</span>
+        </button>
+        <button
+          className={cn(
+            'flex h-1/2 w-full flex-col items-center justify-center space-y-4',
+            {
+              'hover:bg-gmc-sunset-light-30 active:bg-gmc-sunset-light-10':
+                !saving,
+            }
+          )}
+          disabled={saving}
+          onClick={handleCancel}
+        >
+          <img className="h-[19%]" src={CancelIcon} alt="cancel" />
+          <span>CANCEL</span>
+        </button>
+      </div>
     </div>
   ) : (
     <div

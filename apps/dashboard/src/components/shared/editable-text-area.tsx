@@ -6,6 +6,7 @@ interface Props {
   title: string;
   initialValue: string;
   width?: string;
+  disabled?: boolean;
   onSave: (updates) => void;
 }
 
@@ -13,6 +14,7 @@ const EditableTextArea: React.FC<Props> = ({
   title,
   initialValue,
   width,
+  disabled,
   onSave,
 }) => {
   const [value, setValue] = useState<any>(initialValue);
@@ -48,17 +50,19 @@ const EditableTextArea: React.FC<Props> = ({
           }
         )}
         title={title}
-        disabled={!editing}
+        disabled={!editing || disabled}
         value={value}
         rows={2}
         onChange={(e) => setValue(e.target.value)}
       />
-      <FieldControlButtons
-        active={editing}
-        onEdit={onEdit}
-        onCancel={onCancel}
-        onSave={saveWrap}
-      />
+      {!disabled && (
+        <FieldControlButtons
+          active={editing}
+          onEdit={onEdit}
+          onCancel={onCancel}
+          onSave={saveWrap}
+        />
+      )}
     </div>
   );
 };

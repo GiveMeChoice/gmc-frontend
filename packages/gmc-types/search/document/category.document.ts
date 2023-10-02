@@ -5,5 +5,6 @@ export interface CategoryDocument {
 
 export interface GmcCategoryDocument {
   name: string;
+  slug: string;
   subcategory?: GmcCategoryDocument;
 }

@@ -2,7 +2,7 @@ import {
   useScreenData,
   useScreenDataDispatch,
 } from '@root/context-providers/screen-data.provider';
-import { gmcLabelsService } from '@root/services/gmc-labels.service';
+import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
 import React from 'react';
 import LoadingWheel from '../shared/loading-wheel';
 import GmcLabelColumn from './gmc-labels-screen/gmc-label-column';
@@ -12,24 +12,24 @@ const GmcLabelsScreen: React.FC = () => {
   const data = useScreenData();
   const dispach = useScreenDataDispatch();
 
-  const handleSelectLabel = (labelId: string) => {
+  const handleSelectLabel = (label: IGmcLabel) => {
     dispach({
       type: 'SCREEN_UPDATE_GMC_LABELS',
       value: {
         ...data.gmcLabelScreenData,
-        selectedLabelId: labelId,
-        selectedSubLabel1Id: null,
+        selectedLabel: label,
+        selectedSubLabel1: null,
         subLabels1: null,
         subLabels2: null,
       },
     });
-    gmcLabelsService.getOne(labelId).then((label) => {
+    gmcLabelsService.getOne(label.id).then((label) => {
       dispach({
         type: 'SCREEN_UPDATE_GMC_LABELS',
         value: {
           ...data.gmcLabelScreenData,
-          selectedLabelId: labelId,
-          selectedSubLabel1Id: null,
+          selectedLabel: label,
+          selectedSubLabel1: null,
           subLabels1: label.children.sort((a, b) =>
             a.name.localeCompare(b.name)
           ),
@@ -39,21 +39,21 @@ const GmcLabelsScreen: React.FC = () => {
     });
   };
 
-  const handleSelectSubLabel1 = (subLabelId: string) => {
+  const handleSelectSubLabel1 = (subLabel: IGmcLabel) => {
     dispach({
       type: 'SCREEN_UPDATE_GMC_LABELS',
       value: {
         ...data.gmcLabelScreenData,
-        selectedSubLabel1Id: subLabelId,
+        selectedSubLabel1: subLabel,
         subLabels2: null,
       },
     });
-    gmcLabelsService.getOne(subLabelId).then((label) => {
+    gmcLabelsService.getOne(subLabel.id).then((label) => {
       dispach({
         type: 'SCREEN_UPDATE_GMC_LABELS',
         value: {
           ...data.gmcLabelScreenData,
-          selectedSubLabel1Id: subLabelId,
+          selectedSubLabel1: subLabel,
           subLabels2: label.children.sort((a, b) =>
             a.name.localeCompare(b.name)
           ),
@@ -68,8 +68,8 @@ const GmcLabelsScreen: React.FC = () => {
         <div className="flex w-1/3 justify-center">
           {data.gmcLabelScreenData.labels ? (
             <GmcLabelColumn
+              selected={data.gmcLabelScreenData.selectedLabel}
               labels={data.gmcLabelScreenData.labels}
-              selectedId={data.gmcLabelScreenData.selectedLabelId}
               onSelectLabel={handleSelectLabel}
             />
           ) : (
@@ -79,12 +79,12 @@ const GmcLabelsScreen: React.FC = () => {
           )}
         </div>
         <div className="w-1/3">
-          {data.gmcLabelScreenData.selectedLabelId &&
+          {data.gmcLabelScreenData.selectedLabel &&
             (data.gmcLabelScreenData.subLabels1 ? (
               <GmcLabelColumn
-                parentId={data.gmcLabelScreenData.selectedLabelId}
+                parent={data.gmcLabelScreenData.selectedLabel}
                 labels={data.gmcLabelScreenData.subLabels1}
-                selectedId={data.gmcLabelScreenData.selectedSubLabel1Id}
+                selected={data.gmcLabelScreenData.selectedSubLabel1}
                 onSelectLabel={handleSelectSubLabel1}
               />
             ) : (
@@ -94,10 +94,11 @@ const GmcLabelsScreen: React.FC = () => {
             ))}
         </div>
         <div className="w-1/3">
-          {data.gmcLabelScreenData.selectedSubLabel1Id &&
+          {data.gmcLabelScreenData.selectedSubLabel1 &&
             (data.gmcLabelScreenData.subLabels2 ? (
               <GmcLabelColumn
-                parentId={data.gmcLabelScreenData.selectedSubLabel1Id}
+                superParent={data.gmcLabelScreenData.selectedLabel}
+                parent={data.gmcLabelScreenData.selectedSubLabel1}
                 labels={data.gmcLabelScreenData.subLabels2}
               />
             ) : (

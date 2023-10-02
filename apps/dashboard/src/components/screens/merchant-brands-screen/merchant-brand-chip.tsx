@@ -1,8 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { IMerchantLabel } from '@root/services/merchant-labels.service';
-import React from 'react';
-import cn from 'classnames';
 import { IMerchantBrand } from '@root/services/merchant-brands.service';
+import cn from 'classnames';
+import React from 'react';
 
 interface Props {
   merchantBrand: IMerchantBrand;

@@ -21,15 +21,19 @@ const DeleteIcon = require('../../../assets/images/delete-icon.svg');
 
 interface Props {
   labels: IGmcLabel[];
-  parentId?: string;
-  selectedId?: string;
-  onSelectLabel?: (id: string) => void;
+  superParent?: IGmcLabel;
+  parent?: IGmcLabel;
+  // parentSlug?: string;
+  selected?: IGmcLabel;
+  onSelectLabel?: (label: IGmcLabel) => void;
 }
 
 const GmcLabelColumn: React.FC<Props> = ({
   labels: initialLabels,
-  parentId,
-  selectedId,
+  parent,
+  selected,
+  superParent,
+  // parentSlug,
   onSelectLabel,
 }) => {
   useEffect(() => {
@@ -42,9 +46,9 @@ const GmcLabelColumn: React.FC<Props> = ({
   const filtersDispatch = useFiltersDispatch();
   const navigate = useNavigate();
 
-  const handleSelectSublabel = (id) => {
-    if (onSelectLabel && id !== selectedId) {
-      onSelectLabel(id);
+  const handleSelectSublabel = (label) => {
+    if (!selected || selected.id !== label.id) {
+      onSelectLabel(label);
     }
   };
 
@@ -110,9 +114,10 @@ const GmcLabelColumn: React.FC<Props> = ({
 
   return (
     <div className="flex w-full flex-col divide-y-1.5 divide-zinc-900">
-      {parentId && (
+      {parent && (
         <CreateGmcLabelDialog
-          parentId={parentId}
+          superParent={superParent}
+          parent={parent}
           onCreated={handleAfterLabelCreated}
         />
       )}
@@ -120,20 +125,26 @@ const GmcLabelColumn: React.FC<Props> = ({
         labels.map((lab) => (
           <div
             className={cn('flex w-full divide-x-1.5 divide-zinc-400', {
-              'bg-gmc-surf-light-50': selectedId === lab.id,
-              'h-[190px]': !parentId,
-              'h-[220px]': parentId,
+              'bg-gmc-surf-light-50': selected && selected.id === lab.id,
+              'h-[190px]': !parent,
+              'h-[220px]': parent,
             })}
           >
             <div className="flex w-full flex-col justify-evenly px-5">
               <span className="text-lg font-bold">
                 {lab.name.toUpperCase()}
               </span>
+              <span className="pb-1 pl-1 text-xs italic text-zinc-700">
+                /shop/label/{superParent ? superParent.slug + '/' : ''}
+                {parent ? parent.slug + '/' : ''}
+                {lab.slug.toLowerCase()}
+              </span>
               <div className="flex flex-col pl-4">
                 <EditableField
                   title="NAME"
                   initialValue={lab.name}
                   fieldType={'text'}
+                  disabled={!parent || !superParent}
                   width="w-full"
                   loading={loading}
                   onSave={(name) => handleUpdateLabel(lab.id, { name })}
@@ -142,6 +153,7 @@ const GmcLabelColumn: React.FC<Props> = ({
                   title="SLUG"
                   initialValue={lab.slug}
                   fieldType={'text'}
+                  disabled={!parent || !superParent}
                   width="w-full"
                   loading={loading}
                   onSave={(slug) => handleUpdateLabel(lab.id, { slug })}
@@ -149,13 +161,14 @@ const GmcLabelColumn: React.FC<Props> = ({
                 <EditableTextArea
                   title="DXN"
                   initialValue={lab.description}
+                  disabled={!parent || !superParent}
                   width="w-full"
                   onSave={(description) =>
                     handleUpdateLabel(lab.id, { description })
                   }
                 />
               </div>
-              {parentId && (
+              {parent && (
                 <div className="flex h-7 w-full justify-start pl-0.5">
                   <ConfirmableButton
                     onConfirm={() => handleDeleteLabel(lab.id)}
@@ -166,7 +179,7 @@ const GmcLabelColumn: React.FC<Props> = ({
                           src={DeleteIcon}
                           alt="delete"
                         />
-                        <span>Delete</span>
+                        <span className="text-sm">Delete</span>
                       </>
                     }
                   />
@@ -175,18 +188,16 @@ const GmcLabelColumn: React.FC<Props> = ({
             </div>
             {onSelectLabel ? (
               <div
-                className={cn('flex min-w-[25%] items-center justify-center', {
+                className={cn('flex w-[25%] items-center justify-center', {
                   'cursor-pointer hover:bg-primary active:bg-primary-light-10 ':
-                    selectedId !== lab.id,
+                    !selected || selected.id !== lab.id,
                 })}
-                onClick={() => handleSelectSublabel(lab.id)}
+                onClick={() => handleSelectSublabel(lab)}
               >
                 <img className="w-[40%]" src={RightArrowIcon} alt="arrow" />
               </div>
             ) : (
-              <div
-                className={cn('flex min-w-[25%] items-center justify-center')}
-              >
+              <div className={cn('flex w-[25%] items-center justify-center')}>
                 <FramedButton
                   onClick={() => handleMerchantLabelsClick(lab.id)}
                   title="Merchant Labels"

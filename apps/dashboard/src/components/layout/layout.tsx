@@ -11,7 +11,7 @@ import LoadingWheel from '../shared/loading-wheel';
 import FiltersBar from './filters-bar';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
-import cn from 'classnames';
+import Toast from './toast';
 
 const Layout: React.FC = () => {
   const location = useLocation();
@@ -44,24 +44,7 @@ const Layout: React.FC = () => {
             )}
           </ScreenContainer>
         )}
-        <div
-          className={cn(
-            'absolute bottom-20 z-50 cursor-pointer rounded-md border-1.5 border-black bg-opacity-90 p-4 px-4 transition-all duration-300',
-            {
-              '-left-[40%]': !data.toast,
-              'right-[40%]': data.toast,
-              'bg-gmc-ocean-light-50':
-                data.toast && data.toast.level === 'INFO',
-              'bg-gmc-heart-light-30':
-                data.toast && data.toast.level === 'ERROR',
-              'bg-gmc-forest-light-50':
-                data.toast && data.toast.level === 'SUCCESS',
-            }
-          )}
-          onClick={handleToastDismiss}
-        >
-          {data.toast && <p className="">{data.toast.message}</p>}
-        </div>
+        <Toast />
       </div>
       {!location.pathname.includes('mapping-assistant') && <FiltersBar />}
     </div>

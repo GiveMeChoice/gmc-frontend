@@ -20,8 +20,8 @@ export interface IGmcCategoryScreenData {
   categories: IGmcCategory[];
   subCategories1: IGmcCategory[];
   subCategories2: IGmcCategory[];
-  selectedCategoryId: string;
-  selectedSubCategory1Id: string;
+  selectedCategory: IGmcCategory;
+  selectedSubCategory1: IGmcCategory;
 }
 
 const getOne = async (id: string): Promise<IGmcCategory> => {

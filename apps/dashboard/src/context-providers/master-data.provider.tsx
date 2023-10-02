@@ -134,12 +134,15 @@ export const MasterDataProvider: React.FC = ({ children }) => {
   };
 
   const readGmcCategoryName = (gmcCategoryId): string => {
-    return masterData.gmcCategoryTitles.find((t) => t.id === gmcCategoryId)
-      .name;
+    const read = masterData.gmcCategoryTitles.find(
+      (t) => t.id === gmcCategoryId
+    );
+    return read ? read.name : '';
   };
 
   const readGmcLabelName = (gmcLabelId): string => {
-    return masterData.gmcLabelTitles.find((t) => t.id === gmcLabelId).name;
+    const read = masterData.gmcLabelTitles.find((t) => t.id === gmcLabelId);
+    return read ? read.name : '';
   };
 
   const refreshGmcCategories = async () => {
@@ -162,7 +165,9 @@ export const MasterDataProvider: React.FC = ({ children }) => {
       const labelTitles: EntityTitle[] = [];
       setMasterData({
         ...masterData,
-        gmcLabelSelect: traverseTree(gmcLabels, [], labelSelect, labelTitles),
+        gmcLabelSelect: gmcLabels.map((lab) =>
+          traverseTree(lab, [], labelSelect, labelTitles)
+        ),
         gmcLabelTitles: labelTitles,
       });
     });
