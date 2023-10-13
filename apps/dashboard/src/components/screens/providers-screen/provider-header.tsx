@@ -1,5 +1,5 @@
 import CopyIdButton from '@root/components/shared/copy-id-button';
-import { IProvider } from '@root/services/providers.service';
+import { IProvider } from 'gmc-types';
 import React from 'react';
 
 interface Props {

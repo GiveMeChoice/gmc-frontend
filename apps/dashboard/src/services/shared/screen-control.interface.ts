@@ -3,8 +3,7 @@ import {
   ScreenDataAction,
 } from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
-import { PageRequest } from './page-request.interface';
-import { PageMeta } from './page-response.interface';
+import { PageMeta, PageRequest } from 'gmc-types';
 
 export interface IScreenControl {
   // relative path that identifies screen as currently rendered

@@ -37,21 +37,25 @@ const FiltersBar: React.FC<Props> = () => {
 
   return (
     <div
-      className={cn('z-10 h-full overflow-hidden  bg-zinc-900 duration-300', {
-        'w-0 border-0': !filterBarVisible,
-        'w-128 border-l-2': filterBarVisible,
-      })}
+      className={cn(
+        'z-10 min-h-full overflow-hidden  bg-zinc-900 duration-300',
+        {
+          'w-0 border-0': !filterBarVisible,
+          'w-128 border-l-2': filterBarVisible,
+        }
+      )}
     >
       <div
         className={cn(
-          'flex h-20 flex-col justify-between border-b-2 border-secondary',
+          'flex h-28 flex-col justify-between border-b-2 border-secondary',
           {
             flex: filterBarVisible,
             hidden: !filterBarVisible,
           }
         )}
       >
-        <div className="flex h-full w-full flex-col items-center justify-center whitespace-nowrap">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-y-2.5 whitespace-nowrap">
+          <span className="text-[28px] font-bold text-secondary">FILTERS</span>
           {screenData.loading ? (
             <LoadingWheel size="w-9 h-9" />
           ) : (

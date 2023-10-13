@@ -4,17 +4,8 @@ import {
   ScreenDataAction,
 } from '@root/context-providers/screen-data.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
+import { IGmcCategory, PageRequest } from 'gmc-types';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IMerchantCategory } from './merchant-categories.service';
-
-export interface IGmcCategory {
-  id: string;
-  name: string;
-  slug: string;
-  merchantCategories: IMerchantCategory[];
-  children: IGmcCategory[];
-}
 
 export interface IGmcCategoryScreenData {
   categories: IGmcCategory[];

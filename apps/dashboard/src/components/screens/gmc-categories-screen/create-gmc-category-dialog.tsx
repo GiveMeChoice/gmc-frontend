@@ -1,9 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import LoadingWheel from '@root/components/shared/loading-wheel';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
 import React, { useState } from 'react';
 const AddCircleIcon = require('../../../assets/images/add-circle.svg');
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
@@ -13,6 +10,7 @@ import { useScreenDataDispatch } from '@root/context-providers/screen-data.provi
 import { toastService } from '@root/services/toast.service';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
 import { useMasterData } from '@root/context-providers/master-data.provider';
+import { IGmcCategory } from 'gmc-types';
 
 interface Props {
   superParent?: IGmcCategory;

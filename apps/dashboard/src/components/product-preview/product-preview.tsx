@@ -1,15 +1,15 @@
-import { IProduct } from '@root/services/products.service';
+import {
+  useScreenData,
+  useScreenDataDispatch,
+} from '@root/context-providers/screen-data.provider';
+import cn from 'classnames';
+import { IProduct } from 'gmc-types';
 import React from 'react';
 import LoadingWheel from '../shared/loading-wheel';
 import ProductPreviewImage from './product-preview-image';
 import ProductPreviewInfo from './product-preview-info';
 import ProductPreviewLabels from './product-preview-labels';
 import ProductPreviewReviews from './product-preview-reviews';
-import cn from 'classnames';
-import {
-  useScreenData,
-  useScreenDataDispatch,
-} from '@root/context-providers/screen-data.provider';
 
 interface Props {
   previewOn?: boolean;

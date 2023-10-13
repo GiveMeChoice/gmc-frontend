@@ -1,7 +1,8 @@
 import EditableField from '@root/components/shared/editable-field';
 import EditableTextArea from '@root/components/shared/editable-text-area';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import merchantsService, { IMerchant } from '@root/services/merchants.service';
+import merchantsService from '@root/services/merchants.service';
+import { IMerchant } from 'gmc-types';
 import React, { useState } from 'react';
 
 interface Props {

@@ -85,16 +85,16 @@ const BlogNavbar: React.FC = () => {
         <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
           <div
             className={cn(
-              'flex items-center justify-center transition-width duration-300',
+              'flex items-center justify-center bg-white transition-width duration-300',
               {
-                'w-9': !minmized,
-                'w-24': minmized,
+                'w-4': !minmized,
+                'w-[71px]': minmized,
               }
             )}
           >
             <div
               className={cn(
-                'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300  hover:bg-white',
+                'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300  hover:bg-primary',
                 {
                   '-translate-x-44': !minmized,
                 }
@@ -102,7 +102,7 @@ const BlogNavbar: React.FC = () => {
               onClick={() => setSideMenuOpen(!sideMenuOpen)}
             >
               <div className="w-5 border-b-2 border-black" />
-              <div className="my-[1px] w-[23px] border-b-2 border-black" />
+              <div className="my-[1px] w-[24px] border-b-2 border-black" />
               <div className="w-5 border-b-2 border-black" />
             </div>
             <SideMenu

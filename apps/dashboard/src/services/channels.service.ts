@@ -1,39 +1,11 @@
-import {
-  ScreenDataAction,
-  IScreenData,
-} from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
+import {
+  IScreenData,
+  ScreenDataAction,
+} from '@root/context-providers/screen-data.provider';
 import axios from 'axios';
-import { IMerchant } from './merchants.service';
-import { IProvider } from './providers.service';
-import { IRun } from './runs.service';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-
-export interface IChannel {
-  id: string;
-  description: string; //updateable
-  active: boolean; //updateable
-  runIntervalHours: number; //updateable
-  expirationHours: number; //updateable
-  retryLimit: number; //updateable
-  etlCode1: string; //updateable
-  etlCode2: string; //updateable
-  etlCode3: string; //updateable
-  etlCode4: string; //updateable
-  etlCode5: string; //updateable
-  retryCount: number;
-  status: string;
-  lastRunAt: Date;
-  merchantId: string;
-  providerId: string;
-  merchant?: Partial<IMerchant>;
-  provider?: Partial<IProvider>;
-  // calculated fields
-  runCount: number;
-  productCount: number;
-}
+import { IChannel, PageRequest, PageResponse } from 'gmc-types';
 
 const find = async (
   filters: IFilters,
@@ -69,6 +41,23 @@ const update = async (
 ): Promise<IChannel> => {
   const res = await axios.put<IChannel>(`/channels/${id}`, updates);
   return res.data;
+};
+
+const create = async (
+  merchantKey: string,
+  providerKey: string,
+  channel: Partial<IChannel>
+): Promise<IChannel> => {
+  const res = await axios.post<IChannel>('/channels', {
+    merchantKey,
+    providerKey,
+    ...channel,
+  });
+  return res.data;
+};
+
+const deleteOne = async (id: string) => {
+  await axios.delete(`/channels/${id}`);
 };
 
 const extractChannelFilters = (filters: IFilters): Partial<IChannel> => ({
@@ -131,6 +120,8 @@ const channelsService = {
   update,
   getOne,
   getAll,
+  deleteOne,
+  create,
   channelsScreenControl,
 };
 export default channelsService;

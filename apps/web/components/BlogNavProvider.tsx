@@ -32,10 +32,8 @@ export const BlogNavProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const initData = async () => {
       if (!data) {
-        console.log('!!!!!!!! INITIALIZING BLOG NAV !!!!!!!!!!! ' + new Date());
         const res = await fetch('/api/blog-nav');
         const json = await res.json();
-        console.log('done initializing blog nav! ');
         setData({
           loading: false,
           ...json,

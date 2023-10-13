@@ -8,7 +8,6 @@ import {
 } from '@root/context-providers/filters.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
-import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
 import merchantLabelsService from '@root/services/merchant-labels.service';
 import { toastService } from '@root/services/toast.service';
 import cn from 'classnames';
@@ -16,6 +15,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreateGmcLabelDialog from './create-gmc-label-dialog';
 import EditableTextArea from '@root/components/shared/editable-text-area';
+import { gmcLabelsService } from '@root/services/gmc-labels.service';
+import { IGmcLabel } from 'gmc-types';
+import ColorDropdown from '../shared/color-dropdown';
 const RightArrowIcon = require('../../../assets/images/right-arrow.svg');
 const DeleteIcon = require('../../../assets/images/delete-icon.svg');
 
@@ -109,28 +111,36 @@ const GmcLabelColumn: React.FC<Props> = ({
       type: 'FILTERS_SAVE',
       value: { ...initialFilters, gmcLabelId },
     });
+    dispatch({
+      type: 'SCREEN_REFRESH_MERCHANT_LABELS',
+      value: { data: [], meta: {} },
+    });
     navigate(merchantLabelsService.labelsScreenControl.pathname);
   };
 
   return (
     <div className="flex w-full flex-col divide-y-1.5 divide-zinc-900">
-      {parent && (
-        <CreateGmcLabelDialog
-          superParent={superParent}
-          parent={parent}
-          onCreated={handleAfterLabelCreated}
-        />
-      )}
+      <CreateGmcLabelDialog
+        superParent={superParent}
+        parent={parent}
+        onCreated={handleAfterLabelCreated}
+      />
       {labels && labels.length > 0 ? (
         labels.map((lab) => (
           <div
-            className={cn('flex w-full divide-x-1.5 divide-zinc-400', {
-              'bg-gmc-surf-light-50': selected && selected.id === lab.id,
-              'h-[190px]': !parent,
-              'h-[220px]': parent,
-            })}
+            style={{
+              backgroundColor:
+                selected && selected.id === lab.id
+                  ? parent
+                    ? superParent
+                      ? superParent.color
+                      : parent.color
+                    : lab.color
+                  : '',
+            }}
+            className={cn('flex h-fit w-full divide-x-1.5 divide-zinc-400', {})}
           >
-            <div className="flex w-full flex-col justify-evenly px-5">
+            <div className="flex w-full flex-col justify-evenly gap-y-1.5 px-5 py-3">
               <span className="text-lg font-bold">
                 {lab.name.toUpperCase()}
               </span>
@@ -139,7 +149,7 @@ const GmcLabelColumn: React.FC<Props> = ({
                 {parent ? parent.slug + '/' : ''}
                 {lab.slug.toLowerCase()}
               </span>
-              <div className="flex flex-col pl-4">
+              <div className="flex flex-col gap-y-1.5 pl-4">
                 <EditableField
                   title="NAME"
                   initialValue={lab.name}
@@ -167,24 +177,33 @@ const GmcLabelColumn: React.FC<Props> = ({
                     handleUpdateLabel(lab.id, { description })
                   }
                 />
-              </div>
-              {parent && (
-                <div className="flex h-7 w-full justify-start pl-0.5">
-                  <ConfirmableButton
-                    onConfirm={() => handleDeleteLabel(lab.id)}
-                    title={
-                      <>
-                        <img
-                          className="h-4 pr-2.5"
-                          src={DeleteIcon}
-                          alt="delete"
-                        />
-                        <span className="text-sm">Delete</span>
-                      </>
+                {!parent && (
+                  <ColorDropdown
+                    initialColor={lab.color}
+                    loading={loading}
+                    onSave={(color) =>
+                      handleUpdateLabel(lab.id, {
+                        color,
+                      })
                     }
                   />
-                </div>
-              )}
+                )}
+              </div>
+              <div className="flex h-7 w-full justify-start pl-0.5">
+                <ConfirmableButton
+                  onConfirm={() => handleDeleteLabel(lab.id)}
+                  title={
+                    <>
+                      <img
+                        className="h-4 pr-2.5"
+                        src={DeleteIcon}
+                        alt="delete"
+                      />
+                      <span className="text-sm">Delete</span>
+                    </>
+                  }
+                />
+              </div>
             </div>
             {onSelectLabel ? (
               <div

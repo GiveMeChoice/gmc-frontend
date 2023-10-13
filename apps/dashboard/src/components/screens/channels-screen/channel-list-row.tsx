@@ -1,9 +1,9 @@
-import { IChannel } from '@root/services/channels.service';
 import React, { useEffect } from 'react';
 import ScreenSectionRow from '../shared/screen-section-row';
 import ChannelHeader from './channel-header';
 import EditableChannelFields from './editable-channel-fields';
 import ChannelButtonPanel from './channel-button-panel';
+import { IChannel } from 'gmc-types';
 
 interface Props {
   providerKey: string;

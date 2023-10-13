@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import { IMerchantBrand } from '@root/services/merchant-brands.service';
 import cn from 'classnames';
+import { IMerchantBrand } from 'gmc-types';
 import React from 'react';
 
 interface Props {

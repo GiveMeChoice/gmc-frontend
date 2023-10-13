@@ -1,6 +1,6 @@
-import { IProduct } from '@root/services/products.service';
 import React from 'react';
 import cn from 'classnames';
+import { IProduct } from 'gmc-types';
 
 interface Props {
   product: Partial<IProduct>;
@@ -11,9 +11,9 @@ const ProductPreviewInfo: React.FC<Props> = ({ product }) => {
     <div className="flex h-full flex-col space-y-2 overflow-y-auto rounded-sm border-2 border-black p-2">
       <a
         className={cn('text-lg font-bold', {
-          'text-zinc-500': !product.offerLink,
+          'text-zinc-500': !product.offerUrl,
         })}
-        href={product.offerLink}
+        href={product.offerUrl}
       >
         {product.title ? product.title : '<title>'}
       </a>

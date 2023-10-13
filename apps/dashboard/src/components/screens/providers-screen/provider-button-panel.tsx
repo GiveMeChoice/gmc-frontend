@@ -6,7 +6,7 @@ import {
 } from '@root/context-providers/filters.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import channelsService from '@root/services/channels.service';
-import providersService, { IProvider } from '@root/services/providers.service';
+import { IProvider } from 'gmc-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

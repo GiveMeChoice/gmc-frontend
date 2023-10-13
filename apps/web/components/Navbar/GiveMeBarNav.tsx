@@ -3,9 +3,11 @@ import cn from 'classnames';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import SearchSuggestions from './GiveMeBarNav/SearchSuggestions';
+import { useSearch } from '../SearchProvider';
 
 const GiveMeBarNav: React.FC = () => {
   const [query, setQuery] = useState('');
+  const search = useSearch();
   const router = useRouter();
   const [suggestions, setSuggestions] = useState<string[]>([
     'Something',
@@ -39,16 +41,11 @@ const GiveMeBarNav: React.FC = () => {
 
   const handleSearch = (q?: string) => {
     if (q) {
-      router.push(
-        `/shop/search?q=${encodeURIComponent(q.trim()).replace(/[ ]+/g, '+')}`
-      );
-    } else if (query) {
-      router.push(
-        `/shop/search?q=${encodeURIComponent(query.trim()).replace(
-          /[%20]+/g,
-          '+'
-        )}`
-      );
+      search.execute({
+        query: q,
+        searchPageRequest: true,
+        basePath: '/shop/search/',
+      });
     } else {
       document.getElementById('gmc-search-bar').focus();
     }
@@ -89,13 +86,14 @@ const GiveMeBarNav: React.FC = () => {
     >
       <button
         className={cn(
-          'flex h-[45px] w-[178px] cursor-pointer items-end rounded-full duration-200 hover:bg-zinc-900 hover:shadow-md active:bg-transparent active:shadow-sm'
+          'flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
         )}
-        onClick={() => handleSearch()}
+        onClick={() => handleSearch(query)}
       >
         <span
           className={cn(
-            'border1.5 z-20 flex h-[45px] w-[178px] cursor-pointer select-none items-center justify-center rounded-full border-zinc-900 bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[5px] hover:translate-x-0.5 active:translate-y-0 active:translate-x-0 active:border-zinc-900'
+            'z-20 flex h-[45px] w-[178px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[4px] hover:translate-x-[4px] active:-translate-y-[1px] active:translate-x-[1px]',
+            {}
           )}
         >
           <Image
@@ -105,6 +103,7 @@ const GiveMeBarNav: React.FC = () => {
             alt="give me"
             width="158"
             height="40"
+            priority
           />
         </span>
       </button>
@@ -122,7 +121,6 @@ const GiveMeBarNav: React.FC = () => {
               }
             )}
             value={query}
-            defaultValue=""
             autoComplete="off"
             placeholder={router.route !== '/' ? 'Choice' : null}
             onChange={(e) => {
@@ -138,7 +136,7 @@ const GiveMeBarNav: React.FC = () => {
               if (e.key === 'Enter') {
                 e.preventDefault();
                 if (query) {
-                  handleSearch();
+                  handleSearch(query);
                 }
               } else if (e.key === 'ArrowUp') {
                 e.preventDefault();

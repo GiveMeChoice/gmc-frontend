@@ -4,18 +4,8 @@ import {
   ScreenDataAction,
 } from '@root/context-providers/screen-data.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IMerchantLabel } from './merchant-labels.service';
-
-export interface IGmcLabel {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  merchantLabels: IMerchantLabel[];
-  children: IGmcLabel[];
-}
+import { IGmcLabel, PageRequest } from 'gmc-types';
 
 export interface IGmcLabelScreenData {
   labels: IGmcLabel[];

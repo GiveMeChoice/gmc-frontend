@@ -12,13 +12,13 @@ const LinkChips: React.FC<Props> = () => {
       <a
         href="/shop"
         className={cn(
-          'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
+          'flex h-9 cursor-pointer items-center rounded-full bg-zinc-900 duration-150',
           {}
         )}
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:-translate-y-1 hover:translate-x-0.5 hover:bg-gmc-surf active:translate-x-0 active:translate-y-0 active:border-zinc-900',
+            'z-20 flex h-9 translate-x-[1px] -translate-y-[1px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1  pr-2 transition-transform duration-150 ease-in-out hover:translate-x-[4px] hover:-translate-y-[4px] hover:bg-gmc-surf active:-translate-y-[1px] active:translate-x-[1px] active:border-zinc-900',
             {
               'border-zinc-900 bg-gmc-surf': router.pathname.includes('/shop'),
               'bg-white': !router.pathname.includes('/shop'),
@@ -39,20 +39,20 @@ const LinkChips: React.FC<Props> = () => {
               height="17"
             />
           </div>
-          <span className="px-3.5 pr-4">Shop</span>
+          <span className="px-3.5 pr-4">SHOP</span>
         </div>
       </a>
 
       <a
         href="/blog"
         className={cn(
-          'flex h-9 cursor-pointer items-center rounded-full duration-150 hover:bg-zinc-900 hover:shadow-md active:bg-zinc-900 active:bg-transparent active:shadow-sm',
+          'flex h-9 cursor-pointer items-center rounded-full bg-zinc-900',
           {}
         )}
       >
         <div
           className={cn(
-            'z-20 flex h-9 cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 shadow-sm transition-transform duration-150 ease-in-out  hover:translate-x-0.5 hover:-translate-y-1  hover:bg-gmc-sunset active:translate-x-0 active:translate-y-0 active:border-zinc-900',
+            'z-20 flex h-9 translate-x-[1px] -translate-y-[1px] cursor-pointer select-none items-center justify-center rounded-full border border-zinc-900 pl-1 pr-2 transition-transform duration-150 ease-in-out hover:translate-x-[4px] hover:-translate-y-[4px] hover:bg-gmc-sunset active:-translate-y-[1px] active:translate-x-[1px] active:border-zinc-900',
             {
               'border-zinc-900 bg-gmc-sunset':
                 router.pathname.includes('/blog'),
@@ -77,7 +77,7 @@ const LinkChips: React.FC<Props> = () => {
               height="17"
             />
           </div>
-          <span className="pl-3.5 pr-4">Blog</span>
+          <span className="pl-3.5 pr-4">BLOG</span>
         </div>
       </a>
     </div>

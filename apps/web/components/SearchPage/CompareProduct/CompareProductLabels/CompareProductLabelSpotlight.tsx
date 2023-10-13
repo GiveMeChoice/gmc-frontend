@@ -32,7 +32,7 @@ const CompareProductLabelSpotlight: React.FC<Props> = ({ label }) => {
           </div>
           <div className="flex w-full flex-col items-center gap-y-6 p-8">
             <div className="text w-full text-center font-bold text-zinc-600">
-              Label Provenance
+              Why This Label?
             </div>
             <div
               className="flex h-9 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-700 bg-secondary pl-1 pr-2 shadow-sm"

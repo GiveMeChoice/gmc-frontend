@@ -1,8 +1,7 @@
 import EditableField from '@root/components/shared/editable-field';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import merchantLabelsService, {
-  IMerchantLabel,
-} from '@root/services/merchant-labels.service';
+import merchantLabelsService from '@root/services/merchant-labels.service';
+import { IMerchantLabel } from 'gmc-types';
 import React, { useState } from 'react';
 
 interface Props {

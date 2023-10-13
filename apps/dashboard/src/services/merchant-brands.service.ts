@@ -4,27 +4,8 @@ import {
 } from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IMerchant } from './merchants.service';
-import { IGmcBrand } from './gmc-brands.service';
-
-export interface IMerchantBrand {
-  id: string;
-  merchantId: string;
-  merchantBrandCode: string;
-  name: string;
-  description: string;
-  logo: string;
-  url: string;
-  createdAt: Date;
-  gmcBrandId?: string;
-  // groupId?: string; //TODO
-  gmcBrand?: IGmcBrand;
-  merchant?: Partial<IMerchant>;
-  productCount: number;
-}
+import { IMerchantBrand, PageRequest, PageResponse } from 'gmc-types';
 
 const getOne = async (id): Promise<IMerchantBrand> => {
   const res = await axios.get<IMerchantBrand>(`/merchant-brands/${id}`);
@@ -76,12 +57,14 @@ const assignGmcBrand = async (
 const extractMerchantBrandFilters = (
   filters: IFilters
 ): Partial<IMerchantBrand> => ({
-  // ...(filters.merchantId && { merchant: { id: filters.merchantId } }),
+  ...(filters.merchantId && { merchant: { id: filters.merchantId } }),
+  ...(filters.gmcBrandId && { gmcBrandId: filters.gmcBrandId }),
+  ...(filters.brandUnassigned && { unassigned: true }),
 });
 
 const merchantBrandsScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-brands',
-  title: 'Brands',
+  title: 'Map Brands',
   readScreenMeta(data) {
     return data.merchantBrandsMeta;
   },

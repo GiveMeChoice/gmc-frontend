@@ -1,13 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import { useScreenData } from '@root/context-providers/screen-data.provider';
-import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
-import { IMerchantLabel } from '@root/services/merchant-labels.service';
-import React, { useEffect, useState } from 'react';
-import cn from 'classnames';
 import ConfirmableButton from '@root/components/shared/confirmable-button';
 import LoadingWheel from '@root/components/shared/loading-wheel';
-import { IMerchantBrand } from '@root/services/merchant-brands.service';
-import { IGmcBrand, gmcBrandsService } from '@root/services/gmc-brands.service';
+import { gmcBrandsService } from '@root/services/gmc-brands.service';
+import cn from 'classnames';
+import { IGmcBrand, IMerchantBrand } from 'gmc-types';
+import React, { useEffect, useState } from 'react';
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const LeftArrowIcon = require('../../../assets/images/left-arrow.svg');
 const RightArrowIcon = require('../../../assets/images/right-arrow.svg');

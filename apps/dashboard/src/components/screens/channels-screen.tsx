@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import ChannelListRow from './channels-screen/channel-list-row';
 import ScreenSection from './shared/screen-section';
 import ScreenSectionRow from './shared/screen-section-row';
+import CreateChannelDialog from './channels-screen/create-channel-dialog';
 
 const ChannelsScreen: React.FC = () => {
   const { channels: sources, channelsMeta: sourcesMeta } = useScreenData();
@@ -16,6 +17,7 @@ const ChannelsScreen: React.FC = () => {
   const { activeFilters } = useFilters();
   const { readProviderKey } = useMasterData();
   const [loading, setLoading] = useState(false);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     if (!sources.length) {
@@ -31,6 +33,10 @@ const ChannelsScreen: React.FC = () => {
     }
   }, []);
 
+  const handleCreateRequest = () => {
+    setCreating(true);
+  };
+
   return (
     <ScreenSection
       title={'Channel List'}
@@ -44,28 +50,18 @@ const ChannelsScreen: React.FC = () => {
           title: 'Provider',
         },
         {
-          name: 'description',
-          title: 'Description',
+          name: 'name',
+          title: 'Name',
         },
         {
           name: 'status',
           title: 'Status',
         },
-        // {
-        //   name: 'retryCount',
-        //   title: 'Retries',
-        // },
-        // {
-        //   name: 'lastRunAt',
-        //   title: 'Last Run Date',
-        // },
-        // {
-        //   name: 'ownedCount',
-        //   title: 'Owned',
-        // },
       ]}
       meta={sourcesMeta}
+      onCreateRequest={handleCreateRequest}
     >
+      {creating && <CreateChannelDialog onClose={() => setCreating(false)} />}
       {sources.length ? (
         sources.map((s, i) => (
           <ChannelListRow

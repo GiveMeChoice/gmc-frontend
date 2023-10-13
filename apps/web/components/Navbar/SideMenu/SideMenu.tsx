@@ -40,7 +40,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
     <div
       id="side-menu"
       className={cn(
-        'fixed left-0 top-0 z-50 h-full border-r-1.5 border-zinc-700 bg-white font-normal tracking-wide text-black transition-width duration-500',
+        'fixed left-0 top-0 z-50 h-full border-r-1.5 border-zinc-700 bg-primary font-normal tracking-wide text-black transition-width duration-500',
         {
           'w-0': !open,
           'w-96': open,
@@ -78,7 +78,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             </a>
             <button
               className={cn(
-                'aspect-square h-9 flex-col items-center justify-center rounded-full border-1.5 border-black pt-0.5 hover:scale-[1.03] hover:bg-primary',
+                'aspect-square h-9 flex-col items-center justify-center rounded-full border-1.5 border-black pt-0.5 hover:scale-[1.03] hover:bg-secondary active:bg-primary',
                 {
                   flex: open,
                   hidden: !open,

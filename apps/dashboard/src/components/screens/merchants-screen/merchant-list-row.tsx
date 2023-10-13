@@ -1,9 +1,9 @@
-import { IMerchant } from '@root/services/merchants.service';
 import React from 'react';
 import ScreenSectionRow from '../shared/screen-section-row';
 import EditableMerchantFields from './editable-merchant-fields';
 import MerchantButtonPanel from './merchant-button-panel';
 import MerchantHeader from './merchant-header';
+import { IMerchant } from 'gmc-types';
 
 interface Props {
   merchant: IMerchant;

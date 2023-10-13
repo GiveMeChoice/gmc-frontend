@@ -15,6 +15,10 @@ const NavbarBottomMappings: React.FC = () => {
       )}
     >
       <NavbarSublink
+        screen={merchantBrandsService.brandsScreenControl}
+        actionType="SCREEN_REFRESH_MERCHANT_BRANDS"
+      />
+      <NavbarSublink
         screen={merchantCategoriesService.categoriesScreenControl}
         actionType="SCREEN_REFRESH_MERCHANT_CATEGORIES"
       />
@@ -22,22 +26,18 @@ const NavbarBottomMappings: React.FC = () => {
         screen={merchantLabelsService.labelsScreenControl}
         actionType="SCREEN_REFRESH_MERCHANT_LABELS"
       />
-      <NavbarSublink
-        screen={merchantBrandsService.brandsScreenControl}
-        actionType="SCREEN_REFRESH_MERCHANT_BRANDS"
-      />
       <div
         className={cn(
           'relative top-0 z-0 flex w-28 justify-center duration-300',
           {
             '-left-[355px]': screensService.isActive(
-              merchantCategoriesService.categoriesScreenControl
+              merchantBrandsService.brandsScreenControl
             ),
             '-left-[235px]': screensService.isActive(
-              merchantLabelsService.labelsScreenControl
+              merchantCategoriesService.categoriesScreenControl
             ),
             '-left-[115px]': screensService.isActive(
-              merchantBrandsService.brandsScreenControl
+              merchantLabelsService.labelsScreenControl
             ),
           }
         )}

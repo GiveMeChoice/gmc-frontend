@@ -1,13 +1,11 @@
 import { toDateString } from '@root/helpers/to-date-string';
-import { IChannel } from '@root/services/channels.service';
-import { IRun } from '@root/services/runs.service';
 import cn from 'classnames';
 import React from 'react';
 import ScreenSectionCell from '../shared/screen-section-cell';
 import ScreenSectionRow from '../shared/screen-section-row';
 import MerchantChip from '../merchants-screen/merchant-chip';
-import { IMerchant } from '@root/services/merchants.service';
 import ChannelBanner from '../channels-screen/channel-banner';
+import { IChannel, IMerchant, IRun } from 'gmc-types';
 
 interface Props {
   run: IRun;

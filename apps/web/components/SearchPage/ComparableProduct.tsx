@@ -6,7 +6,7 @@ import ComparableProductBuyBox from './ComparableProduct/ComparableProductBuyBox
 import ComparableProductHeading from './ComparableProduct/ComparableProductHeading';
 import ComparableProductImages from './ComparableProduct/ComparableProductImages';
 import ComparableProductLabelSpotlight from './ComparableProduct/ComparableProductLabels/ComparableProductLabelSpotlight';
-import { FlatLabel, flattenLabels } from '../../lib/labels';
+import { FlatLabel, flattenLabelDocuments } from '../../lib/labels';
 
 interface Props {
   index: number;
@@ -24,7 +24,7 @@ const ComparableProduct: React.FC<Props> = (props) => {
   useEffect(() => {
     setLabelSpotlight(0);
     if (props.product && props.product.labels) {
-      setFlatLabels(flattenLabels(props.product.labels));
+      setFlatLabels(flattenLabelDocuments(props.product.labels));
     }
   }, [props.product]);
 

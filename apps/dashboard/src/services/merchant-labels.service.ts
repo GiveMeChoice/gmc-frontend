@@ -4,27 +4,8 @@ import {
 } from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IGmcLabel } from './gmc-labels.service';
-import { IMerchant } from './merchants.service';
-
-export interface IMerchantLabel {
-  id: string;
-  merchantId: string;
-  merchantLabelCode: string;
-  name: string;
-  description: string;
-  logo: string;
-  url: string;
-  createdAt: Date;
-  gmcLabelId?: string;
-  gmcLabel?: Partial<IGmcLabel>;
-  merchant?: Partial<IMerchant>;
-  // calculated fields
-  productCount: number;
-}
+import { IMerchantLabel, PageRequest, PageResponse } from 'gmc-types';
 
 const getOne = async (id): Promise<IMerchantLabel> => {
   const res = await axios.get<IMerchantLabel>(`/merchant-labels/${id}`);
@@ -94,7 +75,7 @@ const extractMerchantLabelFilters = (
 
 const labelsScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-labels',
-  title: 'Labels',
+  title: 'Map Labels',
   readScreenMeta(data) {
     return data.merchantLabelsMeta;
   },

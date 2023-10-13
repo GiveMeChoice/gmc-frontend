@@ -1,9 +1,9 @@
-import { IProvider } from '@root/services/providers.service';
 import React from 'react';
 import ScreenSectionRow from '../shared/screen-section-row';
 import EditableProviderFields from './editable-provider-fields';
 import ProviderButtonPanel from './provider-button-panel';
 import ProviderHeader from './provider-header';
+import { IProvider } from 'gmc-types';
 
 interface Props {
   provider: IProvider;

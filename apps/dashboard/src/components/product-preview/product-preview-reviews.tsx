@@ -1,7 +1,6 @@
-import { IProduct } from '@root/services/products.service';
-import React from 'react';
-import cn from 'classnames';
 import { toDateString } from '@root/helpers/to-date-string';
+import { IProduct } from 'gmc-types';
+import React from 'react';
 
 interface Props {
   product: Partial<IProduct>;

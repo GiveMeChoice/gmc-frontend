@@ -4,10 +4,11 @@ import {
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import merchantsService, { IMerchant } from '@root/services/merchants.service';
+import merchantsService from '@root/services/merchants.service';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
+import { IMerchant } from 'gmc-types';
 
 interface Props {
   merchant: IMerchant;
@@ -42,14 +43,14 @@ const MerchantChip: React.FC<Props> = ({ merchant, clickable }) => {
       rel="noopener noreferrer"
       title={merchant.description}
       onClick={handleMerchantClick}
-      className="group h-9 w-fit rounded-full bg-black"
+      className="group h-9 w-fit rounded-full bg-zinc-900"
     >
       <div
         className={cn(
           'flex h-9 w-fit  cursor-pointer items-center gap-x-1 rounded-full border-zinc-600 bg-white pl-1 pr-2.5 transition-transform duration-150',
           {
             'cursor-default border': !clickable,
-            'translate-x-[1px] -translate-y-[2px] border-1.5 group-hover:translate-x-[3px] group-hover:-translate-y-[5px] group-active:translate-x-[1px] group-active:-translate-y-[2px]':
+            'translate-x-[1px] -translate-y-[1px] border group-hover:translate-x-[3px] group-hover:-translate-y-[5px] group-active:translate-x-[1px] group-active:-translate-y-[1px]':
               clickable,
           }
         )}

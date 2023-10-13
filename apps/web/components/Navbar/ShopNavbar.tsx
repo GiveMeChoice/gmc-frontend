@@ -1,18 +1,19 @@
 import cn from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { useBlogNav } from '../BlogNavProvider';
+import { baseCategories } from '../../lib/categories';
 import { useUser } from '../UserProvider';
-import BlogNavbarItem from './BlogNavbar/BlogNavbarItem';
 import LoginButton from './LoginButton';
 import ProfileButton from './ProfileButton';
+import ShopNavbarItem from './ShopNavbar/ShopNavbarItem';
 import SideMenu from './SideMenu/SideMenu';
-import Link from 'next/link';
-import Image from 'next/image';
+import { useShopNav } from '../Shop/ShopNavProvider';
 
 const ShopNavbar: React.FC = () => {
+  const { categories, initialized: loading } = useShopNav();
   const [minmized, setMinimized] = useState(false);
-  const [postTitle, setPostTitle] = useState(null);
   const user = useUser();
   const router = useRouter();
   const [sideMenuOpen, setSideMenuOpen] = useState(false);
@@ -20,15 +21,7 @@ const ShopNavbar: React.FC = () => {
 
   useEffect(() => {
     setNavigating(true);
-    // cycleNavigate();
     setMinimized(false);
-    setPostTitle(null);
-    if (router.query.slug && !router.pathname.includes('/tags/')) {
-      const slugComponent = (router as any).components['/blog/[slug]'];
-      if (slugComponent) {
-        setPostTitle(slugComponent.props.pageProps.data.post.title);
-      }
-    }
     var prevScrollpos = window.scrollY;
     const handleScrollUp = () => {
       var currentScrollPos = window.scrollY;
@@ -54,28 +47,21 @@ const ShopNavbar: React.FC = () => {
     };
   }, [router.asPath]);
 
-  const cycleNavigate = () => {
-    setNavigating(true);
-    setTimeout(() => {
-      setNavigating(false);
-    }, 1000);
-  };
-
   return (
     <div className="bg-seondary flex h-[48px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[13px] tracking-wider text-zinc-700">
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div
           className={cn(
-            'flex items-center justify-center transition-width duration-300',
+            'flex items-center justify-center bg-white transition-width duration-300',
             {
-              'w-9': !minmized,
-              'w-24': minmized,
+              'w-4': !minmized,
+              'w-[71px]': minmized,
             }
           )}
         >
           <div
             className={cn(
-              'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300  hover:bg-white',
+              'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300 hover:bg-primary',
               {
                 '-translate-x-44': !minmized,
               }
@@ -83,7 +69,7 @@ const ShopNavbar: React.FC = () => {
             onClick={() => setSideMenuOpen(!sideMenuOpen)}
           >
             <div className="w-5 border-b-2 border-black" />
-            <div className="my-[1px] w-[23px] border-b-2 border-black" />
+            <div className="my-[1px] w-[24px] border-b-2 border-black" />
             <div className="w-5 border-b-2 border-black" />
           </div>
           <SideMenu
@@ -108,163 +94,26 @@ const ShopNavbar: React.FC = () => {
             </div>
           </Link>
         </div>
-        {/* <div
-          onClick={() => setNavigating(true)}
-          className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-black hover:text-white"
-        >
-          labels
-        </div> */}
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/home & kitchen">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-ocean-light-40 hover:text-black"
-            >
-              CLOTHING
-            </div>
-          </Link>
+        <Link href={`/shop/label`}>
           <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
+            // style={{ backgroundColor: hover ? baseCategory.color : '#f0f0f5' }}
+            onClick={() => setNavigating(true)}
+            className={`flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-sunset hover:text-black`}
           >
-            <div className="pointer-events-auto h-full w-full">h+k</div>
+            LABELS
           </div>
-        </div>
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/home & kitchen">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-jungle hover:text-black"
-            >
-              BEAUTY
-            </div>
-          </Link>
-          <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
-          >
-            <div className="pointer-events-auto h-full w-full">h+k</div>
-          </div>
-        </div>
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/bath & beauty">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px]  cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-beach hover:text-black"
-            >
-              HEALTH
-            </div>
-          </Link>
-          <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
-          ></div>
-        </div>
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/home">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-berry hover:text-black"
-            >
-              HOME
-            </div>
-          </Link>
-          <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
-          ></div>
-        </div>
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/outdoor">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-forest hover:text-black"
-            >
-              OUTDOOR
-            </div>
-          </Link>
-          <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
-          ></div>
-        </div>
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/pets">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-sunset hover:text-black"
-            >
-              PETS
-            </div>
-          </Link>
-          <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
-          ></div>
-        </div>
-        <div
-          className="group h-full w-fit"
-          onMouseEnter={() => setNavigating(false)}
-        >
-          <Link href="/shop/category/pets">
-            <div
-              onClick={() => setNavigating(true)}
-              className="flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:bg-gmc-glacier hover:text-black"
-            >
-              GIFTS
-            </div>
-          </Link>
-          <div
-            className={cn(
-              'pointer-events-none absolute left-0 z-10 float-right hidden h-fit min-h-[400px] w-screen border-1.5 border-zinc-700 bg-white',
-              {
-                'group-hover:block': !navigating,
-              }
-            )}
-          ></div>
-        </div>
+        </Link>
+        {!loading &&
+          categories
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((category) => (
+              <ShopNavbarItem
+                category={category}
+                navigating={navigating}
+                setNavigating={setNavigating}
+              />
+            ))}
+
         <div
           className={cn(
             'flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
@@ -280,7 +129,6 @@ const ShopNavbar: React.FC = () => {
               navContainer.style.top = '0';
               setMinimized(false);
             }
-            // window.scrollTo(0, 0);
           }}
           onMouseEnter={() => setNavigating(false)}
         >

@@ -49,21 +49,22 @@ const ConfirmableButton: React.FC<Props> = ({
   ) : (
     <button
       className={cn(
-        'flex h-full w-28 items-center justify-center rounded-lg border-2 border-gmc-heart p-[1px]',
+        'flex h-full w-28 items-center justify-center rounded-lg border-1.5  p-[1px]',
         {
           'active:bg-gmc-heart': !loading,
           'border-secondary-dark-20 bg-secondary-dark-20': loading,
-          'bg-secondary text-black hover:bg-white': !loading && !confirmable,
+          'border-zinc-800  text-black hover:bg-white':
+            !loading && !confirmable,
           'bg-white text-black hover:bg-secondary-light-30':
             !loading && !confirmable && important,
-          'bg-gmc-heart-light-40 font-bold ': confirmable,
+          'border-gmc-heart bg-gmc-heart-light-40 font-bold': confirmable,
         }
       )}
       disabled={loading}
       onClick={handleClick}
     >
       {loading ? (
-        <LoadingWheel size="h-1/2" />
+        <LoadingWheel size="h-1/3 w-1/3" />
       ) : confirmable ? (
         'CONFIRM'
       ) : (

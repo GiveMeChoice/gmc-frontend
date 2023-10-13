@@ -15,6 +15,7 @@ const GmcBrandsScreen: React.FC = () => {
   const dispatch = useScreenDataDispatch();
   const { activeFilters } = useFilters();
   const [loading, setLoading] = useState(false);
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     if (!gmcBrands.length) {
@@ -33,14 +34,21 @@ const GmcBrandsScreen: React.FC = () => {
     }
   }, []);
 
+  const handleCreateRequest = () => {
+    setCreating(true);
+  };
+
   return (
     <div className="w-[100%]">
       <ScreenSection
         title={'GMC Brands'}
         sortFields={[{ name: 'name', title: 'Name' }]}
         meta={gmcBrandsMeta}
+        onCreateRequest={handleCreateRequest}
       >
-        <CreateGmcBrandDialog onCreated={() => null} />
+        {creating && (
+          <CreateGmcBrandDialog onClose={() => setCreating(false)} />
+        )}
         {gmcBrands.length ? (
           gmcBrands.map((gmcBrand, i) => (
             <ScreenSectionRow key={i}>

@@ -1,10 +1,8 @@
-import { IChannel } from '@root/services/channels.service';
-import { IMerchant } from '@root/services/merchants.service';
 import React from 'react';
 import MerchantChip from '../merchants-screen/merchant-chip';
 import ProductStatusChip from './product-status-chip';
 import ChannelBanner from '../channels-screen/channel-banner';
-import { IProduct } from '@root/services/products.service';
+import { IChannel, IMerchant, IProduct } from 'gmc-types';
 
 interface Props {
   product: IProduct;

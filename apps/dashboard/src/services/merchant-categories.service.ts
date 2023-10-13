@@ -1,27 +1,11 @@
-import {
-  ScreenDataAction,
-  IScreenData,
-} from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
+import {
+  IScreenData,
+  ScreenDataAction,
+} from '@root/context-providers/screen-data.provider';
 import axios from 'axios';
-import { IGmcCategory } from './gmc-categories.service';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IMerchant } from './merchants.service';
-
-export interface IMerchantCategory {
-  id: string;
-  merchantId: string;
-  merchantCategoryCode: string;
-  name: string;
-  createdAt: Date;
-  gmcCategoryId?: string;
-  merchant?: Partial<IMerchant>;
-  gmcCategory?: Partial<IGmcCategory>;
-  // calculated fields
-  productCount: number;
-}
+import { IMerchantCategory, PageRequest, PageResponse } from 'gmc-types';
 
 const getOne = async (id): Promise<IMerchantCategory> => {
   const res = await axios.get<IMerchantCategory>(`/merchant-categories/${id}`);
@@ -91,7 +75,7 @@ const extractCategoryFilters = (
 
 const categoriesScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-categories',
-  title: 'Categories',
+  title: 'Map Categories',
   readScreenMeta(data) {
     return data.merchantCategoriesMeta;
   },

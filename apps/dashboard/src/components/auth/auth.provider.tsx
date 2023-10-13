@@ -1,14 +1,14 @@
+import screensService from '@root/services/screens.service';
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   User,
 } from 'firebase/auth';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import React, { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth, firestore } from '../../firebase';
-import { doc, getDoc, getFirestore, onSnapshot } from 'firebase/firestore';
-import screensService from '@root/services/screens.service';
 
 interface IAuthContext {
   user?: User;

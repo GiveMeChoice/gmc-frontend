@@ -1,7 +1,8 @@
 import ActivationSwitch from '@root/components/shared/activation-switch';
 import EditableField from '@root/components/shared/editable-field';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import providersService, { IProvider } from '@root/services/providers.service';
+import providersService from '@root/services/providers.service';
+import { IProvider } from 'gmc-types';
 import React, { useState } from 'react';
 
 interface Props {

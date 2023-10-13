@@ -1,21 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 import LoadingWheel from '@root/components/shared/loading-wheel';
+import { useMasterData } from '@root/context-providers/master-data.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
-import { IGmcBrand, gmcBrandsService } from '@root/services/gmc-brands.service';
+import { gmcBrandsService } from '@root/services/gmc-brands.service';
 import { toastService } from '@root/services/toast.service';
 import cn from 'classnames';
+import { IGmcBrand } from 'gmc-types';
 import React, { useState } from 'react';
-const AddCircleIcon = require('../../../assets/images/add-circle.svg');
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const SaveIcon = require('../../../assets/images/save-icon2.svg');
 
 interface Props {
-  onCreated: (brand: IGmcBrand) => void;
+  onClose: () => void;
 }
 
-const CreateGmcBrandDialog: React.FC<Props> = ({ onCreated }) => {
-  const [editing, setEditing] = useState(false);
+const CreateGmcBrandDialog: React.FC<Props> = ({ onClose }) => {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
@@ -23,24 +23,17 @@ const CreateGmcBrandDialog: React.FC<Props> = ({ onCreated }) => {
   const [logo, setLogo] = useState('');
   const [saving, setSaving] = useState(false);
   const dispatch = useScreenDataDispatch();
-
-  const handleStartEdit = () => {
-    setEditing(true);
-  };
+  const { refreshGmcBrands } = useMasterData();
 
   const handleCancel = () => {
-    setEditing(false);
-    setName('');
-    setSlug('');
-    setDescription('');
-    setLogo('');
-    setUrl('');
+    onClose();
   };
 
   const handleSave = (brand: IGmcBrand) => {
     gmcBrandsService
       .create(brand)
       .then((created) => {
+        refreshGmcBrands();
         dispatch({
           type: 'SCREEN_ADD_GMC_BRAND',
           value: created,
@@ -67,7 +60,7 @@ const CreateGmcBrandDialog: React.FC<Props> = ({ onCreated }) => {
       });
   };
 
-  return editing ? (
+  return (
     <div
       className={cn('flex h-72 divide-x-1.5 divide-zinc-400', {
         'bg-secondary-dark-20': saving,
@@ -187,13 +180,6 @@ const CreateGmcBrandDialog: React.FC<Props> = ({ onCreated }) => {
           <span>CANCEL</span>
         </button>
       </div>
-    </div>
-  ) : (
-    <div
-      className="flex h-20 w-full cursor-pointer items-center justify-center hover:bg-primary active:bg-primary-light-10"
-      onClick={handleStartEdit}
-    >
-      <img className="h-3/5" src={AddCircleIcon} alt="add" />
     </div>
   );
 };

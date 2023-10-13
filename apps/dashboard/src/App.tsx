@@ -130,7 +130,7 @@ function App() {
               index
               element={
                 <Navigate
-                  to={gmcCategoriesService.gmcCategoriesScreenControl.pathname}
+                  to={gmcBrandsService.gmcBrandsScreenControl.pathname}
                   replace
                 />
               }
@@ -153,9 +153,7 @@ function App() {
               index
               element={
                 <Navigate
-                  to={
-                    merchantCategoriesService.categoriesScreenControl.pathname
-                  }
+                  to={merchantBrandsService.brandsScreenControl.pathname}
                   replace
                 />
               }

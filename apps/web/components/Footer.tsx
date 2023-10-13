@@ -7,12 +7,14 @@ const Footer: React.FC = () => {
       <div className="flex h-[420px] w-full justify-between bg-secondary">
         <div className="flex h-full w-3/5 justify-evenly p-10">
           <div className="flex w-2/5 flex-col items-center gap-y-8 border-r-1.5 border-secondary-dark-10 px-12 pt-10">
-            <Image
-              src="/img/G_LOGO_GREEN.svg"
-              alt="GMC Logo"
-              height="140"
-              width="140"
-            />
+            <div className="h-[140px] w-[140px] rounded-full border-1.5 border-black">
+              <Image
+                src="/img/G_LOGO_GREEN.svg"
+                alt="GMC Logo"
+                height="140"
+                width="140"
+              />
+            </div>
             <span className="text-center text-lg">
               Sustainable shopping
               <br /> simplified.
@@ -90,9 +92,9 @@ const Footer: React.FC = () => {
               <input
                 type="text"
                 placeholder="Your Email"
-                className="h-full w-full rounded-l-md py-4 px-6 text-[20px] outline-none placeholder:text-zinc-800"
+                className="h-full w-full rounded-l-sm py-4 px-6 text-[20px] text-zinc-800 outline-none placeholder:text-zinc-800"
               />
-              <button className="flex h-full w-20 items-center justify-center rounded-r-md bg-primary outline-none hover:bg-gmc-sunset">
+              <button className="flex h-full w-20 items-center justify-center rounded-r-sm bg-primary outline-none hover:bg-gmc-sunset">
                 <Image
                   src="/img/right-arrow.svg"
                   alt="GMC Logo"

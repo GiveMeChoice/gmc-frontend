@@ -2,11 +2,12 @@ import {
   useScreenData,
   useScreenDataDispatch,
 } from '@root/context-providers/screen-data.provider';
-import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
 import React from 'react';
 import LoadingWheel from '../shared/loading-wheel';
 import GmcLabelColumn from './gmc-labels-screen/gmc-label-column';
 import ScreenSection from './shared/screen-section';
+import { gmcLabelsService } from '@root/services/gmc-labels.service';
+import { IGmcLabel } from 'gmc-types';
 
 const GmcLabelsScreen: React.FC = () => {
   const data = useScreenData();

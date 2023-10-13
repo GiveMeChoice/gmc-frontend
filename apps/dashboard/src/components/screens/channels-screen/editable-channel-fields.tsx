@@ -1,10 +1,10 @@
 import ActivationSwitch from '@root/components/shared/activation-switch';
 import EditableField from '@root/components/shared/editable-field';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import { toDateString } from '@root/helpers/to-date-string';
-import channelsService, { IChannel } from '@root/services/channels.service';
 import React, { useState } from 'react';
 import ChannelLastRunDate from './channel-last-run-date';
+import channelsService from '@root/services/channels.service';
+import { IChannel } from 'gmc-types';
 
 interface Props {
   channel: IChannel;
@@ -59,7 +59,7 @@ const EditableChannelFields: React.FC<Props> = ({ channel }) => {
       </div>
       <div className="flex w-7/12 flex-col items-center border-r border-zinc-500 px-2 py-6">
         <EditableField
-          title="Code 1"
+          title="ETL 1"
           initialValue={channel.etlCode1}
           fieldType="text"
           onSave={(etlCode1) => handleFieldSave({ etlCode1 })}
@@ -67,7 +67,7 @@ const EditableChannelFields: React.FC<Props> = ({ channel }) => {
           width="w-full"
         />
         <EditableField
-          title="Code 2"
+          title="ETL 2"
           initialValue={channel.etlCode2}
           fieldType="text"
           onSave={(etlCode2) => handleFieldSave({ etlCode2 })}
@@ -75,7 +75,7 @@ const EditableChannelFields: React.FC<Props> = ({ channel }) => {
           width="w-full"
         />
         <EditableField
-          title="Code 3"
+          title="ETL 3"
           initialValue={channel.etlCode3}
           fieldType="text"
           onSave={(etlCode3) => handleFieldSave({ etlCode3 })}
@@ -83,7 +83,7 @@ const EditableChannelFields: React.FC<Props> = ({ channel }) => {
           width="w-full"
         />
         <EditableField
-          title="Code 4"
+          title="ETL 4"
           initialValue={channel.etlCode4}
           fieldType="text"
           onSave={(etlCode4) => handleFieldSave({ etlCode4 })}

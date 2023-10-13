@@ -88,30 +88,53 @@ export const searchFunction = https.onCall(
     }
     // Categories
     if (req.filters.category) {
+      filter.push({
+        match_phrase: {
+          'category.gmcCategory.slug.keyword': req.filters.category.value,
+        },
+      });
       if (req.filters.category.subfilter) {
+        filter.push({
+          match_phrase: {
+            'category.gmcCategory.subcategory.slug.keyword':
+              req.filters.category.subfilter.value,
+          },
+        });
         if (req.filters.category.subfilter.subfilter) {
           filter.push({
             match_phrase: {
-              'category.gmcCategory.subcategory.subcategory.name.keyword':
+              'category.gmcCategory.subcategory.subcategory.slug.keyword':
                 req.filters.category.subfilter.subfilter.value,
             },
           });
-        } else {
-          filter.push({
-            match_phrase: {
-              'category.gmcCategory.subcategory.name.keyword':
-                req.filters.category.subfilter.value,
-            },
-          });
         }
-      } else {
-        filter.push({
-          match_phrase: {
-            'category.gmcCategory.name.keyword': req.filters.category.value,
-          },
-        });
       }
     }
+    // if (req.filters.category) {
+    //   if (req.filters.category.subfilter) {
+    //     if (req.filters.category.subfilter.subfilter) {
+    //       filter.push({
+    //         match_phrase: {
+    //           'category.gmcCategory.subcategory.subcategory.slug.keyword':
+    //             req.filters.category.subfilter.subfilter.value,
+    //         },
+    //       });
+    //     } else {
+    //       filter.push({
+    //         match_phrase: {
+    //           'category.gmcCategory.subcategory.slug.keyword':
+    //             req.filters.category.subfilter.value,
+    //         },
+    //       });
+    //     }
+    //   } else {
+    //     filter.push({
+    //       match_phrase: {
+    //         'category.gmcCategory.slug.keyword': req.filters.category.value,
+    //       },
+    //     });
+    //   }
+    // }
     // Labels
     if (req.filters.labels) {
       req.filters.labels.forEach((labelFilter) => {
@@ -122,7 +145,7 @@ export const searchFunction = https.onCall(
                 path: 'labels',
                 query: {
                   match_phrase: {
-                    'labels.gmcLabel.sublabel.sublabel.name.keyword':
+                    'labels.gmcLabel.sublabel.sublabel.slug.keyword':
                       labelFilter.subfilter.subfilter.value,
                   },
                 },
@@ -134,7 +157,7 @@ export const searchFunction = https.onCall(
                 path: 'labels',
                 query: {
                   match_phrase: {
-                    'labels.gmcLabel.sublabel.name.keyword':
+                    'labels.gmcLabel.sublabel.slug.keyword':
                       labelFilter.subfilter.value,
                   },
                 },
@@ -147,7 +170,7 @@ export const searchFunction = https.onCall(
               path: 'labels',
               query: {
                 match_phrase: {
-                  'labels.gmcLabel.name.keyword': labelFilter.value,
+                  'labels.gmcLabel.slug.keyword': labelFilter.value,
                 },
               },
             },
@@ -164,7 +187,7 @@ export const searchFunction = https.onCall(
     }
     const searchReq: SearchRequest = {
       from: req.page ? req.page * (req.pageSize ? req.pageSize : 10) : 0,
-      size: req.pageSize ? req.pageSize : 10,
+      size: req.pageSize || req.pageSize === 0 ? req.pageSize : 10,
       query: {
         bool: {
           must,
@@ -201,7 +224,7 @@ export const searchFunction = https.onCall(
         },
         brands: {
           terms: {
-            field: 'brand.code',
+            field: 'brand.slug.keyword',
             size: 20,
           },
           aggs: {
@@ -217,30 +240,57 @@ export const searchFunction = https.onCall(
         },
         categories: {
           terms: {
-            field: 'category.gmcCategory.name.keyword',
+            field: 'category.gmcCategory.slug.keyword',
             order: {
               _count: 'desc',
             },
             size: 20,
           },
           aggs: {
+            top_category: {
+              top_hits: {
+                size: 1,
+                _source: {
+                  include: 'category.gmcCategory.name',
+                },
+              },
+            },
             subcategories_1: {
               terms: {
-                field: 'category.gmcCategory.subcategory.name.keyword',
+                field: 'category.gmcCategory.subcategory.slug.keyword',
                 order: {
                   _count: 'desc',
                 },
                 size: 20,
               },
               aggs: {
+                top_subcategory_1: {
+                  top_hits: {
+                    size: 1,
+                    _source: {
+                      include: 'category.gmcCategory.subcategory.name',
+                    },
+                  },
+                },
                 subcategories_2: {
                   terms: {
                     field:
-                      'category.gmcCategory.subcategory.subcategory.name.keyword',
+                      'category.gmcCategory.subcategory.subcategory.slug.keyword',
                     order: {
                       _count: 'desc',
                     },
                     size: 20,
+                  },
+                  aggs: {
+                    top_subcategory_2: {
+                      top_hits: {
+                        size: 1,
+                        _source: {
+                          include:
+                            'category.gmcCategory.subcategory.subcategory.name',
+                        },
+                      },
+                    },
                   },
                 },
               },
@@ -253,22 +303,46 @@ export const searchFunction = https.onCall(
           },
           aggs: {
             label: {
-              terms: { field: 'labels.gmcLabel.name.keyword', size: 20 },
+              terms: { field: 'labels.gmcLabel.slug.keyword', size: 20 },
               aggs: {
+                top_label: {
+                  top_hits: {
+                    size: 1,
+                    _source: {
+                      include: 'labels',
+                    },
+                  },
+                },
                 top_reverse_nested: {
                   reverse_nested: {},
                 },
                 sublabels_1: {
-                  terms: { field: 'labels.gmcLabel.sublabel.name.keyword' },
+                  terms: { field: 'labels.gmcLabel.sublabel.slug.keyword' },
                   aggs: {
+                    top_sublabel_1: {
+                      top_hits: {
+                        size: 1,
+                        _source: {
+                          include: 'labels',
+                        },
+                      },
+                    },
                     top_reverse_nested: {
                       reverse_nested: {},
                     },
                     sublabels_2: {
                       terms: {
-                        field: 'labels.gmcLabel.sublabel.sublabel.name.keyword',
+                        field: 'labels.gmcLabel.sublabel.sublabel.slug.keyword',
                       },
                       aggs: {
+                        top_sublabel_2: {
+                          top_hits: {
+                            size: 1,
+                            _source: {
+                              include: 'labels',
+                            },
+                          },
+                        },
                         top_reverse_nested: {
                           reverse_nested: {},
                         },
@@ -306,30 +380,41 @@ export const searchFunction = https.onCall(
             count: bucket.doc_count,
           })),
           brands: brandsAggs.buckets.map((bucket: any) => ({
-            key: bucket.key,
-            value: bucket.brand_name.hits.hits[0]._source.brand.name,
+            value: bucket.key,
+            name: bucket.brand_name.hits.hits[0]._source.brand.name,
             count: bucket.doc_count,
           })),
           categories: categoriesAggs.buckets.map((bucket: any) => ({
             value: bucket.key,
+            name: bucket.top_category.hits.hits[0]._source.category.gmcCategory
+              .name,
             count: bucket.doc_count,
             subfacets: bucket.subcategories_1.buckets.map((sub1: any) => ({
               value: sub1.key,
+              name: sub1.top_subcategory_1.hits.hits[0]._source.category
+                .gmcCategory.subcategory.name,
               count: sub1.doc_count,
               subfacets: sub1.subcategories_2.buckets.map((sub2: any) => ({
                 value: sub2.key,
+                name: sub2.top_subcategory_2.hits.hits[0]._source.category
+                  .gmcCategory.subcategory.subcategory.name,
                 count: sub2.doc_count,
               })),
             })),
           })),
           labels: labelsAggs.label.buckets.map((bucket: any) => ({
             value: bucket.key,
+            name: bucket.top_label.hits.hits[0]._source.gmcLabel.name,
             count: bucket.top_reverse_nested.doc_count,
             subfacets: bucket.sublabels_1.buckets.map((sub1: any) => ({
               value: sub1.key,
+              name: sub1.top_sublabel_1.hits.hits[0]._source.gmcLabel.sublabel
+                .name,
               count: sub1.top_reverse_nested.doc_count,
               subfacets: sub1.sublabels_2.buckets.map((sub2: any) => ({
                 value: sub2.key,
+                name: sub2.top_sublabel_2.hits.hits[0]._source.gmcLabel.sublabel
+                  .sublabel.name,
                 count: sub2.top_reverse_nested.doc_count,
               })),
             })),

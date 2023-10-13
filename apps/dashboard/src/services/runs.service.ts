@@ -4,30 +4,8 @@ import {
 } from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IChannel } from './channels.service';
-
-export interface IRun {
-  id: string;
-  channelId: string;
-  foundCount: number;
-  ownedCount: number;
-  createdCount: number;
-  adoptedCount: number;
-  pendingCount: number;
-  foreignCount: number;
-  staleCount: number;
-  keepAliveSignalCount: number;
-  refreshSignalCount: number;
-  failureCount: number;
-  runAt: Date;
-  contentDate: Date;
-  runTime: number;
-  errorMessage: string;
-  channel?: Partial<IChannel>;
-}
+import { PageRequest, PageResponse, IRun } from 'gmc-types';
 
 const find = async (
   filters: IFilters,

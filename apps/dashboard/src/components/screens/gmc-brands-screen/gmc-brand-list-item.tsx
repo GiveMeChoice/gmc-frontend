@@ -9,9 +9,10 @@ import {
 } from '@root/context-providers/filters.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
-import { IGmcBrand, gmcBrandsService } from '@root/services/gmc-brands.service';
+import { gmcBrandsService } from '@root/services/gmc-brands.service';
 import merchantBrandsService from '@root/services/merchant-brands.service';
 import { toastService } from '@root/services/toast.service';
+import { IGmcBrand } from 'gmc-types';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const DeleteIcon = require('../../../assets/images/delete-icon.svg');
@@ -89,6 +90,10 @@ const GmcBrandListItem: React.FC<Props> = ({ gmcBrand }) => {
       type: 'FILTERS_SAVE',
       value: { ...initialFilters, gmcBrandId },
     });
+    dispatch({
+      type: 'SCREEN_REFRESH_MERCHANT_BRANDS',
+      value: { data: [], meta: {} },
+    });
     navigate(merchantBrandsService.brandsScreenControl.pathname);
   };
 
@@ -165,11 +170,8 @@ const GmcBrandListItem: React.FC<Props> = ({ gmcBrand }) => {
         <FramedButton
           onClick={() => handleMerchantBrandsClick(gmcBrand.id)}
           disabled={gmcBrand.merchantBrand === null}
-          title={
-            gmcBrand.merchantBrand
-              ? `Merchant Brand -> ${gmcBrand.merchantBrand.name}`
-              : 'Merchant Brand Unassigned'
-          }
+          title="Merchant Brands"
+          count={gmcBrand.merchantBrand ? 1 : 0}
         />
       </div>
     </div>

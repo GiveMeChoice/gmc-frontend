@@ -2,15 +2,15 @@ import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import { useMasterData } from '@root/context-providers/master-data.provider';
 import cn from 'classnames';
 import React from 'react';
+import BrandFilters from './filters-container/brand-filters';
+import CategoryFilters from './filters-container/category-filters';
 import ChannelFilters from './filters-container/channel-filters';
+import LabelFilters from './filters-container/label-filters';
 import MerchantFilters from './filters-container/merchant-filters';
 import ProductFilters from './filters-container/product-filters';
 import ProviderFilters from './filters-container/provider-filters';
-import CategoryFilters from './filters-container/category-filters';
-import LabelFilters from './filters-container/label-filters';
 
 const FiltersContainer: React.FC = () => {
   const { activeFilters, filterBarVisible } = useFilters();
@@ -31,7 +31,7 @@ const FiltersContainer: React.FC = () => {
     <div
       id="filters-container"
       className={cn(
-        'flex h-full w-full flex-col items-center gap-y-3 overflow-y-auto px-3 py-4',
+        'flex h-full min-h-screen w-full flex-col items-center gap-y-3 overflow-y-auto px-3 py-4 pb-36',
         { hidden: !filterBarVisible }
       )}
     >
@@ -42,6 +42,8 @@ const FiltersContainer: React.FC = () => {
       <ChannelFilters onFieldChange={handleFieldChange} />
       <hr className="w-full border-zinc-500" />
       <ProductFilters onFieldChange={handleFieldChange} />
+      <hr className="w-full border-zinc-500" />
+      <BrandFilters onFieldChange={handleFieldChange} />
       <hr className="w-full border-zinc-500" />
       <CategoryFilters onFieldChange={handleFieldChange} />
       <hr className="w-full border-zinc-500" />

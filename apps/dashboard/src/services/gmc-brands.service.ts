@@ -4,20 +4,8 @@ import {
   ScreenDataAction,
 } from '@root/context-providers/screen-data.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { PageResponse } from './shared/page-response.interface';
-import { IMerchantBrand } from './merchant-brands.service';
-
-export interface IGmcBrand {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  logo: string;
-  url: string;
-  merchantBrand?: IMerchantBrand;
-}
+import { IGmcBrand, PageRequest, PageResponse } from 'gmc-types';
 
 const find = async (
   filters: IFilters,
@@ -25,7 +13,7 @@ const find = async (
 ): Promise<PageResponse<IGmcBrand>> => {
   const res = await axios.post<PageResponse<IGmcBrand>>(
     '/gmc-brands/find',
-    {},
+    extractGmcBrandFilters(filters),
     { params: pageRequest }
   );
   return res.data;
@@ -54,6 +42,10 @@ const update = async (id: string, updates: IGmcBrand) => {
 const deleteOne = async (id: string) => {
   const res = await axios.delete(`/gmc-brands/${id}`);
 };
+
+const extractGmcBrandFilters = (filters: IFilters): Partial<IGmcBrand> => ({
+  ...(filters.gmcBrandId && { id: filters.gmcBrandId }),
+});
 
 const gmcBrandsScreenControl: IScreenControl = {
   pathname: '/config/brands',

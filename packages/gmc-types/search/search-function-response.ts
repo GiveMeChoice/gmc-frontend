@@ -12,18 +12,18 @@ export interface SearchFunctionResponseDto {
 }
 
 export interface SearchFunctionFacetsDto {
-  merchants?: TermFacetDto[];
-  brands?: TermFacetDto[];
-  categories?: TermFacetDto[];
-  labels?: TermFacetDto[];
+  merchants?: NestedFacetDto[];
+  brands?: NestedFacetDto[];
+  categories?: NestedFacetDto[];
+  labels?: NestedFacetDto[];
   priceRanges?: RangeFacetDto[];
 }
 
-export interface TermFacetDto {
-  key?: string;
+export interface NestedFacetDto {
   value: string;
+  name: string;
   count: number;
-  subfacets?: TermFacetDto[];
+  subfacets?: NestedFacetDto[];
 }
 
 export interface RangeFacetDto {

@@ -1,10 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import ConfirmableButton from '@root/components/shared/confirmable-button';
 import EditableField from '@root/components/shared/editable-field';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import CreateGmcCategoryDialog from './create-gmc-category-dialog';
@@ -18,6 +15,9 @@ import {
 } from '@root/context-providers/filters.provider';
 import { useNavigate } from 'react-router-dom';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
+import { IGmcCategory } from 'gmc-types';
+import EditableTextArea from '@root/components/shared/editable-text-area';
+import ColorDropdown from '../shared/color-dropdown';
 const RightArrowIcon = require('../../../assets/images/right-arrow.svg');
 const DeleteIcon = require('../../../assets/images/delete-icon.svg');
 
@@ -40,7 +40,7 @@ const GmcCategoryColumn: React.FC<Props> = ({
     setCategories(initialCategories);
   }, []);
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<IGmcCategory[]>([]);
   const [loading, setLoading] = useState(false);
   const dispatch = useScreenDataDispatch();
   const filtersDispatch = useFiltersDispatch();
@@ -109,6 +109,10 @@ const GmcCategoryColumn: React.FC<Props> = ({
       type: 'FILTERS_SAVE',
       value: { ...initialFilters, gmcCategoryId },
     });
+    dispatch({
+      type: 'SCREEN_REFRESH_MERCHANT_CATEGORIES',
+      value: { data: [], meta: {} },
+    });
     navigate(merchantCategoriesService.categoriesScreenControl.pathname);
   };
 
@@ -124,22 +128,28 @@ const GmcCategoryColumn: React.FC<Props> = ({
       {categories && categories.length > 0 ? (
         categories.map((cat) => (
           <div
-            className={cn('flex w-full divide-x-1.5 divide-zinc-400', {
-              'bg-gmc-berry-light-50': selected && selected.id === cat.id,
-              'h-36': !parent,
-              'h-44': parent,
-            })}
+            style={{
+              backgroundColor:
+                selected && selected.id === cat.id
+                  ? parent
+                    ? superParent
+                      ? superParent.color
+                      : parent.color
+                    : cat.color
+                  : '',
+            }}
+            className={cn('flex h-fit w-full divide-x-1.5 divide-zinc-400', {})}
           >
-            <div className="flex w-full flex-col justify-evenly px-5">
+            <div className="flex h-full w-full flex-col gap-y-1.5 py-3 px-5">
               <span className="text-lg font-bold">
                 {cat.name.toUpperCase()}
               </span>
-              <span className="pb-1 pl-1 text-xs italic text-zinc-700">
+              <span className="py-2 text-[13px] italic text-zinc-700">
                 /shop/category/{superParent ? superParent.slug + '/' : ''}
                 {parent ? parent.slug + '/' : ''}
                 {cat.slug.toLowerCase()}
               </span>
-              <div className="flex flex-col pl-4">
+              <div className="flex flex-col gap-y-1.5 pl-4">
                 <EditableField
                   title="NAME"
                   initialValue={cat.name}
@@ -158,9 +168,28 @@ const GmcCategoryColumn: React.FC<Props> = ({
                   loading={loading}
                   onSave={(slug) => handleUpdateCategory(cat.id, { slug })}
                 />
+                <EditableTextArea
+                  title="DXN"
+                  initialValue={cat.description}
+                  width="w-full"
+                  onSave={(description) =>
+                    handleUpdateCategory(cat.id, { description })
+                  }
+                />
+                {!parent && (
+                  <ColorDropdown
+                    initialColor={cat.color}
+                    loading={loading}
+                    onSave={(color) =>
+                      handleUpdateCategory(cat.id, {
+                        color,
+                      })
+                    }
+                  />
+                )}
               </div>
               {parent && (
-                <div className="flex h-7 w-full justify-start pl-0.5">
+                <div className="mt-2 flex h-7 w-full justify-start pl-0.5">
                   <ConfirmableButton
                     onConfirm={() => handleDeleteCategory(cat.id)}
                     title={

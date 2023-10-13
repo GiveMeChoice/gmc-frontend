@@ -1,10 +1,9 @@
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import { useFilters } from '@root/context-providers/filters.provider';
 import screensService from '@root/services/screens.service';
-import { PageRequest } from '@root/services/shared/page-request.interface';
-import { PageMeta } from '@root/services/shared/page-response.interface';
 import React, { useEffect, useState } from 'react';
 import PageButtonIcon from '../../shared/page-button-icon';
+import { PageMeta, PageRequest } from 'gmc-types';
 
 interface Props {
   meta: PageMeta;

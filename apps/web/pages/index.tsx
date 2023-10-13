@@ -10,7 +10,6 @@ import { useUser } from '../components/UserProvider';
 export default function Home() {
   const { user } = useUser();
 
-  // bg[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))from-gmc-sunset to-gmc-surf
   return (
     <>
       <SEO

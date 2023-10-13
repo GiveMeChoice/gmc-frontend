@@ -6,13 +6,14 @@ import {
   useFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import providersService, { IProvider } from '@root/services/providers.service';
 import channelsService from '@root/services/channels.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScreenContainer from './shared/screen-container';
 import ScreenSection from './shared/screen-section';
+import providersService from '@root/services/providers.service';
+import { IProvider } from 'gmc-types';
 
 const HomeScreen: React.FC = () => {
   const [providers, setProviders] = useState<IProvider[]>([]);
@@ -96,13 +97,13 @@ const HomeScreen: React.FC = () => {
                     <span className="text-xs group-hover:underline">
                       CATEGORIES
                     </span>
-                    <span className="font-bold">{p.categoryCount}</span>
+                    {/* <span className="font-bold">{p.categoryCount}</span> */}
                   </button>
                   <button className="group flex h-14 w-32 flex-col items-center justify-center gap-1 rounded-md border-1.5 border-zinc-500 bg-gmc-dune-light-50 px-2 py-8 text-sm shadow-sm hover:bg-gmc-dune-light-30 active:bg-gmc-dune">
                     <span className="text-xs group-hover:underline">
                       LABELS
                     </span>
-                    <span className="font-bold">{p.labelCount}</span>
+                    {/* <span className="font-bold">{p.labelCount}</span> */}
                   </button>
                 </div>
               </div>

@@ -3,37 +3,30 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { LoadingSpinner } from 'ui';
 import ChoiceBarSummarySortSwitch from './SearchChoiceBarSummary/ChoiceBarSummarySortSwitch';
+import { useSearch } from '../../SearchProvider';
 
-interface Props {
-  loading: boolean;
-  searchResponse: SearchFunctionResponseDto;
-  compareModeOn: boolean;
-  removeCompareMode: () => void;
-  onSortChange: (sort: string) => void;
-}
+interface Props {}
 
-const SearchChoiceBarSummary: React.FC<Props> = ({
-  loading,
-  searchResponse,
-  compareModeOn,
-  removeCompareMode,
-  onSortChange,
-}) => {
+const SearchChoiceBarSummary: React.FC<Props> = ({}) => {
   const router = useRouter();
+  const search = useSearch();
+
+  const handleSortChange = () => {};
+
   return (
-    <div className="flex min-h-[200px] w-full flex-col  border-secondary-dark-10 bg-white px-8 pt-6">
-      {loading ? (
+    <div className="flex min-h-[160px] w-full flex-col  border-secondary-dark-10 bg-white px-8 pt-6">
+      {search.loading ? (
         // <div className="flex h-full w-full flex-col items-center justify-center gap-y-6">
         //   <LoadingSpinner style="h-14 fill-primary text-black" />
         //   <span className="text-2xl">Searching...</span>
         // </div>
-        <span className="pl-1.5 pb-8 text-4xl">Searching...</span>
+        <span className="w-full pl-1.5 pb-8 text-4xl">Searching...</span>
       ) : (
         <>
-          {searchResponse.hits ? (
-            <div className="flex h-full w-full flex-col gap-y-4">
+          {search.response.hits ? (
+            <div className="flex h-full w-full flex-col gap-y-1">
               <span className="pl-1.5 pb-8 text-4xl">
-                {searchResponse.hits} Results
+                {search.response.hits} Results
               </span>
               {/* <ChoiceBarSummaryBackButton compareModeOn={compareModeOn} removeCompareMode={removeCompareMode} /> */}
               {/* <div className="">
@@ -47,8 +40,8 @@ const SearchChoiceBarSummary: React.FC<Props> = ({
                   {/* <span className="text-sm">Sort By:</span> */}
                 </div>
                 <ChoiceBarSummarySortSwitch
-                  searchResponse={searchResponse}
-                  onSortChange={onSortChange}
+                  searchResponse={search.response}
+                  onSortChange={handleSortChange}
                 />
               </div>
             </div>

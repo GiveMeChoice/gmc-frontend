@@ -1,11 +1,10 @@
 import { useMasterData } from '@root/context-providers/master-data.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import merchantCategoriesService, {
-  IMerchantCategory,
-} from '@root/services/merchant-categories.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import FieldControlButtons from './field-control-buttons';
+import { IMerchantCategory } from 'gmc-types';
+import merchantCategoriesService from '@root/services/merchant-categories.service';
 
 interface Props {
   category: IMerchantCategory;

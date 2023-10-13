@@ -4,21 +4,8 @@ import {
 } from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-
-export interface IProvider {
-  id: string;
-  key: string;
-  description: string; //updateable
-  active: boolean; //updateable
-  runIntervalHours: number; //updateable
-  expirationHours: number; //updateable
-  // Calculated fields
-  channelCount: number;
-  productCount: number;
-}
+import { IProvider, PageRequest, PageResponse } from 'gmc-types';
 
 const find = async (
   filters: IFilters,

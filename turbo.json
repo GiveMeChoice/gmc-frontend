@@ -48,7 +48,8 @@
         "ACCESS_TOKEN",
         "ELASTIC_ENDPOINT",
         "ELASTIC_USERNAME",
-        "ELASTIC_PASSWORD"
+        "ELASTIC_PASSWORD",
+        "BACKEND_URL"
       ]
     },
     "dashboard#build": {

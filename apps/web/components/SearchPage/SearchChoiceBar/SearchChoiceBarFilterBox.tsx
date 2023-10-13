@@ -1,51 +1,48 @@
 /* eslint-disable @next/next/no-img-element */
 import {
   SearchFunctionFiltersDto,
-  SearchFunctionKeyedFilterDto,
+  KeyedFilterDto,
+  NestedFilterDto,
 } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../../UserProvider';
 import SearchChoiceBarFilterChip from './SearchChoiceBarFilterBox/SearchChoiceBarFilterChip';
 import SearchChoiceBarLabelChip from './SearchChoiceBarFilterBox/SearchChoiceBarLabelChip';
+import { useSearch } from '../../SearchProvider';
+import { useRouter } from 'next/router';
+import { pathToFilterDeepEqual } from '../../../lib/deep-equal';
 
-interface Props {
-  filters: SearchFunctionFiltersDto;
-  compareModeOn: boolean;
-  onFilterChange: (updated: SearchFunctionFiltersDto) => void;
-}
+interface Props {}
 
 type DisplayFilters = {
   merchant?: string;
-  brand?: SearchFunctionKeyedFilterDto;
+  brand?: KeyedFilterDto;
   category?: string;
   priceRange?: string;
   // labels?: string[];
 };
 
-const SearchChoiceBarFilterBox: React.FC<Props> = ({
-  filters,
-  compareModeOn,
-  onFilterChange,
-}) => {
+const SearchChoiceBarFilterBox: React.FC<Props> = ({}) => {
   const { profile } = useUser();
+  const router = useRouter();
   const [displayFilters, setDisplayFilters] = useState<DisplayFilters>({});
 
+  const search = useSearch();
+
   useEffect(() => {
-    setDisplayFilters(convertFiltersToDisplay(filters));
-  }, [filters]);
+    setDisplayFilters(convertFiltersToDisplay(search.request.filters));
+  }, [search.request.filters, router.asPath]);
 
   const convertFiltersToDisplay = (
     filters: SearchFunctionFiltersDto
   ): DisplayFilters => {
     const display: DisplayFilters = {};
     if (filters.category) {
-      display.category = filters.category.value;
-      if (filters.category.subfilter) {
-        display.category += ` > ${filters.category.subfilter.value}`;
-        if (filters.category.subfilter.subfilter) {
-          display.category += ` > ${filters.category.subfilter.subfilter.value}`;
-        }
-      }
+      display.category = filters.category.subfilter
+        ? filters.category.subfilter.subfilter
+          ? filters.category.subfilter.subfilter.name
+          : filters.category.subfilter.name
+        : filters.category.name;
     }
     if (filters.brand) {
       display.brand = filters.brand;
@@ -59,19 +56,25 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
     return display;
   };
 
-  const handleFilterChipClick = (name: string) => {
-    {
-      delete filters[name];
-      onFilterChange(filters);
-    }
+  const handleClearAll = () => {
+    search.execute({
+      filterUpdates: {
+        category: null,
+        priceRange: null,
+        brand: null,
+        labels: [],
+      },
+      noScroll: true,
+    });
   };
 
-  const handleLabelChipClick = (index: number) => {
-    {
-      onFilterChange({
-        labels: filters.labels.filter((x, i) => i !== index),
-      });
-    }
+  const handleFilterClick = (
+    filterUpdates: Partial<SearchFunctionFiltersDto>
+  ) => {
+    search.execute({
+      filterUpdates,
+      noScroll: true,
+    });
   };
 
   return (
@@ -88,57 +91,53 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
           <span className="text-xl">Filters</span>
         </div>
         {(Object.keys(displayFilters).length > 0 ||
-          (filters.labels && Object.keys(filters.labels).length > 0)) && (
+          (search.request.filters.labels.filter(
+            (l) => !pathToFilterDeepEqual(router.query.labels as string[], l)
+          ).length > 0 &&
+            Object.keys(search.request.filters.labels).length > 0)) && (
           <div
             className={`cursor-pointer rounded-sm border border-zinc-800 px-2 py-0.5 text-xs text-zinc-800 shadow-sm hover:bg-primary active:bg-primary-light-10`}
-            onClick={() => {
-              onFilterChange({
-                brand: null,
-                labels: [],
-                category: null,
-                priceRange: null,
-                region: null,
-                merchant: null,
-              });
-            }}
+            onClick={handleClearAll}
           >
             Clear All
           </div>
         )}
       </div>
       {(displayFilters.merchant ||
-        displayFilters.category ||
+        (displayFilters.category &&
+          !router.pathname.includes('/shop/category')) ||
         displayFilters.brand ||
         displayFilters.priceRange) && (
         <div className="flex flex-wrap items-center gap-y-3 pr-7 pl-2.5 pt-5">
-          {displayFilters.merchant && (
+          {/* {displayFilters.merchant && (
             <SearchChoiceBarFilterChip
-              onClick={handleFilterChipClick}
-              name={'merchant'}
+              onChipClick={}
+              filterName={'merchant'}
               value={displayFilters.merchant}
             />
-          )}
-          {displayFilters.category && (
-            <SearchChoiceBarFilterChip
-              onClick={handleFilterChipClick}
-              name={'category'}
-              value={displayFilters.category}
-              invert={true}
-            />
-          )}
+          )} */}
+          {!router.pathname.includes('/shop/category') &&
+            displayFilters.category && (
+              <SearchChoiceBarFilterChip
+                onChipClick={() => handleFilterClick({ category: null })}
+                filterName={'category'}
+                value={displayFilters.category}
+                invert={true}
+              />
+            )}
           {displayFilters.brand && (
             <SearchChoiceBarFilterChip
-              onClick={handleFilterChipClick}
-              name={'brand'}
+              onChipClick={() => handleFilterClick({ brand: null })}
+              filterName={'brand'}
               key={displayFilters.brand.key}
-              value={displayFilters.brand.value}
+              value={displayFilters.brand.name}
               invert
             />
           )}
           {displayFilters.priceRange && (
             <SearchChoiceBarFilterChip
-              onClick={handleFilterChipClick}
-              name={'priceRange'}
+              onChipClick={() => handleFilterClick({ priceRange: null })}
+              filterName={'priceRange'}
               key={displayFilters.priceRange}
               value={
                 displayFilters.priceRange === 'cheap'
@@ -151,17 +150,24 @@ const SearchChoiceBarFilterBox: React.FC<Props> = ({
           )}
         </div>
       )}
-      {filters.labels && filters.labels.length > 0 && (
-        <div className="flex flex-wrap items-center gap-y-3 pr-7 pl-2.5 pt-5 text-sm">
-          {filters.labels.map((label, i) => (
-            <SearchChoiceBarLabelChip
-              onClick={handleLabelChipClick}
-              index={i}
-              label={label}
-            />
-          ))}
-        </div>
-      )}
+      {search.request.filters.labels &&
+        search.request.filters.labels.filter(
+          (l) =>
+            !pathToFilterDeepEqual(router.query.labels as string[], l) &&
+            !!l.name
+        ).length > 0 && (
+          <div className="flex flex-wrap items-center gap-y-3 pr-7 pl-2.5 pt-5 text-sm">
+            {search.request.filters.labels
+              .filter(
+                (l) =>
+                  !pathToFilterDeepEqual(router.query.labels as string[], l) &&
+                  !!l.name
+              )
+              .map((label, i) => (
+                <SearchChoiceBarLabelChip index={i} label={label} />
+              ))}
+          </div>
+        )}
     </div>
   );
 };

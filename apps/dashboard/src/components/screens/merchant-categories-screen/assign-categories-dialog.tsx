@@ -2,12 +2,9 @@
 import ConfirmableButton from '@root/components/shared/confirmable-button';
 import LoadingWheel from '@root/components/shared/loading-wheel';
 import { useScreenData } from '@root/context-providers/screen-data.provider';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
-import { IMerchantCategory } from '@root/services/merchant-categories.service';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
 import cn from 'classnames';
+import { IMerchantCategory, IGmcCategory } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
 const LeftArrowIcon = require('../../../assets/images/left-arrow.svg');

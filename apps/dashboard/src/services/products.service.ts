@@ -1,82 +1,11 @@
+import { IFilters } from '@root/context-providers/filters.provider';
 import {
   IScreenData,
   ScreenDataAction,
 } from '@root/context-providers/screen-data.provider';
-import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { IMerchantCategory } from './merchant-categories.service';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-import { IMerchantBrand } from './merchant-brands.service';
-import { IMerchantLabel } from './merchant-labels.service';
-import { IMerchant } from './merchants.service';
-import { IChannel } from './channels.service';
-
-export interface IProduct {
-  id: string;
-  shortId: string;
-  merchantId: string;
-  merchantProductCode: string;
-  channelId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  // INTEGRATION METADATA
-  status: string;
-  createdByRunId: string;
-  refreshedByRunId: string;
-  refreshedAt: Date;
-  indexedAt: Date;
-  refreshReason: string;
-  expiresAt: Date;
-  keepAliveCount: number;
-  errorMessage: string;
-  // PRODUCT DATA
-  sku: string;
-  title: string;
-  description: string;
-  rating: number;
-  ratingsTotal: number;
-  price: number;
-  shippingPrice: number;
-  currency: string;
-  // RELATIONS
-  images: IProductImage[];
-  reviews: IProductReview[];
-  merchantLabels: IMerchantLabel[];
-  merchantBrand: IMerchantBrand;
-  merchantCategory: Partial<IMerchantCategory>;
-  merchant: Partial<IMerchant>;
-  channel: Partial<IChannel>;
-}
-
-export type IProductReview = {
-  id: string;
-  author: string;
-  text: string;
-  rating: number;
-  submittedOn: Date;
-};
-
-export type IProductImage = {
-  id: string;
-  url: string;
-  primary: boolean;
-  type: 'LIST' | 'DETAIL';
-};
-
-export type Label = {
-  title: string;
-  infoLink: string;
-  icon: string;
-  description: string;
-};
-
-export type ExtractResult = {
-  sourceDate: Date;
-  fromCache: boolean;
-  data: any;
-};
+import { IProduct, PageRequest, PageResponse } from 'gmc-types';
 
 const find = async (
   filters: IFilters,
@@ -157,6 +86,14 @@ const applyProductFilters = (filters: IFilters): Partial<IProduct> => ({
         merchantCategoryCode: filters.merchantCategoryCode,
       }),
       ...(filters.gmcCategoryId && { gmcCategoryId: filters.gmcCategoryId }),
+    },
+  }),
+  ...((filters.merchantBrandCode || filters.gmcBrandId) && {
+    merchantBrand: {
+      ...(filters.merchantBrandCode && {
+        merchantBrandCode: filters.merchantBrandCode,
+      }),
+      ...(filters.gmcBrandId && { gmcBrandId: filters.gmcBrandId }),
     },
   }),
   ...((filters.merchantLabelCode || filters.gmcLabelId) && {

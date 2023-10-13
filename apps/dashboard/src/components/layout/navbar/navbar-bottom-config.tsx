@@ -18,29 +18,29 @@ const NavbarBottomMappings: React.FC = () => {
       )}
     >
       <NavbarSublink
+        screen={gmcBrandsService.gmcBrandsScreenControl}
+        actionType="NO_OP"
+      />
+      <NavbarSublink
         screen={gmcCategoriesService.gmcCategoriesScreenControl}
-        actionType="SCREEN_REFRESH_MERCHANT_CATEGORIES"
+        actionType="NO_OP"
       />
       <NavbarSublink
         screen={gmcLabelsService.gmcLabelsScreenControl}
-        actionType="SCREEN_REFRESH_MERCHANT_LABELS"
-      />
-      <NavbarSublink
-        screen={gmcBrandsService.gmcBrandsScreenControl}
-        actionType="SCREEN_REFRESH_MERCHANT_BRANDS"
+        actionType="NO_OP"
       />
       <div
         className={cn(
           'relative top-0 z-0 flex w-28 justify-center duration-300',
           {
             '-left-[355px]': screensService.isActive(
-              gmcCategoriesService.gmcCategoriesScreenControl
+              gmcBrandsService.gmcBrandsScreenControl
             ),
             '-left-[235px]': screensService.isActive(
-              gmcLabelsService.gmcLabelsScreenControl
+              gmcCategoriesService.gmcCategoriesScreenControl
             ),
             '-left-[115px]': screensService.isActive(
-              gmcBrandsService.gmcBrandsScreenControl
+              gmcLabelsService.gmcLabelsScreenControl
             ),
           }
         )}

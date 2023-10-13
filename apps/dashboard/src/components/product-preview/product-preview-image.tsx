@@ -1,4 +1,4 @@
-import { IProduct } from '@root/services/products.service';
+import { IProduct } from 'gmc-types';
 import React from 'react';
 
 interface Props {

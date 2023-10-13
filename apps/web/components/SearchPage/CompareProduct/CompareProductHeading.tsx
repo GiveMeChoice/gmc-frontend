@@ -29,13 +29,13 @@ const CompareProductHeading: React.FC<Props> = ({
           <div className="flex aspect-4/3 h-full items-center justify-center p-8">
             <span className="text-4xl">{index + 1}</span>
           </div>
-          <div className="flex flex-grow items-center justify-center px-8 text-center">
-            <Link href={`/shop/product/${product.id}`}>
-              <span className="cursor-pointer text-[23px] font-bold tracking-wide text-zinc-800 hover:underline">
+          <Link href={`/shop/product/${product.id}`}>
+            <div className="group flex flex-grow cursor-pointer items-center justify-center px-8 text-center hover:bg-primary active:bg-primary-light-20">
+              <span className="font- text-[23px] leading-[1.3] tracking-wide text-zinc-800 decoration-[1.5px] underline-offset-2 group-hover:underline">
                 {product.title.replace(/\uFFFD/g, '')}
               </span>
-            </Link>
-          </div>
+            </div>
+          </Link>
           {!(isFirst && isLast) && (
             <div className="flex h-full justify-evenly divide-x-1.5 divide-zinc-700">
               <div
@@ -43,7 +43,7 @@ const CompareProductHeading: React.FC<Props> = ({
                   if (!isFirst) prevProduct();
                 }}
                 className={cn(
-                  `flex aspect-4/3 h-full select-none items-center justify-center bg-secondary dark:border-white`,
+                  `flex aspect-square h-full select-none items-center justify-center bg-secondary dark:border-white`,
                   {
                     'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
                       !isFirst,
@@ -64,7 +64,7 @@ const CompareProductHeading: React.FC<Props> = ({
                   if (!isLast) nextProduct();
                 }}
                 className={cn(
-                  `flex aspect-4/3 h-full select-none items-center justify-center bg-secondary`,
+                  `flex aspect-square h-full select-none items-center justify-center bg-secondary`,
                   {
                     'cursor-pointer bg-white hover:bg-primary active:bg-primary-light-20':
                       !isLast,
@@ -83,7 +83,7 @@ const CompareProductHeading: React.FC<Props> = ({
             </div>
           )}
           <div
-            className="flex aspect-square h-full cursor-pointer select-none items-center justify-center hover:bg-primary"
+            className="flex aspect-square h-full cursor-pointer select-none items-center justify-center hover:bg-gmc-heart-light-10"
             onClick={closeCompareMode}
           >
             <img

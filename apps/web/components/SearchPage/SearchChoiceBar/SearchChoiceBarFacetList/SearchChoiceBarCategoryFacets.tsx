@@ -1,31 +1,34 @@
 import {
   SearchFunctionFiltersDto,
-  SearchFunctionNestedFilterDto,
-  TermFacetDto,
+  NestedFilterDto,
+  NestedFacetDto,
 } from 'gmc-types';
-import React from 'react';
-import cn from 'classnames';
-import * as deepEqual from 'deep-equal';
-import GenericFacetItem from './FacetItems/GenericFacetItem';
+import React, { useEffect } from 'react';
+import FacetItem from './FacetItems/FacetItem';
+import { useSearch } from '../../../SearchProvider';
+import { baseCategories } from '../../../../lib/categories';
+import { getBaseCategorySlug } from 'helpers';
 
-interface Props {
-  activeCategoryFilter?: SearchFunctionNestedFilterDto;
-  categoryFacets: TermFacetDto[];
-  onFilterChange: (updated: SearchFunctionFiltersDto) => void;
-}
+interface Props {}
 
-const SearchChoiceBarCategoryFacets: React.FC<Props> = ({
-  activeCategoryFilter,
-  categoryFacets,
-  onFilterChange,
-}) => {
-  const onCategoryFacetClick = (
-    categoryFilter: SearchFunctionNestedFilterDto
-  ) => {
-    onFilterChange({
-      category: deepEqual(activeCategoryFilter, categoryFilter)
-        ? null
-        : categoryFilter,
+const SearchChoiceBarCategoryFacets: React.FC<Props> = ({}) => {
+  const search = useSearch();
+
+  const handleSelectCategory = (categoryFilter: NestedFilterDto) => {
+    search.execute({
+      filterUpdates: {
+        category: categoryFilter,
+      },
+      noScroll: true,
+    });
+  };
+
+  const handleRemoveCategory = () => {
+    search.execute({
+      filterUpdates: {
+        category: null,
+      },
+      noScroll: true,
     });
   };
 
@@ -33,48 +36,73 @@ const SearchChoiceBarCategoryFacets: React.FC<Props> = ({
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
       <span className="pl-1.5 text-lg font-bold">CATEGORIES</span>
       <div className="flex flex-col px-2 pl-3 pt-0.5 text-[17px]">
-        {categoryFacets
+        {search.response.facets.categories
           .sort((a, b) => (a.value > b.value ? 1 : -1))
-          .map((categoryFacet) => (
+          .map((cat) => (
             <>
-              <GenericFacetItem
-                value={categoryFacet.value}
-                selected={deepEqual(activeCategoryFilter, {
-                  value: categoryFacet.value,
-                })}
-                count={categoryFacet.count}
-                onClick={() =>
-                  onCategoryFacetClick({ value: categoryFacet.value })
-                }
+              <FacetItem
+                facetFilter={{
+                  value: cat.value,
+                  name: cat.name,
+                }}
+                color={baseCategories.find((bc) => bc.slug === cat.value).color}
+                activeFilters={[search.request.filters.category]}
+                count={cat.count}
+                onSelectFacet={handleSelectCategory}
+                onClearFacet={handleRemoveCategory}
               />
               {/* 
                 SUBCATEGORY 1
               */}
               <div className="flex flex-col pl-6 text-base">
-                {categoryFacet.subfacets.map((subcategory1Facet) => (
+                {cat.subfacets.map((sub1) => (
                   <>
-                    <GenericFacetItem
-                      value={subcategory1Facet.value}
-                      count={subcategory1Facet.count}
-                      selected={deepEqual(
-                        activeCategoryFilter,
-                        {
-                          value: categoryFacet.value,
-                          subfilter: {
-                            value: subcategory1Facet.value,
-                          },
+                    <FacetItem
+                      facetFilter={{
+                        value: cat.value,
+                        name: cat.name,
+                        subfilter: {
+                          value: sub1.value,
+                          name: sub1.name,
                         },
-                        { strict: true }
-                      )}
-                      onClick={() =>
-                        onCategoryFacetClick({
-                          value: categoryFacet.value,
-                          subfilter: {
-                            value: subcategory1Facet.value,
-                          },
-                        })
+                      }}
+                      color={
+                        baseCategories.find((bc) => bc.slug === cat.value).color
                       }
+                      activeFilters={[search.request.filters.category]}
+                      count={sub1.count}
+                      onSelectFacet={handleSelectCategory}
+                      onClearFacet={handleRemoveCategory}
                     />
+                    {/* 
+                SUBCATEGORY 2
+              */}
+                    <div className="flex flex-col pl-6 text-base">
+                      {sub1.subfacets.map((sub2) => (
+                        <FacetItem
+                          facetFilter={{
+                            value: cat.value,
+                            name: cat.name,
+                            subfilter: {
+                              value: sub1.value,
+                              name: sub1.name,
+                              subfilter: {
+                                value: sub2.value,
+                                name: sub2.name,
+                              },
+                            },
+                          }}
+                          color={
+                            baseCategories.find((bc) => bc.slug === cat.value)
+                              .color
+                          }
+                          activeFilters={[search.request.filters.category]}
+                          count={sub1.count}
+                          onSelectFacet={handleSelectCategory}
+                          onClearFacet={handleRemoveCategory}
+                        />
+                      ))}
+                    </div>
                   </>
                 ))}
               </div>

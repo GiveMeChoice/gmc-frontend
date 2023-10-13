@@ -114,7 +114,7 @@ export function CategoryPage({
           )}
 
           <div className="flex w-full">
-            <div className="w-4/5 border-r-1.5 border-zinc-700">
+            <div className="w-3/5 border-r-1.5 border-zinc-700">
               <div
                 style={{ backgroundColor: category.color }}
                 className="w-full border-y-1.5 border-zinc-700 bg-secondary text-black"
@@ -128,7 +128,7 @@ export function CategoryPage({
               </div>
               {morePosts.length > 0 && <PostList posts={morePosts.slice(2)} />}
             </div>
-            <div className="w-1/5 border-r-1.5 border-t-1.5 border-zinc-700 bg-secondary"></div>
+            <div className="w-2/5 border-r-1.5 border-t-1.5 border-zinc-700 bg-secondary"></div>
           </div>
         </PageContainer>
       </Layout>

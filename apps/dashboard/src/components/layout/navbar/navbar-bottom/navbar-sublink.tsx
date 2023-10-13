@@ -30,11 +30,14 @@ const NavbarSublink: React.FC<Props> = ({ screen, actionType }) => {
 
   return (
     <Link
-      className={cn('flex w-[120px] justify-center py-3 duration-150', {
-        'bolder-text text-primary': screensService.isActive(screen),
-        'hover:bolder-text hover:scale-105 hover:text-white':
-          !screensService.isActive(screen),
-      })}
+      className={cn(
+        'flex w-[120px] justify-center py-3 text-[15px] duration-150',
+        {
+          'bolder-text text-primary': screensService.isActive(screen),
+          'hover:bolder-text hover:scale-105 hover:text-white':
+            !screensService.isActive(screen),
+        }
+      )}
       to={screen.pathname}
       onClick={handleClick}
     >

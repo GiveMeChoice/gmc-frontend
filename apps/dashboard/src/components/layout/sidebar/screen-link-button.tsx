@@ -2,10 +2,7 @@ import {
   initialFilters,
   useFiltersDispatch,
 } from '@root/context-providers/filters.provider';
-import {
-  ScreenDataAction,
-  useScreenDataDispatch,
-} from '@root/context-providers/screen-data.provider';
+import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import screensService from '@root/services/screens.service';
 import { IScreenControl } from '@root/services/shared/screen-control.interface';
 import cn from 'classnames';

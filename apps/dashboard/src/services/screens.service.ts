@@ -12,13 +12,12 @@ import merchantLabelsService from './merchant-labels.service';
 import productsService from './products.service';
 import providersService from './providers.service';
 import runsService from './runs.service';
-import { PageRequest } from './shared/page-request.interface';
-import { PageMeta } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
 import merchantsService from './merchants.service';
 import { gmcCategoriesService } from './gmc-categories.service';
 import { gmcLabelsService } from './gmc-labels.service';
 import { gmcBrandsService } from './gmc-brands.service';
+import { PageMeta, PageRequest } from 'gmc-types';
 
 /* 
   Contains array of screen-controls, which are used to dispatch

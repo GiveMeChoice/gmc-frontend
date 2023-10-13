@@ -3,9 +3,10 @@ import LoadingWheel from '@root/components/shared/loading-wheel';
 import { useMasterData } from '@root/context-providers/master-data.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
-import { IGmcLabel, gmcLabelsService } from '@root/services/gmc-labels.service';
+import { gmcLabelsService } from '@root/services/gmc-labels.service';
 import { toastService } from '@root/services/toast.service';
 import cn from 'classnames';
+import { IGmcLabel } from 'gmc-types';
 import React, { useState } from 'react';
 const AddCircleIcon = require('../../../assets/images/add-circle.svg');
 const CancelIcon = require('../../../assets/images/cancel-icon.svg');
@@ -53,7 +54,7 @@ const CreateGmcLabelDialog: React.FC<Props> = ({
     } else {
       setSaving(true);
       gmcLabelsService
-        .create(parent.id, tmpName, tmpSlug, description)
+        .create(parent ? parent.id : null, tmpName, tmpSlug, description)
         .then((created) => {
           onCreated(created);
           refreshGmcLabels();

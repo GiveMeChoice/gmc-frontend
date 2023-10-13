@@ -4,25 +4,8 @@ import {
 } from '@root/context-providers/screen-data.provider';
 import { IFilters } from '@root/context-providers/filters.provider';
 import axios from 'axios';
-import { PageRequest } from './shared/page-request.interface';
-import { PageResponse } from './shared/page-response.interface';
 import { IScreenControl } from './shared/screen-control.interface';
-
-export interface IMerchant {
-  id: string;
-  key: string;
-  region: string;
-  name: string; //updateable
-  description: string; //updateable
-  logo: string; //updateable
-  url: string; //updateable
-  // calculated fields
-  channelCount: number;
-  productCount: number;
-  labelCount: number;
-  brandCount: number;
-  categoryCount: number;
-}
+import { IMerchant, PageRequest, PageResponse } from 'gmc-types';
 
 const find = async (
   filters: IFilters,

@@ -27,6 +27,7 @@ export interface IFilters {
   categoryUnassigned?: boolean;
   gmcBrandId?: string;
   merchantBrandCode?: string;
+  brandUnassigned?: boolean;
 }
 
 export type FiltersContextType = {

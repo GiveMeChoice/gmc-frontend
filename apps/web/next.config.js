@@ -6,6 +6,9 @@ const withTM = require('next-transpile-modules')([
 ]);
 
 module.exports = withTM({
+  experimental: {
+    scrollRestoration: true,
+  },
   reactStrictMode: true,
   images: {
     loader: 'akamai',

@@ -9,18 +9,20 @@ export interface SearchFunctionRequestDto {
 export interface SearchFunctionFiltersDto {
   region?: string;
   merchant?: string;
-  brand?: SearchFunctionKeyedFilterDto;
-  category?: SearchFunctionNestedFilterDto;
-  labels?: SearchFunctionNestedFilterDto[];
+  brand?: KeyedFilterDto;
+  category?: NestedFilterDto;
+  labels?: NestedFilterDto[];
   priceRange?: 'cheap' | 'average' | 'expensive';
 }
 
-export interface SearchFunctionNestedFilterDto {
+export interface NestedFilterDto {
   value: string;
-  subfilter?: SearchFunctionNestedFilterDto;
+  name: string;
+  subfilter?: NestedFilterDto;
 }
 
-export interface SearchFunctionKeyedFilterDto {
+export interface KeyedFilterDto {
   key: string;
+  name: string;
   value: string;
 }

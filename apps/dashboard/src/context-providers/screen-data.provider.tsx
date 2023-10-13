@@ -1,26 +1,3 @@
-import { IMerchantBrand } from '@root/services/merchant-brands.service';
-import { IMerchantCategory } from '@root/services/merchant-categories.service';
-import { IJobStatus } from '@root/services/jobs.service';
-import { IMerchantLabel } from '@root/services/merchant-labels.service';
-import { IProduct } from '@root/services/products.service';
-import { IProvider } from '@root/services/providers.service';
-import { IRun } from '@root/services/runs.service';
-import {
-  PageMeta,
-  PageResponse,
-} from '@root/services/shared/page-response.interface';
-import { IChannel } from '@root/services/channels.service';
-import {
-  createContext,
-  Dispatch,
-  FC,
-  Reducer,
-  useContext,
-  useEffect,
-  useReducer,
-} from 'react';
-import { IMerchant } from '@root/services/merchants.service';
-import { IToast } from '@root/services/toast.service';
 import {
   IGmcCategoryScreenData,
   gmcCategoriesService,
@@ -29,7 +6,30 @@ import {
   IGmcLabelScreenData,
   gmcLabelsService,
 } from '@root/services/gmc-labels.service';
-import { IGmcBrand } from '@root/services/gmc-brands.service';
+import { IJobStatus } from '@root/services/jobs.service';
+import { IToast } from '@root/services/toast.service';
+import {
+  IProvider,
+  PageMeta,
+  IChannel,
+  IRun,
+  IProduct,
+  IMerchant,
+  IMerchantLabel,
+  IMerchantCategory,
+  IMerchantBrand,
+  IGmcBrand,
+  PageResponse,
+} from 'gmc-types';
+import {
+  Dispatch,
+  FC,
+  Reducer,
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react';
 
 export interface IScreenData {
   loading: boolean;
@@ -155,6 +155,14 @@ export type ScreenDataAction =
   | {
       type: 'SCREEN_ADD_GMC_BRAND';
       value: IGmcBrand;
+    }
+  | {
+      type: 'SCREEN_ADD_CHANNEL';
+      value: IChannel;
+    }
+  | {
+      type: 'SCREEN_REMOVE_CHANNEL';
+      value: string;
     }
   | {
       type: 'SCREEN_REMOVE_GMC_BRAND';
@@ -368,6 +376,16 @@ function dataReducer(data: IScreenData, action: ScreenDataAction): IScreenData {
         ...data,
         gmcBrands: [action.value, ...data.gmcBrands],
       };
+    case 'SCREEN_ADD_CHANNEL':
+      return {
+        ...data,
+        channels: [action.value, ...data.channels],
+      };
+    case 'SCREEN_REMOVE_CHANNEL':
+      return {
+        ...data,
+        channels: data.channels.filter((c) => c.id !== action.value),
+      };
     case 'SCREEN_UPDATE_GMC_CATEGORIES':
       return {
         ...data,
@@ -408,7 +426,7 @@ export const initialData: IScreenData = {
   providers: [],
   providersMeta: { sort: 'key', direction: 'ASC' },
   channels: [],
-  channelsMeta: {},
+  channelsMeta: { sort: 'name', direction: 'ASC' },
   runs: [],
   runsMeta: { sort: 'runAt', direction: 'DESC' },
   products: [],

@@ -1,12 +1,10 @@
 import { useAuth } from '@root/components/auth/auth.provider';
-import { formatErrorMessage } from '@root/helpers/format-error-message';
-import {
-  gmcCategoriesService,
-  IGmcCategory,
-} from '@root/services/gmc-categories.service';
-import { gmcLabelsService, IGmcLabel } from '@root/services/gmc-labels.service';
+import { gmcBrandsService } from '@root/services/gmc-brands.service';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
+import { gmcLabelsService } from '@root/services/gmc-labels.service';
 import merchantsService from '@root/services/merchants.service';
 import providersService from '@root/services/providers.service';
+import { IMerchant } from 'gmc-types';
 import {
   createContext,
   ReactFragment,
@@ -18,13 +16,16 @@ import {
 export type KeyType = {
   id: string;
   key: string;
+  name?: string;
 };
 
 export interface IMasterData {
+  merchants: IMerchant[];
   merchantKeys: KeyType[];
   providerKeys: KeyType[];
   gmcCategorySelect: ReactFragment[];
   gmcLabelSelect: ReactFragment[];
+  gmcBrandSelect: ReactFragment[];
   gmcCategoryTitles: EntityTitle[];
   gmcLabelTitles: EntityTitle[];
   channelStatuses: string[];
@@ -48,6 +49,7 @@ export type MasterDataContextType = IMasterData & {
   readGmcLabelName: (gmcCategoryId: string) => string;
   refreshGmcCategories: () => Promise<void>;
   refreshGmcLabels: () => Promise<void>;
+  refreshGmcBrands: () => Promise<void>;
 };
 
 const MasterDataContext = createContext<MasterDataContextType>(null);
@@ -56,10 +58,12 @@ export const MasterDataProvider: React.FC = ({ children }) => {
   const auth = useAuth();
   const [initialized, setInitialized] = useState<boolean>(false);
   const [masterData, setMasterData] = useState<IMasterData>({
+    merchants: [],
     merchantKeys: [],
     providerKeys: [],
     gmcLabelSelect: [],
     gmcCategorySelect: [],
+    gmcBrandSelect: [],
     gmcCategoryTitles: [],
     gmcLabelTitles: [],
     merchantRegions: ['UK', 'US', 'NL'],
@@ -91,18 +95,28 @@ export const MasterDataProvider: React.FC = ({ children }) => {
         providersService.getAll(),
         gmcLabelsService.getAll(),
         gmcCategoriesService.getAll(),
-      ]).then(([merchants, providers, gmcLabels, gmcCategories]) => {
+        gmcBrandsService.getAll(),
+      ]).then(([merchants, providers, gmcLabels, gmcCategories, gmcBrands]) => {
         const categorySelect: ReactFragment[] = [];
         const categoryTitles: EntityTitle[] = [];
         const labelSelect: ReactFragment[] = [];
         const labelTitles: EntityTitle[] = [];
         setMasterData({
           ...masterData,
+          merchants: merchants.data,
           merchantKeys: merchants.data.map((m) => ({
             id: m.id,
             key: m.key,
+            name: m.name,
           })),
           providerKeys: providers.data.map((p) => ({ id: p.id, key: p.key })),
+          gmcBrandSelect: gmcBrands
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((brand) => (
+              <option key={brand.id} value={brand.id}>
+                {brand.name}
+              </option>
+            )),
           gmcLabelSelect: gmcLabels.map((lab) =>
             traverseTree(lab, [], labelSelect, labelTitles)
           ),
@@ -143,6 +157,21 @@ export const MasterDataProvider: React.FC = ({ children }) => {
   const readGmcLabelName = (gmcLabelId): string => {
     const read = masterData.gmcLabelTitles.find((t) => t.id === gmcLabelId);
     return read ? read.name : '';
+  };
+
+  const refreshGmcBrands = async () => {
+    gmcBrandsService.getAll().then((gmcBrands) => {
+      setMasterData({
+        ...masterData,
+        gmcBrandSelect: gmcBrands
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .map((brand) => (
+            <option key={brand.id} value={brand.id}>
+              {brand.name}
+            </option>
+          )),
+      });
+    });
   };
 
   const refreshGmcCategories = async () => {
@@ -186,6 +215,7 @@ export const MasterDataProvider: React.FC = ({ children }) => {
         refreshGmcLabels,
         readGmcCategoryName,
         readGmcLabelName,
+        refreshGmcBrands,
       }}
     >
       {children}

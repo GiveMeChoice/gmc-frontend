@@ -2,7 +2,6 @@ import ConfirmableButton from '@root/components/shared/confirmable-button';
 import FramedButton from '@root/components/shared/framed-button';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
 import integrationService from '@root/services/integration.service';
-import productsService, { IProduct } from '@root/services/products.service';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScreenSectionRow from '../shared/screen-section-row';
@@ -11,6 +10,8 @@ import ProductIdsAndCategories from './product-ids-and-categories';
 import ProductIntegrationInfo from './product-integration-info';
 import ProductTitle from './product-title';
 import productDocumentsService from '@root/services/product-documents.service';
+import { IProduct } from 'gmc-types';
+import productsService from '@root/services/products.service';
 
 interface Props {
   product: IProduct;
@@ -83,11 +84,15 @@ const ProductListRow: React.FC<Props> = ({ product: initialProduct }) => {
             </div>
           </div>
         </div>
-        {product.errorMessage && (
-          <span className="py-3 text-center text-sm italic text-gmc-heart">
-            {product.errorMessage}
-          </span>
-        )}
+        <div className="w-full py-3">
+          {product.errorMessage && (
+            <div className="flex w-10/12 justify-center">
+              <span className="text-center text-sm italic text-gmc-heart">
+                {product.errorMessage}
+              </span>
+            </div>
+          )}
+        </div>
       </div>
     </ScreenSectionRow>
   ) : (

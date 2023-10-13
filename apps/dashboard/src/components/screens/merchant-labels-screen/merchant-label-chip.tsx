@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { IMerchantLabel } from '@root/services/merchant-labels.service';
 import React from 'react';
 import cn from 'classnames';
+import { IMerchantLabel } from 'gmc-types';
 
 interface Props {
   merchantLabel: IMerchantLabel;
@@ -12,10 +12,7 @@ const MerchantLabelChip: React.FC<Props> = ({ merchantLabel }) => {
     <a
       className={cn(
         'flex h-9 w-fit cursor-pointer items-center gap-x-1 rounded-full border border-zinc-600 bg-white pl-1 pr-2.5',
-        {
-          // 'bg-primary-light-20': merchantLabel.gmcLabelId != null,
-          // 'bg-white': merchantLabel.gmcLabelId == null,
-        }
+        {}
       )}
       href={merchantLabel.url}
       target="_blank"

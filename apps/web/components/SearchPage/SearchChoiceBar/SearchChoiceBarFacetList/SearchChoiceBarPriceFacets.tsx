@@ -1,82 +1,83 @@
-import cn from 'classnames';
-import { RangeFacetDto, SearchFunctionFiltersDto } from 'gmc-types';
 import React from 'react';
+import { useSearch } from '../../../SearchProvider';
 import GenericFacetItem from './FacetItems/GenericFacetItem';
 
-interface Props {
-  activePriceFilter?: string;
-  priceFacets: RangeFacetDto[];
-  onFilterChange: (updated: SearchFunctionFiltersDto) => void;
-}
+interface Props {}
 
-const SearchChoiceBarPriceFacets: React.FC<Props> = ({
-  activePriceFilter,
-  priceFacets,
-  onFilterChange,
-}) => {
+const SearchChoiceBarPriceFacets: React.FC<Props> = ({}) => {
+  const search = useSearch();
   return (
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10">
       <span className="pl-1.5 text-lg font-bold">PRICE</span>
       <div className="flex flex-col px-2 pl-3 pt-0.5 text-[17px]">
-        {priceFacets.find(
+        {search.response.facets.priceRanges.find(
           (pr) => pr.count > 0 && pr.priceRange === 'cheap'
         ) && (
           <GenericFacetItem
             value="£ 0 - £ 15"
-            selected={activePriceFilter === 'cheap'}
+            selected={search.request.filters.priceRange === 'cheap'}
             count={
-              priceFacets.find(
+              search.response.facets.priceRanges.find(
                 (priceFacet) => priceFacet.priceRange === 'cheap'
               ).count
             }
             onClick={() =>
-              onFilterChange({
-                priceRange:
-                  activePriceFilter && activePriceFilter === 'cheap'
-                    ? null
-                    : 'cheap',
+              search.execute({
+                filterUpdates: {
+                  priceRange:
+                    search.request.filters.priceRange &&
+                    search.request.filters.priceRange === 'cheap'
+                      ? null
+                      : 'cheap',
+                },
               })
             }
           />
         )}
-        {priceFacets.find(
+        {search.response.facets.priceRanges.find(
           (pr) => pr.count > 0 && pr.priceRange === 'average'
         ) && (
           <GenericFacetItem
             value="£ 15 - £ 100"
-            selected={activePriceFilter === 'average'}
+            selected={search.request.filters.priceRange === 'average'}
             count={
-              priceFacets.find(
+              search.response.facets.priceRanges.find(
                 (priceFacet) => priceFacet.priceRange === 'average'
               ).count
             }
             onClick={() =>
-              onFilterChange({
-                priceRange:
-                  activePriceFilter && activePriceFilter === 'average'
-                    ? null
-                    : 'average',
+              search.execute({
+                filterUpdates: {
+                  priceRange:
+                    search.request.filters.priceRange &&
+                    search.request.filters.priceRange === 'average'
+                      ? null
+                      : 'average',
+                },
               })
             }
           />
         )}
-        {priceFacets.find(
+        {search.response.facets.priceRanges.find(
           (pr) => pr.count > 0 && pr.priceRange === 'expensive'
         ) && (
           <GenericFacetItem
             value="£ 100 +"
-            selected={activePriceFilter === 'expensive'}
+            selected={search.request.filters.priceRange === 'expensive'}
             count={
-              priceFacets.find(
+              search.response.facets.priceRanges.find(
                 (priceFacet) => priceFacet.priceRange === 'expensive'
               ).count
             }
             onClick={() =>
-              onFilterChange({
-                priceRange:
-                  activePriceFilter && activePriceFilter === 'expensive'
-                    ? null
-                    : 'expensive',
+              search.execute({
+                filterUpdates: {
+                  priceRange:
+                    search.request.filters.priceRange &&
+                    search.request.filters.priceRange === 'expensive'
+                      ? null
+                      : 'expensive',
+                },
               })
             }
           />

@@ -1,19 +1,17 @@
-import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
 import integrationService from '@root/services/integration.service';
-import productsService, { IProduct } from '@root/services/products.service';
+import productDocumentsService from '@root/services/product-documents.service';
+import productsService from '@root/services/products.service';
 import cn from 'classnames';
+import { IProduct, ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import JSONPretty from 'react-json-pretty';
 import 'react-json-pretty/themes/monikai.css';
 import { useParams } from 'react-router-dom';
 import CopyIdButton from '../shared/copy-id-button';
 import LoadingWheel from '../shared/loading-wheel';
-import { ProductDocument } from 'gmc-types';
-import productDocumentsService from '@root/services/product-documents.service';
 
 const MappingAssistant: React.FC = () => {
   const { shortId } = useParams();
-  const dataDispatch = useScreenDataDispatch();
   const [providerKey, setProviderKey] = useState('');
 
   const [extracted, setExtracted] = useState(null);

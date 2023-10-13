@@ -1,14 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import dashboardService from '@root/services/dashboard.service';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
 import jobsService from '@root/services/jobs.service';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
 import merchantsService from '@root/services/merchants.service';
 import productsService from '@root/services/products.service';
-import providersService from '@root/services/providers.service';
 import cn from 'classnames';
 import React, { useEffect, useState } from 'react';
 import ScreenLinkButton from './sidebar/screen-link-button';
-import { gmcCategoriesService } from '@root/services/gmc-categories.service';
+import { gmcBrandsService } from '@root/services/gmc-brands.service';
+import merchantBrandsService from '@root/services/merchant-brands.service';
 const GMCLogo = require('../../assets/images/GMC_logo.svg');
 const GMCG = require('../../assets/images/GMC_G.svg');
 const HomeIcon = require('../../assets/images/home-icon.svg');
@@ -102,10 +103,10 @@ const Sidebar: React.FC = () => {
             <img className="h-5" src={TreeIcon} alt="user icon" />
           </ScreenLinkButton>
           <ScreenLinkButton
-            screen={gmcCategoriesService.gmcCategoriesScreenControl}
+            screen={gmcBrandsService.gmcBrandsScreenControl}
             alternativeTitle="GMC Config"
             alternativePathMatch="/config/"
-            actionType="SCREEN_REFRESH_MERCHANTS"
+            actionType="NO_OP"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
@@ -114,8 +115,8 @@ const Sidebar: React.FC = () => {
           <ScreenLinkButton
             alternativeTitle="Mappings"
             alternativePathMatch="/mappings/"
-            screen={merchantCategoriesService.categoriesScreenControl}
-            actionType="SCREEN_REFRESH_MERCHANT_CATEGORIES"
+            screen={merchantBrandsService.brandsScreenControl}
+            actionType="SCREEN_REFRESH_MERCHANT_BRANDS"
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >

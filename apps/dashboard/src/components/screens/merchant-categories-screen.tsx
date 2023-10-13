@@ -12,7 +12,6 @@ import {
 } from '@root/context-providers/screen-data.provider';
 import { formatErrorMessage } from '@root/helpers/format-error-message';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
-import { IMerchant } from '@root/services/merchants.service';
 import productsService from '@root/services/products.service';
 import { toastService } from '@root/services/toast.service';
 import cn from 'classnames';
@@ -23,6 +22,7 @@ import AssignCategoriesDialog from './merchant-categories-screen/assign-categori
 import MerchantChip from './merchants-screen/merchant-chip';
 import ScreenSection from './shared/screen-section';
 import ScreenSectionRow from './shared/screen-section-row';
+import { IMerchant } from 'gmc-types';
 const NestArrowIcon = require('../../assets/images/nest-arrow.svg');
 const RightArrowIcon = require('../../assets/images/right-arrow.svg');
 const GMCLogoIcon = require('../../assets/images/GMC_G.svg');
@@ -132,7 +132,7 @@ const MerchantCategoriesScreen: React.FC = () => {
                   <div className="flex h-[180px] w-full divide-x divide-zinc-400">
                     <div
                       className={cn(
-                        'flex h-full w-full flex-col justify-center gap-y-3 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
+                        'flex h-full w-full flex-col justify-center gap-y-3 divide-y-1.5 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
                         {
                           'bg-primary': updatedId === merchantCategory.id,
                         }
@@ -148,20 +148,20 @@ const MerchantCategoriesScreen: React.FC = () => {
                         <div className="w-14">
                           <hr className="border border-zinc-700" />
                         </div>
-                        <span className="rounded-sm border border-zinc-700 bg-white py-1.5 px-3 text-center text-[15px] italic">
+                        <span className="max-w-[50%] rounded-sm border border-zinc-700 bg-white py-1.5 px-3 text-center text-[15px] italic">
                           {merchantCategory.name}
                         </span>
                       </div>
                       {/*  */}
-                      <div className="flex items-center">
-                        <div className="flex w-[80px] items-center justify-end">
+                      <div className="flex items-center pl-5">
+                        <div className="flex w-[30px] items-center justify-end">
                           <img
-                            className="w-1/2"
+                            className="w-[95%]"
                             src={NestArrowIcon}
                             alt="curve arrow"
                           />
                         </div>
-                        <div className="ml-6 mt-5 flex items-center">
+                        <div className="ml-5 mt-4 flex items-center">
                           <div
                             className={cn(
                               'flex h-[52px] w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
@@ -181,13 +181,13 @@ const MerchantCategoriesScreen: React.FC = () => {
                             <hr className="border border-zinc-700" />
                           </div>
                           {merchantCategory.gmcCategoryId ? (
-                            <span className="rounded-lg border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[17px] text-lg font-bold shadow-md shadow-gmc-berry">
+                            <span className="rounded-sm border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[15px] font-bold  shadow-gmc-berry">
                               {readGmcCategoryName(
                                 merchantCategory.gmcCategoryId
                               )}
                             </span>
                           ) : (
-                            <span className="bgwhite rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[17px] font-bold text-gmc-heart">
+                            <span className="bgwhite rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[14px] font-bold text-gmc-heart">
                               UNASSIGNED
                             </span>
                           )}

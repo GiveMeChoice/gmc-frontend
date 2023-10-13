@@ -1,1 +1,1 @@
-export * from './gmc-category';
+export * from './types';

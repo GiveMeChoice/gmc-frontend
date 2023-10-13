@@ -2,7 +2,11 @@ import { ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import InfoBoxBrand from './ListProductInfoBox/InfoBoxBrand';
 import InfoBoxHeart from './ListProductInfoBox/InfoBoxHeart';
-import { FlatLabel, flattenLabels, getLabelColor } from '../../../lib/labels';
+import {
+  FlatLabel,
+  flattenLabelDocuments,
+  getLabelColor,
+} from '../../../lib/labels';
 import cn from 'classnames';
 
 interface Props {
@@ -15,22 +19,20 @@ const ListProductInfoBox: React.FC<Props> = ({ product, onSelectProduct }) => {
   const [signupModalOpen, setSignupModalOpen] = useState(false);
 
   useEffect(() => {
-    setFlatLabels(flattenLabels(product.labels));
+    setFlatLabels(flattenLabelDocuments(product.labels));
   }, []);
 
   return (
     <div
-      className={`mx-1 flex h-full w-full cursor-pointer flex-col justify-between gap-y-3 bg-white p-7 py-6`}
+      className={`mx-1 flex h-full w-full cursor-pointer flex-col justify-between gap-y-2 bg-white p-7 py-6`}
       onClick={(e) => {
         if (!signupModalOpen) {
           onSelectProduct(e);
         }
       }}
     >
-      <div className="flex w-full items-center justify-between">
-        <div className="flex items-center justify-between text-zinc-800">
-          <span className="text-[28px]">£ {product.price}</span>
-        </div>
+      <div className="flex w-full justify-between">
+        <span className="text-[18px] font-bold">£ {product.price}</span>
         <div id="list-product-heart" className="list-heart">
           <InfoBoxHeart
             modalOpen={signupModalOpen}
@@ -40,7 +42,7 @@ const ListProductInfoBox: React.FC<Props> = ({ product, onSelectProduct }) => {
         </div>
       </div>
 
-      <div className="flex flex-col items-start space-y-1 pl-1 text-[13px] text-zinc-800">
+      <div className="flex flex-col items-start space-y-1.5 pl-1 text-[13px] text-zinc-800">
         {flatLabels.slice(0, 5).map((sl, i) => (
           <div
             className={cn(
@@ -60,11 +62,11 @@ const ListProductInfoBox: React.FC<Props> = ({ product, onSelectProduct }) => {
             </span>
           </div>
         ))}
-        {product.labels.length > 5 && (
-          <span className="m-1.5 pt-1 text-[14px] text-zinc-900">
+        {/* {product.labels.length > 5 && (
+          <span className="m-1.5 pt-1 text-[13px] text-zinc-900">
             {product.labels.length - 5} More...
           </span>
-        )}
+        )} */}
       </div>
       <div className="flex w-full items-center justify-end gap-x-3">
         <InfoBoxBrand brand={product.brand} />

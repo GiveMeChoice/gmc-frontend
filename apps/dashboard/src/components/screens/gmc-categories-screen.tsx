@@ -2,14 +2,12 @@ import {
   useScreenData,
   useScreenDataDispatch,
 } from '@root/context-providers/screen-data.provider';
-import {
-  IGmcCategory,
-  gmcCategoriesService,
-} from '@root/services/gmc-categories.service';
+import { gmcCategoriesService } from '@root/services/gmc-categories.service';
 import React from 'react';
 import LoadingWheel from '../shared/loading-wheel';
 import GmcCategoryColumn from './gmc-categories-screen/gmc-category-column';
 import ScreenSection from './shared/screen-section';
+import { IGmcCategory } from 'gmc-types';
 
 const GmcCategoriesScreen: React.FC = () => {
   const data = useScreenData();

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ImageDocument, ProductDocument } from 'gmc-types';
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
@@ -48,6 +49,7 @@ const ComparableProductImages: React.FC<Props> = ({ product }) => {
             className={cn('max-h-full rounded-sm', {
               hidden: !loaded,
             })}
+            alt="image"
             onLoad={() => setLoaded(true)}
           />
         </div>

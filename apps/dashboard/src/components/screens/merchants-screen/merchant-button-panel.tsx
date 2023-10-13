@@ -9,8 +9,8 @@ import channelsService from '@root/services/channels.service';
 import merchantBrandsService from '@root/services/merchant-brands.service';
 import merchantCategoriesService from '@root/services/merchant-categories.service';
 import merchantLabelsService from '@root/services/merchant-labels.service';
-import { IMerchant } from '@root/services/merchants.service';
 import productsService from '@root/services/products.service';
+import { IMerchant } from 'gmc-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

@@ -21,7 +21,7 @@ const EditableTextArea: React.FC<Props> = ({
   const [editing, setEditing] = useState<boolean>(false);
 
   useEffect(() => {
-    setValue(initialValue);
+    setValue(initialValue ? initialValue : '');
   }, [initialValue]);
 
   const onEdit = () => {
@@ -45,14 +45,13 @@ const EditableTextArea: React.FC<Props> = ({
           `h-fit ${width} resize-none rounded-sm border p-1 pl-2.5 text-xs`,
           {
             'border-zinc-800 bg-white text-zinc-800': editing,
-            'border-zinc-500 bg-secondary-dark-10 bg-opacity-50 text-zinc-500':
-              !editing,
+            'border-zinc-500 bg-secondary-dark-10 text-zinc-500': !editing,
           }
         )}
         title={title}
         disabled={!editing || disabled}
         value={value}
-        rows={2}
+        rows={3}
         onChange={(e) => setValue(e.target.value)}
       />
       {!disabled && (

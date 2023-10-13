@@ -5,8 +5,8 @@ import {
 } from '@root/context-providers/filters.provider';
 import { useMasterData } from '@root/context-providers/master-data.provider';
 import { useScreenDataDispatch } from '@root/context-providers/screen-data.provider';
-import { IChannel } from '@root/services/channels.service';
 import providersService from '@root/services/providers.service';
+import { IChannel } from 'gmc-types';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -44,7 +44,7 @@ const ChannelBanner: React.FC<Props> = ({ channel }) => {
         {readProviderKey(channel.providerId)}
       </h2>
       <span>{' > '}</span>
-      <h2 className="text-sm font-bold text-gmc-soil">{channel.description}</h2>
+      <h2 className="text-sm font-bold text-gmc-soil">{channel.name}</h2>
       <CopyIdButton id={channel.id} />
     </div>
   );

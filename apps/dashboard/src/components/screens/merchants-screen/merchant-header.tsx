@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import CopyIdButton from '@root/components/shared/copy-id-button';
-import { IMerchant } from '@root/services/merchants.service';
 import React from 'react';
 import MerchantChip from './merchant-chip';
+import { IMerchant } from 'gmc-types';
 const FlagIconUK = require('../../../assets/images/uk-flag-icon.svg');
 
 interface Props {

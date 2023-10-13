@@ -1,10 +1,10 @@
-import { SearchFunctionFiltersDto, TermFacetDto } from 'gmc-types';
+import { SearchFunctionFiltersDto, NestedFacetDto } from 'gmc-types';
 import React from 'react';
 import cn from 'classnames';
 
 interface Props {
   activeMerchantFilter?: string;
-  merchantFacets: TermFacetDto[];
+  merchantFacets: NestedFacetDto[];
   onFilterChange: (updated: SearchFunctionFiltersDto) => void;
 }
 
