@@ -71,7 +71,7 @@ export const getStaticProps: GetStaticProps<IEntityPageData> = async (
       );
       return {
         props: res.data,
-        revalidate: 3600,
+        revalidate: 60,
       };
     } catch (e) {
       console.error(e);

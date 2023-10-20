@@ -54,5 +54,6 @@ export const getStaticProps: GetStaticProps<IPageData> = async (context) => {
       categories: catResponse.data,
       labels: labResponse.data,
     },
+    revalidate: 60,
   };
 };
