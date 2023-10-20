@@ -2,7 +2,10 @@ import React from 'react';
 
 const ScreenContainer: React.FC = ({ children }) => {
   return (
-    <div className="h-full w-full space-y-6 overflow-y-auto px-4 py-4 xl:px-10">
+    <div
+      id="screen-container"
+      className="h-full w-full space-y-6 overflow-y-auto px-8 py-8 xl:px-10"
+    >
       {children}
     </div>
   );

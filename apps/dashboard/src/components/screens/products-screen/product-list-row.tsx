@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ScreenSectionRow from '../shared/screen-section-row';
 import ProductHeader from './product-header';
-import ProductIdsAndCategories from './product-ids-and-categories';
+import ProductAssignmentSummary from './product-assignment-summary';
 import ProductIntegrationInfo from './product-integration-info';
 import ProductTitle from './product-title';
 import productDocumentsService from '@root/services/product-documents.service';
@@ -54,8 +54,7 @@ const ProductListRow: React.FC<Props> = ({ product: initialProduct }) => {
           <div className="flex w-10/12 flex-col divide-y divide-zinc-400">
             <ProductHeader product={product} />
             {product.title && <ProductTitle product={product} />}
-            <ProductIdsAndCategories product={product} />
-            <ProductIntegrationInfo product={product} />
+            <ProductAssignmentSummary product={product} />
           </div>
           <div className="flex h-full w-2/12 flex-col items-center justify-evenly divide-y divide-zinc-400 border-l border-zinc-400">
             <div className="flex h-1/3 items-center justify-center">
@@ -84,15 +83,16 @@ const ProductListRow: React.FC<Props> = ({ product: initialProduct }) => {
             </div>
           </div>
         </div>
-        <div className="w-full py-3">
-          {product.errorMessage && (
-            <div className="flex w-10/12 justify-center">
-              <span className="text-center text-sm italic text-gmc-heart">
-                {product.errorMessage}
+        {product.errorMessage && (
+          <div className="w-full py-5">
+            <div className="flex w-10/12 items-center justify-center gap-x-1 text-gmc-heart">
+              <span className="font-bold">Error Msg:&nbsp;</span>
+              <span className="text-center italic text-black">
+                {`"${product.errorMessage}"`}
               </span>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </ScreenSectionRow>
   ) : (

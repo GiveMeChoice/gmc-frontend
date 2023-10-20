@@ -8,7 +8,7 @@ import {
   overlayDrafts,
 } from 'blog';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { IBlogNavContext } from '../../components/BlogNavProvider';
+import { IBlogNavContext } from '../../components/Context/BlogNavProvider';
 
 export default async function handler(
   req: NextApiRequest,

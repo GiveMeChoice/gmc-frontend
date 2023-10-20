@@ -75,7 +75,7 @@ const extractCategoryFilters = (
 
 const categoriesScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-categories',
-  title: 'Map Categories',
+  title: 'Categories',
   readScreenMeta(data) {
     return data.merchantCategoriesMeta;
   },

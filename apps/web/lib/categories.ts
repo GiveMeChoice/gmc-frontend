@@ -1,8 +1,8 @@
 import {
   IGmcCategory,
-  NestedFacetDto,
-  NestedFilterDto,
-  SearchFunctionFacetsDto,
+  INestedFacet,
+  INestedFilter,
+  ISearchFunctionFacets,
 } from 'gmc-types';
 
 export interface IGmcBaseCategory {
@@ -35,8 +35,8 @@ export const flattenCategory = (cat: IGmcCategory): IGmcCategoryFlat => {
 };
 
 export const findFacetCount = (
-  filter: NestedFilterDto,
-  facets: NestedFacetDto[]
+  filter: INestedFilter,
+  facets: INestedFacet[]
 ): number => {
   const baseFacet = facets.find((f) => f.value === filter.value);
   if (!baseFacet) return 0;

@@ -69,7 +69,7 @@ const AssignLabelsDialog: React.FC<Props> = ({
     }
   };
   return (
-    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400">
+    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400 border-l border-zinc-400">
       <div className="flex h-fit w-full flex-col items-center space-y-2 bg-white py-3">
         <span className="font-bold">{merchantLabel.merchant.name}</span>
         <MerchantLabelChip merchantLabel={merchantLabel} />

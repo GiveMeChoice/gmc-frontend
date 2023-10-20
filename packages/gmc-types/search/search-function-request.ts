@@ -1,28 +1,25 @@
-export interface SearchFunctionRequestDto {
+export interface ISearchFunctionRequest {
   query?: string;
   sort?: string;
   page?: number;
   pageSize?: number;
-  filters: SearchFunctionFiltersDto;
+  filters: ISearchFunctionFilters;
 }
 
-export interface SearchFunctionFiltersDto {
+export interface ISearchFunctionFilters {
   region?: string;
   merchant?: string;
-  brand?: KeyedFilterDto;
-  category?: NestedFilterDto;
-  labels?: NestedFilterDto[];
-  priceRange?: 'cheap' | 'average' | 'expensive';
+  brand?: IGenericFilter;
+  category?: INestedFilter;
+  labels?: INestedFilter[];
+  priceRange?: 'low' | 'mid' | 'high';
 }
 
-export interface NestedFilterDto {
-  value: string;
-  name: string;
-  subfilter?: NestedFilterDto;
+export interface INestedFilter extends IGenericFilter {
+  subfilter?: INestedFilter;
 }
 
-export interface KeyedFilterDto {
-  key: string;
-  name: string;
+export interface IGenericFilter {
   value: string;
+  name: string;
 }

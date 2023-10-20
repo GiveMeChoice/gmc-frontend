@@ -10,6 +10,7 @@ import ProductPreviewImage from './product-preview-image';
 import ProductPreviewInfo from './product-preview-info';
 import ProductPreviewLabels from './product-preview-labels';
 import ProductPreviewReviews from './product-preview-reviews';
+import ProductIntegrationInfo from '../screens/products-screen/product-integration-info';
 
 interface Props {
   previewOn?: boolean;
@@ -46,10 +47,7 @@ const ProductPreview: React.FC<Props> = ({ previewOn, onClose, product }) => {
                   <ProductPreviewInfo product={previewProduct} />
                 </div>
                 <div className="flex h-2/5 space-x-4">
-                  <div className="w-1/2"></div>
-                  <div className="w-1/2">
-                    <ProductPreviewLabels product={previewProduct} />
-                  </div>
+                  <ProductPreviewLabels product={previewProduct} />
                 </div>
               </div>
               <div className="w-2/5 space-y-4">
@@ -57,7 +55,8 @@ const ProductPreview: React.FC<Props> = ({ previewOn, onClose, product }) => {
                   <ProductPreviewImage product={previewProduct} />
                 </div>
                 <div className="h-2/5">
-                  <ProductPreviewReviews product={previewProduct} />
+                  {/* <ProductPreviewReviews product={previewProduct} /> */}
+                  <ProductIntegrationInfo product={previewProduct} />
                 </div>
               </div>
             </>

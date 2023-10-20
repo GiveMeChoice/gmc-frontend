@@ -1,5 +1,5 @@
 import { ITheme, Theme } from 'gmc-types';
-import { IUserProfile } from '../components/UserProvider';
+import { IUserProfile } from '../components/Context/UserProvider';
 
 export const themeClasses = {
   GMC_DEFAULT: {

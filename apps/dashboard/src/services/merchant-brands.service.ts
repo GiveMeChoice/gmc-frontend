@@ -64,7 +64,7 @@ const extractMerchantBrandFilters = (
 
 const merchantBrandsScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-brands',
-  title: 'Map Brands',
+  title: 'Brands',
   readScreenMeta(data) {
     return data.merchantBrandsMeta;
   },

@@ -8,14 +8,18 @@ interface Props {
 
 const ProductPreviewInfo: React.FC<Props> = ({ product }) => {
   return (
-    <div className="flex h-full flex-col space-y-2 overflow-y-auto rounded-sm border-2 border-black p-2">
+    <div className="flex h-full flex-col space-y-2 overflow-y-auto rounded-sm border-2 border-black p-6">
       <a
         className={cn('text-lg font-bold', {
-          'text-zinc-500': !product.offerUrl,
+          'cursor-pointer text-gmc-ocean hover:underline': !product.offerUrl,
         })}
+        target="_blank"
         href={product.offerUrl}
+        rel="noreferrer"
       >
-        {product.title ? product.title : '<title>'}
+        <span className="text-gmc-ocean hover:underline">
+          {product.title ? product.title : '<title>'}
+        </span>
       </a>
       <span className="py-4 text-2xl font-bold">
         {product.currency ? product.currency : '<curr>'}{' '}

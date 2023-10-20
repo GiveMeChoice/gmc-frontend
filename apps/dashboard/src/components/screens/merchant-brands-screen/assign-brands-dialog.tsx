@@ -43,7 +43,7 @@ const AssignBrandsDialog: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400">
+    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400 border-l border-zinc-400">
       <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
         <span className="font-bold">{merchantLabel.merchant.name}</span>
         <span className="text-sm italic">{merchantLabel.name}</span>

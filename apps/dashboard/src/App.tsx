@@ -88,7 +88,7 @@ function App() {
           <Route
             index
             element={
-              <Navigate to={gmcLabelsService.gmcLabelsScreenControl.pathname} />
+              <Navigate to={merchantsService.merchantsScreenControl.pathname} />
             }
           />
           <Route

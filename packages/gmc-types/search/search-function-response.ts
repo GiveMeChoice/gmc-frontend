@@ -1,6 +1,6 @@
 import { ProductDocument } from './document/product.document';
 
-export interface SearchFunctionResponseDto {
+export interface ISearchFunctionResponse {
   hits: number;
   query?: string;
   sort?: string;
@@ -8,26 +8,29 @@ export interface SearchFunctionResponseDto {
   pageSize?: number;
   data?: ProductDocument[];
   error?: string;
-  facets?: SearchFunctionFacetsDto;
+  facets?: ISearchFunctionFacets;
 }
 
-export interface SearchFunctionFacetsDto {
-  merchants?: NestedFacetDto[];
-  brands?: NestedFacetDto[];
-  categories?: NestedFacetDto[];
-  labels?: NestedFacetDto[];
-  priceRanges?: RangeFacetDto[];
+export interface ISearchFunctionFacets {
+  merchants?: INestedFacet[];
+  brands?: IGenericFacet[];
+  categories?: INestedFacet[];
+  labels?: INestedFacet[];
+  priceRanges?: IRangeFacet[];
 }
 
-export interface NestedFacetDto {
+export interface INestedFacet extends IGenericFacet {
+  subfacets?: INestedFacet[];
+}
+
+export interface IGenericFacet {
   value: string;
   name: string;
   count: number;
-  subfacets?: NestedFacetDto[];
 }
 
-export interface RangeFacetDto {
-  priceRange: 'cheap' | 'average' | 'expensive';
+export interface IRangeFacet {
+  priceRange: 'low' | 'mid' | 'high';
   from?: number;
   to?: number;
   count: number;

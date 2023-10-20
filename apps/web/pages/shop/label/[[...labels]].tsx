@@ -1,14 +1,31 @@
 import axios from 'axios';
-import { GetStaticProps } from 'next';
-import ShopLabelContent from '../../../components/Shop/ShopLabelContent';
-import { IEntityPageData } from '../../../lib/types';
 import { IGmcLabel } from 'gmc-types';
+import { GetStaticProps } from 'next';
+import SearchChoiceBar from '../../../components/Search/SearchChoiceBar';
+import ShopEntityList from '../../../components/Shop/ShopEntityList';
+import ShopLayout from '../../../components/Shop/ShopLayout';
+import ShopContentContainer from '../../../components/Shop/ShopLayout/ShopContentContainer';
+import ShopMenuContainer from '../../../components/Shop/ShopLayout/ShopMenuContainer';
+import ShopPageIntro from '../../../components/Shop/ShopPageIntro';
+import ShopProductList from '../../../components/Shop/ShopProductList';
+import { IEntityPageData } from '../../../lib/types';
 
 export default function LabelPage(data: IEntityPageData) {
   return (
-    <section className="mt-[70px]">
-      <ShopLabelContent pageData={data} />
-    </section>
+    <ShopLayout>
+      <ShopMenuContainer>
+        <ShopEntityList data={data} title="LABELS" basePath="/shop/label/" />
+        {data.entity && <SearchChoiceBar />}
+      </ShopMenuContainer>
+      <ShopContentContainer>
+        {data.entity && (
+          <>
+            <ShopPageIntro pageData={data} basePath="/shop/label/" />
+            <ShopProductList color={data.pageTree.color} />
+          </>
+        )}
+      </ShopContentContainer>
+    </ShopLayout>
   );
 }
 

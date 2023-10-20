@@ -7,8 +7,8 @@ import Client from '@elastic/elasticsearch/lib/client';
 import { https, logger } from 'firebase-functions';
 import { defineString } from 'firebase-functions/params';
 import {
-  SearchFunctionRequestDto,
-  SearchFunctionResponseDto,
+  ISearchFunctionRequest,
+  ISearchFunctionResponse,
   ProductDocument,
 } from 'gmc-types';
 
@@ -18,9 +18,9 @@ const elasticPassword = defineString('ELASTIC_PASSWORD');
 
 export const searchFunction = https.onCall(
   async (
-    req: SearchFunctionRequestDto,
+    req: ISearchFunctionRequest,
     context
-  ): Promise<SearchFunctionResponseDto> => {
+  ): Promise<ISearchFunctionResponse> => {
     logger.info(req);
     // Initialize Client
     const elasticClient = new Client({
@@ -46,12 +46,12 @@ export const searchFunction = https.onCall(
       let price: any = {
         lt: 15,
       };
-      if (req.filters.priceRange === 'average') {
+      if (req.filters.priceRange === 'mid') {
         price = {
           gte: 15,
           lt: 100,
         };
-      } else if (req.filters.priceRange === 'expensive') {
+      } else if (req.filters.priceRange === 'high') {
         price = {
           gt: 100,
         };
@@ -82,7 +82,7 @@ export const searchFunction = https.onCall(
     if (req.filters.brand) {
       filter.push({
         match_phrase: {
-          'brand.code': req.filters.brand.key,
+          'brand.slug.keyword': req.filters.brand.value,
         },
       });
     }
@@ -202,16 +202,16 @@ export const searchFunction = https.onCall(
             keyed: true,
             ranges: [
               {
-                key: 'cheap',
+                key: 'low',
                 to: 15,
               },
               {
-                key: 'average',
+                key: 'mid',
                 from: 15,
                 to: 100,
               },
               {
-                key: 'expensive',
+                key: 'high',
                 from: 100,
               },
             ],
@@ -421,21 +421,21 @@ export const searchFunction = https.onCall(
           })),
           priceRanges: [
             {
-              priceRange: 'cheap',
+              priceRange: 'low',
               from: 0,
-              to: priceRangeAggs.buckets.cheap.to,
-              count: priceRangeAggs.buckets.cheap.doc_count,
+              to: priceRangeAggs.buckets.low.to,
+              count: priceRangeAggs.buckets.low.doc_count,
             },
             {
-              priceRange: 'average',
-              from: priceRangeAggs.buckets.average.from,
-              to: priceRangeAggs.buckets.average.to,
-              count: priceRangeAggs.buckets.average.doc_count,
+              priceRange: 'mid',
+              from: priceRangeAggs.buckets.mid.from,
+              to: priceRangeAggs.buckets.mid.to,
+              count: priceRangeAggs.buckets.mid.doc_count,
             },
             {
-              priceRange: 'expensive',
-              from: priceRangeAggs.buckets.expensive.from,
-              count: priceRangeAggs.buckets.expensive.doc_count,
+              priceRange: 'high',
+              from: priceRangeAggs.buckets.high.from,
+              count: priceRangeAggs.buckets.high.doc_count,
             },
           ],
         },

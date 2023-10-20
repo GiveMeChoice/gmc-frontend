@@ -60,6 +60,15 @@ const MerchantLabelsScreen: React.FC = () => {
     setMappingId(null);
   };
 
+  const handleStartMappingClick = (merchantLabelId: string) => {
+    if (mappingId) {
+      setMappingId(null);
+    } else {
+      setMappingId(merchantLabelId);
+    }
+    document.getElementById('screen-container').scrollTo(0, 0);
+  };
+
   const handleAssign = async (merchantLabelId: string, gmcLabelId: string) => {
     try {
       const updated = await merchantLabelsService.assignGmcLabel(
@@ -109,7 +118,7 @@ const MerchantLabelsScreen: React.FC = () => {
 
   return (
     <ScreenSection
-      title={'Merchant Labels'}
+      title="Assign Labels"
       sortFields={[
         { name: 'name', title: 'Name' },
         { name: 'createdAt', title: 'Created At' },
@@ -128,111 +137,110 @@ const MerchantLabelsScreen: React.FC = () => {
           )}
         >
           {merchantLabels.length ? (
-            merchantLabels.map((merchantLabel, i) => (
-              <ScreenSectionRow key={i}>
-                <div className="flex w-full divide-x divide-zinc-400">
-                  <div
-                    className={cn(
-                      'flex h-full w-full flex-col justify-center gap-y-3 divide-y-1.5 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
-                      {
-                        'bg-primary': updatedId === merchantLabel.id,
-                      }
-                    )}
-                  >
-                    <div className="flex w-full items-center">
-                      <div className="flex h-full w-fit items-center">
-                        <MerchantChip
-                          merchant={merchantLabel.merchant as IMerchant}
-                          clickable={true}
-                        />
-                      </div>
-                      <div className="w-14">
-                        <hr className="border border-zinc-600" />
-                      </div>
-                      <MerchantLabelChip merchantLabel={merchantLabel} />
-                    </div>
-                    <div className="flex items-center pl-5">
-                      <div className="flex w-[30px] items-center justify-end">
-                        <img
-                          className="w-[95%]"
-                          src={NestArrowIcon}
-                          alt="curve arrow"
-                        />
-                      </div>
-                      <div className="ml-5 mt-4 flex items-center">
-                        <div
-                          className={cn(
-                            'flex h-[52px] w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
-                            {
-                              'bg-white': !merchantLabel.gmcLabelId,
-                              'bg-primary': merchantLabel.gmcLabelId,
-                            }
-                          )}
-                        >
-                          <img
-                            className="h-[60%]"
-                            src={GMCLogoIcon}
-                            alt="GMC Logo"
+            merchantLabels
+              .filter((l) => !mappingId || mappingId === l.id)
+              .map((merchantLabel, i) => (
+                <ScreenSectionRow key={i}>
+                  <div className="flex w-full divide-x divide-zinc-400">
+                    <div
+                      className={cn(
+                        'flex h-full w-full flex-col justify-center gap-y-3 divide-y-1.5 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
+                        {
+                          'bg-primary': updatedId === merchantLabel.id,
+                        }
+                      )}
+                    >
+                      <div className="flex w-full items-center">
+                        <div className="flex h-full w-fit items-center">
+                          <MerchantChip
+                            merchant={merchantLabel.merchant as IMerchant}
+                            clickable={true}
                           />
                         </div>
                         <div className="w-14">
                           <hr className="border border-zinc-600" />
                         </div>
-                        {merchantLabel.gmcLabelId ? (
-                          <span className="fontbold rounded-sm border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[15px] font-bold shadow-gmc-surf">
-                            {readGmcLabelName(merchantLabel.gmcLabelId)}
-                          </span>
-                        ) : (
-                          <span className="rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[14px] font-bold text-gmc-heart">
-                            UNASSIGNED
-                          </span>
-                        )}
+                        <MerchantLabelChip merchantLabel={merchantLabel} />
+                      </div>
+                      <div className="flex items-center pl-5">
+                        <div className="flex w-[30px] items-center justify-end">
+                          <img
+                            className="w-[95%]"
+                            src={NestArrowIcon}
+                            alt="curve arrow"
+                          />
+                        </div>
+                        <div className="ml-5 mt-4 flex items-center">
+                          <div
+                            className={cn(
+                              'flex aspect-square w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
+                              {
+                                'bg-white': !merchantLabel.gmcLabelId,
+                                'bg-primary': merchantLabel.gmcLabelId,
+                              }
+                            )}
+                          >
+                            <img
+                              className="h-[60%]"
+                              src={GMCLogoIcon}
+                              alt="GMC Logo"
+                            />
+                          </div>
+                          <div className="w-14">
+                            <hr className="border border-zinc-600" />
+                          </div>
+                          {merchantLabel.gmcLabelId ? (
+                            <span className="fontbold rounded-sm border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[15px] font-bold shadow-gmc-surf">
+                              {readGmcLabelName(merchantLabel.gmcLabelId)}
+                            </span>
+                          ) : (
+                            <span className="rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[14px] font-bold text-gmc-heart">
+                              UNASSIGNED
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
+                    <div className="flex aspect-3/4 h-full w-36 items-center justify-center p-4">
+                      <FramedButton
+                        title={`Products:`}
+                        count={merchantLabel.productCount}
+                        disabled={merchantLabel.productCount === 0}
+                        onClick={() =>
+                          onViewProducts(
+                            merchantLabel.merchantId,
+                            merchantLabel.merchantLabelCode
+                          )
+                        }
+                      />
+                    </div>
+                    <button
+                      className={cn(
+                        'flex aspect-3/4 w-36 items-center justify-center',
+                        {
+                          'cursor-pointer hover:bg-primary active:bg-primary-light-10':
+                            !mappingId,
+                          'bg-gmc-surf-light-30':
+                            mappingId === merchantLabel.id,
+                        }
+                      )}
+                      disabled={mappingId}
+                      onClick={() => handleStartMappingClick(merchantLabel.id)}
+                    >
+                      <img className="w-1/2" src={RightArrowIcon} alt="arrow" />
+                    </button>
                   </div>
-                  <div className="flex aspect-3/4 h-full w-36 items-center justify-center p-4">
-                    <FramedButton
-                      title={`Products:`}
-                      count={merchantLabel.productCount}
-                      disabled={merchantLabel.productCount === 0}
-                      onClick={() =>
-                        onViewProducts(
-                          merchantLabel.merchantId,
-                          merchantLabel.merchantLabelCode
-                        )
-                      }
-                    />
-                  </div>
-                  <button
+                  <div
                     className={cn(
-                      'flex aspect-3/4 w-36 items-center justify-center',
+                      'top-0 z-50 h-full w-full bg-secondary bg-opacity-70',
                       {
-                        'cursor-pointer hover:bg-primary active:bg-primary-light-10':
-                          !mappingId,
-                        'bg-gmc-surf-light-30': mappingId === merchantLabel.id,
+                        hidden: !mappingId || mappingId === merchantLabel.id,
+                        absolute: mappingId && mappingId !== merchantLabel.id,
                       }
                     )}
-                    disabled={mappingId}
-                    onClick={() => {
-                      mappingId
-                        ? setMappingId(null)
-                        : setMappingId(merchantLabel.id);
-                    }}
-                  >
-                    <img className="w-1/2" src={RightArrowIcon} alt="arrow" />
-                  </button>
-                </div>
-                <div
-                  className={cn(
-                    'top-0 z-50 h-full w-full bg-secondary bg-opacity-70',
-                    {
-                      hidden: !mappingId || mappingId === merchantLabel.id,
-                      absolute: mappingId && mappingId !== merchantLabel.id,
-                    }
-                  )}
-                />
-              </ScreenSectionRow>
-            ))
+                  />
+                </ScreenSectionRow>
+              ))
           ) : (
             <ScreenSectionRow>
               <span className="m-3 ml-6 text-sm italic">
@@ -240,6 +248,7 @@ const MerchantLabelsScreen: React.FC = () => {
               </span>
             </ScreenSectionRow>
           )}
+          <div />
         </div>
         <div
           className={cn('h-full min-h-screen', {

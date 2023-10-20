@@ -2,8 +2,8 @@
 import { PreviewAlert } from 'blog';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
-import Footer from './Footer';
-import Navbar from './Navbar';
+import Footer from './Layout/Footer';
+import Navbar from './Layout/Navbar';
 
 const Layout = ({ preview = false, children }) => {
   const router = useRouter();

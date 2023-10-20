@@ -1,8 +1,8 @@
-import { IMerchantLabel, IProduct } from 'gmc-types';
+import { IMerchantLabel } from 'gmc-types';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import ProductPageLabelList from './ProductPageLabels/ProductPageLabelList';
 import ProductPageLabelSpotlight from './ProductPageLabels/ProductPageLabelSpotlight';
-import { useRouter } from 'next/router';
 
 interface Props {
   labels: IMerchantLabel[];
@@ -15,7 +15,6 @@ const ProductPageLabels: React.FC<Props> = ({ labels }) => {
     if (router.query.spotlight) {
       try {
         const spotlight = Number(router.query.spotlight);
-        console.log('spotlight: ' + spotlight);
         setSpotlightIndex(
           !isNaN(spotlight) && spotlightIndex !== spotlight ? spotlight : 0
         );
@@ -23,7 +22,6 @@ const ProductPageLabels: React.FC<Props> = ({ labels }) => {
         setSpotlightIndex(0);
       }
     } else {
-      console.log('no spotlight');
       setSpotlightIndex(0);
     }
   }, [router.isReady]);
@@ -43,15 +41,12 @@ const ProductPageLabels: React.FC<Props> = ({ labels }) => {
   };
 
   return (
-    <div className="flex h-full flex-col divide-y-1.5 divide-zinc-700">
+    <div className="flex h-[400px] flex-col divide-y-1.5 divide-zinc-700">
       <div className="w-full py-3 text-center text-[15px] font-bold">
-        Product Labels
+        Ethics & Labels
       </div>
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div className="flex h-full w-1/2 flex-col divide-y-1.5 divide-zinc-700">
-          {/* <div className="w-full py-2 text-center text-[15px] font-bold">
-            Product Labels
-          </div> */}
           <ProductPageLabelList
             labels={labels}
             spotlightIndex={spotlightIndex}

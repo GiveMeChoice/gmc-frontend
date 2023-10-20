@@ -205,6 +205,41 @@ const ColorDropdown: React.FC<Props> = ({ initialColor, loading, onSave }) => {
             >
               {gmc_col}
             </option>
+            <option
+              style={{ color: GMC_COLORS[gmc_col].DEFAULT }}
+              className="font-lg bg-secondary"
+              value={GMC_COLORS[gmc_col]['light-10']}
+            >
+              {gmc_col + '-light-10'}
+            </option>
+            <option
+              style={{ color: GMC_COLORS[gmc_col].DEFAULT }}
+              className="font-lg bg-secondary"
+              value={GMC_COLORS[gmc_col]['light-20']}
+            >
+              {gmc_col + '-light-20'}
+            </option>
+            <option
+              style={{ color: GMC_COLORS[gmc_col].DEFAULT }}
+              className="font-lg bg-secondary"
+              value={GMC_COLORS[gmc_col]['light-30']}
+            >
+              {gmc_col + '-light-30'}
+            </option>
+            <option
+              style={{ color: GMC_COLORS[gmc_col].DEFAULT }}
+              className="font-lg bg-secondary"
+              value={GMC_COLORS[gmc_col]['light-40']}
+            >
+              {gmc_col + '-light-40'}
+            </option>
+            <option
+              style={{ color: GMC_COLORS[gmc_col].DEFAULT }}
+              className="font-lg bg-secondary"
+              value={GMC_COLORS[gmc_col]['light-50']}
+            >
+              {gmc_col + '-light-50'}
+            </option>
           </>
         ))}
       </select>

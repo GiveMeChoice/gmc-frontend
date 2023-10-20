@@ -1,27 +1,58 @@
+import { IGmcCategory } from 'gmc-types';
+import ShopLayout from '../../components/Shop/ShopLayout';
+import ShopMenuList from '../../components/Shop/ShopHome/ShopMenuList';
+import ShopMenuListItem from '../../components/Shop/ShopHome/ShopMenuListItem';
 import { GetStaticProps } from 'next';
-import ShopCategoryContent from '../../components/Shop/ShopCategoryContent';
+import axios from 'axios';
+import ShopMenuContainer from '../../components/Shop/ShopLayout/ShopMenuContainer';
+import ShopContentContainer from '../../components/Shop/ShopLayout/ShopContentContainer';
 
-export default function SubCategory1Page({ category, subcategory1 }) {
+interface IPageData {
+  categories: IGmcCategory[];
+  labels: IGmcCategory[];
+}
+
+export default function ShopPage({ categories, labels }: IPageData) {
   return (
-    <section className="mt-[46px]">
-      <ShopCategoryContent category={category} />
-    </section>
+    <ShopLayout>
+      <ShopMenuContainer>
+        <ShopMenuList title="SHOP BY CATEGORY">
+          {categories
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((category) => (
+              <ShopMenuListItem
+                title={category.name.toUpperCase()}
+                color={category.color}
+                path={`/shop/category/${category.slug}`}
+              />
+            ))}
+        </ShopMenuList>
+        <ShopMenuList title="SHOP BY LABEL">
+          {labels
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((label) => (
+              <ShopMenuListItem
+                title={label.name.toUpperCase()}
+                color={label.color}
+                path={`/shop/label/${label.slug}`}
+              />
+            ))}
+        </ShopMenuList>
+      </ShopMenuContainer>
+      <ShopContentContainer></ShopContentContainer>
+    </ShopLayout>
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  console.log(
-    '***** RE-RENDERING SUB-CATEGORY 1' + context.params.subcategory1
+export const getStaticProps: GetStaticProps<IPageData> = async (context) => {
+  const catResponse = await axios.get(
+    `${process.env.BACKEND_URL}/gmc-categories`
   );
+  const labResponse = await axios.get(`${process.env.BACKEND_URL}/gmc-labels`);
   return {
     props: {
-      category: context.params.category,
-      subcategory1: context.params.subcategory1,
+      categories: catResponse.data,
+      labels: labResponse.data,
     },
-    revalidate: 3600,
   };
 };
-
-export async function getStaticPaths() {
-  return { paths: [], fallback: 'blocking' };
-}

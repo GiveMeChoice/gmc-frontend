@@ -1,17 +1,17 @@
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
-import { SearchProvider } from '../components/SearchProvider';
-import { UserProvider } from '../components/UserProvider';
+import { ShopProvider } from '../components/Context/ShopProvider';
+import { UserProvider } from '../components/Context/UserProvider';
 import '../styles/globals.css';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <UserProvider>
-      <SearchProvider>
+      <ShopProvider>
         <Layout {...pageProps}>
           <Component {...pageProps} />
         </Layout>
-      </SearchProvider>
+      </ShopProvider>
     </UserProvider>
   );
 }

@@ -1,14 +1,35 @@
 import axios from 'axios';
 import { IGmcCategory } from 'gmc-types';
 import { GetStaticProps } from 'next';
-import ShopCategoryContent from '../../../components/Shop/ShopCategoryContent';
+import SearchChoiceBar from '../../../components/Search/SearchChoiceBar';
+import ShopEntityList from '../../../components/Shop/ShopEntityList';
+import ShopLayout from '../../../components/Shop/ShopLayout';
+import ShopContentContainer from '../../../components/Shop/ShopLayout/ShopContentContainer';
+import ShopMenuContainer from '../../../components/Shop/ShopLayout/ShopMenuContainer';
+import ShopPageIntro from '../../../components/Shop/ShopPageIntro';
+import ShopProductList from '../../../components/Shop/ShopProductList';
 import { IEntityPageData } from '../../../lib/types';
 
 export default function CategoryPage(pageData: IEntityPageData) {
   return (
-    <section className="mt-[70px]">
-      <ShopCategoryContent pageData={pageData} />
-    </section>
+    <ShopLayout>
+      <ShopMenuContainer>
+        <ShopEntityList
+          data={pageData}
+          title="CATEGORIES"
+          basePath="/shop/category/"
+        />
+        {pageData.entity && <SearchChoiceBar />}
+      </ShopMenuContainer>
+      <ShopContentContainer>
+        {pageData.entity && (
+          <>
+            <ShopPageIntro pageData={pageData} basePath="/shop/category/" />
+            <ShopProductList color={pageData.pageTree.color} />
+          </>
+        )}
+      </ShopContentContainer>
+    </ShopLayout>
   );
 }
 

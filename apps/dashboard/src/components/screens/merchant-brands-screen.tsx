@@ -107,7 +107,7 @@ const MerchantBrandsScreen: React.FC = () => {
 
   return (
     <ScreenSection
-      title={'Merchant Brands'}
+      title={'Assign Brands'}
       sortFields={[{ name: 'code', title: 'Name' }]}
       meta={merchantBrandsMeta}
     >
@@ -154,7 +154,7 @@ const MerchantBrandsScreen: React.FC = () => {
                         <div className="ml-5 mt-4 flex items-center">
                           <div
                             className={cn(
-                              'flex h-[52px] w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
+                              'flex aspect-square w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
                               {
                                 'bg-white': !merchantBrand.gmcBrandId,
                                 'bg-primary': merchantBrand.gmcBrandId,

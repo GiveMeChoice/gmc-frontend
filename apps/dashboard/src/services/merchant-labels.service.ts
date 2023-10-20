@@ -75,7 +75,7 @@ const extractMerchantLabelFilters = (
 
 const labelsScreenControl: IScreenControl = {
   pathname: '/mappings/merchant-labels',
-  title: 'Map Labels',
+  title: 'Labels',
   readScreenMeta(data) {
     return data.merchantLabelsMeta;
   },

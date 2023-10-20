@@ -78,6 +78,15 @@ const MerchantCategoriesScreen: React.FC = () => {
     }
   };
 
+  const handleStartMappingClick = (merchantCategoryId: string) => {
+    if (mappingId) {
+      setMappingId(null);
+    } else {
+      setMappingId(merchantCategoryId);
+    }
+    document.getElementById('screen-container').scrollTo(0, 0);
+  };
+
   useEffect(() => {
     if (!merchantCategories.length) {
       setLoading(true);
@@ -111,7 +120,7 @@ const MerchantCategoriesScreen: React.FC = () => {
 
   return (
     <ScreenSection
-      title={'Merchant Categories'}
+      title="Assign Categories"
       sortFields={[
         { name: 'merchantCategoryCode', title: 'Merchant Category' },
         // { name: 'gmcCategoryId', title: 'GMC Category' },
@@ -128,117 +137,127 @@ const MerchantCategoriesScreen: React.FC = () => {
           {merchantCategories.length ? (
             <>
               {merchantCategories.map((merchantCategory, i) => (
-                <ScreenSectionRow key={i}>
-                  <div className="flex h-[180px] w-full divide-x divide-zinc-400">
-                    <div
-                      className={cn(
-                        'flex h-full w-full flex-col justify-center gap-y-3 divide-y-1.5 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
-                        {
-                          'bg-primary': updatedId === merchantCategory.id,
-                        }
-                      )}
-                    >
-                      <div className="flex w-full items-center">
-                        <div className="flex h-full w-fit items-center">
-                          <MerchantChip
-                            merchant={merchantCategory.merchant as IMerchant}
-                            clickable={true}
-                          />
-                        </div>
-                        <div className="w-14">
-                          <hr className="border border-zinc-700" />
-                        </div>
-                        <span className="max-w-[50%] rounded-sm border border-zinc-700 bg-white py-1.5 px-3 text-center text-[15px] italic">
-                          {merchantCategory.name}
-                        </span>
-                      </div>
-                      {/*  */}
-                      <div className="flex items-center pl-5">
-                        <div className="flex w-[30px] items-center justify-end">
-                          <img
-                            className="w-[95%]"
-                            src={NestArrowIcon}
-                            alt="curve arrow"
-                          />
-                        </div>
-                        <div className="ml-5 mt-4 flex items-center">
-                          <div
-                            className={cn(
-                              'flex h-[52px] w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
-                              {
-                                'bg-white': !merchantCategory.gmcCategoryId,
-                                'bg-primary': merchantCategory.gmcCategoryId,
-                              }
-                            )}
-                          >
-                            <img
-                              className="h-[60%]"
-                              src={GMCLogoIcon}
-                              alt="GMC Logo"
-                            />
-                          </div>
-                          <div className="w-14">
-                            <hr className="border border-zinc-700" />
-                          </div>
-                          {merchantCategory.gmcCategoryId ? (
-                            <span className="rounded-sm border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[15px] font-bold  shadow-gmc-berry">
-                              {readGmcCategoryName(
-                                merchantCategory.gmcCategoryId
-                              )}
-                            </span>
-                          ) : (
-                            <span className="bgwhite rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[14px] font-bold text-gmc-heart">
-                              UNASSIGNED
-                            </span>
+                <>
+                  {(!mappingId || mappingId === merchantCategory.id) && (
+                    <ScreenSectionRow key={i}>
+                      <div className="flex h-[180px] w-full divide-x divide-zinc-400">
+                        <div
+                          className={cn(
+                            'flex h-full w-full flex-col justify-center gap-y-3 divide-y-1.5 divide-zinc-400 py-5 pl-12 pr-4 transition-colors duration-500',
+                            {
+                              'bg-primary': updatedId === merchantCategory.id,
+                            }
                           )}
+                        >
+                          <div className="flex w-full items-center">
+                            <div className="flex h-full w-fit items-center">
+                              <MerchantChip
+                                merchant={
+                                  merchantCategory.merchant as IMerchant
+                                }
+                                clickable={true}
+                              />
+                            </div>
+                            <div className="w-14">
+                              <hr className="border border-zinc-700" />
+                            </div>
+                            <span className="max-w-[50%] rounded-sm border border-zinc-700 bg-white py-1.5 px-3 text-center text-[15px] italic">
+                              {merchantCategory.name}
+                            </span>
+                          </div>
+                          {/*  */}
+                          <div className="flex items-center pl-5">
+                            <div className="flex w-[30px] items-center justify-end">
+                              <img
+                                className="w-[95%]"
+                                src={NestArrowIcon}
+                                alt="curve arrow"
+                              />
+                            </div>
+                            <div className="ml-5 mt-4 flex items-center">
+                              <div
+                                className={cn(
+                                  'flex aspect-square w-[52px] items-center justify-center rounded-full border-1.5 border-zinc-900',
+                                  {
+                                    'bg-white': !merchantCategory.gmcCategoryId,
+                                    'bg-primary':
+                                      merchantCategory.gmcCategoryId,
+                                  }
+                                )}
+                              >
+                                <img
+                                  className="h-[60%]"
+                                  src={GMCLogoIcon}
+                                  alt="GMC Logo"
+                                />
+                              </div>
+                              <div className="w-14">
+                                <hr className="border border-zinc-700" />
+                              </div>
+                              {merchantCategory.gmcCategoryId ? (
+                                <span className="rounded-sm border-1.5 border-zinc-900 bg-white px-4 py-2 text-center text-[15px] font-bold  shadow-gmc-berry">
+                                  {readGmcCategoryName(
+                                    merchantCategory.gmcCategoryId
+                                  )}
+                                </span>
+                              ) : (
+                                <span className="bgwhite rounded-sm border-1.5 border-secondary-dark-20 bg-gmc-sunset-light-50 px-4 py-2 text-[14px] font-bold text-gmc-heart">
+                                  UNASSIGNED
+                                </span>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
 
-                    <div className="flex h-full w-[180px] items-center justify-center py-4 px-4">
-                      <FramedButton
-                        title={`Products:`}
-                        count={merchantCategory.productCount}
-                        disabled={merchantCategory.productCount === 0}
-                        onClick={() =>
-                          onViewProducts(
-                            merchantCategory.merchantId,
-                            merchantCategory.merchantCategoryCode
-                          )
-                        }
+                        <div className="flex h-full w-[180px] items-center justify-center py-4 px-4">
+                          <FramedButton
+                            title={`Products:`}
+                            count={merchantCategory.productCount}
+                            disabled={merchantCategory.productCount === 0}
+                            onClick={() =>
+                              onViewProducts(
+                                merchantCategory.merchantId,
+                                merchantCategory.merchantCategoryCode
+                              )
+                            }
+                          />
+                        </div>
+                        <button
+                          className={cn(
+                            'flex aspect-3/4 h-full items-center justify-center',
+                            {
+                              'cursor-pointer hover:bg-primary active:bg-primary-light-10':
+                                !mappingId,
+                              'bg-gmc-berry-light-30':
+                                mappingId === merchantCategory.id,
+                            }
+                          )}
+                          disabled={mappingId}
+                          onClick={() =>
+                            handleStartMappingClick(merchantCategory.id)
+                          }
+                        >
+                          <img
+                            className="w-1/2"
+                            src={RightArrowIcon}
+                            alt="arrow"
+                          />
+                        </button>
+                      </div>
+                      <div
+                        className={cn(
+                          'top-0 z-50 h-full w-full bg-secondary bg-opacity-70',
+                          {
+                            hidden:
+                              !mappingId || mappingId === merchantCategory.id,
+                            absolute:
+                              mappingId && mappingId !== merchantCategory.id,
+                          }
+                        )}
                       />
-                    </div>
-                    <button
-                      className={cn(
-                        'flex aspect-3/4 h-full items-center justify-center',
-                        {
-                          'cursor-pointer hover:bg-primary active:bg-primary-light-10':
-                            !mappingId,
-                          'bg-gmc-berry-light-30':
-                            mappingId === merchantCategory.id,
-                        }
-                      )}
-                      disabled={mappingId}
-                      onClick={() =>
-                        mappingId
-                          ? setMappingId(null)
-                          : setMappingId(merchantCategory.id)
-                      }
-                    >
-                      <img className="w-1/2" src={RightArrowIcon} alt="arrow" />
-                    </button>
-                  </div>
-                  <div
-                    className={cn(
-                      'top-0 z-50 h-full w-full bg-secondary bg-opacity-70',
-                      {
-                        hidden: !mappingId || mappingId === merchantCategory.id,
-                        absolute:
-                          mappingId && mappingId !== merchantCategory.id,
-                      }
-                    )}
-                  />
-                </ScreenSectionRow>
+                    </ScreenSectionRow>
+                  )}
+                </>
               ))}
               <div />
             </>

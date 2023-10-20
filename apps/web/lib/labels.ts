@@ -7,10 +7,11 @@ export interface FlatLabel {
   type: string;
   name: string;
   description: string;
+  baseLabelSlug: string;
+  color?: string;
 }
 
 export const flattenLabelDocuments = (labels: LabelDocument[]): FlatLabel[] => {
-  console.log('flattening ' + JSON.stringify(labels));
   return labels
     .filter((l) => !!l.gmcLabel)
     .map((label, index) => ({
@@ -27,29 +28,22 @@ export const flattenLabelDocuments = (labels: LabelDocument[]): FlatLabel[] => {
         : !label.gmcLabel.sublabel.sublabel
         ? label.gmcLabel.sublabel.description
         : label.gmcLabel.sublabel.sublabel.description,
+      baseLabelSlug: label.gmcLabel.slug,
     }));
+};
+
+export const getBaseLabelFromDocument = (labelDocument: LabelDocument) => [];
+
+export const getBaseLabel = (label: IGmcLabel) => {
+  return label.parent && label.parent.slug !== 'root'
+    ? label.parent.parent && label.parent.parent.slug !== 'root'
+      ? label.parent.parent
+      : label.parent
+    : label;
 };
 
 export const getLabelColor = (label: string) => {
   return 'blue';
-  // switch (label.toLowerCase()) {
-  //   case 'certification':
-  //     return 'gmc-forest';
-  //   case 'origin':
-  //     return 'gmc-beach';
-  //   case 'organic':
-  //     return 'gmc-jungle';
-  //   case 'fair trade':
-  //     return 'gmc-soil';
-  //   case 'production method':
-  //     return 'gmc-ocean-light-50';
-  //   case 'ingredients and dietary':
-  //     return 'gmc-berry-light-10';
-  //   case 'uncategorized':
-  //     return 'gmc-sunset';
-  //   default:
-  //     return 'secondary';
-  // }
 };
 
 export const baseLabels: IGmcBaseCategory[] = [

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IEntityPageData } from '../../lib/types';
-import ShopEntityListItem from './ShopEntityListItem';
+import ShopEntityListItem from './ShopEntityList/ShopEntityListItem';
 import { useRouter } from 'next/router';
 
 interface Props {

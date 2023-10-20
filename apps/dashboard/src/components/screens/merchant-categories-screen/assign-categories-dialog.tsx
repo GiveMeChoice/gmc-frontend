@@ -72,14 +72,14 @@ const AssignCategoriesDialog: React.FC<Props> = ({
   };
 
   return (
-    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400">
-      <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
+    <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-400 border-l border-zinc-400">
+      <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-3">
         <span className="font-bold">{merchantCategory.merchant.name}</span>
-        <span className="text-sm italic">{merchantCategory.name}</span>
+        <span className="text-[15px] italic">{merchantCategory.name}</span>
       </div>
-      <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-2">
+      <div className="flex h-20 w-full flex-col items-center space-y-1.5 bg-white py-3">
         <span className="font-bold">Give Me Choice</span>
-        <span className="text-sm italic">
+        <span className="text-[15px] italic">
           {gmcCategory
             ? gmcSubCategory
               ? gmcSubCategory2

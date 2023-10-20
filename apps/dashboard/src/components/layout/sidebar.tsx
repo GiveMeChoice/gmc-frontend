@@ -22,7 +22,7 @@ const PinIcon = require('../../assets/images/pin-icon.svg');
 
 const Sidebar: React.FC = () => {
   const [pinExpand, setPinExpand] = useState(false);
-  const [pinShrink, setPinShrink] = useState(true);
+  const [pinShrink, setPinShrink] = useState(false);
 
   useEffect(() => {
     const onResize = () => {
@@ -83,15 +83,15 @@ const Sidebar: React.FC = () => {
           <img src={GMCG} alt="GMC Logo" />
         </div>
       </div>
-      <div className="mt-14 flex h-full flex-col justify-between">
+      <div className="mt-20 flex h-full flex-col justify-between">
         <div className="flex flex-col items-center space-y-2 active:[&>*]:bg-primary">
-          <ScreenLinkButton
+          {/* <ScreenLinkButton
             screen={dashboardService.dashboardScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
             <img className="h-5" src={HomeIcon} alt="home icon" />
-          </ScreenLinkButton>
+          </ScreenLinkButton> */}
           <ScreenLinkButton
             screen={merchantsService.merchantsScreenControl}
             alternativeTitle="Integration"
@@ -130,13 +130,13 @@ const Sidebar: React.FC = () => {
           >
             <img className="h-5" src={BananasIcon} alt="bananas icon" />
           </ScreenLinkButton>
-          <ScreenLinkButton
+          {/* <ScreenLinkButton
             screen={jobsService.jobsScreenControl}
             pinExpand={pinExpand}
             pinShrink={pinShrink}
           >
             <img className="h-5" src={HumanIcon} alt="human icon" />
-          </ScreenLinkButton>
+          </ScreenLinkButton> */}
         </div>
         <div className="flex w-full justify-center">
           <button
