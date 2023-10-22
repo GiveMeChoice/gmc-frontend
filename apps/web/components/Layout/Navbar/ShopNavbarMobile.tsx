@@ -48,7 +48,7 @@ const ShopNavbarMobile: React.FC = () => {
   }, [router.asPath]);
 
   return (
-    <div className="bg-seondary flex h-[40px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[14px] tracking-wide text-zinc-700 md:hidden">
+    <div className="clean-appearance bg-seondary flex h-[40px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[14px] tracking-wide text-zinc-700 md:hidden">
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div
           className={cn(

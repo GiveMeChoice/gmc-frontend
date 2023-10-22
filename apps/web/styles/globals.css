@@ -38,6 +38,12 @@ body {
   @apply flex h-fit justify-center;
 }
 
+.clean-appearance {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 /* DropdownMenu Transitions  */
 .dropdown-menu {
   top: 5rem;

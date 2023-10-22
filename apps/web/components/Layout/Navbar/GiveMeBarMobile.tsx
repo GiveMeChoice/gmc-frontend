@@ -94,7 +94,7 @@ const GiveMeBarMobile: React.FC = () => {
 
   return (
     <div
-      className={cn('z-20 h-fit w-fit', {
+      className={cn('clean-appearance z-20 h-fit w-fit', {
         'fixed top-0 left-0 flex h-screen w-screen flex-col justify-start overflow-hidden bg-white':
           searchModeOn,
       })}
@@ -111,7 +111,7 @@ const GiveMeBarMobile: React.FC = () => {
       >
         <button
           className={cn(
-            'flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
+            'clean-appearance flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
           )}
           onClick={startSearchMode}
         >
@@ -141,7 +141,7 @@ const GiveMeBarMobile: React.FC = () => {
               id="gmc-search-bar-mobile"
               style={{ WebkitAppearance: 'none' }}
               className={cn(
-                'peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-width duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
+                'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-width duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
                 {
                   'w-full px-4 text-[27px]': query || searchModeOn,
                   'w-[108px] pl-1 text-4xl focus:pl-2.5 focus:text-[27px]':
@@ -190,7 +190,7 @@ const GiveMeBarMobile: React.FC = () => {
             />
             <button
               className={cn(
-                'relative left-[102%] -top-[30px] flex aspect-square h-5 w-5 items-center justify-center rounded-full border-1.5 border-zinc-700  pb-1 text-zinc-700 opacity-0 transition-colors',
+                'relative left-[102%] -top-[30px] flex aspect-square h-5 w-5 items-center justify-center rounded-full border-1.5 border-zinc-700  pb-0.5 text-zinc-700 opacity-0 transition-colors',
                 {
                   'bg- -translate-x-6 duration-100 hover:border-zinc-800 hover:text-zinc-800 hover:opacity-90 active:bg-secondary-dark-10 peer-hover:opacity-90 peer-focus:opacity-90':
                     query,
@@ -230,7 +230,7 @@ const GiveMeBarMobile: React.FC = () => {
       {searchModeOn && (
         <button
           className={cn(
-            'absolute left-5 top-4 z-30 flex aspect-square h-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
+            'absolute right-5 top-4 z-30 flex aspect-square h-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
             {}
           )}
           onClick={stopSearchMode}
