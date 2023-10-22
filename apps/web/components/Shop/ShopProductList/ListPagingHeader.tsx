@@ -75,12 +75,12 @@ const ListPagingHeader: React.FC<Props> = ({ bottom, noTop, color }) => {
               {!shop.searching && (
                 <>
                   <span className="text-[16px] font-bold">
-                    {`${shop.response.hits} Products`}
+                    {`${shop.response.hits} Results`}
                   </span>
                 </>
               )}
             </div>
-            <span className="min-w-fit text-[14px] tracking-wider text-zinc-900">{`(Showing ${from} - ${to})`}</span>
+            <span className="min-w-fit text-[15px] tracking-wider text-zinc-900">{`(${from} - ${to})`}</span>
           </div>
           <button
             onClick={handleFirstPage}

@@ -309,18 +309,11 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
     };
   };
 
-  const nextPage = async () => {
-    search({
-      page: request.page + 1,
-    });
-  };
-
-  const prevPage = async () => {};
-
   const removeConflictingBranchLabelFilters = (
     addedLabel: INestedFilter,
     existingLabels: INestedFilter[]
   ): INestedFilter[] => {
+    logger.debug(JSON.stringify(addedLabel));
     if (!existingLabels) {
       return [addedLabel];
     } else {
@@ -339,7 +332,10 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
               !(
                 l.value === addedLabel.value &&
                 (!l.subfilter ||
-                  l.subfilter.value === addedLabel.subfilter.value)
+                  (l.subfilter.value === addedLabel.subfilter.value &&
+                    addedLabel.subfilter.subfilter &&
+                    !l.subfilter.subfilter) ||
+                  (!addedLabel.subfilter.subfilter && l.subfilter.subfilter))
               )
           ),
         ];

@@ -32,15 +32,15 @@ const ShopProductInfoBox: React.FC<Props> = ({ product }) => {
   }, [shop.initialized, product.id]);
 
   return (
-    <div className="mx-1 flex h-full w-full cursor-pointer flex-col justify-between gap-y-2 bg-white p-7 py-6">
-      <div className="flex w-full justify-between">
+    <div className="mx-1 flex h-full w-full cursor-pointer flex-col justify-between gap-y-2 bg-white p-6 py-6 pt-5">
+      <div className="flex w-full items-center justify-between">
         <span className="text-[18px] font-bold">£ {product.price}</span>
         <div id="list-product-heart" className="list-heart">
           <InfoBoxHeart product={product} />
         </div>
       </div>
 
-      <div className="flex flex-col items-start space-y-1.5 pl-1 text-[13px] text-zinc-800">
+      <div className="mt-7 flex flex-grow flex-col items-start gap-y-[11px] text-[13px] text-zinc-800">
         {flatLabels.slice(0, 5).map((flatLabel, i) => (
           <div
             className={
@@ -51,7 +51,9 @@ const ShopProductInfoBox: React.FC<Props> = ({ product }) => {
               style={{ backgroundColor: flatLabel.color }}
               className={`aspect-square w-3 rounded-full bg-primary transition-all duration-300`}
             />
-            <span>{flatLabel.name.toUpperCase()}</span>
+            <span className="leading-[1.2]">
+              {flatLabel.name.toUpperCase()}
+            </span>
           </div>
         ))}
         {product.labels.length > 5 && (
@@ -60,7 +62,7 @@ const ShopProductInfoBox: React.FC<Props> = ({ product }) => {
           </span>
         )}
       </div>
-      <div className="flex w-full items-center justify-end gap-x-3">
+      <div className="flex w-full items-center justify-start gap-x-3">
         <div className="flex items-center justify-center gap-1 border-1.5 border-zinc-400 bg-white py-1.5 px-2.5 text-zinc-500">
           <span className="whitespace-nowrap text-xs">
             {`${product.brand.name

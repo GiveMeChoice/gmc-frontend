@@ -37,38 +37,38 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
     >
       <div className="flex w-full items-center justify-start gap-x-2 border-b-1.5 border-zinc-700 bg-white py-[9px] pl-6 text-[15px]">
         <Link href={'/shop'}>
-          <div className="group flex cursor-pointer items-center gap-x-2.5">
+          <div
+            // style={{ backgroundColor: color }}
+            className="group mr-1 flex cursor-pointer items-center rounded-full border border-black bg-secondary p-1"
+          >
             <Image
               className="select-none rounded-full"
               draggable={false}
-              src="/img/bag.svg"
+              src="/img/tree.svg"
               alt="angle right"
               width="16"
               height="16"
             />
-            <span className="group-hover:underline group-active:text-primary">
-              SHOP
-            </span>
           </div>
         </Link>
-        <Image
+        {/* <Image
           className="select-none rounded-full"
           draggable={false}
           src="/img/right-arrow.svg"
           alt="angle right"
           width="17"
           height="17"
-        />
+        /> */}
         {isLabel ? (
           <Link href={'/shop/label'}>
             <span className="cursor-pointer hover:underline active:text-primary">
-              BY LABEL
+              SHOP BY LABEL
             </span>
           </Link>
         ) : (
           <Link href={'/shop/category'}>
             <span className="cursor-pointer hover:underline active:text-primary">
-              BY CATEGORY
+              SHOP BY CATEGORY
             </span>
           </Link>
         )}
@@ -118,6 +118,19 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
             </div>
           </>
         )}
+        <Image
+          className="select-none rounded-full"
+          draggable={false}
+          src="/img/right-arrow.svg"
+          alt="angle right"
+          width="17"
+          height="17"
+        />
+        <div className="group flex h-full cursor-default items-center">
+          <span className="font-bold text-gmc-ocean">
+            {entity.name.toUpperCase()}
+          </span>
+        </div>
       </div>
       <div
         className={cn('flex flex-col items-center justify-center gap-y-6', {

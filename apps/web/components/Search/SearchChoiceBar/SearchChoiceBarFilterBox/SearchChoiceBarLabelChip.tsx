@@ -27,7 +27,7 @@ const SearchChoiceBarLabelChip: React.FC<Props> = ({ index, labelFilter }) => {
 
   useEffect(() => {
     setColor(shop.readBaseLabel(labelFilter.value).color);
-  }, [labelFilter]);
+  }, [labelFilter, shop.initialized]);
 
   return (
     <div key={index} className="group flex items-center justify-center text-sm">

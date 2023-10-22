@@ -5,11 +5,12 @@ import 'react-responsive-modal/styles.css';
 import { BlogNavProvider } from '../Context/BlogNavProvider';
 import { useUser } from '../Context/UserProvider';
 import BlogNavbar from './Navbar/BlogNavbar';
+import GiveMeBarMobile from './Navbar/GiveMeBarMobile';
 import GiveMeBarNav from './Navbar/GiveMeBarNav';
 import LoginButton from './Navbar/LoginButton';
 import ProfileButton from './Navbar/ProfileButton';
 import ShopNavbar from './Navbar/ShopNavbar';
-import SideMenuButton from './Navbar/SideMenuButton';
+import ShopNavbarMobile from './Navbar/ShopNavbarMobile';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -30,19 +31,29 @@ const Navbar: React.FC = () => {
       >
         <div
           id="navbar-content"
-          className="flex h-[88px] w-full items-center justify-between px-[60px]"
+          className="flex h-[70px] w-full items-center justify-between px-[16px] md:h-[88px] md:px-[60px]"
         >
-          <div className="flex w-full max-w-[850px] items-center gap-x-8 pr-12">
-            <SideMenuButton />
+          <div className="flex w-fit items-center gap-x-5 md:gap-x-8">
             <GiveMeBarNav />
+            <GiveMeBarMobile />
           </div>
-          <div className="flex items-center gap-x-5">
+          <div className="flex items-center gap-x-3">
             {/* <LinkChips /> */}
             {user ? <ProfileButton /> : <LoginButton />}
+            {/* <SideMenuButton /> */}
           </div>
         </div>
-        {router.route.includes('/blog') && <BlogNavbar />}
-        {router.route.includes('/shop') && <ShopNavbar />}
+        {router.route.includes('/blog') && (
+          <>
+            <BlogNavbar />
+          </>
+        )}
+        {router.route.includes('/shop') && (
+          <>
+            <ShopNavbar />
+            <ShopNavbarMobile />
+          </>
+        )}
       </nav>
     </BlogNavProvider>
   );

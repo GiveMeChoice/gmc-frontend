@@ -53,6 +53,8 @@ const SearchChoiceBarLabelFacets: React.FC<Props> = () => {
                 }}
                 activeFilters={shop.request.filters.labels}
                 count={lab.count}
+                level={1}
+                label={true}
                 color={shop.readBaseLabel(lab.value).color}
                 onSelectFacet={handleSelectLabel}
                 onClearFacet={handleRemoveLabel}
@@ -74,6 +76,8 @@ const SearchChoiceBarLabelFacets: React.FC<Props> = () => {
                       }}
                       activeFilters={shop.request.filters.labels}
                       count={sub1.count}
+                      level={2}
+                      label={true}
                       color={shop.readBaseLabel(lab.value).color}
                       onSelectFacet={handleSelectLabel}
                       onClearFacet={handleRemoveLabel}
@@ -96,6 +100,8 @@ const SearchChoiceBarLabelFacets: React.FC<Props> = () => {
                               },
                             },
                           }}
+                          level={3}
+                          label={true}
                           activeFilters={shop.request.filters.labels}
                           count={sub1.count}
                           color={shop.readBaseLabel(lab.value).color}

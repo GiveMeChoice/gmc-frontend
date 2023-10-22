@@ -11,6 +11,8 @@ interface Props {
   activeFilters: INestedFilter[];
   count: number;
   color?: string;
+  label?: boolean;
+  level: number;
   onSelectFacet: (filter: INestedFilter) => void;
   onClearFacet: (filter: INestedFilter) => void;
 }
@@ -20,6 +22,8 @@ const NestedFacetItem: React.FC<Props> = ({
   activeFilters,
   count,
   color,
+  level,
+  label,
   onSelectFacet,
   onClearFacet,
 }) => {
@@ -34,37 +38,70 @@ const NestedFacetItem: React.FC<Props> = ({
     );
   }, [activeFilters]);
 
+  const prepareTitle = () => {
+    const title = readFilterName(facetFilter);
+    return level === 1 ? title.toUpperCase() : title;
+  };
+
   return (
     <div
-      className={cn('group flex cursor-pointer items-center gap-x-1.5 pt-1', {
-        'pointer-events-none': !count,
-        'pl-1': count,
-      })}
+      className={cn(
+        'group flex cursor-pointer items-center gap-x-[7px] py-[3px] text-[14px] leading-[1.3]',
+        {
+          'pointer-events-none': !count,
+          'pl-1': count,
+          'mt-2 text-[16px]': level === 1,
+          'mt-[4px] text-[15px]': level === 2,
+          'ml-2 mt-[3px] text-[14px]': level === 3,
+        }
+      )}
       onClick={() =>
         !active ? onSelectFacet(facetFilter) : onClearFacet(facetFilter)
       }
     >
+      {/* {level === 2 && (
+        <img
+          draggable={false}
+          src="/img/nest-arrow.svg"
+          alt="Nested Arrow"
+          height={level > 2 ? 16 : 18}
+          width={level > 2 ? 16 : 18}
+        />
+      )}
+      {level === 3 && (
+        <img
+          draggable={false}
+          src="/img/nest-arrow.svg"
+          alt="Nested Arrow"
+          height={level > 2 ? 15 : 17}
+          width={level > 2 ? 15 : 17}
+        />
+      )} */}
       {count && (
         <div
           style={{ ...(color && { backgroundColor: color }) }}
           className={cn(
-            `h-3.5 w-3.5 rounded-sm border border-zinc-900 bg-zinc-800 text-base text-black`,
+            `aspect-square h-[15px] rounded-full border border-zinc-900 bg-zinc-800 text-black`,
             {
               'bg-opacity-0 group-hover:bg-opacity-30 group-active:bg-primary':
                 !active,
               'bg-opacity-100 group-hover:bg-opacity-10 group-active:bg-opacity-0':
                 active,
+              'rounded-full': label,
+              'rounded-sm': !label,
             }
           )}
         >
           <div
             className={cn(
-              'flex h-full w-full items-center justify-center bg-white',
+              'flex h-full w-full items-center justify-center  bg-white',
               {
                 'bg-opacity-100 group-hover:bg-opacity-30 group-active:bg-primary':
                   !active,
                 'bg-opacity-0 group-hover:bg-opacity-10 group-active:bg-opacity-0':
                   active,
+                'rounded-full': label,
+                'rounded-sm': !label,
               }
             )}
           >
@@ -84,7 +121,7 @@ const NestedFacetItem: React.FC<Props> = ({
           {}
         )}
       >
-        {readFilterName(facetFilter)}
+        {prepareTitle()}
         {count && (
           <span className="text-sm">
             &nbsp;(<span className="px-0.5">{`${count}`}</span>)

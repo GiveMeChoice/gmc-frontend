@@ -42,6 +42,7 @@ const SearchChoiceBarCategoryFacets: React.FC<Props> = ({}) => {
                 color={shop.readBaseCategory(cat.value).color}
                 activeFilters={[shop.request.filters.category]}
                 count={cat.count}
+                level={1}
                 onSelectFacet={handleSelectCategory}
                 onClearFacet={handleRemoveCategory}
               />
@@ -63,6 +64,7 @@ const SearchChoiceBarCategoryFacets: React.FC<Props> = ({}) => {
                       color={shop.readBaseCategory(cat.value).color}
                       activeFilters={[shop.request.filters.category]}
                       count={sub1.count}
+                      level={2}
                       onSelectFacet={handleSelectCategory}
                       onClearFacet={handleRemoveCategory}
                     />
@@ -84,6 +86,7 @@ const SearchChoiceBarCategoryFacets: React.FC<Props> = ({}) => {
                               },
                             },
                           }}
+                          level={3}
                           color={shop.readBaseCategory(cat.value).color}
                           activeFilters={[shop.request.filters.category]}
                           count={sub1.count}

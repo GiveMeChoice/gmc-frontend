@@ -5,12 +5,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useShop } from '../../Context/ShopProvider';
 import { useUser } from '../../Context/UserProvider';
-import LoginButton from './LoginButton';
-import ProfileButton from './ProfileButton';
-import ShopNavbarItem from './ShopNavbar/ShopNavbarItem';
 import SideMenu from './SideMenu/SideMenu';
 
-const ShopNavbar: React.FC = () => {
+const ShopNavbarMobile: React.FC = () => {
   const {
     baseCategories: categories,
     initialized,
@@ -37,7 +34,7 @@ const ShopNavbar: React.FC = () => {
       } else {
         const navContainer = document.getElementById('navbar-container');
         if (navContainer && window.scrollY > 10) {
-          navContainer.style.top = '-88px';
+          navContainer.style.top = '-70px';
           setMinimized(true);
         }
       }
@@ -51,23 +48,21 @@ const ShopNavbar: React.FC = () => {
   }, [router.asPath]);
 
   return (
-    <div className="bg-seondary hidden h-[48px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[13px] tracking-wider text-zinc-700 md:flex">
+    <div className="bg-seondary flex h-[40px] w-full justify-between border-y-1.5 border-zinc-700 bg-white text-[14px] tracking-wide text-zinc-700 md:hidden">
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div
           className={cn(
-            'flex w-[71px] items-center justify-center bg-white transition-width duration-300 md:w-8',
+            'flex w-[15%] items-center justify-center bg-secondary transition-width duration-300',
             {
-              'w-8': !minmized,
-              'w-[71px]': minmized,
+              // 'w-8': !minmized,
+              // 'w-[71px]': minmized,
             }
           )}
         >
           <div
             className={cn(
               'flex h-full w-full cursor-pointer flex-col items-center justify-center gap-y-[4px] transition-all duration-300 hover:bg-primary',
-              {
-                '-translate-x-44': !minmized,
-              }
+              {}
             )}
             onClick={() => setSideMenuOpen(!sideMenuOpen)}
           >
@@ -80,12 +75,12 @@ const ShopNavbar: React.FC = () => {
             close={() => setSideMenuOpen(!sideMenuOpen)}
           />
         </div>
-        <div
-          className="group h-full w-fit"
+        {/* <div
+          className="group h-full w-1/5"
           onMouseEnter={() => setNavigating(false)}
         >
           <Link href="/shop">
-            <div className="flex h-full w-[96px] cursor-pointer items-center justify-center gap-x-2 overflow-hidden bg-secondary font-bold hover:bg-primary hover:text-black">
+            <div className="flex h-full w-full cursor-pointer items-center justify-center gap-x-2 overflow-hidden bg-secondary font-bold hover:bg-primary hover:text-black">
               <Image
                 className="select-none rounded-full"
                 draggable={false}
@@ -94,19 +89,18 @@ const ShopNavbar: React.FC = () => {
                 width="20"
                 height="20"
               />
-              SHOP
             </div>
           </Link>
-        </div>
+        </div> */}
         <div
-          className="group flex h-full bg-secondary"
+          className="group flex h-full w-[35%] bg-secondary"
           onMouseEnter={() => setNavigating(false)}
         >
           <Link href={`/shop/label`}>
             <div
               // style={{ backgroundColor: hover ? baseCategory.color : '#f0f0f5' }}
               onClick={() => setNavigating(true)}
-              className={`flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:text-black group-hover:bg-primary`}
+              className={`flex h-full w-full cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:text-black group-hover:bg-primary`}
             >
               LABELS
             </div>
@@ -152,14 +146,14 @@ const ShopNavbar: React.FC = () => {
           </div>
         </div>
         <div
-          className="group flex h-full bg-secondary lg:hidden"
+          className="group flex h-full w-[35%] bg-secondary lg:hidden"
           onMouseEnter={() => setNavigating(false)}
         >
           <Link href={`/shop/category`}>
             <div
               // style={{ backgroundColor: hover ? baseCategory.color : '#f0f0f5' }}
               onClick={() => setNavigating(true)}
-              className={`flex h-full min-w-[110px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:text-black group-hover:bg-primary`}
+              className={`flex h-full w-full cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary px-6 font-bold hover:text-black group-hover:bg-primary`}
             >
               CATEGORIES
             </div>
@@ -205,23 +199,9 @@ const ShopNavbar: React.FC = () => {
           </div>
         </div>
 
-        {!initialized && (
-          <div className="hidden divide-x-1.5 divide-zinc-700 lg:flex ">
-            {categories
-              .sort((a, b) => a.name.localeCompare(b.name))
-              .map((category) => (
-                <ShopNavbarItem
-                  category={category}
-                  navigating={navigating}
-                  setNavigating={setNavigating}
-                />
-              ))}
-          </div>
-        )}
-
         <div
           className={cn(
-            'flex h-full w-[74px] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
+            'flex h-full w-[15%] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
             {
               'hover:bg-primary': !navigating,
             }
@@ -246,21 +226,6 @@ const ShopNavbar: React.FC = () => {
             height="20"
           />
         </div>
-        <div className=""></div>
-      </div>
-      <div
-        className={cn('flex items-center', {
-          'w-0': !minmized,
-          'w-28': minmized,
-        })}
-      >
-        <div
-          className={cn('transition-all duration-300', {
-            'translate-x-44': !minmized,
-          })}
-        >
-          {user.user ? <ProfileButton /> : <LoginButton />}
-        </div>
       </div>
     </div>
   );
@@ -278,4 +243,4 @@ const CategoryLink: React.FC<ILabelLinkProps> = ({ path, children }) => (
   <Link href={`/shop/category/${path}`}>{children}</Link>
 );
 
-export default ShopNavbar;
+export default ShopNavbarMobile;
