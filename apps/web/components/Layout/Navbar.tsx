@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
       <nav
         id="navbar-container"
         className={cn(
-          'fixed top-0 z-10 flex w-screen flex-col bg-white transition-all duration-500'
+          'fixed top-0 z-10 flex w-screen flex-col bg-white transition-all duration-150 md:duration-500'
         )}
       >
         <div

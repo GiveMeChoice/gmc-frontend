@@ -33,7 +33,7 @@ const ShopNavbarMobile: React.FC = () => {
         }
       } else {
         const navContainer = document.getElementById('navbar-container');
-        if (navContainer && window.scrollY > 10) {
+        if (navContainer && window.scrollY > 5) {
           navContainer.style.top = '-70px';
           setMinimized(true);
         }
