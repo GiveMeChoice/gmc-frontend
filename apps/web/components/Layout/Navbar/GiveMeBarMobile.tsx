@@ -94,7 +94,7 @@ const GiveMeBarMobile: React.FC = () => {
 
   return (
     <div
-      className={cn('clean-appearance z-20 h-fit w-fit', {
+      className={cn('z-20 h-fit w-fit', {
         'fixed top-0 left-0 flex h-screen w-screen flex-col justify-start overflow-hidden bg-white':
           searchModeOn,
       })}
@@ -111,7 +111,7 @@ const GiveMeBarMobile: React.FC = () => {
       >
         <button
           className={cn(
-            'clean-appearance flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
+            'flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
           )}
           onClick={startSearchMode}
         >
@@ -148,6 +148,7 @@ const GiveMeBarMobile: React.FC = () => {
                     !query && !searchModeOn,
                 }
               )}
+              type="search"
               value={query}
               autoComplete="off"
               placeholder={
@@ -230,7 +231,7 @@ const GiveMeBarMobile: React.FC = () => {
       {searchModeOn && (
         <button
           className={cn(
-            'absolute right-5 top-4 z-30 flex aspect-square h-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
+            'absolute right-5 top-4 z-30 flex aspect-square h-8 w-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
             {}
           )}
           onClick={stopSearchMode}

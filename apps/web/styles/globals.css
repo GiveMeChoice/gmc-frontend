@@ -27,6 +27,15 @@ body {
   --speed: 500ms;
 }
 
+input {
+  border-radius: 0;
+}
+
+input[type='search'] {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+}
+
 /* react-responsive-modal Customisation */
 .customModal {
   @apply rounded-sm;
@@ -41,6 +50,7 @@ body {
 .clean-appearance {
   -webkit-appearance: none;
   -moz-appearance: none;
+  -webkit-border-radius: 0px;
   appearance: none;
 }
 
