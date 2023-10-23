@@ -215,7 +215,7 @@ const ShopNavbarMobile: React.FC = () => {
           )}
           onClick={() => {
             setNavigating(true);
-            document.getElementById('gmc-search-bar').focus();
+            document.getElementById('give-me-button-mobile').click();
             const navContainer = document.getElementById('navbar-container');
             if (navContainer) {
               navContainer.style.top = '0';

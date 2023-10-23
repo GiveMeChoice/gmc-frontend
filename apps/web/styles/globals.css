@@ -27,14 +27,14 @@ body {
   --speed: 500ms;
 }
 
-input {
+/* input {
   border-radius: 0;
 }
 
 input[type='text'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
-}
+} */
 
 /* react-responsive-modal Customisation */
 .customModal {
@@ -52,6 +52,7 @@ input[type='text'] {
   -moz-appearance: none;
   -webkit-border-radius: 0px;
   appearance: none;
+  border-radius: 0;
 }
 
 /* DropdownMenu Transitions  */

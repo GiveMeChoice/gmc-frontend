@@ -117,17 +117,18 @@ const GiveMeBarMobile: React.FC = () => {
         )}
       >
         <button
+          id="give-me-button-mobile"
           className={cn(
             'flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
           )}
           onTouchEnd={handleGiveMeButtonClick}
-          // onClick={handleGiveMeButtonClick}
+          onClick={handleGiveMeButtonClick}
         >
           <span
             className={cn(
-              'z-20 flex h-[37px] w-[145px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary duration-200 ease-in-out hover:-translate-y-[4px] hover:translate-x-[3px] active:-translate-y-[1px] active:translate-x-[1px]',
+              'z-20 flex h-[37px] w-[145px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary duration-200 ease-in-out',
               {
-                // '-translate-y-[4px] translate-x-[3px]': searchModeOn,
+                '-translate-y-[3px] translate-x-[2px]': searchModeOn,
               }
             )}
           >

@@ -32,13 +32,6 @@ const ShopNavbar: React.FC = () => {
           .getPropertyValue('display')
           .toString() !== 'none'
       ) {
-        // console.log(
-        //   document
-        //     .getElementById('give-me-bar-nav')
-        //     .computedStyleMap()
-        //     .get('display')
-        //     .toString()
-        // );
         var currentScrollPos = window.scrollY;
         if (prevScrollpos > currentScrollPos) {
           const navContainer = document.getElementById('navbar-container');
