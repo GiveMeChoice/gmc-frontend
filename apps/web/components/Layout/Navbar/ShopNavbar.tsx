@@ -27,7 +27,9 @@ const ShopNavbar: React.FC = () => {
     setMinimized(false);
     var prevScrollpos = window.scrollY;
     const handleScrollUp = () => {
-      if (document.getElementById('give-me-bar-nav').checkVisibility()) {
+      if (
+        (document.getElementById('give-me-bar-nav') as any).checkVisibility()
+      ) {
         console.log('give-me-bar-nav');
         var currentScrollPos = window.scrollY;
         if (prevScrollpos > currentScrollPos) {
