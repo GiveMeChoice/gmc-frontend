@@ -28,9 +28,17 @@ const ShopNavbar: React.FC = () => {
     var prevScrollpos = window.scrollY;
     const handleScrollUp = () => {
       if (
-        (document.getElementById('give-me-bar-nav') as any).checkVisibility()
+        getComputedStyle(document.getElementById('give-me-bar-nav'))
+          .getPropertyValue('display')
+          .toString() !== 'none'
       ) {
-        console.log('give-me-bar-nav');
+        // console.log(
+        //   document
+        //     .getElementById('give-me-bar-nav')
+        //     .computedStyleMap()
+        //     .get('display')
+        //     .toString()
+        // );
         var currentScrollPos = window.scrollY;
         if (prevScrollpos > currentScrollPos) {
           const navContainer = document.getElementById('navbar-container');

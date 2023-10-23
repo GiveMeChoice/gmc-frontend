@@ -25,9 +25,9 @@ const ShopNavbarMobile: React.FC = () => {
     var prevScrollpos = window.scrollY;
     const handleScrollUp = () => {
       if (
-        (
-          document.getElementById('give-me-bar-nav-mobile') as any
-        ).checkVisibility()
+        getComputedStyle(document.getElementById('give-me-bar-nav-mobile'))
+          .getPropertyValue('display')
+          .toString() !== 'none'
       ) {
         console.log('give-me-bar-nav-mobile');
         var currentScrollPos = window.scrollY;
