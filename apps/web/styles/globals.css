@@ -52,6 +52,7 @@ input[type='text'] {
   -moz-appearance: none;
   -webkit-border-radius: 0px;
   appearance: none;
+  font-weight: 400;
 }
 
 /* DropdownMenu Transitions  */
