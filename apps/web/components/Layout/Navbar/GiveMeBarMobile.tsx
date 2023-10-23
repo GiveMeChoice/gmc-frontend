@@ -126,9 +126,9 @@ const GiveMeBarMobile: React.FC = () => {
         >
           <span
             className={cn(
-              'z-20 flex h-[37px] w-[145px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary duration-200 ease-in-out',
+              'z-20 flex h-[37px] w-[145px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary duration-200 ease-in-out',
               {
-                '-translate-y-[3px] translate-x-[2px]': searchModeOn,
+                // '-translate-y-[3px] translate-x-[2px]': searchModeOn,
               }
             )}
           >
@@ -157,7 +157,7 @@ const GiveMeBarMobile: React.FC = () => {
                     !query && !searchModeOn,
                 }
               )}
-              type="search"
+              type="text"
               value={query}
               autoComplete="off"
               placeholder={

@@ -31,16 +31,9 @@ input {
   border-radius: 0;
 }
 
-input[type='search'] {
+input[type='text'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
-}
-
-input[type='search']::-webkit-search-decoration,
-input[type='search']::-webkit-search-cancel-button,
-input[type='search']::-webkit-search-results-button,
-input[type='search']::-webkit-search-results-decoration {
-  display: none;
 }
 
 /* react-responsive-modal Customisation */
@@ -59,7 +52,6 @@ input[type='search']::-webkit-search-results-decoration {
   -moz-appearance: none;
   -webkit-border-radius: 0px;
   appearance: none;
-  border-radius: 0;
 }
 
 /* DropdownMenu Transitions  */
