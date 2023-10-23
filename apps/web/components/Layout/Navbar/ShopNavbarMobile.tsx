@@ -29,7 +29,6 @@ const ShopNavbarMobile: React.FC = () => {
           .getPropertyValue('display')
           .toString() !== 'none'
       ) {
-        console.log('give-me-bar-nav-mobile');
         var currentScrollPos = window.scrollY;
         if (prevScrollpos > currentScrollPos) {
           const navContainer = document.getElementById('navbar-container');

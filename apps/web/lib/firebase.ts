@@ -54,4 +54,6 @@ export const functions = getFunctions(firebaseApp);
 if (process.env.NODE_ENV === 'development') {
   connectFunctionsEmulator(functions, 'localhost', 5001);
   console.log('connected to functions emulator');
+} else {
+  console.log('THIS TAMALE IS HOT');
 }

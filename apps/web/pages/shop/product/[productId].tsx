@@ -17,17 +17,20 @@ interface ProductPageProps {
 export default function ProductPage({ product }: ProductPageProps) {
   return (
     <ShopLayout>
-      <div className="flex w-1/2 flex-col divide-y-1.5 divide-zinc-700">
+      <div className="hidden w-1/2 flex-col divide-y-1.5 divide-zinc-700 md:flex">
         {/* IMAGES  */}
         <ProductPageImage images={product.images} />
         <div className="h-full bg-secondary"></div>
       </div>
 
-      <div className="flex h-full w-1/2 flex-col divide-y-1.5 divide-zinc-700">
-        <div className="w-full px-8 py-7 text-center">
-          <span className="text-[24px] leading-[1.3]">
+      <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-700 md:w-1/2">
+        <div className="w-full p-4 text-center md:px-8 md:py-7">
+          <span className="text-[20px] leading-[1.3] md:text-[24px]">
             {product.title.toUpperCase()}
           </span>
+        </div>
+        <div className="flex md:hidden">
+          <ProductPageImage images={product.images} />
         </div>
         <ProductPageCategory
           category={product.merchantCategory.gmcCategory as IGmcCategory}
