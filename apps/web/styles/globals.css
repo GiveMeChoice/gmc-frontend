@@ -31,7 +31,7 @@ input {
   border-radius: 0;
 }
 
-input[type='search'] {
+input[type='text'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
 }

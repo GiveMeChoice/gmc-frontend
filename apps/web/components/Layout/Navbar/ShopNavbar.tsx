@@ -27,21 +27,24 @@ const ShopNavbar: React.FC = () => {
     setMinimized(false);
     var prevScrollpos = window.scrollY;
     const handleScrollUp = () => {
-      var currentScrollPos = window.scrollY;
-      if (prevScrollpos > currentScrollPos) {
-        const navContainer = document.getElementById('navbar-container');
-        if (navContainer) {
-          navContainer.style.top = '0';
-          setMinimized(false);
+      if (document.getElementById('give-me-bar-nav').checkVisibility()) {
+        console.log('give-me-bar-nav');
+        var currentScrollPos = window.scrollY;
+        if (prevScrollpos > currentScrollPos) {
+          const navContainer = document.getElementById('navbar-container');
+          if (navContainer) {
+            navContainer.style.top = '0';
+            setMinimized(false);
+          }
+        } else {
+          const navContainer = document.getElementById('navbar-container');
+          if (navContainer && window.scrollY > 10) {
+            navContainer.style.top = '-88px';
+            setMinimized(true);
+          }
         }
-      } else {
-        const navContainer = document.getElementById('navbar-container');
-        if (navContainer && window.scrollY > 10) {
-          navContainer.style.top = '-88px';
-          setMinimized(true);
-        }
+        prevScrollpos = currentScrollPos;
       }
-      prevScrollpos = currentScrollPos;
     };
     window.addEventListener('scroll', handleScrollUp);
 

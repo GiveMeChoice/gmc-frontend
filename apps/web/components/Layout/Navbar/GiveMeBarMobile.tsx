@@ -8,6 +8,7 @@ import { useShop } from '../../Context/ShopProvider';
 const GiveMeBarMobile: React.FC = () => {
   const [searchModeOn, setSearchModeOn] = useState(false);
   const [query, setQuery] = useState('');
+  const [buttonCoolOff, setButtonCoolOff] = useState(false);
   const shop = useShop();
   const router = useRouter();
   const [suggestions, setSuggestions] = useState<string[]>([
@@ -22,13 +23,6 @@ const GiveMeBarMobile: React.FC = () => {
   const [lastTypedQuery, setLastTypedQuery] = useState('');
 
   useEffect(() => {
-    // if (router.isReady) {
-    //   setQuery(router.query.q ? (router.query.q as string) : '');
-    // }
-    // if (router.pathname === '/shop/search' && !router.query.q) {
-    //   document.getElementById('gmc-search-bar-mobile').focus();
-    // } else {
-    // }
     document.getElementById('gmc-search-bar-mobile').blur();
     const suggestionClickHandler = (e) => {
       e.preventDefault();
@@ -65,6 +59,19 @@ const GiveMeBarMobile: React.FC = () => {
     handleSearch(suggestion);
   };
 
+  const handleGiveMeButtonClick = () => {
+    if (searchModeOn && query && !buttonCoolOff) {
+      setButtonCoolOff(true);
+      setSearchModeOn(false);
+      setTimeout(() => {
+        setButtonCoolOff(false);
+      }, 500);
+      handleSearch(query);
+    } else if (!buttonCoolOff) {
+      startSearchMode();
+    }
+  };
+
   const startSearchMode = () => {
     if (!searchModeOn) {
       setSearchModeOn(true);
@@ -94,15 +101,15 @@ const GiveMeBarMobile: React.FC = () => {
 
   return (
     <div
-      className={cn('z-20 h-fit w-fit', {
+      id="give-me-bar-nav-mobile"
+      className={cn('z-20 h-fit w-fit transition-none md:hidden', {
         'fixed top-0 left-0 flex h-screen w-screen flex-col justify-start overflow-hidden bg-white':
           searchModeOn,
       })}
     >
       <div
-        id="give-me-bar"
         className={cn(
-          'z-20 flex h-[46px] items-center justify-start gap-y-1 md:hidden md:flex-nowrap',
+          'z-20 flex h-[46px] items-center justify-start gap-y-1 md:flex-nowrap',
           {
             'w-fit': !searchModeOn,
             'w-full flex-col py-5 px-9 sm:px-20': searchModeOn,
@@ -113,13 +120,14 @@ const GiveMeBarMobile: React.FC = () => {
           className={cn(
             'flex h-fit w-fit cursor-pointer items-end rounded-full bg-zinc-900 duration-200'
           )}
-          onClick={startSearchMode}
+          onTouchEnd={handleGiveMeButtonClick}
+          // onClick={handleGiveMeButtonClick}
         >
           <span
             className={cn(
-              'z-20 flex h-[37px] w-[145px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[4px] hover:translate-x-[3px] active:-translate-y-[1px] active:translate-x-[1px]',
+              'z-20 flex h-[37px] w-[145px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary duration-200 ease-in-out hover:-translate-y-[4px] hover:translate-x-[3px] active:-translate-y-[1px] active:translate-x-[1px]',
               {
-                '-translate-y-[4px] translate-x-[3px]': searchModeOn,
+                // '-translate-y-[4px] translate-x-[3px]': searchModeOn,
               }
             )}
           >
@@ -141,27 +149,35 @@ const GiveMeBarMobile: React.FC = () => {
               id="gmc-search-bar-mobile"
               style={{ WebkitAppearance: 'none' }}
               className={cn(
-                'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-width duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
+                'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-none duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
                 {
                   'w-full px-4 text-[27px]': query || searchModeOn,
                   'w-[108px] pl-1 text-4xl focus:pl-2.5 focus:text-[27px]':
                     !query && !searchModeOn,
                 }
               )}
-              type="search"
+              type="text"
               value={query}
               autoComplete="off"
               placeholder={
                 router.route !== '/' && !searchModeOn ? 'Choice' : null
               }
-              onFocusCapture={() => setSearchModeOn(true)}
+              onFocusCapture={(e) => {
+                if (!buttonCoolOff) {
+                  setSearchModeOn(true);
+                } else e.target.blur();
+              }}
               onChange={(e) => {
                 setSuggestionIndex(null);
                 setLastTypedQuery(e.target.value);
                 setQuery(e.target.value);
                 updateSuggestions(e.target.value);
               }}
-              onFocus={startSearchMode}
+              onFocus={(e) => {
+                if (!buttonCoolOff) {
+                  setSearchModeOn(true);
+                } else e.target.blur();
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -231,7 +247,7 @@ const GiveMeBarMobile: React.FC = () => {
       {searchModeOn && (
         <button
           className={cn(
-            'absolute right-5 top-4 z-30 flex aspect-square h-8 w-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
+            'absolute left-5 top-4 z-30 flex aspect-square h-8 w-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
             {}
           )}
           onClick={stopSearchMode}

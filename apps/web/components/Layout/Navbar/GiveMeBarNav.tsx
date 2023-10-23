@@ -79,7 +79,7 @@ const GiveMeBarNav: React.FC = () => {
 
   return (
     <div
-      id="give-me-bar"
+      id="give-me-bar-nav"
       className={cn(
         'z-20 hidden h-[46px] w-full flex-wrap items-end justify-start gap-y-2.5 md:flex md:flex-nowrap'
       )}
@@ -92,7 +92,7 @@ const GiveMeBarNav: React.FC = () => {
       >
         <span
           className={cn(
-            'z-20 flex h-[45px] w-[178px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[4px] hover:translate-x-[4px] active:-translate-y-[1px] active:translate-x-[1px]',
+            'z-20 flex h-[44px] w-[182px] -translate-y-[1px] translate-x-[1px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary transition-transform duration-200 ease-in-out hover:-translate-y-[4px] hover:translate-x-[4px] active:-translate-y-[1px] active:translate-x-[1px]',
             {}
           )}
         >
@@ -101,7 +101,7 @@ const GiveMeBarNav: React.FC = () => {
             draggable={false}
             src="/img/GIVE_ME.svg"
             alt="give me"
-            width="158"
+            width="162"
             height="40"
             priority
           />
