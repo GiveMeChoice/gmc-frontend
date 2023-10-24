@@ -35,11 +35,15 @@ input[type='text'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
   -webkit-input-placeholder {
-    font-weight: 400;
+    font-weight: normal;
   }
   --moz-placeholder {
-    font-weight: 400;
+    font-weight: normal;
   }
+  ::placeholder {
+    font-weight: normal;
+  }
+  text-decoration: none;
 }
 
 /* react-responsive-modal Customisation */
