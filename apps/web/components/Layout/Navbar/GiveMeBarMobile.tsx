@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import SearchSuggestions from './GiveMeBarNav/SearchSuggestions';
 import { useShop } from '../../Context/ShopProvider';
+import { logger } from '../../../lib/logger';
 
 const GiveMeBarMobile: React.FC = () => {
   const [searchModeOn, setSearchModeOn] = useState(false);
@@ -23,6 +24,7 @@ const GiveMeBarMobile: React.FC = () => {
   const [lastTypedQuery, setLastTypedQuery] = useState('');
 
   useEffect(() => {
+    setQuery(shop.request.query);
     document.getElementById('gmc-search-bar-mobile').blur();
     const suggestionClickHandler = (e) => {
       e.preventDefault();
@@ -32,7 +34,7 @@ const GiveMeBarMobile: React.FC = () => {
     return () => {
       suggestionsBox.removeEventListener('mousedown', suggestionClickHandler);
     };
-  }, [router.isReady, router.pathname, router]);
+  }, [router.isReady, router.pathname, router, searchModeOn]);
 
   const handleSearch = (q?: string) => {
     setQuery('');
@@ -60,6 +62,7 @@ const GiveMeBarMobile: React.FC = () => {
   };
 
   const handleGiveMeButtonClick = () => {
+    logger.debug('give me button mobile click');
     if (searchModeOn && query && !buttonCoolOff) {
       setButtonCoolOff(true);
       setSearchModeOn(false);
@@ -105,6 +108,7 @@ const GiveMeBarMobile: React.FC = () => {
       className={cn('z-20 h-fit w-fit transition-none md:hidden', {
         'fixed top-0 left-0 flex h-screen w-screen flex-col justify-start overflow-hidden bg-white':
           searchModeOn,
+        'h-full w-full': !searchModeOn && shop.request.query,
       })}
     >
       <div
@@ -113,10 +117,10 @@ const GiveMeBarMobile: React.FC = () => {
           {
             'w-fit items-end': !searchModeOn,
             'w-full flex-col items-center py-5 px-9 sm:px-20': searchModeOn,
+            'w-full flex-col items-center sm:w-fit sm:flex-row':
+              !searchModeOn && router.route.includes('/shop/search'),
           }
         )}
-        onTouchEnd={handleGiveMeButtonClick}
-        onClick={handleGiveMeButtonClick}
       >
         <button
           id="give-me-button-mobile"
@@ -149,10 +153,24 @@ const GiveMeBarMobile: React.FC = () => {
           className={cn('h-full w-[111px] border-b-[2.5px] border-black', {
             hidden: searchModeOn,
             flex: !searchModeOn,
+            'w-[300px] justify-center border-b-[3px]':
+              router.route.includes('/shop/search'),
           })}
+          onTouchEnd={handleGiveMeButtonClick}
+          onClick={handleGiveMeButtonClick}
         >
-          <span className="normal-font pl-[5px] pt-[2px] text-[32px]">
-            Choice
+          <span
+            className={cn(
+              'normal-font whitespace-nowrap pl-[5px] pt-[2px] text-[32px]',
+              {
+                'pl-0 pt-[0px] text-[27px]':
+                  router.route.includes('/shop/search'),
+              }
+            )}
+          >
+            {router.route.includes('/shop/search')
+              ? shop.request.query
+              : 'Choice'}
           </span>
         </div>
         <div

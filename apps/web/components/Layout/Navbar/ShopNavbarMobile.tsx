@@ -39,7 +39,9 @@ const ShopNavbarMobile: React.FC = () => {
         } else {
           const navContainer = document.getElementById('navbar-container');
           if (navContainer && window.scrollY > 5) {
-            navContainer.style.top = '-70px';
+            navContainer.style.top = router.route.includes('/shop/search')
+              ? '-128px'
+              : '-70px';
             setMinimized(true);
           }
         }

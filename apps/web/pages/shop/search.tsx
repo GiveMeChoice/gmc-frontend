@@ -41,7 +41,14 @@ export default function Search({ props }) {
         </ShopMenuContainer>
 
         <ShopContentContainer>
-          <ShopProductList color="#56e2b3" />
+          <div className="flex w-full flex-grow flex-col">
+            <div className="w-full border-b-1.5 border-zinc-700 p-4">
+              <span className="pl-1.5 pb-8 text-4xl">
+                {shop.response.hits} Results
+              </span>
+            </div>
+            <ShopProductList color="#56e2b3" />
+          </div>
         </ShopContentContainer>
       </ShopLayout>
       {!shop.searching && <SearchMarquee />}

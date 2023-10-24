@@ -20,7 +20,7 @@ const ProductPageCategory: React.FC<Props> = ({ category }) => {
       style={{ backgroundColor: categoryFlat.category.color }}
       className="h-fit w-full font-normal"
     >
-      <div className="flex w-full items-center bg-white bg-opacity-20 py-2 px-8 text-black">
+      <div className="flex w-full items-center bg-white bg-opacity-20 py-2 text-black md:px-8">
         <CategoryLink
           path={categoryFlat.category.slug}
           title={categoryFlat.category.name.toUpperCase()}

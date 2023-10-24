@@ -9,6 +9,7 @@ import ProductPageLabels from '../../../components/ProductPage/ProductPageLabels
 import ShopLayout from '../../../components/Shop/ShopLayout';
 import ProductPageBrand from '../../../components/ProductPage/ProductPageBrand';
 import ProductPageMerchant from '../../../components/ProductPage/ProductPageMerchant';
+import ProductPageTitle from '../../../components/ProductPage/ProductPageTitle';
 
 interface ProductPageProps {
   product: IProduct;
@@ -24,11 +25,7 @@ export default function ProductPage({ product }: ProductPageProps) {
       </div>
 
       <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-700 md:w-1/2">
-        <div className="w-full p-4 text-center md:px-8 md:py-7">
-          <span className="text-[20px] font-normal leading-[1.3] md:text-[24px]">
-            {product.title.toUpperCase()}
-          </span>
-        </div>
+        <ProductPageTitle title={product.title} />
         <ProductPageCategory
           category={product.merchantCategory.gmcCategory as IGmcCategory}
         />

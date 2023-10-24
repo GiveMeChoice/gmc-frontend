@@ -31,13 +31,34 @@ const Navbar: React.FC = () => {
       >
         <div
           id="navbar-content"
-          className="flex h-[70px] w-full items-center justify-between px-[16px] md:h-[88px] md:px-[60px]"
+          className={cn(
+            'flex h-[70px] w-full items-center justify-between px-[16px] py-5 sm:h-[88px] md:px-[60px]',
+            {
+              'h-[128px]': router.route.includes('/shop/search'),
+            }
+          )}
         >
-          <div className="flex w-fit items-center gap-x-5 md:gap-x-8">
+          {router.route.includes('/shop/search') && (
+            <div className="h-full w-[36px] sm:hidden" />
+          )}
+          <div
+            className={cn('flex h-full w-fit items-center gap-x-5 md:gap-x-8', {
+              'w-fit justify-center sm:justify-start':
+                !router.route.includes('/shop/search'),
+              'w-full justify-center sm:w-fit sm:justify-start':
+                router.route.includes('/shop/search'),
+            })}
+          >
             <GiveMeBarNav />
             <GiveMeBarMobile />
           </div>
-          <div className="flex items-center gap-x-3">
+          <div
+            className={cn('flex h-full gap-x-3', {
+              'items-start sm:items-center':
+                router.route.includes('/shop/search'),
+              'items-center': !router.route.includes('/shop/search'),
+            })}
+          >
             {/* <LinkChips /> */}
             {user ? <ProfileButton /> : <LoginButton />}
             {/* <SideMenuButton /> */}

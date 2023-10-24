@@ -16,7 +16,7 @@ const Layout = ({ preview = false, children }) => {
       {router.pathname !== '/' && router.pathname !== '/access' && <Navbar />}
       <main
         className={cn('overflow-x-hidden', {
-          'mt-22': router.pathname !== '/',
+          // 'mt-22': router.pathname !== '/',
         })}
       >
         {children}
