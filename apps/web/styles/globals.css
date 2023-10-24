@@ -21,6 +21,7 @@ body {
   min-height: 100%;
   overscroll-behavior: none;
   /* scroll-behavior: smooth; */
+  -webkit-text-size-adjust: 100%;
 }
 
 :root {
@@ -44,6 +45,10 @@ input[type='text'] {
     font-weight: normal;
   }
   text-decoration: none;
+}
+
+.normal-font {
+  font-weight: normal !important;
 }
 
 /* react-responsive-modal Customisation */

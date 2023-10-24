@@ -151,7 +151,9 @@ const GiveMeBarMobile: React.FC = () => {
             flex: !searchModeOn,
           })}
         >
-          <span className="pl-[5px] pt-[2px] text-[32px]">Choice</span>
+          <span className="normal-font pl-[5px] pt-[2px] text-[32px]">
+            Choice
+          </span>
         </div>
         <div
           className={cn('h-full w-full flex-col items-start', {
