@@ -39,7 +39,7 @@ const ProductPageBuyBox: React.FC<Props> = ({ product }) => {
 items-center justify-between gap-x-3 rounded-full bg-black px-10 text-[16px] text-white transition-transform duration-200 ease-in-out hover:bg-zinc-700 active:translate-y-0 active:translate-x-0 active:bg-black
 "
         >
-          <span className="fon-bold text-[17px] tracking-wide group-active:text-primary">
+          <span className="fon-bold text-center text-[17px] leading-tight tracking-wide group-active:text-primary">
             Buy Now at {product.merchant.name}
           </span>
           <div

@@ -75,8 +75,8 @@ const GiveMeBarMobile: React.FC = () => {
   const startSearchMode = () => {
     if (!searchModeOn) {
       setSearchModeOn(true);
-      document.getElementById('gmc-search-bar-mobile').focus();
     }
+    document.getElementById('gmc-search-bar-mobile').focus();
   };
 
   const stopSearchMode = () => {
@@ -109,12 +109,14 @@ const GiveMeBarMobile: React.FC = () => {
     >
       <div
         className={cn(
-          'z-20 flex h-[46px] items-center justify-start gap-y-1 md:flex-nowrap',
+          'z-20 flex h-[46px] justify-start gap-y-1 md:flex-nowrap',
           {
-            'w-fit': !searchModeOn,
-            'w-full flex-col py-5 px-9 sm:px-20': searchModeOn,
+            'w-fit items-end': !searchModeOn,
+            'w-full flex-col items-center py-5 px-9 sm:px-20': searchModeOn,
           }
         )}
+        onTouchEnd={handleGiveMeButtonClick}
+        onClick={handleGiveMeButtonClick}
       >
         <button
           id="give-me-button-mobile"
@@ -143,86 +145,96 @@ const GiveMeBarMobile: React.FC = () => {
             />
           </span>
         </button>
-
-        <div className="flex h-full w-full flex-col items-center">
-          <div className="flex h-full w-full flex-col items-start">
-            <input
-              id="gmc-search-bar-mobile"
-              // style={{ WebkitAppearance: 'none' }}
-              className={cn(
-                'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-none duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
-                {
-                  'w-full px-4 text-[27px]': query || searchModeOn,
-                  'w-[108px] pl-1 text-4xl focus:pl-2.5 focus:text-[27px]':
-                    !query && !searchModeOn,
-                }
-              )}
-              type="text"
-              value={query}
-              autoComplete="off"
-              placeholder={
-                router.route !== '/' && !searchModeOn ? 'Choice' : null
+        <div
+          className={cn('h-full w-[111px] border-b-[2.5px] border-black', {
+            hidden: searchModeOn,
+            flex: !searchModeOn,
+          })}
+        >
+          <span className="pl-[5px] pt-[2px] text-[32px]">Choice</span>
+        </div>
+        <div
+          className={cn('h-full w-full flex-col items-start', {
+            hidden: !searchModeOn,
+            flex: searchModeOn,
+          })}
+        >
+          <input
+            id="gmc-search-bar-mobile"
+            // style={{ WebkitAppearance: 'none' }}
+            className={cn(
+              'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-none duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
+              {
+                'w-full px-4 text-[27px]': query || searchModeOn,
+                'w-[108px] pl-1 text-4xl focus:pl-2.5 focus:text-[27px]':
+                  !query && !searchModeOn,
               }
-              onFocusCapture={(e) => {
-                if (!buttonCoolOff) {
-                  setSearchModeOn(true);
-                } else e.target.blur();
-              }}
-              onChange={(e) => {
-                setSuggestionIndex(null);
-                setLastTypedQuery(e.target.value);
-                setQuery(e.target.value);
-                updateSuggestions(e.target.value);
-              }}
-              onFocus={(e) => {
-                if (!buttonCoolOff) {
-                  setSearchModeOn(true);
-                } else e.target.blur();
-              }}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  if (query) {
-                    handleSearch(query);
-                  }
-                } else if (e.key === 'ArrowUp') {
-                  e.preventDefault();
-                  if (suggestionIndex > 0) {
-                    handleAdoptSuggestion(suggestionIndex - 1);
-                  } else if (suggestionIndex === 0) {
-                    setSuggestionIndex(null);
-                    setQuery(lastTypedQuery);
-                  }
-                } else if (e.key === 'ArrowDown') {
-                  // if (query) {
-                  if (suggestionIndex === null) {
-                    handleAdoptSuggestion(0);
-                  } else if (suggestionIndex < suggestions.length - 1) {
-                    handleAdoptSuggestion(suggestionIndex + 1);
-                  }
-                  // }
-                } else if (e.key === 'Escape') {
-                  document.getElementById('gmc-search-bar-mobile').blur();
+            )}
+            type="text"
+            value={query}
+            autoComplete="off"
+            placeholder={
+              router.route !== '/' && !searchModeOn ? 'Choice' : null
+            }
+            onFocusCapture={(e) => {
+              if (!buttonCoolOff) {
+                setSearchModeOn(true);
+              } else e.target.blur();
+            }}
+            onChange={(e) => {
+              setSuggestionIndex(null);
+              setLastTypedQuery(e.target.value);
+              setQuery(e.target.value);
+              updateSuggestions(e.target.value);
+            }}
+            onFocus={(e) => {
+              if (!buttonCoolOff) {
+                setSearchModeOn(true);
+              } else e.target.blur();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                if (query) {
+                  handleSearch(query);
                 }
-              }}
-            />
-            <button
-              className={cn(
-                'relative left-[102%] -top-[30px] flex aspect-square h-5 w-5 items-center justify-center rounded-full border-1.5 border-zinc-700  pb-0.5 text-zinc-700 opacity-0 transition-colors',
-                {
-                  'bg- -translate-x-6 duration-100 hover:border-zinc-800 hover:text-zinc-800 hover:opacity-90 active:bg-secondary-dark-10 peer-hover:opacity-90 peer-focus:opacity-90':
-                    query,
-                  'opacity-0': !query,
+              } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (suggestionIndex > 0) {
+                  handleAdoptSuggestion(suggestionIndex - 1);
+                } else if (suggestionIndex === 0) {
+                  setSuggestionIndex(null);
+                  setQuery(lastTypedQuery);
                 }
-              )}
-              onClick={() => {
-                setQuery('');
-                document.getElementById('gmc-search-bar-mobile').focus();
-              }}
-            >
-              <span>&times;</span>
-            </button>
-          </div>
+              } else if (e.key === 'ArrowDown') {
+                // if (query) {
+                if (suggestionIndex === null) {
+                  handleAdoptSuggestion(0);
+                } else if (suggestionIndex < suggestions.length - 1) {
+                  handleAdoptSuggestion(suggestionIndex + 1);
+                }
+                // }
+              } else if (e.key === 'Escape') {
+                document.getElementById('gmc-search-bar-mobile').blur();
+              }
+            }}
+          />
+          <button
+            className={cn(
+              'relative left-[102%] -top-[30px] flex aspect-square h-5 w-5 items-center justify-center rounded-full border-1.5 border-zinc-700  pb-0.5 text-zinc-700 opacity-0 transition-colors',
+              {
+                'bg- -translate-x-6 duration-100 hover:border-zinc-800 hover:text-zinc-800 hover:opacity-90 active:bg-secondary-dark-10 peer-hover:opacity-90 peer-focus:opacity-90':
+                  query,
+                'opacity-0': !query,
+              }
+            )}
+            onClick={() => {
+              setQuery('');
+              document.getElementById('gmc-search-bar-mobile').focus();
+            }}
+          >
+            <span>&times;</span>
+          </button>
         </div>
       </div>
       {searchModeOn && (

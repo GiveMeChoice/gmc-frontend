@@ -8,7 +8,7 @@ const ProductPageDescription: React.FC<Props> = ({ description }) => {
   return (
     <div className="flex w-full flex-col gap-y-1 space-y-2 overflow-hidden overflow-ellipsis py-8 px-14 text-[15px] leading-[1.4]">
       <div className="w-full font-bold">Product Description</div>
-      <p className="max-h-full overflow-ellipsis">
+      <p className="max-h-full overflow-ellipsis font-normal">
         {description.substring(0, 200).replace(/\uFFFD/g, '') + '...'}
       </p>
     </div>

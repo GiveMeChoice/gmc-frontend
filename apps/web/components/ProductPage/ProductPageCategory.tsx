@@ -18,9 +18,9 @@ const ProductPageCategory: React.FC<Props> = ({ category }) => {
   return (
     <div
       style={{ backgroundColor: categoryFlat.category.color }}
-      className="h-fit w-full"
+      className="h-fit w-full font-normal"
     >
-      <div className="flex w-full bg-white bg-opacity-20 py-2 px-8 text-[15px] text-black">
+      <div className="flex w-full items-center bg-white bg-opacity-20 py-2 px-8 text-black">
         <CategoryLink
           path={categoryFlat.category.slug}
           title={categoryFlat.category.name.toUpperCase()}
@@ -32,8 +32,8 @@ const ProductPageCategory: React.FC<Props> = ({ category }) => {
               draggable={false}
               src="/img/right-arrow.svg"
               alt="angle right"
-              width="17"
-              height="17"
+              width="20"
+              height="20"
             />
             <CategoryLink
               path={`${categoryFlat.category.slug}/${categoryFlat.subcategory1.slug}`}
@@ -44,12 +44,12 @@ const ProductPageCategory: React.FC<Props> = ({ category }) => {
         {categoryFlat.subcategory2 && (
           <>
             <Image
-              className="select-none rounded-full"
+              className="h-1/2 select-none rounded-full"
               draggable={false}
               src="/img/right-arrow.svg"
               alt="angle right"
-              width="17"
-              height="17"
+              width="20"
+              height="20"
             />
             <CategoryLink
               path={`${categoryFlat.category.slug}/${categoryFlat.subcategory1.slug}/${categoryFlat.subcategory2.slug}`}
@@ -64,8 +64,10 @@ const ProductPageCategory: React.FC<Props> = ({ category }) => {
 
 const CategoryLink: React.FC<LinkProps> = ({ path, title }) => (
   <Link href={`/shop/category/${path}`}>
-    <div className="group flex h-full cursor-pointer items-center justify-center px-4 active:text-primary">
-      <span className="group-hover:underline">{title}</span>
+    <div className="group flex h-full w-1/3 cursor-pointer items-center justify-center px-4 text-[13px] active:text-primary sm:text-[15px]">
+      <span className="text-center leading-tight group-hover:underline">
+        {title}
+      </span>
     </div>
   </Link>
 );

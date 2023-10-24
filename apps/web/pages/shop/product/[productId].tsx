@@ -17,7 +17,7 @@ interface ProductPageProps {
 export default function ProductPage({ product }: ProductPageProps) {
   return (
     <ShopLayout>
-      <div className="hidden w-1/2 flex-col divide-y-1.5 divide-zinc-700 md:flex">
+      <div className="flex flex-col divide-y-1.5 divide-zinc-700 md:w-1/2">
         {/* IMAGES  */}
         <ProductPageImage images={product.images} />
         <div className="h-full bg-secondary"></div>
@@ -28,9 +28,6 @@ export default function ProductPage({ product }: ProductPageProps) {
           <span className="text-[20px] leading-[1.3] md:text-[24px]">
             {product.title.toUpperCase()}
           </span>
-        </div>
-        <div className="flex md:hidden">
-          <ProductPageImage images={product.images} />
         </div>
         <ProductPageCategory
           category={product.merchantCategory.gmcCategory as IGmcCategory}
