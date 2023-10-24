@@ -148,7 +148,7 @@ const GiveMeBarMobile: React.FC = () => {
           <div className="flex h-full w-full flex-col items-start">
             <input
               id="gmc-search-bar-mobile"
-              style={{ WebkitAppearance: 'none' }}
+              // style={{ WebkitAppearance: 'none' }}
               className={cn(
                 'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-none duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
                 {

@@ -34,6 +34,12 @@ input {
 input[type='text'] {
   -webkit-appearance: none;
   -webkit-border-radius: 0px;
+  -webkit-input-placeholder {
+    font-weight: 400;
+  }
+  --moz-placeholder {
+    font-weight: 400;
+  }
 }
 
 /* react-responsive-modal Customisation */
@@ -48,11 +54,11 @@ input[type='text'] {
 }
 
 .clean-appearance {
-  -webkit-appearance: none;
+  /* -webkit-appearance: none;
   -moz-appearance: none;
   -webkit-border-radius: 0px;
   appearance: none;
-  font-weight: 400;
+  font-weight: 400; */
 }
 
 /* DropdownMenu Transitions  */
