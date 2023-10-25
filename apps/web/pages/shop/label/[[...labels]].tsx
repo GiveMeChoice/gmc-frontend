@@ -19,7 +19,7 @@ export default function LabelPage(data: IEntityPageData) {
         {data.entity && <SearchChoiceBar />}
       </ShopMenuContainer>
       <ShopContentContainer>
-        {data.entity && (
+        {data.entity ? (
           <>
             <ShopPageIntro pageData={data} basePath="/shop/label/" />
             <div className="flex w-full flex-grow flex-col">
@@ -27,6 +27,10 @@ export default function LabelPage(data: IEntityPageData) {
               <ShopProductList color={data.pageTree.color} />
             </div>
           </>
+        ) : (
+          <div className="flex h-full w-full justify-center bg-gmc-sunset">
+            LABELS HOME
+          </div>
         )}
       </ShopContentContainer>
     </ShopLayout>

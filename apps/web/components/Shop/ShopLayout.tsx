@@ -7,9 +7,9 @@ const ShopLayout: React.FC = ({ children }) => {
   return (
     <div
       className={cn('flex w-screen justify-center ', {
-        'mt-[166px] sm:mt-[126px] lg:mt-[158px]':
+        'mt-[166px] sm:mt-[126px] md:mt-[134px] lg:mt-[158px]':
           router.route.includes('/shop/search'),
-        'mt-[126px] md:mt-[134px] lg:mt-[158px]':
+        'mt-[108px] sm:mt-[126px] md:mt-[134px] lg:mt-[158px]':
           !router.route.includes('/shop/search'),
       })}
     >

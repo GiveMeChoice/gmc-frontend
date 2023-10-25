@@ -24,7 +24,7 @@ const MobileFiltersScreen: React.FC<Props> = ({ show, onClose }) => {
         className={cn({
           'h-full': shop.response.hits,
           'h-fit': !shop.response.hits,
-          'static w-full justify-end overflow-y-scroll overscroll-none bg-white':
+          'static flex h-fit w-full flex-col overflow-y-scroll overscroll-none bg-white':
             show,
           hidden: !show,
         })}

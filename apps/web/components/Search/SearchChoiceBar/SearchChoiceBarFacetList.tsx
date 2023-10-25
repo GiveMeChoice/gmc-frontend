@@ -31,6 +31,7 @@ const SearchChoiceBarFacetList: React.FC<Props> = () => {
         <SearchChoiceBarBrandFacets />
       )}
       <hr />
+      <div className="py-[100px] sm:py-[20px] md:hidden"></div>
     </div>
   );
 };

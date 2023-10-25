@@ -44,6 +44,7 @@ const GiveMeBarMobile: React.FC = () => {
     setQuery('');
     setSearchModeOn(false);
     if (q) {
+      document.getElementById('gmc-search-bar-mobile').blur();
       shop.search({
         q: q,
         searchPageRequest: true,
@@ -167,7 +168,7 @@ const GiveMeBarMobile: React.FC = () => {
           className={cn('h-full w-[111px] border-b-[2.5px] border-black', {
             hidden: searchModeOn,
             flex: !searchModeOn,
-            'w-[300px] justify-center border-b-[3px]':
+            'w-[300px] justify-center border-b-[3px] pt-1 sm:justify-start':
               router.route.includes('/shop/search'),
           })}
           onTouchEnd={handleGiveMeButtonClick}
@@ -177,7 +178,7 @@ const GiveMeBarMobile: React.FC = () => {
             className={cn(
               'normal-font whitespace-nowrap pl-[5px] pt-[2px] text-[32px]',
               {
-                'pl-0 pt-[0px] text-[27px]':
+                'pl-0 pt-[0px] text-[27px] sm:pl-[5px]':
                   router.route.includes('/shop/search'),
               }
             )}
@@ -204,7 +205,7 @@ const GiveMeBarMobile: React.FC = () => {
                   !query && !searchModeOn,
               }
             )}
-            type="search"
+            type="text"
             value={query}
             autoComplete="off"
             placeholder={

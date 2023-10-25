@@ -11,6 +11,7 @@ import LoginButton from './Navbar/LoginButton';
 import ProfileButton from './Navbar/ProfileButton';
 import ShopNavbar from './Navbar/ShopNavbar';
 import ShopNavbarMobile from './Navbar/ShopNavbarMobile';
+import SideMenuButton from './Navbar/SideMenuButton';
 
 const Navbar: React.FC = () => {
   const { user } = useUser();
@@ -42,13 +43,14 @@ const Navbar: React.FC = () => {
             <div className="h-full w-[36px] sm:hidden" />
           )}
           <div
-            className={cn('flex h-full w-fit items-center gap-x-5 md:gap-x-8', {
+            className={cn('flex h-full w-fit items-center gap-x-3 md:gap-x-5', {
               'w-fit justify-center sm:justify-start':
                 !router.route.includes('/shop/search'),
               'w-full justify-center sm:w-fit sm:justify-start':
                 router.route.includes('/shop/search'),
             })}
           >
+            {/* <SideMenuButton /> */}
             <GiveMeBarNav />
             <GiveMeBarMobile />
           </div>
@@ -61,7 +63,6 @@ const Navbar: React.FC = () => {
           >
             {/* <LinkChips /> */}
             {user ? <ProfileButton /> : <LoginButton />}
-            {/* <SideMenuButton /> */}
           </div>
         </div>
         {router.route.includes('/blog') && (

@@ -23,7 +23,7 @@ export default function CategoryPage(pageData: IEntityPageData) {
         {pageData.entity && <SearchChoiceBar />}
       </ShopMenuContainer>
       <ShopContentContainer>
-        {pageData.entity && (
+        {pageData.entity ? (
           <>
             <ShopPageIntro pageData={pageData} basePath="/shop/category/" />
             <div className="flex w-full flex-grow flex-col">
@@ -31,6 +31,10 @@ export default function CategoryPage(pageData: IEntityPageData) {
               <ShopProductList color={pageData.pageTree.color} />
             </div>
           </>
+        ) : (
+          <div className="flex h-full w-full justify-center bg-gmc-surf">
+            CATEGORIES HOME
+          </div>
         )}
       </ShopContentContainer>
     </ShopLayout>
