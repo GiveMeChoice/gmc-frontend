@@ -9,6 +9,7 @@ import ShopMenuContainer from '../../../components/Shop/ShopLayout/ShopMenuConta
 import ShopPageIntro from '../../../components/Shop/ShopPageIntro';
 import ShopProductList from '../../../components/Shop/ShopProductList';
 import { IEntityPageData } from '../../../lib/types';
+import MobileChoiceBar from '../../../components/Search/MobileChoiceBar';
 
 export default function CategoryPage(pageData: IEntityPageData) {
   return (
@@ -25,7 +26,10 @@ export default function CategoryPage(pageData: IEntityPageData) {
         {pageData.entity && (
           <>
             <ShopPageIntro pageData={pageData} basePath="/shop/category/" />
-            <ShopProductList color={pageData.pageTree.color} />
+            <div className="flex w-full flex-grow flex-col">
+              <MobileChoiceBar />
+              <ShopProductList color={pageData.pageTree.color} />
+            </div>
           </>
         )}
       </ShopContentContainer>

@@ -20,26 +20,28 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
     <div className="group flex items-center justify-center text-sm">
       <div
         onClick={() => onChipClick(filterName)}
-        className="relative bottom-3.5 left-2 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5 text-xs text-zinc-900 opacity-0 hover:opacity-100 active:bg-secondary-dark-10  group-hover:opacity-100 group-active:bg-secondary-dark-10"
+        className="relative bottom-3.5 left-2 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5 text-xs text-zinc-900 opacity-100 hover:opacity-100 active:bg-secondary-dark-10 group-hover:opacity-100  group-active:bg-secondary-dark-10 md:opacity-0"
       >
         &times;
       </div>
       <div
-        style={{
-          backgroundColor: color ? color : 'black',
-          color: color ? 'black' : 'white',
-        }}
+        style={
+          {
+            // backgroundColor: color ? color : 'black',
+            // color: color ? 'black' : 'white',
+          }
+        }
         onClick={() => onChipClick(filterName)}
         className={cn(
-          'cursor-pointer rounded-none border-1.5 border-zinc-900 shadow-sm',
+          'cursor-pointer rounded-none border-1.5 border-zinc-900 bg-black text-white shadow-sm',
           {
-            'bg-zinc-900 text-white': true,
+            // 'bg-zinc-900 text-white': true,
             // 'bg-white text-black': invert,
           }
         )}
       >
         <div
-          className={cn('h-fit w-fit bg-white px-2 py-1 text-center ', {
+          className={cn('bgwhite h-fit w-fit px-2 py-1 text-center ', {
             'bg-opacity-0': !color,
             'bg-opacity-20': color,
           })}

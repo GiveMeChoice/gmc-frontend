@@ -24,8 +24,12 @@ const GiveMeBarMobile: React.FC = () => {
   const [lastTypedQuery, setLastTypedQuery] = useState('');
 
   useEffect(() => {
-    setQuery(shop.request.query);
-    document.getElementById('gmc-search-bar-mobile').blur();
+    setQuery(shop.request.query ? shop.request.query : '');
+    document.getElementById('gmc-search-bar-mobile').focus();
+    if (searchModeOn) {
+    } else {
+      // document.getElementById('gmc-search-bar-mobile').blur();
+    }
     const suggestionClickHandler = (e) => {
       e.preventDefault();
     };
@@ -62,29 +66,39 @@ const GiveMeBarMobile: React.FC = () => {
   };
 
   const handleGiveMeButtonClick = () => {
-    logger.debug('give me button mobile click');
     if (searchModeOn && query && !buttonCoolOff) {
-      setButtonCoolOff(true);
       setSearchModeOn(false);
-      setTimeout(() => {
-        setButtonCoolOff(false);
-      }, 500);
       handleSearch(query);
     } else if (!buttonCoolOff) {
       startSearchMode();
     }
+    document.getElementById('gmc-search-bar-mobile').focus();
+    setButtonCoolOff(true);
+    setTimeout(() => {
+      setButtonCoolOff(false);
+    }, 150);
   };
 
   const startSearchMode = () => {
     if (!searchModeOn) {
+      document.body.style.overflow = 'hidden';
       setSearchModeOn(true);
+      setButtonCoolOff(true);
+      setTimeout(() => {
+        setButtonCoolOff(false);
+      }, 100);
     }
-    document.getElementById('gmc-search-bar-mobile').focus();
+    setTimeout(() => {
+      document.getElementById('gmc-search-bar-mobile').focus();
+    }, 50);
   };
 
   const stopSearchMode = () => {
-    setQuery('');
-    setSearchModeOn(false);
+    if (!buttonCoolOff) {
+      setQuery('');
+      document.body.style.overflow = 'auto';
+      setSearchModeOn(false);
+    }
   };
 
   const updateSuggestions = (q: string) => {
@@ -134,7 +148,7 @@ const GiveMeBarMobile: React.FC = () => {
             className={cn(
               'z-20 flex h-[37px] w-[145px] cursor-pointer select-none items-center justify-center rounded-full border  border-black bg-primary duration-200 ease-in-out',
               {
-                // '-translate-y-[3px] translate-x-[2px]': searchModeOn,
+                '-translate-y-[3px] translate-x-[2px]': searchModeOn,
               }
             )}
           >
@@ -197,9 +211,9 @@ const GiveMeBarMobile: React.FC = () => {
               router.route !== '/' && !searchModeOn ? 'Choice' : null
             }
             onFocusCapture={(e) => {
-              if (!buttonCoolOff) {
-                setSearchModeOn(true);
-              } else e.target.blur();
+              // if (!buttonCoolOff) {
+              //   setSearchModeOn(true);
+              // } else e.target.blur();
             }}
             onChange={(e) => {
               setSuggestionIndex(null);
@@ -208,9 +222,9 @@ const GiveMeBarMobile: React.FC = () => {
               updateSuggestions(e.target.value);
             }}
             onFocus={(e) => {
-              if (!buttonCoolOff) {
-                setSearchModeOn(true);
-              } else e.target.blur();
+              // if (!buttonCoolOff) {
+              //   setSearchModeOn(true);
+              // } else e.target.blur();
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {

@@ -7,25 +7,15 @@ import ShopLayout from '../../components/Shop/ShopLayout';
 import ShopContentContainer from '../../components/Shop/ShopLayout/ShopContentContainer';
 import ShopMenuContainer from '../../components/Shop/ShopLayout/ShopMenuContainer';
 import ShopProductList from '../../components/Shop/ShopProductList';
+import SearchChoiceBarFacetList from '../../components/Search/SearchChoiceBar/SearchChoiceBarFacetList';
+import SearchChoiceBarFilterBox from '../../components/Search/SearchChoiceBar/SearchChoiceBarFilterBox';
+import ChoiceBarSummarySortSwitch from '../../components/Search/SearchChoiceBar/SearchChoiceBarSummary/ChoiceBarSummarySortSwitch';
+import MobileChoiceBar from '../../components/Search/MobileChoiceBar';
 
 export default function Search({ props }) {
   const shop = useShop();
-  const [compareModeOn, setCompareModeOn] = useState(false);
-  const [compareProductIndex, setCompareProductIndex] = useState(null);
-
-  const addCompareMode = (index: number) => {
-    setCompareProductIndex(index);
-    setCompareModeOn(true);
-    scrollTo(0, 0);
-  };
-
-  const removeCompareMode = () => {
-    setCompareProductIndex(0);
-    setCompareModeOn(false);
-  };
 
   useEffect(() => {
-    setCompareModeOn(false);
     history.scrollRestoration = 'manual';
   }, [shop.searching]);
 
@@ -42,12 +32,8 @@ export default function Search({ props }) {
 
         <ShopContentContainer>
           <div className="flex w-full flex-grow flex-col">
-            <div className="w-full border-b-1.5 border-zinc-700 p-4">
-              <span className="pl-1.5 pb-8 text-4xl">
-                {shop.response.hits} Results
-              </span>
-            </div>
-            <ShopProductList color="#56e2b3" />
+            <MobileChoiceBar />
+            <ShopProductList color="#f0f0f5" />
           </div>
         </ShopContentContainer>
       </ShopLayout>

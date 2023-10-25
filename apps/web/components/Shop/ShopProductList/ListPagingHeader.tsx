@@ -70,7 +70,7 @@ const ListPagingHeader: React.FC<Props> = ({ bottom, noTop, color }) => {
         <div className="h-full w-full bg-white"></div>
       ) : (
         <>
-          <div className="flex h-[42.5px] flex-grow items-center justify-between bg-white px-6">
+          <div className="hidden h-[42.5px] flex-grow items-center justify-between bg-white px-6 sm:flex">
             <div className="flex h-full w-full items-center gap-x-3  text-black">
               {!shop.searching && (
                 <>

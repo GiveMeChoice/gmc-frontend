@@ -60,7 +60,7 @@ const ShopNavbarMobile: React.FC = () => {
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
         <div
           className={cn(
-            'flex w-[15%] items-center justify-center bg-secondary transition-width duration-300',
+            'flex w-[20%] items-center justify-center bg-secondary transition-width duration-300',
             {
               // 'w-8': !minmized,
               // 'w-[71px]': minmized,
@@ -101,7 +101,7 @@ const ShopNavbarMobile: React.FC = () => {
           </Link>
         </div> */}
         <div
-          className="group flex h-full w-[35%] bg-secondary"
+          className="group flex h-full w-[30%] bg-secondary"
           onMouseEnter={() => setNavigating(false)}
         >
           <Link href={`/shop/label`}>
@@ -154,7 +154,7 @@ const ShopNavbarMobile: React.FC = () => {
           </div>
         </div>
         <div
-          className="group flex h-full w-[35%] bg-secondary lg:hidden"
+          className="group flex h-full w-[30%] bg-secondary lg:hidden"
           onMouseEnter={() => setNavigating(false)}
         >
           <Link href={`/shop/category`}>
@@ -209,7 +209,7 @@ const ShopNavbarMobile: React.FC = () => {
 
         <div
           className={cn(
-            'flex h-full w-[15%] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
+            'flex h-full w-[20%] cursor-pointer flex-col items-center justify-center overflow-hidden bg-secondary  hover:text-white',
             {
               'hover:bg-primary': !navigating,
             }
