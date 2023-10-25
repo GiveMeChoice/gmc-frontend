@@ -204,7 +204,7 @@ const GiveMeBarMobile: React.FC = () => {
                   !query && !searchModeOn,
               }
             )}
-            type="text"
+            type="search"
             value={query}
             autoComplete="off"
             placeholder={
