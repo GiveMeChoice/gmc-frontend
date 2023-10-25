@@ -64,14 +64,6 @@ input[type='text'] {
   @apply flex h-fit justify-center;
 }
 
-.clean-appearance {
-  /* -webkit-appearance: none;
-  -moz-appearance: none;
-  -webkit-border-radius: 0px;
-  appearance: none;
-  font-weight: 400; */
-}
-
 /* DropdownMenu Transitions  */
 .dropdown-menu {
   top: 5rem;

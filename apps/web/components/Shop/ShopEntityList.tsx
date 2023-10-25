@@ -18,7 +18,7 @@ export enum ShopEntityListLevel {
 const ShopEntityList: React.FC<Props> = ({ title, basePath, data }) => {
   const { roots, pageTree, slug, subslug1, subslug2 } = data;
   return (
-    <div className="flex w-full flex-col divide-y divide-secondary-dark-10 px-5 pt-[30px] pb-4">
+    <div className="flex w-full flex-col divide-y divide-secondary-dark-10 px-5 pb-4 md:pt-[30px]">
       <span className="px-[8px] text-[22px] font-bold">{title}</span>
       <div className="flex w-full flex-col pt-2 text-zinc-900">
         {roots

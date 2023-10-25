@@ -43,6 +43,7 @@ const GiveMeBarMobile: React.FC = () => {
   const handleSearch = (q?: string) => {
     setQuery('');
     setSearchModeOn(false);
+    document.body.style.overflow = 'auto';
     if (q) {
       document.getElementById('gmc-search-bar-mobile').blur();
       shop.search({
@@ -196,9 +197,8 @@ const GiveMeBarMobile: React.FC = () => {
         >
           <input
             id="gmc-search-bar-mobile"
-            // style={{ WebkitAppearance: 'none' }}
             className={cn(
-              'clean-appearance peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-none duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
+              'peer min-h-[44px] w-full flex-wrap border-b-[3px] border-black bg-inherit text-center outline-none transition-none duration-500 ease-in-out placeholder:pb-0 placeholder:text-[33px] placeholder:text-zinc-900  focus:text-[27px] focus:placeholder-transparent md:text-left',
               {
                 'w-full px-4 text-[27px]': query || searchModeOn,
                 'w-[108px] pl-1 text-4xl focus:pl-2.5 focus:text-[27px]':

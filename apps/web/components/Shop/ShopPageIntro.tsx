@@ -1,10 +1,11 @@
 import cn from 'classnames';
 import { buildSlug } from 'helpers';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import { IEntityPageData } from '../../lib/types';
 import { useShop } from '../Context/ShopProvider';
 import Link from 'next/link';
+import MobileEntityListScreen from './ShopMobile/MobileEntityListScreen';
 
 interface Props {
   pageData: IEntityPageData;
@@ -16,6 +17,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
   const { entity, pageTree } = pageData;
   const color = pageData.pageTree.color;
   const isLabel = basePath.includes('/shop/label');
+  const [showMobileEntityList, setShowMobileEntityList] = useState(false);
 
   const handleClick = (path) => {
     shop.search({
@@ -60,12 +62,31 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
           height="17"
         /> */}
         {isLabel ? (
-          <Link href={'/shop/label'}>
-            <span className="cursor-pointer hover:underline active:text-primary">
+          // <Link href={'/shop/label'}>
+          <div className="flex items-center gap-x-[2px] rounded-md border-1.5 border-secondary-dark-10">
+            <span
+              className="cursor-pointer hover:underline active:text-primary"
+              onClick={() => setShowMobileEntityList(true)}
+            >
               SHOP BY LABEL
             </span>
-          </Link>
+            <Image
+              draggable={false}
+              src="/img/expand-down.svg"
+              alt="Filters Icon"
+              height={20}
+              width={20}
+            />
+            <MobileEntityListScreen
+              title={isLabel ? 'LABELS' : 'CATGORIES'}
+              basePath={basePath}
+              pageData={pageData}
+              show={showMobileEntityList}
+              onClose={() => setShowMobileEntityList(false)}
+            />
+          </div>
         ) : (
+          // </Link>
           <Link href={'/shop/category'}>
             <span className="cursor-pointer hover:underline active:text-primary">
               SHOP BY CATEGORY
@@ -173,7 +194,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
 
       {!!entity.children.length && (
         <>
-          <div className="flex flex-wrap justify-center gap-y-3 gap-x-4 border-t-1.5 border-zinc-700  px-8 py-7">
+          <div className="hidden flex-wrap justify-center gap-y-3 gap-x-4 border-t-1.5 border-zinc-700 px-8  py-7 md:flex">
             {entity.children.map((child) => (
               <div
                 className={cn('h-fit w-fit bg-black', {
