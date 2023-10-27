@@ -8,9 +8,14 @@ import { readFilterName } from '../../../../lib/filter-helpers';
 interface Props {
   index: number;
   labelFilter: INestedFilter;
+  displayOnly?: boolean;
 }
 
-const SearchChoiceBarLabelChip: React.FC<Props> = ({ index, labelFilter }) => {
+const SearchChoiceBarLabelChip: React.FC<Props> = ({
+  index,
+  labelFilter,
+  displayOnly,
+}) => {
   const shop = useShop();
   const [color, setColor] = useState('blue');
 
@@ -32,17 +37,25 @@ const SearchChoiceBarLabelChip: React.FC<Props> = ({ index, labelFilter }) => {
   return (
     <div key={index} className="group flex items-center justify-center text-sm">
       <div
-        onClick={handleRemoveLabel}
-        className="relative bottom-3 left-2.5 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5  text-center text-xs text-zinc-900 opacity-0 hover:opacity-100 active:bg-secondary-dark-10  group-hover:opacity-100 group-active:bg-secondary-dark-10"
+        onClick={displayOnly ? null : handleRemoveLabel}
+        className={cn(
+          'relative bottom-3 left-2.5 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5  text-center text-xs text-zinc-900 opacity-100 hover:opacity-100 active:bg-secondary-dark-10  group-hover:opacity-100 group-active:bg-secondary-dark-10 md:opacity-0',
+          {
+            hidden: displayOnly,
+          }
+        )}
       >
         &times;
       </div>
 
       <div
         className={cn(
-          'flex cursor-pointer items-center gap-x-1.5 rounded-full border border-secondary-dark-50 bg-white py-1 px-2.5 group-active:bg-secondary'
+          'flex cursor-pointer items-center gap-x-1.5 rounded-full border border-secondary-dark-50 bg-white py-1 px-2.5 ',
+          {
+            'group-active:bg-secondary': !displayOnly,
+          }
         )}
-        onClick={handleRemoveLabel}
+        onClick={displayOnly ? null : handleRemoveLabel}
       >
         <div
           style={{ backgroundColor: color }}

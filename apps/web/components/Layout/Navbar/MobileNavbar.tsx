@@ -38,6 +38,7 @@ const MobileNavbar: React.FC = () => {
               alt="GMC Logo"
               height={36}
               width={145}
+              onClick={openSearch}
             />
             <UserButton />
           </div>

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useShop } from '../Context/ShopProvider';
 import MobileFiltersScreen from './MobileChoiceBar/MobileFiltersScreen';
 import SearchChoiceBarFilterBox from './SearchChoiceBar/SearchChoiceBarFilterBox';
+import MobileChoiceBarFilterBox from './MobileChoiceBar/MobileChoiceBarFilterBox';
 
 const MobileChoiceBar: React.FC = () => {
   const shop = useShop();
@@ -10,9 +11,7 @@ const MobileChoiceBar: React.FC = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   return (
-    <div className="w-full border-b-1.5 border-zinc-700 px-6 pt-6 pb-9 md:hidden">
-      <SearchChoiceBarFilterBox />
-
+    <div className="flex w-full flex-col border-b-1.5 border-zinc-700 p-6 md:hidden">
       {shop.searching && !showMobileFilters ? (
         <span className="w-full py-8 pl-1.5 text-4xl">Searching...</span>
       ) : (
@@ -43,6 +42,9 @@ const MobileChoiceBar: React.FC = () => {
           </div>
         </div>
       )}
+      <div className="w-full pl-2 pt-7 pb-2">
+        <MobileChoiceBarFilterBox />
+      </div>
     </div>
   );
 };

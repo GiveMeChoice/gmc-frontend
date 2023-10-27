@@ -15,7 +15,7 @@ interface Props {
 const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
   const shop = useShop();
   const { entity, pageTree } = pageData;
-  const color = pageData.pageTree.color;
+  const color = pageTree.color;
   const isLabel = basePath.includes('/shop/label');
   const [showMobileEntityList, setShowMobileEntityList] = useState(false);
 
@@ -60,10 +60,11 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
         >
           <div
             className={cn(
-              ` flex h-[46px] w-fit min-w-[50px] items-center  gap-x-2 border border-zinc-900 px-[17px] text-center font-bold leading-[1] tracking-wider text-black`,
+              ` flex h-[46px] w-fit min-w-[50px] items-center  gap-x-2 border border-zinc-900 pl-[17px] pr-[10px] text-center font-bold leading-[1] tracking-wider text-black md:pr-[17px]`,
               {
                 'rounded-full bg-white pr-[22px]': isLabel,
-                'border-b-2.5 border-l-2.5': !isLabel,
+                'border-1.5': !isLabel,
+                // 'border-b-2.5 border-l-2.5': !isLabel,
               }
             )}
           >
@@ -76,13 +77,15 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
             <span className="cursor-default text-[20px]">
               {entity.name.toUpperCase()}
             </span>
-            <Image
-              draggable={false}
-              src="/img/expand-down.svg"
-              alt="Filters Icon"
-              height={20}
-              width={20}
-            />
+            <div className="md:hidden">
+              <Image
+                draggable={false}
+                src="/img/expand-down.svg"
+                alt="Expand down"
+                height={20}
+                width={20}
+              />
+            </div>
           </div>
         </div>
         <span className="w-11/12 text-center text-[16px] leading-[1.4] text-gray-900 sm:w-4/5">
@@ -94,7 +97,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
 
       {!!entity.children.length && (
         <>
-          <div className="flex flex-wrap justify-center gap-y-3 gap-x-4 border-t-1.5 border-zinc-700  px-8 py-7">
+          <div className="border--1.5 flex flex-wrap justify-center gap-y-3 gap-x-4 border-zinc-700  px-8 pb-7 pt-3">
             {entity.children.map((child) => (
               <div
                 className={cn('h-fit w-fit bg-black', {
@@ -108,7 +111,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
                     handleClick(`${basePath}${buildSlug(entity)}/${child.slug}`)
                   }
                   className={cn(
-                    `w-fit min-w-[60px] translate-x-[1px] -translate-y-[1px] cursor-pointer border-1.5 border-zinc-800 font-bold text-zinc-900 transition-transform duration-150 hover:translate-x-1 hover:-translate-y-1 active:-translate-y-[1px] active:translate-x-[1px]`,
+                    `w-fit min-w-[60px] translate-x-[1px] -translate-y-[1px] cursor-pointer border-1.5 border-zinc-800 font-bold text-zinc-900 transition-transform duration-150 active:-translate-y-[1px] active:translate-x-[1px] md:hover:translate-x-1 md:hover:-translate-y-1`,
                     {
                       'rounded-full': isLabel,
                       'rounded-sm': !isLabel,

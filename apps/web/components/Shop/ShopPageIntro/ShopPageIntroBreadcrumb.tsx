@@ -15,8 +15,13 @@ const ShopPageIntroBreadcrumb: React.FC<Props> = ({
   onLinkClick,
 }) => {
   const { entity, pageTree } = pageData;
+  const color = pageTree.color;
+
   return (
-    <div className="flex w-full items-center justify-start gap-x-2 border-b-1.5 border-zinc-700 bg-white py-[9px] px-4 text-[15px] md:pl-6">
+    <div
+      // style={{ backgroundColor: color ? color : 'white' }}
+      className="flex w-full items-center justify-start gap-x-2 border-b-1.5 border-zinc-700 bg-white py-[9px] px-4 text-[15px] md:pl-6"
+    >
       {entity.parent &&
         entity.parent.parent &&
         entity.parent.parent.slug !== 'root' && (
@@ -59,7 +64,7 @@ const ShopPageIntroBreadcrumb: React.FC<Props> = ({
           />
         </>
       )}
-      <span className="px-1 text-center font-bold leading-[1.2] text-gmc-ocean">
+      <span className="px-1 text-center font-bold leading-[1.2] text-black">
         {entity.name.toUpperCase()}
       </span>
     </div>

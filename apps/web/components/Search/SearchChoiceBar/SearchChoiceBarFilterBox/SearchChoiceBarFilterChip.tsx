@@ -4,9 +4,9 @@ import React from 'react';
 interface Props {
   filterName: string;
   display?: string;
-  color?: string;
   value: string;
-  onChipClick: (filterName: string) => void;
+  color?: string;
+  onChipClick?: (filterName: string) => void;
 }
 
 const SearchChoiceBarFilterChip: React.FC<Props> = ({
@@ -19,8 +19,13 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
   return (
     <div className="group flex items-center justify-center text-sm">
       <div
-        onClick={() => onChipClick(filterName)}
-        className="relative bottom-3.5 left-2 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5 text-xs text-zinc-900 opacity-100 hover:opacity-100 active:bg-secondary-dark-10 group-hover:opacity-100  group-active:bg-secondary-dark-10 md:opacity-0"
+        onClick={() => (onChipClick ? onChipClick(filterName) : null)}
+        className={cn(
+          'relative bottom-3.5 left-2 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full border border-zinc-900 bg-secondary pb-0.5 text-xs text-zinc-900 opacity-100 hover:opacity-100 active:bg-secondary-dark-10 group-hover:opacity-100  group-active:bg-secondary-dark-10 md:opacity-0',
+          {
+            hidden: !onChipClick,
+          }
+        )}
       >
         &times;
       </div>
@@ -31,7 +36,7 @@ const SearchChoiceBarFilterChip: React.FC<Props> = ({
             // color: color ? 'black' : 'white',
           }
         }
-        onClick={() => onChipClick(filterName)}
+        onClick={() => (onChipClick ? onChipClick(filterName) : null)}
         className={cn(
           'cursor-pointer rounded-none border-1.5 border-zinc-900 bg-black text-white shadow-sm',
           {
