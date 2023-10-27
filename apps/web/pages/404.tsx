@@ -1,19 +1,22 @@
 import Head from 'next/head';
 import DiscoverFooter from '../components/DiscoverFooter';
-import GiveMeBarHome from '../components/GiveMeBarHome';
+import ShopLayout from '../components/Shop/ShopLayout';
 
 export default function Home() {
   return (
-    // <div className="flex min-h-screen flex-col items-center justify-center py-2">
     <>
       <Head>
         <title>404 | Give Me Choice</title>
       </Head>
-
-      <div className="container mx-auto flex flex-col items-center justify-center ">
-        <div className="mb-20 flex w-full justify-center">Page Not Found</div>
-        <DiscoverFooter />
-      </div>
+      <ShopLayout>
+        <div className="mb-10 flex h-full flex-col items-center justify-between">
+          <div className="flex h-1/2 w-full flex-col items-center justify-center">
+            <span className="text-[54px] font-bold">404</span>
+            <span className="text-lg">Page Not Found</span>
+          </div>
+          <DiscoverFooter />
+        </div>
+      </ShopLayout>
     </>
   );
 }

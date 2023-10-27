@@ -48,7 +48,7 @@ const MobileNavbar: React.FC = () => {
         <div
           id="navbar-content-mobile"
           className={cn(
-            'flex h-[70px] w-full items-center justify-between border-b-1.5 border-zinc-700 px-[16px] py-5 md:hidden md:px-[60px]'
+            'flex h-[70px] w-full items-center justify-between gap-x-1 border-b-1.5 border-zinc-700 px-[16px] py-5 md:hidden md:px-[60px]'
           )}
         >
           <SideMenuButtonMobile />
@@ -56,8 +56,8 @@ const MobileNavbar: React.FC = () => {
             draggable={false}
             src="/img/GMC_LOGO.svg"
             alt="GMC Logo"
-            height={50}
-            width={220}
+            height={40}
+            width={244}
             onClick={openSearch}
           />
           <UserButton />

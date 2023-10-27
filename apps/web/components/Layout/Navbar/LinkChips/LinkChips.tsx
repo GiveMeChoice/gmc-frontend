@@ -8,7 +8,7 @@ interface Props {}
 const LinkChips: React.FC<Props> = () => {
   const router = useRouter();
   return (
-    <div className="hidden items-center gap-x-4 pr-4 text-[14px] xl:flex">
+    <div className="flex items-center gap-x-4 pr-4 text-[14px]">
       <a
         href="/shop"
         className={cn(

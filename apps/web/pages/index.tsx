@@ -6,6 +6,7 @@ import LoginButton from '../components/Layout/Navbar/LoginButton';
 import ProfileButton from '../components/Layout/Navbar/ProfileButton';
 import SEO from '../components/Common/SEO';
 import { useUser } from '../components/Context/UserProvider';
+import SideMenuButtonMobile from '../components/Layout/Navbar/MobileNavbar/SideMenuButtonMobile';
 
 export default function Home() {
   const { user } = useUser();
@@ -18,9 +19,16 @@ export default function Home() {
         ogUrl="/"
       />
       <section className="max-w-screen container mx-auto flex h-screen flex-col items-center justify-between">
-        <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-end gap-x-5 bg-white px-16 pb-1">
-          <LinkChips />
-          {user ? <ProfileButton /> : <LoginButton />}
+        <div className="border-secondar-dark-10 z-10 flex h-24 w-full items-center justify-between bg-white  px-12 pb-1 md:justify-end">
+          <div className="md:hidden">
+            <SideMenuButtonMobile />
+          </div>
+          <div className="flex items-center gap-x-5">
+            <div className="hidden md:block">
+              <LinkChips />
+            </div>
+            {user ? <ProfileButton /> : <LoginButton />}
+          </div>
           {/* <SideMenuButton /> */}
         </div>
         <div className="flex h-3/5 w-2/3 items-center justify-center pt-4">
@@ -177,7 +185,7 @@ export default function Home() {
           <div className="h-screen w-10/12 rounded-md border-2 border-zinc-800 bg-gradient-to-bl from-gmc-surf-light-50 via-primary to-gmc-sunset" />
         </div> */}
         <div className="mt-10 flex h-screen w-11/12 items-center justify-center overflow-x-visible">
-          <div className="relative flex h-3/5 w-1/4 shadow-2xl shadow-secondary-dark-50">
+          <div className="relative hidden h-3/5 w-1/4 shadow-2xl shadow-secondary-dark-50 md:flex">
             <Image
               priority
               src="/img/images/hero6.jpg"
@@ -187,7 +195,7 @@ export default function Home() {
               alt="hero"
             />
           </div>
-          <div className="relative flex h-full w-1/2 rounded-sm shadow-2xl shadow-secondary-dark-50">
+          <div className="relative flex h-1/2 w-full rounded-sm shadow-2xl shadow-secondary-dark-50 md:w-1/2">
             <Image
               priority
               className="rounded-sm"
@@ -198,7 +206,7 @@ export default function Home() {
               alt="hero"
             />
           </div>
-          <div className="relative flex h-3/5 w-1/4 shadow-2xl shadow-secondary-dark-50">
+          <div className="relative hidden h-3/5 w-1/4 shadow-2xl shadow-secondary-dark-50 md:flex">
             <Image
               priority
               className="rounded-sm"

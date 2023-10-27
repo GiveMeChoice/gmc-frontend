@@ -4,6 +4,7 @@ import { useShop } from '../../Context/ShopProvider';
 import { readFilterName } from '../../../lib/filter-helpers';
 import SearchChoiceBarFilterChip from '../SearchChoiceBar/SearchChoiceBarFilterBox/SearchChoiceBarFilterChip';
 import SearchChoiceBarLabelChip from '../SearchChoiceBar/SearchChoiceBarFilterBox/SearchChoiceBarLabelChip';
+import cn from 'classnames';
 
 const MobileChoiceBarFilterBox: React.FC = () => {
   const router = useRouter();
@@ -11,7 +12,15 @@ const MobileChoiceBarFilterBox: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-y-5">
-      <div className="flex flex-wrap gap-x-3.5 gap-y-3">
+      <div
+        className={cn('flex flex-wrap gap-x-3.5 gap-y-3', {
+          hidden:
+            (router.pathname.includes('/shop/category') ||
+              !request.filters.category) &&
+            !request.filters.brand &&
+            !request.filters.priceRange,
+        })}
+      >
         {!router.pathname.includes('/shop/category') &&
           request.filters.category && (
             <SearchChoiceBarFilterChip
