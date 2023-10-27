@@ -4,26 +4,40 @@ import Image from 'next/image';
 const Footer: React.FC = () => {
   return (
     <footer className="w-full overflow-x-hidden border-t-1.5 border-zinc-600">
-      <div className="flex h-[420px] w-full justify-between bg-secondary">
-        <div className="flex h-full w-3/5 justify-evenly p-10">
-          <div className="flex w-2/5 flex-col items-center gap-y-8 border-r-1.5 border-secondary-dark-10 px-12 pt-10">
-            <div className="h-[140px] w-[140px] rounded-full border-1.5 border-black">
+      <div className="flex w-full flex-col-reverse justify-between bg-secondary md:h-[420px] md:flex-row">
+        <div className="flex h-full w-full flex-col-reverse justify-evenly p-10 md:w-3/5 md:flex-row">
+          <div className="mt-6 w-full justify-end pr-4 md:hidden">
+            <div className="flex flex-col items-center gap-x-4">
+              <div>
+                <Image
+                  src="/img/GMC_LOGO_black.svg"
+                  alt="GMC Logo"
+                  height="35"
+                  width="140"
+                />
+              </div>
+              <div className="text-center text-[14px]">
+                &copy; Give Me Choice B.V.
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-y-4 border-y-1.5 border-secondary-dark-20 px-12 py-8 md:w-2/5 md:border-y-0 md:border-r-1.5 md:pb-0">
+            <div className="h-[120px] w-[120px] rounded-full border-1.5 border-black">
               <Image
                 src="/img/G_LOGO_GREEN.svg"
                 alt="GMC Logo"
-                height="140"
-                width="140"
+                height="120"
+                width="120"
               />
             </div>
-            <span className="text-center text-lg">
-              Sustainable shopping
-              <br /> simplified.
+            <span className="text-center text-[24px] leading-[1.3]">
+              Sustainability Simplified
             </span>
           </div>
-          <div className="flex w-3/5 flex-col">
-            <div className="flex h-4/5 w-full pt-12">
-              <div className="flex w-3/5 justify-center">
-                <div className="flex flex-col justify-start gap-y-3 pb-6 text-3xl">
+          <div className="flex flex-col gap-y-8 py-4 md:w-3/5 md:py-0">
+            <div className="flex h-4/5 w-full flex-col gap-x-4 md:flex-row md:pt-12">
+              <div className="flex w-3/5 ">
+                <div className="flex flex-col justify-start gap-y-3 pb-6 text-3xl md:pl-12 lg:pl-16">
                   <span className="cursor-pointer underline-offset-2 hover:underline">
                     Shop
                   </span>
@@ -35,8 +49,8 @@ const Footer: React.FC = () => {
                   </span>
                 </div>
               </div>
-              <div className="flex w-2/5 justify-center">
-                <div className="flex flex-col justify-start gap-y-1">
+              <div className="flex w-2/5 pt-8 font-bold md:pt-0">
+                <div className="flex flex-col justify-start gap-y-1 md:pl-4">
                   <span className="cursor-pointer underline-offset-2 hover:underline">
                     About Us
                   </span>
@@ -52,7 +66,7 @@ const Footer: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="flex w-full justify-evenly">
+            <div className="flex w-full gap-8 py-8 md:flex-row md:justify-evenly">
               <a
                 href="https://www.instagram.com/giveme_choice/"
                 target="_blank"
@@ -83,12 +97,12 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-2/5 flex-col justify-between bg-black px-16 pb-10 pt-16 text-white">
-          <div className="flex flex-col gap-y-10">
-            <span className="text-3xl">
-              Subscribe to get more choice every month.
+        <div className="flex w-full flex-col justify-between bg-black px-8 pb-[70px] pt-16 text-white md:w-2/5 md:px-16 md:pb-10">
+          <div className="flex flex-col items-center gap-y-10">
+            <span className="max-w-[475px] text-center text-[36px] font-bold leading-[1.2] md:text-left md:font-normal">
+              Get more Choice every month.
             </span>
-            <div className="flex h-16 w-full divide-x-1.5 divide-zinc-900">
+            <div className="flex h-16 w-full max-w-[475px] divide-x-1.5 divide-zinc-900 ">
               <input
                 type="text"
                 placeholder="Your Email"
@@ -104,7 +118,7 @@ const Footer: React.FC = () => {
               </button>
             </div>
           </div>
-          <div className="flex w-full justify-end pr-4">
+          <div className="hidden w-full justify-end pr-4 md:flex">
             <div className="flex flex-col items-center gap-x-4">
               <div>
                 <Image

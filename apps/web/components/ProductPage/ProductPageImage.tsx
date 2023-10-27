@@ -18,11 +18,14 @@ const ProductPageImage: React.FC<Props> = ({ images: initialImages }) => {
   );
 
   return (
-    <div className="flex h-full max-h-[500px] w-full divide-x-1.5 divide-zinc-700">
-      <div className="flex h-full w-1/5 flex-col divide-y-1.5 divide-zinc-700">
+    <div className="flex h-full max-h-[500px] w-full flex-col-reverse divide-x-1.5 divide-zinc-700 sm:flex-row">
+      <div className="flex h-1/5 w-full divide-x-1.5 divide-zinc-700 border-t-1.5 border-black sm:h-full sm:w-1/5 sm:flex-col sm:divide-y-1.5 sm:divide-x-0 sm:border-0">
         {images.map((img, i) => (
           <div
-            className={cn('flex aspect-square h-1/4', {})}
+            className={cn(
+              'flex h-full w-1/4 sm:aspect-square sm:h-1/4 sm:w-full',
+              {}
+            )}
             onMouseEnter={() => setHeroImageIndex(i)}
           >
             <div
@@ -54,7 +57,7 @@ const ProductPageImage: React.FC<Props> = ({ images: initialImages }) => {
         ))}
         {images.length < 4 && <div />}
       </div>
-      <div className="relative flex h-full flex-grow cursor-zoom-in items-center p-3 px-1">
+      <div className="relative flex h-4/5 flex-grow cursor-zoom-in items-center p-3 px-1 sm:h-full">
         <div className="relative h-full w-full overflow-hidden rounded-md">
           <Image
             src={images[heroImageIndex].url}
@@ -64,7 +67,7 @@ const ProductPageImage: React.FC<Props> = ({ images: initialImages }) => {
             height={450}
             width={480}
             objectFit="contain"
-            objectPosition="center md:top"
+            objectPosition="center sm:top"
             alt="hero"
             draggable={false}
           />

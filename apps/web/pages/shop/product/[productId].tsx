@@ -18,26 +18,37 @@ interface ProductPageProps {
 export default function ProductPage({ product }: ProductPageProps) {
   return (
     <ShopLayout>
-      <div className="flex flex-col divide-y-1.5 divide-zinc-700 md:w-1/2">
-        {/* IMAGES  */}
-        <ProductPageImage images={product.images} />
-        <div className="h-full bg-secondary"></div>
+      <div className="flex flex-col md:w-1/2">
+        <div className="flex-col divide-y-1.5 divide-zinc-700 border-b-1.5 border-zinc-700 md:hidden">
+          <ProductPageTitle title={product.title} />
+          <ProductPageCategory
+            category={product.merchantCategory.gmcCategory as IGmcCategory}
+          />
+        </div>
+        <div className="flex flex-col divide-y-1.5 divide-zinc-700">
+          <ProductPageImage images={product.images} />
+          <div className="h-full bg-secondary"></div>
+        </div>
       </div>
 
-      <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-700 md:w-1/2">
-        <ProductPageTitle title={product.title} />
-        <ProductPageCategory
-          category={product.merchantCategory.gmcCategory as IGmcCategory}
-        />
-        <ProductPageBuyBox product={product} />
-        <ProductPageDescription description={product.description} />
-        <ProductPageBrand
-          merchantBrand={product.merchantBrand as IMerchantBrand}
-        />
-        <ProductPageLabels
-          labels={product.merchantLabels.filter((l) => !!l.gmcLabelId)}
-        />
-        <ProductPageMerchant merchant={product.merchant as IMerchant} />
+      <div className="flex flex-col md:w-1/2">
+        <div className="hidden flex-col divide-y-1.5 divide-zinc-700 border-b-1.5 border-zinc-700 md:flex">
+          <ProductPageTitle title={product.title} />
+          <ProductPageCategory
+            category={product.merchantCategory.gmcCategory as IGmcCategory}
+          />
+        </div>
+        <div className="flex h-full w-full flex-col divide-y-1.5 divide-zinc-700">
+          <ProductPageBuyBox product={product} />
+          <ProductPageDescription description={product.description} />
+          <ProductPageBrand
+            merchantBrand={product.merchantBrand as IMerchantBrand}
+          />
+          <ProductPageLabels
+            labels={product.merchantLabels.filter((l) => !!l.gmcLabelId)}
+          />
+          <ProductPageMerchant merchant={product.merchant as IMerchant} />
+        </div>
       </div>
     </ShopLayout>
   );

@@ -44,7 +44,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
       />
       <div
         className={cn(
-          'flex flex-col items-center justify-center gap-y-6 px-4',
+          'flex flex-col items-center justify-center gap-y-6 px-4 md:pointer-events-none',
           {
             'py-12 pb-16': entity.children.length === 0,
             'py-8': entity.children.length > 0,
@@ -97,7 +97,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
 
       {!!entity.children.length && (
         <>
-          <div className="border--1.5 flex flex-wrap justify-center gap-y-3 gap-x-4 border-zinc-700  px-8 pb-7 pt-3">
+          <div className="border--1.5 hidden flex-wrap justify-center gap-y-3 gap-x-4 border-zinc-700  px-8 pb-7 pt-3 md:flex">
             {entity.children.map((child) => (
               <div
                 className={cn('h-fit w-fit bg-black', {

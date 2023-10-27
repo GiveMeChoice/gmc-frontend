@@ -39,6 +39,13 @@ const MobileChoiceBar: React.FC = () => {
               width={20}
             />
             <span className="text-[20px] leading-[1]">Filters</span>
+            <Image
+              draggable={false}
+              src="/img/expand-down.svg"
+              alt="Expand down"
+              height={20}
+              width={20}
+            />
           </div>
         </div>
       )}
