@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { useShop } from '../Context/ShopProvider';
 import MobileFiltersScreen from './MobileChoiceBar/MobileFiltersScreen';
+import SearchChoiceBarFilterBox from './SearchChoiceBar/SearchChoiceBarFilterBox';
 
 const MobileChoiceBar: React.FC = () => {
   const shop = useShop();
@@ -10,6 +11,8 @@ const MobileChoiceBar: React.FC = () => {
 
   return (
     <div className="w-full border-b-1.5 border-zinc-700 px-6 pt-6 pb-9 md:hidden">
+      <SearchChoiceBarFilterBox />
+
       {shop.searching && !showMobileFilters ? (
         <span className="w-full py-8 pl-1.5 text-4xl">Searching...</span>
       ) : (

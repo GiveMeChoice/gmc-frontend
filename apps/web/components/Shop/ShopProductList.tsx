@@ -17,7 +17,9 @@ const ShopProductList: React.FC<Props> = ({ color }) => {
       className="flex h-full max-h-full w-full flex-col justify-between overflow-x-hidden overflow-y-clip bg-secondary"
     >
       <div className="flex h-full flex-col">
-        <ListPagingHeader color={color} bottom noTop />
+        <div className="hidden md:flex">
+          <ListPagingHeader color={color} bottom noTop />
+        </div>
         {shop.searching || shop.paging ? (
           <div className="flex h-full w-full items-start justify-center bg-opacity-95">
             <span className="mt-24">Loading...</span>

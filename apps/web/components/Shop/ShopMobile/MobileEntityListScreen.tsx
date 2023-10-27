@@ -30,14 +30,12 @@ const MobileEntityListScreen: React.FC<Props> = ({
     >
       <div
         className={cn({
-          'h-full': shop.response.hits,
-          'h-fit': !shop.response.hits,
-          'static flex h-fit w-full flex-col overflow-y-scroll overscroll-none bg-white':
+          'static flex min-h-full w-full flex-col overflow-y-scroll overscroll-none bg-white':
             show,
           hidden: !show,
         })}
       >
-        <div className="flex w-full justify-end p-5">
+        <div className="flex w-full justify-end px-5 pt-5">
           <button
             className={cn(
               'flex aspect-square h-8 w-8 flex-col items-center justify-center rounded-full border-1.5 border-black bg-secondary pt-0.5 hover:scale-[1.03] hover:bg-secondary',
@@ -49,7 +47,12 @@ const MobileEntityListScreen: React.FC<Props> = ({
             <div className="w-6 translate-x-[0px] -translate-y-[2px] -rotate-45 border-b-1.5 border-black" />
           </button>
         </div>
-        <ShopEntityList data={pageData} basePath={basePath} title={title} />
+        <ShopEntityList
+          data={pageData}
+          basePath={basePath}
+          title={title}
+          onClick={onClose}
+        />
       </div>
     </div>
   );

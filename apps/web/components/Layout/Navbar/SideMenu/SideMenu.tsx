@@ -41,7 +41,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
     <div
       id="side-menu"
       className={cn(
-        'fixed left-0 top-0 z-50 h-full border-r-1.5 border-zinc-700 bg-primary font-normal tracking-wide text-black transition-width duration-500',
+        'fixed left-0 top-0 z-50 h-full border-r-1.5 border-zinc-700 bg-primary font-normal tracking-wide text-black transition-none duration-500 md:transition-width',
         {
           'w-0': !open,
           'w-full sm:w-96': open,
@@ -50,7 +50,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
     >
       <div
         className={cn(
-          'float-right flex h-screen w-full flex-col justify-between overflow-hidden transition-all duration-500',
+          'float-right flex h-screen w-full flex-col justify-between overflow-hidden transition-none duration-500 md:transition-all',
           {
             'w-0': !open,
             'w-full sm:w-96': open,
@@ -62,7 +62,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             <Link href={'/'}>
               <div
                 className={cn(
-                  'flex w-fit justify-start transition-all duration-500',
+                  'flex w-fit justify-start transition-none duration-500 md:transition-all',
                   {
                     '-translate-x-44': !open,
                   }
@@ -96,7 +96,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             <Link href={'/'}>
               <div
                 className={cn(
-                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 transition-all duration-500 md:pl-0',
+                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 transition-none duration-500 md:pl-0 md:transition-all',
                   {
                     '-translate-x-36': !open,
                   }
@@ -118,7 +118,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             <Link href={'/shop'}>
               <div
                 className={cn(
-                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 transition-all duration-500 md:pl-0',
+                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 transition-none duration-500 md:pl-0 md:transition-all',
                   {
                     '-translate-x-36': !open,
                   }
@@ -140,7 +140,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             {/* <Link href={'/discover'}>
               <div
                 className={cn(
-                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 md:pl-0 transition-all duration-500',
+                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 md:pl-0 transition-none md:transition-all duration-500',
                   {
                     '-translate-x-36': !open,
                   }
@@ -162,7 +162,7 @@ const SideMenu: React.FC<Props> = ({ open, close }) => {
             <Link href={'/blog'}>
               <div
                 className={cn(
-                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 transition-all duration-500 md:pl-0',
+                  'group flex w-full cursor-pointer items-center gap-x-[20px] pl-7 transition-none duration-500 md:pl-0 md:transition-all',
                   {
                     '-translate-x-36': !open,
                   }

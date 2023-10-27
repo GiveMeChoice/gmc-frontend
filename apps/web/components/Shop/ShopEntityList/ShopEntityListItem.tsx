@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { INestedFilter } from 'gmc-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { findFacetCount } from '../../../lib/categories';
 import { useShop } from '../../Context/ShopProvider';
 import { ShopEntityListLevel } from '../ShopEntityList';
@@ -13,6 +13,7 @@ interface Props {
   level: ShopEntityListLevel;
   color: string;
   filter: INestedFilter;
+  onClick?: () => void;
 }
 
 const ShopEntityListItem: React.FC<Props> = ({
@@ -23,7 +24,9 @@ const ShopEntityListItem: React.FC<Props> = ({
   level,
   color,
   filter,
+  onClick,
 }) => {
+  useEffect(() => {}, [isSelected, isInActiveTree]);
   const search = useShop();
   const handleClick = () => {
     search.search({
@@ -38,6 +41,7 @@ const ShopEntityListItem: React.FC<Props> = ({
       }),
       basePath: path,
     });
+    if (onClick) onClick();
   };
   return level === ShopEntityListLevel.A ||
     (search.pageFacets && findFacetCount(filter, search.pageFacets) > 0) ? (
@@ -61,15 +65,19 @@ const ShopEntityListItem: React.FC<Props> = ({
       />
       <div className="flex w-full items-center gap-x-[7px]">
         <span
-          className={cn('max-w-[200px] underline-offset-2', {
-            underline: isSelected,
-            'group-hover:underline': !isSelected,
-            'group-active:text-zinc-600': !isSelected,
-            'py-1 text-[22px] leading-[1.25] decoration-2':
-              level === ShopEntityListLevel.A,
-            'pb-0.5 text-[18px] leading-[1.4]': level === ShopEntityListLevel.B,
-            'text-[16px]': level === ShopEntityListLevel.C,
-          })}
+          className={cn(
+            'whitespace-nowrap underline-offset-2 md:max-w-[200px] md:whitespace-normal',
+            {
+              underline: isSelected,
+              'group-hover:underline': !isSelected,
+              'group-active:text-zinc-600': !isSelected,
+              'py-1 text-[22px] leading-[1.25] decoration-2':
+                level === ShopEntityListLevel.A,
+              'pb-0.5 text-[18px] leading-[1.4]':
+                level === ShopEntityListLevel.B,
+              'text-[16px]': level === ShopEntityListLevel.C,
+            }
+          )}
         >
           {title}
         </span>

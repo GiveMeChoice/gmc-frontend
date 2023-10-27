@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IEntityPageData } from '../../lib/types';
 import ShopEntityListItem from './ShopEntityList/ShopEntityListItem';
 import { useRouter } from 'next/router';
@@ -7,6 +7,7 @@ interface Props {
   title: string;
   basePath: string;
   data: IEntityPageData;
+  onClick?: () => void;
 }
 
 export enum ShopEntityListLevel {
@@ -15,11 +16,20 @@ export enum ShopEntityListLevel {
   C,
 }
 
-const ShopEntityList: React.FC<Props> = ({ title, basePath, data }) => {
+const ShopEntityList: React.FC<Props> = ({
+  title,
+  basePath,
+  data,
+  onClick,
+}) => {
+  // const router = useRouter();
+  // useEffect(() => {}, [router.asPath]);
   const { roots, pageTree, slug, subslug1, subslug2 } = data;
   return (
     <div className="flex w-full flex-col divide-y divide-secondary-dark-10 px-5 pb-4 md:pt-[30px]">
-      <span className="px-[8px] text-[22px] font-bold">{title}</span>
+      <span className="px-[8px] text-[26px] font-bold md:text-[22px]">
+        {title}
+      </span>
       <div className="flex w-full flex-col pt-2 text-zinc-900">
         {roots
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -36,6 +46,7 @@ const ShopEntityList: React.FC<Props> = ({ title, basePath, data }) => {
                   name: baseEntity.name,
                   value: baseEntity.slug,
                 }}
+                onClick={onClick}
               />
               {baseEntity.slug === slug &&
                 pageTree.children.map((sub1) => (
@@ -55,6 +66,7 @@ const ShopEntityList: React.FC<Props> = ({ title, basePath, data }) => {
                           value: sub1.slug,
                         },
                       }}
+                      onClick={onClick}
                     />
                     {sub1.slug === subslug1 &&
                       sub1.children.map((sub2) => (
@@ -72,6 +84,7 @@ const ShopEntityList: React.FC<Props> = ({ title, basePath, data }) => {
                           level={ShopEntityListLevel.C}
                           color={baseEntity.color}
                           isInActiveTree={baseEntity.slug === pageTree.slug}
+                          onClick={onClick}
                           filter={{
                             name: baseEntity.name,
                             value: baseEntity.slug,

@@ -4,8 +4,8 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { IEntityPageData } from '../../lib/types';
 import { useShop } from '../Context/ShopProvider';
-import Link from 'next/link';
 import MobileEntityListScreen from './ShopMobile/MobileEntityListScreen';
+import ShopPageIntroBreadcrumb from './ShopPageIntro/ShopPageIntroBreadcrumb';
 
 interface Props {
   pageData: IEntityPageData;
@@ -37,133 +37,26 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
         'viasecondary bggradient-to-b flex w-full  max-w-[1100px] flex-col bg-secondary from-secondary-light-50 via-secondary to-gmc-glacier-light-50'
       )}
     >
-      <div className="flex w-full items-center justify-start gap-x-2 border-b-1.5 border-zinc-700 bg-white py-[9px] pl-6 text-[15px]">
-        <Link href={'/shop'}>
-          <div
-            // style={{ backgroundColor: color }}
-            className="group mr-1 flex cursor-pointer items-center rounded-full border border-black bg-secondary p-1"
-          >
-            <Image
-              className="select-none rounded-full"
-              draggable={false}
-              src="/img/tree.svg"
-              alt="angle right"
-              width="16"
-              height="16"
-            />
-          </div>
-        </Link>
-        {/* <Image
-          className="select-none rounded-full"
-          draggable={false}
-          src="/img/right-arrow.svg"
-          alt="angle right"
-          width="17"
-          height="17"
-        /> */}
-        {isLabel ? (
-          // <Link href={'/shop/label'}>
-          <div className="flex items-center gap-x-[2px] rounded-md border-1.5 border-secondary-dark-10">
-            <span
-              className="cursor-pointer hover:underline active:text-primary"
-              onClick={() => setShowMobileEntityList(true)}
-            >
-              SHOP BY LABEL
-            </span>
-            <Image
-              draggable={false}
-              src="/img/expand-down.svg"
-              alt="Filters Icon"
-              height={20}
-              width={20}
-            />
-            <MobileEntityListScreen
-              title={isLabel ? 'LABELS' : 'CATGORIES'}
-              basePath={basePath}
-              pageData={pageData}
-              show={showMobileEntityList}
-              onClose={() => setShowMobileEntityList(false)}
-            />
-          </div>
-        ) : (
-          // </Link>
-          <Link href={'/shop/category'}>
-            <span className="cursor-pointer hover:underline active:text-primary">
-              SHOP BY CATEGORY
-            </span>
-          </Link>
-        )}
-        {entity.parent &&
-          entity.parent.parent &&
-          entity.parent.parent.slug !== 'root' && (
-            <>
-              <Image
-                className="select-none rounded-full"
-                draggable={false}
-                src="/img/right-arrow.svg"
-                alt="angle right"
-                width="17"
-                height="17"
-              />
-              <div
-                onClick={() =>
-                  handleClick(`${basePath}${buildSlug(entity.parent.parent)}`)
-                }
-                className="group flex h-full cursor-pointer items-center"
-              >
-                <span className="group-hover:underline group-active:text-primary">
-                  {entity.parent.parent.name.toUpperCase()}
-                </span>
-              </div>
-            </>
-          )}
-        {entity.parent && entity.parent.slug !== 'root' && (
-          <>
-            <Image
-              className="select-none rounded-full"
-              draggable={false}
-              src="/img/right-arrow.svg"
-              alt="angle right"
-              width="17"
-              height="17"
-            />
-            <div
-              onClick={() =>
-                handleClick(`${basePath}${buildSlug(entity.parent)}`)
-              }
-              className="group flex h-full cursor-pointer items-center"
-            >
-              <span className="group-hover:underline group-active:text-primary">
-                {entity.parent.name.toUpperCase()}
-              </span>
-            </div>
-          </>
-        )}
-        <Image
-          className="select-none rounded-full"
-          draggable={false}
-          src="/img/right-arrow.svg"
-          alt="angle right"
-          width="17"
-          height="17"
-        />
-        <div className="group flex h-full cursor-default items-center">
-          <span className="font-bold text-gmc-ocean">
-            {entity.name.toUpperCase()}
-          </span>
-        </div>
-      </div>
+      <ShopPageIntroBreadcrumb
+        pageData={pageData}
+        basePath={basePath}
+        onLinkClick={handleClick}
+      />
       <div
-        className={cn('flex flex-col items-center justify-center gap-y-6', {
-          'py-12 pb-16': entity.children.length === 0,
-          'py-8': entity.children.length > 0,
-        })}
+        className={cn(
+          'flex flex-col items-center justify-center gap-y-6 px-4',
+          {
+            'py-12 pb-16': entity.children.length === 0,
+            'py-8': entity.children.length > 0,
+          }
+        )}
       >
         <div
           style={{ backgroundColor: color ? color : 'white' }}
           className={cn('h-fit w-fit', {
             'rounded-full': isLabel,
           })}
+          onClick={() => setShowMobileEntityList(true)}
         >
           <div
             className={cn(
@@ -183,9 +76,16 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
             <span className="cursor-default text-[20px]">
               {entity.name.toUpperCase()}
             </span>
+            <Image
+              draggable={false}
+              src="/img/expand-down.svg"
+              alt="Filters Icon"
+              height={20}
+              width={20}
+            />
           </div>
         </div>
-        <span className="w-3/5 text-center text-[16px] leading-[1.4] text-gray-900">
+        <span className="w-11/12 text-center text-[16px] leading-[1.4] text-gray-900 sm:w-4/5">
           {entity.description
             ? entity.description
             : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porta libero accumsan pulvinar placerat. Mauris eleifend, magna id rutrum ultrices, nisi erat vehicula quam, id mollis ipsum enim at enim.'}
@@ -194,7 +94,7 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
 
       {!!entity.children.length && (
         <>
-          <div className="hidden flex-wrap justify-center gap-y-3 gap-x-4 border-t-1.5 border-zinc-700 px-8  py-7 md:flex">
+          <div className="flex flex-wrap justify-center gap-y-3 gap-x-4 border-t-1.5 border-zinc-700  px-8 py-7">
             {entity.children.map((child) => (
               <div
                 className={cn('h-fit w-fit bg-black', {
@@ -238,6 +138,13 @@ const ShopPageIntro: React.FC<Props> = ({ pageData, basePath }) => {
           </div>
         </>
       )}
+      <MobileEntityListScreen
+        title={isLabel ? 'LABEL' : 'CATEGORY'}
+        basePath={basePath}
+        pageData={pageData}
+        show={showMobileEntityList}
+        onClose={() => setShowMobileEntityList(false)}
+      />
     </div>
   );
 };
