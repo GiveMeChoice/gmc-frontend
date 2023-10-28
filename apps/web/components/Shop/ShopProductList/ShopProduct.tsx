@@ -29,7 +29,7 @@ const ShopProduct: React.FC<Props> = ({ product, index }) => {
       )}
       onClick={handleClick}
     >
-      <p className="flex h-[70px] max-w-full items-center justify-center overflow-ellipsis bg-white px-8 text-center text-[15px] leading-[1.4] md:group-hover:bg-primary">
+      <p className="flex h-[70px] max-w-full items-center justify-center overflow-ellipsis bg-secondary px-8 text-center text-[15px] leading-[1.4] active:bg-primary md:group-hover:bg-primary">
         {product.title.replace(/\uFFFD/g, '').toUpperCase()}
       </p>
       <div className="flex h-[320px] w-full flex-col">
