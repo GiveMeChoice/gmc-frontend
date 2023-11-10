@@ -2,12 +2,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { HeroPost } from '../components/HeroPost';
 import { PageContainer } from '../components/PageContainer';
-import { Layout } from '../components/layout';
+import { BlogLayout } from '../components/blog-layout';
 import Menu from '../components/menu';
 
 import CategoryPageIntro from '../components/CategoryPage/CategoryPageIntro';
 import PostList from '../components/PostList';
+import { Avatar } from '../components/avatar';
 import { CoverImage } from '../components/cover-image';
+import { LargeSquareImage } from '../components/large-square-image';
 import {
   allCategoriesQuery,
   categoryBySlugQuery,
@@ -17,8 +19,6 @@ import {
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts, sanityClient } from '../lib/sanity.server';
 import { BlogCategory, BlogPost } from '../types';
-import { Avatar } from '../components/avatar';
-import { SquareImage } from '../components/square-image';
 
 interface CategoryPostPageProps {
   category: BlogCategory;
@@ -38,7 +38,7 @@ export function CategoryPage({
   let [heroPost, ...morePosts] = posts || [];
   return (
     <>
-      <Layout preview={preview}>
+      <BlogLayout preview={preview}>
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
@@ -60,21 +60,21 @@ export function CategoryPage({
                 slug={heroPost.slug}
                 excerpt={heroPost.excerpt}
               />
-              <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
-                <div className="group relative w-[60%] cursor-pointer ">
+              <div className="hidden h-fit w-full divide-x-1.5 divide-zinc-700 md:flex">
+                <div className="group relative h-full w-[60%] cursor-pointer">
                   <Link
                     href={`/blog/${posts[1].slug}`}
                     aria-label={posts[1].title}
                   >
                     <a href={`/blog/${posts[1].slug}`}>
-                      <SquareImage
+                      <LargeSquareImage
                         slug={posts[1].slug}
                         title={posts[1].title}
                         image={posts[1].coverImage}
                         priority
                       />
                       <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center">
-                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-white bg-opacity-[.75] py-12 px-10 text-center text-[28px] font-bold text-zinc-600 transition-all duration-150 group-hover:text-zinc-800 group-active:text-primary">
+                        <div className="flex w-[80%] flex-col items-center gap-y-4 bg-white bg-opacity-[.75] py-12 px-10 text-center text-[22px] font-bold text-zinc-600 transition-all duration-150 group-hover:text-zinc-800 group-active:text-primary xl:text-[28px]">
                           <h3 style={{ lineHeight: 1.35 }}>{posts[1].title}</h3>
                           <div className="text-black">
                             <Avatar {...posts[2].author} />
@@ -97,7 +97,7 @@ export function CategoryPage({
                         priority
                       />
                       <div className="absolute top-0 left-0 flex h-full w-full items-end justify-center">
-                        <div className="flex h-1/2 w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-60 px-14 text-center text-[30px] font-bold text-white transition-all duration-100 group-hover:text-zinc-300 group-active:text-primary">
+                        <div className="flex h-1/2 w-full flex-col items-center justify-center gap-y-5 bg-black bg-opacity-60 px-14 text-center text-[22px] font-bold text-white transition-all duration-100 group-hover:text-zinc-300 group-active:text-primary xl:text-[30px]">
                           <h3 style={{ letterSpacing: 1, lineHeight: 1.4 }}>
                             {posts[2].title}
                           </h3>
@@ -113,25 +113,27 @@ export function CategoryPage({
             </div>
           )}
 
-          <div className="flex w-full">
-            <div className="w-3/5 border-r-1.5 border-zinc-700">
-              <div
-                style={{ backgroundColor: category.color }}
-                className="w-full border-y-1.5 border-zinc-700 bg-secondary text-black"
+          <div className="flex w-full flex-col">
+            <div
+              style={{ backgroundColor: category.color }}
+              className="w-full border-y-1.5 border-zinc-700 bg-secondary text-black"
+            >
+              <h3
+                style={{ lineHeight: 1.2 }}
+                className="pt-8 pl-12 pb-6 text-[36px] font-bold"
               >
-                <h3
-                  style={{ lineHeight: 1.2 }}
-                  className="pt-8 pl-12 pb-6 text-[36px] font-bold"
-                >
-                  DISCOVER <br /> MORE {category.title.toUpperCase()}
-                </h3>
-              </div>
-              {morePosts.length > 0 && <PostList posts={morePosts.slice(2)} />}
+                DISCOVER <br /> {category.title.toUpperCase()}
+              </h3>
             </div>
-            <div className="w-2/5 border-r-1.5 border-t-1.5 border-zinc-700 bg-secondary"></div>
+            <div className="hidden md:block">
+              <PostList posts={morePosts} startIndex={2} />
+            </div>
+            <div className="md:hidden">
+              <PostList posts={morePosts} startIndex={0} />
+            </div>
           </div>
         </PageContainer>
-      </Layout>
+      </BlogLayout>
     </>
   );
 }

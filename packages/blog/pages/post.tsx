@@ -5,7 +5,7 @@ import { PageContainer } from '../components/PageContainer';
 import { PostSuggestions } from '../components/PostSuggestions';
 import { Avatar } from '../components/avatar';
 import { CoverImage } from '../components/cover-image';
-import { Layout } from '../components/layout';
+import { BlogLayout } from '../components/blog-layout';
 import { PostBody } from '../components/post-body';
 import PostSocialShare from '../components/post-social-share';
 import { PostTitle } from '../components/post-title';
@@ -42,7 +42,7 @@ export function PostPage({ data, preview }: PostPageProps) {
   const { post, morePosts } = data;
 
   return (
-    <Layout preview={preview}>
+    <BlogLayout preview={preview}>
       <PageContainer>
         {post && (
           <>
@@ -150,7 +150,7 @@ export function PostPage({ data, preview }: PostPageProps) {
           </>
         )}
       </PageContainer>
-    </Layout>
+    </BlogLayout>
   );
 }
 

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { PageContainer } from '../components/PageContainer';
 import { Intro } from '../components/intro';
-import { Layout } from '../components/layout';
+import { BlogLayout } from '../components/blog-layout';
 import Menu from '../components/menu';
 import { MoreStories } from '../components/MoreStories';
 import { allPostsQuery, indexQuery } from '../lib/queries';
@@ -15,7 +15,7 @@ export function AllPostsPage({ allPosts: initialAllPosts, preview }: any) {
   });
   return (
     <>
-      <Layout preview={preview}>
+      <BlogLayout preview={preview}>
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
@@ -24,7 +24,7 @@ export function AllPostsPage({ allPosts: initialAllPosts, preview }: any) {
           <Intro title="All Posts" />
           {allPosts.length > 0 && <MoreStories posts={allPosts} />}
         </PageContainer>
-      </Layout>
+      </BlogLayout>
     </>
   );
 }

@@ -1,14 +1,11 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import { Avatar } from '../components/avatar';
-import { PageContainer } from '../components/PageContainer';
-import { CoverImage } from '../components/cover-image';
 import { HeroPost } from '../components/HeroPost';
-import { Layout } from '../components/layout';
+import { PageContainer } from '../components/PageContainer';
+import PostList from '../components/PostList';
+import { BlogLayout } from '../components/blog-layout';
 import { indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
 import { getClient, overlayDrafts } from '../lib/sanity.server';
-import PostList from '../components/PostList';
 
 export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
   const { data: allPosts } = usePreviewSubscription(indexQuery(preview), {
@@ -19,7 +16,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
 
   return (
     <>
-      <Layout preview={preview}>
+      <BlogLayout preview={preview}>
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
@@ -43,15 +40,9 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
               LATEST POSTS
             </h3>
           </div>
-          <div className="flex w-full">
-            <div className="w-2/3 border-r-1.5 border-zinc-700">
-              {morePosts.length > 0 && <PostList posts={morePosts} />}
-            </div>
-            <div className="w-1/3 border-r-1.5 border-zinc-700 bg-secondary"></div>
-            {/* {morePosts.length > 0 && <MoreStories posts={morePosts} />} */}
-          </div>
+          <PostList posts={morePosts} />
         </PageContainer>
-      </Layout>
+      </BlogLayout>
     </>
   );
 }

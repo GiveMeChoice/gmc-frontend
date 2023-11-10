@@ -3,6 +3,8 @@ import React from 'react';
 import { Avatar } from './avatar';
 import { useRouter } from 'next/router';
 import { HeroImage } from './hero-image';
+import { SuggestedPostImage } from './suggested-post-image';
+import { CoverImage } from './cover-image';
 
 interface Props {
   title: string;
@@ -26,12 +28,22 @@ export const HeroPost: React.FC<Props> = ({
   const router = useRouter();
   return (
     <section id="hero-post">
-      <div className="flex w-full divide-x-1.5 divide-zinc-700 border-t-1.5 border-zinc-700">
-        <div className="w-[60%]">
+      <div className="flex w-full flex-col items-center border-x-1.5 border-t-1.5 border-zinc-700 md:flex-row md:items-stretch">
+        <div className="hidden w-[60%] border-r-1.5 border-zinc-700 xl:block">
           <HeroImage slug={slug} title={title} image={coverImage} priority />
         </div>
-        <div className="flex w-1/2 flex-col justify-center bg-secondary p-12 pr-16 text-black">
-          {/* {!router.asPath.includes('/tags/') && ( */}
+        <div className="hidden border-r-1.5 border-zinc-700 md:block md:w-[60%] xl:hidden">
+          <SuggestedPostImage
+            slug={slug}
+            title={title}
+            image={coverImage}
+            priority
+          />
+        </div>
+        <div className="w-full border-x-1.5 border-zinc-700 bg-secondary md:hidden xl:hidden">
+          <CoverImage slug={slug} title={title} image={coverImage} priority />
+        </div>
+        <div className="pr16 flex w-full flex-col justify-center border-t-1.5 border-zinc-700 bg-secondary px-12 py-8 pb-10 text-black md:w-1/2 md:border-0 md:py-12">
           <Link href={`/blog/tags/${categories[0].slug}`}>
             <div className="h-fit w-fit bg-zinc-900">
               <div
@@ -42,16 +54,17 @@ export const HeroPost: React.FC<Props> = ({
               </div>
             </div>
           </Link>
-          {/* )} */}
           <h3
             style={{ lineHeight: 1.2 }}
-            className="normal mb-6 mt-3 cursor-pointer pr-10 text-[44px] font-bold hover:text-zinc-500 active:text-primary"
+            className="normal mb-6 mt-3 cursor-pointer text-[32px] font-bold hover:text-zinc-500 active:text-primary md:pr-10 xl:text-[44px]"
           >
             <Link prefetch={false} href={`/blog/${slug}`}>
               {title}
             </Link>
           </h3>
-          <p className="mx-1 mb-7 text-lg leading-relaxed">{excerpt}</p>
+          <p className="mx-1 mb-7 text-base leading-relaxed xl:text-lg">
+            {excerpt}
+          </p>
           <div className="ml-1">
             {author && (
               <Avatar name={author.name} picture={author.picture} big />

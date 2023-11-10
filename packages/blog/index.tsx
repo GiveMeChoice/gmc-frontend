@@ -15,7 +15,7 @@ export * from './components/date';
 export * from './components/header';
 export * from './components/HeroPost';
 export * from './components/intro';
-export * from './components/layout';
+export * from './components/blog-layout';
 export * from './components/meta';
 export * from './components/MoreStories';
 export * from './components/post-body';

@@ -3,6 +3,7 @@ import { useShop } from '../Context/ShopProvider';
 import ListPagingHeader from './ShopProductList/ListPagingHeader';
 import ShopProduct from './ShopProductList/ShopProduct';
 import Image from 'next/image';
+import { LoadingSpinner } from 'ui';
 
 interface Props {
   color: string;
@@ -22,7 +23,9 @@ const ShopProductList: React.FC<Props> = ({ color }) => {
         </div>
         {shop.searching || shop.paging ? (
           <div className="flex h-full w-full items-start justify-center bg-opacity-95">
-            <span className="mt-24">Loading...</span>
+            <div className="mt-24">
+              <LoadingSpinner style="h-12 fill-primary text-zinc-800" />
+            </div>
           </div>
         ) : (
           <>

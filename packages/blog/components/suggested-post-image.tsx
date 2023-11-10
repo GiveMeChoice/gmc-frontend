@@ -13,7 +13,7 @@ interface Props {
   onClick?: (slug: string) => void;
 }
 
-export const SquareImage: React.FC<Props> = ({
+export const SuggestedPostImage: React.FC<Props> = ({
   framed,
   title,
   slug,
@@ -21,7 +21,7 @@ export const SquareImage: React.FC<Props> = ({
   priority,
   onClick,
 }) => {
-  const url = urlForImage(source).height(150).width(150).url();
+  const url = urlForImage(source).height(1200).width(1600).url();
   const image = source?.asset?._ref ? (
     <div
       className={cn('shadow-small', {
@@ -32,8 +32,8 @@ export const SquareImage: React.FC<Props> = ({
       <Image
         className={cn('w-full', {})}
         layout="responsive"
-        width={150}
-        height={150}
+        width={1600}
+        height={1200}
         unoptimized
         loader={() => url}
         alt={`Cover Image for ${title}`}

@@ -97,9 +97,9 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="flex w-full flex-col justify-between bg-black px-8 pb-[70px] pt-16 text-white md:w-2/5 md:px-16 md:pb-10">
+        <div className="flex w-full flex-col justify-between bg-black px-8 pt-10 pb-16 text-white md:w-2/5 md:px-16 md:pt-16 md:pb-10">
           <div className="flex flex-col items-center gap-y-10">
-            <span className="max-w-[475px] text-center text-[36px] font-bold leading-[1.2] md:text-left md:font-normal">
+            <span className="max-w-[475px] text-center text-[36px] leading-[1.2] md:text-left md:font-normal">
               Get more Choice every month.
             </span>
             <div className="flex h-16 w-full max-w-[475px] divide-x-1.5 divide-zinc-900 ">

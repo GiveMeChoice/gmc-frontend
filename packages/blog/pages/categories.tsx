@@ -2,7 +2,7 @@ import Head from 'next/head';
 import CategoryList from '../components/categoryList';
 import { PageContainer } from '../components/PageContainer';
 import { Intro } from '../components/intro';
-import { Layout } from '../components/layout';
+import { BlogLayout } from '../components/blog-layout';
 import Menu from '../components/menu';
 import { allCategoriesQuery, indexQuery } from '../lib/queries';
 import { usePreviewSubscription } from '../lib/sanity';
@@ -15,7 +15,7 @@ export function CategoriesPage({ categories, preview }: any) {
   });
   return (
     <>
-      <Layout preview={preview}>
+      <BlogLayout preview={preview}>
         <Head>
           <title>Blog | Give Me Choice</title>
         </Head>
@@ -26,7 +26,7 @@ export function CategoriesPage({ categories, preview }: any) {
             <CategoryList categories={allCategories} />
           )}
         </PageContainer>
-      </Layout>
+      </BlogLayout>
     </>
   );
 }
