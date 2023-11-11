@@ -40,7 +40,7 @@ export function BlogPage({ allPosts: initialAllPosts, preview }: any) {
               LATEST POSTS
             </h3>
           </div>
-          <PostList posts={morePosts} />
+          <PostList posts={morePosts} startIndex={0} />
         </PageContainer>
       </BlogLayout>
     </>
