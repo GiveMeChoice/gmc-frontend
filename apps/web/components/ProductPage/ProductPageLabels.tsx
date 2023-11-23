@@ -41,19 +41,19 @@ const ProductPageLabels: React.FC<Props> = ({ labels }) => {
   };
 
   return (
-    <div className="flex h-[400px] flex-col divide-y-1.5 divide-zinc-700">
+    <div className="min-h-400px flex h-fit flex-col divide-y-1.5 divide-zinc-700">
       <div className="w-full py-3 text-center text-[15px] font-bold">
         Ethics & Labels
       </div>
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
-        <div className="flex h-full w-1/2 flex-col divide-y-1.5 divide-zinc-700">
+        <div className="flex h-full w-[45%] flex-col divide-y-1.5 divide-zinc-700">
           <ProductPageLabelList
             labels={labels}
             spotlightIndex={spotlightIndex}
             setSpotlightIndex={updateSpotlightIndex}
           />
         </div>
-        <div className="w-1/2">
+        <div className="w-[55%]">
           <ProductPageLabelSpotlight label={labels[spotlightIndex]} />
         </div>
       </div>

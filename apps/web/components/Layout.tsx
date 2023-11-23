@@ -13,7 +13,9 @@ const Layout = ({ preview = false, children }) => {
       className={`z-0 flex min-h-screen w-full flex-col justify-between overflow-x-hidden`}
     >
       {preview && <PreviewAlert />}
-      {router.pathname !== '/' && router.pathname !== '/access' && <Navbar />}
+      {router.pathname !== '/' &&
+        router.pathname !== '/homepage' &&
+        router.pathname !== '/access' && <Navbar />}
       <main
         className={cn('overflow-x-hidden', {
           // 'mt-22': router.pathname !== '/',
@@ -21,7 +23,9 @@ const Layout = ({ preview = false, children }) => {
       >
         {children}
       </main>
-      {router.pathname !== '/access' && <Footer />}
+      {router.pathname !== '/access' && router.pathname !== '/homepage' && (
+        <Footer />
+      )}
     </div>
   );
 };
