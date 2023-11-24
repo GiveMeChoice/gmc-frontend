@@ -10,8 +10,8 @@ interface Props {
 
 const ProductPageBuyBox: React.FC<Props> = ({ product }) => {
   return (
-    <div className="flex w-full flex-col items-center justify-center px-12 pb-10 pt-5">
-      <div className="flex w-full max-w-[560px] items-center justify-between">
+    <div className="flex w-full flex-col items-center justify-center px-12 pb-12 pt-6">
+      <div className="flex w-[420px] items-center justify-between">
         <span className="pb-1.5 text-[19px] font-bold">￡{product.price}</span>
         <div className="flex gap-x-4">
           <InfoBoxHeart product={product} />
@@ -30,7 +30,7 @@ const ProductPageBuyBox: React.FC<Props> = ({ product }) => {
           </div>
         </div>
       </div>
-      <div className="active:bg-transarent z-0 mt-6  w-fit rounded-full bg-primary">
+      <div className="active:bg-transarent z-0 mt-6  w-[440px] rounded-full bg-primary">
         <a
           href={product.offerUrl}
           target="_blank"
@@ -39,7 +39,7 @@ const ProductPageBuyBox: React.FC<Props> = ({ product }) => {
 items-center justify-between gap-x-3 rounded-full bg-black px-10 text-[16px] text-white transition-transform duration-200 ease-in-out hover:bg-zinc-700 active:translate-y-0 active:translate-x-0 active:bg-black
 "
         >
-          <span className="fon-bold text-center text-[17px] leading-tight tracking-wide group-active:text-primary">
+          <span className="fon-bold w-full text-center text-[17px] leading-tight tracking-wide group-active:text-primary">
             Buy Now at {product.merchant.name}
           </span>
           <div

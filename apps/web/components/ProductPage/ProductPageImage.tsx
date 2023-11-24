@@ -13,13 +13,13 @@ const ProductPageImage: React.FC<Props> = ({ images: initialImages }) => {
   const [images, setImages] = useState<IProductImage[]>(
     initialImages
       .filter((img) => img.type === 'DETAIL')
-      .slice(0, 4)
+      .slice(0, 2)
       .sort((a, b) => (a.primary === b.primary ? 0 : a.primary ? -1 : 1))
   );
 
   return (
     <div className="flex h-full max-h-[500px] w-full flex-col-reverse divide-x-1.5 divide-zinc-700 sm:flex-row">
-      <div className="flex h-1/5 w-full divide-x-1.5 divide-zinc-700 border-t-1.5 border-black sm:h-full sm:w-1/5 sm:flex-col sm:divide-y-1.5 sm:divide-x-0 sm:border-0">
+      <div className="flex h-1/5 w-full divide-x-1.5 divide-zinc-700 border-t-1.5 border-black bg-secondary sm:h-full sm:w-1/5 sm:flex-col sm:divide-y-1.5 sm:divide-x-0 sm:border-0">
         {images.map((img, i) => (
           <div
             className={cn(
@@ -29,14 +29,10 @@ const ProductPageImage: React.FC<Props> = ({ images: initialImages }) => {
             onMouseEnter={() => setHeroImageIndex(i)}
           >
             <div
-              className={cn(
-                'relative h-full w-full border-5 bg-secondary-light-30',
-                {
-                  'border-primary': heroImageIndex === i,
-                  'border-secondary-light-30 hover:border-primary':
-                    heroImageIndex !== i,
-                }
-              )}
+              className={cn('relative h-full w-full border-5 bg-white', {
+                'border-primary': heroImageIndex === i,
+                'border-white hover:border-primary': heroImageIndex !== i,
+              })}
             >
               <div className="relative h-full w-full">
                 <Image

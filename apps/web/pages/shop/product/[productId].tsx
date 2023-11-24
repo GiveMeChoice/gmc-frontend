@@ -29,6 +29,9 @@ export default function ProductPage({ product }: ProductPageProps) {
           <ProductPageImage images={product.images} />
           <div className="h-full bg-secondary"></div>
         </div>
+        <ProductPageLabels
+          labels={product.merchantLabels.filter((l) => !!l.gmcLabelId)}
+        />
       </div>
 
       <div className="flex flex-col md:w-1/2">
@@ -44,9 +47,9 @@ export default function ProductPage({ product }: ProductPageProps) {
           <ProductPageBrand
             merchantBrand={product.merchantBrand as IMerchantBrand}
           />
-          <ProductPageLabels
+          {/* <ProductPageLabels
             labels={product.merchantLabels.filter((l) => !!l.gmcLabelId)}
-          />
+          /> */}
           <ProductPageMerchant merchant={product.merchant as IMerchant} />
         </div>
       </div>

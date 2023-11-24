@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { IGmcLabel, IMerchantLabel } from 'gmc-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getBaseLabel } from '../../../lib/labels';
 
 interface Props {
@@ -14,15 +14,23 @@ const ProductPageLabelList: React.FC<Props> = ({
   spotlightIndex,
   setSpotlightIndex,
 }) => {
+  useEffect(() => {}, [spotlightIndex]);
   return (
-    <div className="flex h-full justify-center py-8">
-      <div className="flex h-full w-full flex-grow flex-col">
-        {labels.map((label, i) => (
+    <div className="flex h-full w-full flex-grow flex-col divide-y-1.5 divide-zinc-700 bg-secondary">
+      {labels.map((label, i) => (
+        <div
+          className="group h-[60px] w-full cursor-default bg-white"
+          onMouseEnter={() => setSpotlightIndex(i)}
+        >
           <div
-            className="group flex h-[30px] w-full cursor-pointer items-center gap-x-2"
-            onClick={() => setSpotlightIndex(i)}
+            className={cn(
+              'relative flex h-full w-full items-center gap-x-2 border-4 bg-white pl-8',
+              {
+                'border-primary': spotlightIndex === i,
+                'border-white hover:border-primary': spotlightIndex !== i,
+              }
+            )}
           >
-            <div className="w-[16%]" />
             <div
               style={{
                 backgroundColor: getBaseLabel(label.gmcLabel as IGmcLabel)
@@ -30,31 +38,13 @@ const ProductPageLabelList: React.FC<Props> = ({
               }}
               className="mr-1 aspect-square h-[14px] rounded-full"
             />
-            <span
-              className={cn(
-                'text-[16px] group-hover:underline group-active:text-zinc-600',
-                {
-                  underline: spotlightIndex === i,
-                }
-              )}
-            >
+            <span className={cn('text-[16px] group-active:text-zinc-600', {})}>
               {label.gmcLabel.name.toUpperCase()}
             </span>
-            <div className="pl-1">
-              <img
-                draggable={false}
-                src="/img/left-arrow.svg"
-                alt="Left arrow"
-                height={28}
-                width={28}
-                className={cn('hidden', {
-                  'group-hover:block': spotlightIndex !== i,
-                })}
-              />
-            </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+      <div />
     </div>
   );
 };

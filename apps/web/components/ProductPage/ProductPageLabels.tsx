@@ -42,7 +42,7 @@ const ProductPageLabels: React.FC<Props> = ({ labels }) => {
 
   return (
     <div className="min-h-400px flex h-fit flex-col divide-y-1.5 divide-zinc-700">
-      <div className="w-full py-3 text-center text-[15px] font-bold">
+      <div className="w-full py-3.5 text-center text-[15px] font-bold">
         Ethics & Labels
       </div>
       <div className="flex h-full w-full divide-x-1.5 divide-zinc-700">
